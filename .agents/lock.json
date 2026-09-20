@@ -1,0 +1,82 @@
+{
+  "fragments": [
+    {
+      "id": "general-coding-style",
+      "path": "common/general-coding-style.md",
+      "sha256": "73490cdc8a79f56c644ab20f6e98e6f31ca43170da2d4f6c585779ab1d67f92b"
+    },
+    {
+      "id": "delegation",
+      "path": "common/delegation.md",
+      "sha256": "f20b79c02609af473cc04d9ac1265318c2a82f2e5861bf58bfa9093540160fd9"
+    },
+    {
+      "id": "performance-work",
+      "path": "common/performance-work.md",
+      "sha256": "3887be9ac11f86576886a0da0964f50b779283182c4eebc5aedb78b8ecc832c6"
+    },
+    {
+      "id": "testing",
+      "path": "common/testing.md",
+      "sha256": "c4f3749f044cd7bf839fa55142f2df853cb2cdf5d39889dc47fb26d5dd8ae9b5"
+    },
+    {
+      "id": "documentation",
+      "path": "common/documentation.md",
+      "sha256": "9366c8f9e22ef7815b3994764f31ee3aaa3bfc6e29aa11bad97278be0c3d0aad"
+    },
+    {
+      "id": "plan-lifecycle:base",
+      "path": "common/plan-lifecycle/base.md",
+      "sha256": "c8371f0d07463f44b7ae463346b79f8b608b507d6b0756339dfba4736c5d7af7"
+    },
+    {
+      "id": "plan-lifecycle:agile-review",
+      "path": "common/plan-lifecycle/variants/agile-review.md",
+      "sha256": "97a43457246b474b9783a7d7fef3135292aab7deff3ecefd472fc394bd17c363"
+    },
+    {
+      "id": "experiment-execution-order",
+      "path": "common/experiment-execution-order.md",
+      "sha256": "6dd95a7ad63a83cc70f41e7a2bb3a2ff9ea59753d562e20b444d4868fcab0c19"
+    },
+    {
+      "id": "cross-machine-experiment-roles",
+      "path": "common/cross-machine-experiment-roles.md",
+      "sha256": "609e32744e129a408b9f46a291e4055d5923cd3b00551a223f525c5c0740b1a5"
+    },
+    {
+      "id": "experiment-monitoring",
+      "path": "common/experiment-monitoring.md",
+      "sha256": "0594f0f61b9894ce17a0ba5833e070d7dec85896bf7e4306b336547193597f89"
+    },
+    {
+      "id": "result-reporting-and-worklogs",
+      "path": "common/result-reporting-and-worklogs.md",
+      "sha256": "3ea3093f80478b14ae3f87e748ed95c5ab3b5fd15b7e0b484a85647493e57c89"
+    },
+    {
+      "id": "plan-mode-guidance",
+      "path": "common/plan-mode-guidance.md",
+      "sha256": "af56036147111b32da0bb6fbd43d6ca0d22c858934d4b64713fa841b8addb075"
+    },
+    {
+      "id": "remote-publication",
+      "path": "common/remote-publication.md",
+      "sha256": "da99c9f7ab534128f5d6eac921899e8cff89f450da6b3db37f60fbf4c790263b"
+    }
+  ],
+  "output": {
+    "path": "AGENTS.md",
+    "sha256": "3be68cf4d0539b0a425278d05d71249035787204a97ac60738f083f2f22f8cca"
+  },
+  "overlay": {
+    "path": ".agents/repository.md",
+    "sha256": "8eb0c5ecdebaea78802862d1893707481587e6b04b4cfe96730a09e6b5251f49"
+  },
+  "profile_id": "foundation-like-notion",
+  "profile_sha256": "c42b977b5458b6e8a468ba007e6f465a3dbd21ccf8036dea6286873949485939",
+  "schema_version": 1,
+  "source": "agent-administration",
+  "source_commit": "7d41137b476734cb07a4d74fffdf7676aacf67a0"
+}
