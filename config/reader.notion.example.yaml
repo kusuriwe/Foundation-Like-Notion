@@ -1,0 +1,45 @@
+version: 1
+source: notion
+contentDatabases:
+  - id: chemistry-notes
+    name: Chemistry Notes
+    sourceDataSourceId: "replace-with-notion-data-source-id"
+    titlePropertyId: "replace-with-title-property-id"
+    defaultTemplate: compact-emblem
+    templates: [simple, compact-emblem]
+    sort:
+      - field: created_time
+        direction: ascending
+    variables:
+      title:
+        propertyId: "replace-with-title-property-id"
+        type: string
+        required: true
+      mainClass:
+        propertyId: "replace-with-main-class-property-id"
+        type: reference
+        required: true
+      subClass:
+        propertyId: "replace-with-sub-class-property-id"
+        type: reference
+        required: true
+      codeName:
+        propertyId: "replace-with-code-name-property-id"
+        type: string
+        required: true
+      tags:
+        propertyId: "replace-with-tags-property-id"
+        type: string[]
+    filters:
+      tags:
+        propertyId: "replace-with-tags-property-id"
+        type: string[]
+        sourceType: multi_select
+        operators: [contains]
+      mainClass:
+        propertyId: "replace-with-main-class-property-id"
+        type: reference
+        sourceType: relation
+        operators: [equals]
+relationSources:
+  - "replace-with-relation-data-source-id"

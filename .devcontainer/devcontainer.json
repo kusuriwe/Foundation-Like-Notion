@@ -1,0 +1,14 @@
+{
+  "name": "Foundation Like Notion",
+  "dockerComposeFile": "../compose.yaml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [3000, 5173],
+  "postCreateCommand": "npm ci",
+  "customizations": {
+    "vscode": {
+      "extensions": ["biomejs.biome", "dbaeumer.vscode-eslint", "ms-playwright.playwright"]
+    }
+  }
+}

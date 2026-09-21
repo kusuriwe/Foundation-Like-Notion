@@ -1,0 +1,47 @@
+version: 1
+source: fixture
+contentDatabases:
+  - id: chemistry-notes
+    name: Chemistry Notes
+    sourceDataSourceId: fixture-chemistry-notes
+    titlePropertyId: fixture-title
+    defaultTemplate: simple
+    templates:
+      - simple
+      - compact-emblem
+    sort:
+      - field: created_time
+        direction: ascending
+    variables:
+      title:
+        propertyId: fixture-title
+        type: string
+        required: true
+      mainClass:
+        propertyId: fixture-main-class
+        type: reference
+        required: true
+      subClass:
+        propertyId: fixture-sub-class
+        type: reference
+        required: true
+      codeName:
+        propertyId: fixture-code-name
+        type: string
+        required: true
+      tags:
+        propertyId: fixture-tags
+        type: string[]
+    filters:
+      tags:
+        propertyId: fixture-tags
+        type: string[]
+        sourceType: multi_select
+        operators: [contains]
+      mainClass:
+        propertyId: fixture-main-class
+        type: reference
+        sourceType: relation
+        operators: [equals]
+relationSources:
+  - fixture-classifications

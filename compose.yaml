@@ -1,0 +1,46 @@
+services:
+  app:
+    build:
+      context: .
+      target: development
+    command: npm run dev
+    working_dir: /workspace
+    init: true
+    ports:
+      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:5173:5173"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      NODE_ENV: development
+      READER_CONFIG_PATH: /workspace/config/reader.example.yaml
+      READER_DATABASE_PATH: /workspace/.data/reader.sqlite
+    env_file:
+      - path: .env/reader.env
+        required: false
+    volumes:
+      - .:/workspace
+      - node_modules:/workspace/node_modules
+      - reader_data:/workspace/.data
+
+  production:
+    profiles: ["production"]
+    build:
+      context: .
+      target: production
+    init: true
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      READER_CONFIG_PATH: /app/config/reader.yaml
+      READER_DATABASE_PATH: /app/.data/reader.sqlite
+    env_file:
+      - path: .env/reader.env
+        required: true
+    volumes:
+      - ./.env/reader.yaml:/app/config/reader.yaml:ro
+      - reader_data:/app/.data
+
+volumes:
+  node_modules:
+  reader_data:

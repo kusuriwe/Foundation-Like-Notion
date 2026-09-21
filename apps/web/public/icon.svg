@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>Notion Reader</title>
+  <rect width="512" height="512" rx="112" fill="#0b0d10"/>
+  <circle cx="140" cy="256" r="76" fill="none" stroke="#d8ff5f" stroke-width="16"/>
+  <circle cx="140" cy="256" r="42" fill="none" stroke="#7cecff" stroke-width="8" stroke-dasharray="12 10"/>
+  <path d="M244 172h168M244 256h132M244 340h168" stroke="#edf2f7" stroke-width="22" stroke-linecap="round"/>
+</svg>

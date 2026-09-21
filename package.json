@@ -1,0 +1,41 @@
+{
+  "name": "foundation-like-notion",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.21.0 <25"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "predev": "npm run build --workspace @foundation-like-notion/contracts",
+    "dev": "concurrently -k -n api,web -c cyan,magenta \"npm run dev --workspace @foundation-like-notion/api\" \"npm run dev --workspace @foundation-like-notion/web\"",
+    "build": "npm run build --workspace @foundation-like-notion/contracts && npm run build --workspace @foundation-like-notion/web && npm run build --workspace @foundation-like-notion/api",
+    "pretest": "npm run build --workspace @foundation-like-notion/contracts",
+    "test": "npm run test --workspaces --if-present",
+    "pretypecheck": "npm run build --workspace @foundation-like-notion/contracts",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "icons:render": "node scripts/render-pwa-icons.mjs",
+    "e2e": "playwright test",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.14",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.5.2",
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.2",
+    "vitest": "5.0.1"
+  },
+  "allowScripts": {
+    "argon2@0.44.0": true,
+    "better-sqlite3@12.11.1": true,
+    "esbuild@0.28.2": true
+  }
+}
