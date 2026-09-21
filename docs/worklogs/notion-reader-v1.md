@@ -93,3 +93,28 @@ Remaining external checks:
 Next: perform the credentialed Notion and physical-device checks, then hand the final diff and this evidence
 to an independent reviewer. The next stage should stay in PLAN mode because live data or device evidence may
 change deployment/security priorities.
+
+## 2026-09-21 — Checkpoint committed
+
+**Status:** Awaiting local Notion and Tailscale prerequisites.
+
+The approved live-acceptance plan was started from a clean secrets boundary. The `.env/` directory was absent,
+and a pattern scan of the complete staged diff found no populated Notion token, password hash, bearer token, or
+known Notion token prefix. The implementation was committed locally as
+`9cd8d8836abba42e35640ed05a5eb89624ff4cea` (`feat: implement read-only Notion Reader v1`). No remote publication
+was performed.
+
+Checkpoint validation:
+
+- `git diff --cached --check`: passed after replacing two Markdown hard-break spaces with paragraph breaks.
+- `docker compose config --quiet`: passed.
+- `docker compose run --rm app npm run check`: passed all formatting, lint, strict type checking, 27 tests, and
+  production builds.
+- `docker compose run --rm app npm run e2e`: passed Chromium desktop and WebKit mobile profiles.
+- `docker compose run --rm app npm audit`: reported zero vulnerabilities.
+- Branch `main` was clean and one commit ahead of `origin/main` immediately after the checkpoint.
+
+Next: the user creates the read-only Notion connection and ignored `.env/` configuration, and installs and logs
+in to Tailscale on Windows and iOS. Once the user reports only that these prerequisites are ready, the bounded,
+documented production smoke can proceed directly without another planning pass. The active plan must remain
+unarchived until the live/device evidence and independent review both pass.
