@@ -221,3 +221,25 @@ than `relation`. The temporary diagnostic script was removed from workspace and 
 Next: the user copies the actual Property IDs from the selected content Data Source schema and restores the
 Reader/Notion type mappings documented in README. After another restart, the primary agent will verify article
 list, detail mapping, relation resolution, and search through the application boundary.
+
+## 2026-09-21 — Property names resolved locally
+
+**Status:** Production restarted with schema-verified Property IDs; browser recheck remains.
+
+Manual Property ID collection proved unnecessarily difficult. A one-time local resolver therefore treated each
+configured `propertyId` as either an existing ID or an exact Property name within its already selected content
+Data Source. Names are scoped per Data Source, so identical names in another source cannot collide. The resolver
+required both an exact name match and a compatible Notion type before writing; any issue would have prevented all
+changes.
+
+Six mappings were resolved successfully without printing names, IDs, token, or content. Schema verification
+confirmed `mainClass` and `subClass` as `rich_text`, `codeName` as `relation`, and `tags` as `multi_select`, matching
+the user's intentional Reader configuration. The previous ignored YAML was copied to `.env/reader.yaml.bak`.
+The temporary resolver was then deleted rather than added as an undocumented production interface.
+
+Compose validation passed, production restarted with zero placeholders, and `/api/health` again returned 200,
+`source: notion`, and `Cache-Control: no-store` on the loopback-only listener.
+
+Next: the user reloads the Reader and checks article list, one article detail, relation-backed `codeName`, tag
+search, and logout. If the one-time resolver proves useful for additional databases, promote it separately to a
+tested, documented setup command rather than retaining ad hoc scripts.
