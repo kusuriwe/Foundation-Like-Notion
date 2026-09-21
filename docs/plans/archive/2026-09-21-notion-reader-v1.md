@@ -1,16 +1,15 @@
 # Notion Reader v1 Implementation Plan
 
-**Status:** Active
+**Status:** Complete
 
 **Approved:** 2026-09-20
 
 **Source requirements:** `dev-docs/notion_reader_v1_requirements.md`
 
-**Implementation status (2026-09-21):** Automated implementation and fixture acceptance are complete.
-Credentialed Notion, physical iOS/Home Screen, and Tailscale Serve acceptance passed. The first independent
-review returned three medium boundary findings concerning SDK logging, upstream cursors, and typed filter
-values. Corrective implementation and the short live smoke are complete; the plan remains active pending a
-fresh independent final review.
+**Implementation status (2026-09-21):** Implementation and acceptance are complete. Credentialed Notion,
+physical iOS/Home Screen, Tailscale Serve, automated gates, and the short post-remediation live smoke passed.
+An independent final reviewer verified that the SDK logging, upstream cursor, and typed filter findings were
+resolved, found no remaining blocking issues, and archived this plan.
 
 ## Goal
 
@@ -37,5 +36,5 @@ boundary and converts allowlisted Notion data into Reader-owned contracts. Notio
 
 ## Completion rule
 
-Keep this plan active until implementation, quality gates, manual device checks, and an independent final review
-are complete. Record evidence and unresolved limitations in `docs/worklogs/notion-reader-v1.md`.
+Implementation, quality gates, manual device checks, and the independent final review are complete. Validation
+evidence and the remaining documented limitation are recorded in `docs/worklogs/notion-reader-v1.md`.

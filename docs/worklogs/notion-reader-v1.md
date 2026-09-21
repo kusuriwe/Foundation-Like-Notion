@@ -428,3 +428,42 @@ After the audit, Tailscale Serve was reset and the production container and Comp
 
 Next: commit this remediation evidence separately, then ask a different reviewer agent to inspect the complete
 diff and evidence. Archive the active plan only if that reviewer approves it.
+
+## 2026-09-21 — Independent final review approved
+
+**Status:** Complete; active plan archived after independent approval.
+
+A fresh reviewer who did not participate in implementation inspected the complete `origin/main..9124e2b` diff,
+the active plan, the worklog, the corrective implementation in `c4a4edb`, and the separate live-smoke evidence
+in `9124e2b`. No critical or medium-severity findings remained.
+
+The reviewer confirmed that all three findings from the first review are resolved:
+
+- The production Notion SDK client has an explicit no-op logger. Real-client 404 coverage verifies that private
+  upstream details do not reach console methods, and every propagated adapter failure is reduced to an existing
+  public-safe category before Fastify records it.
+- Browser pagination exposes only 256-bit `cur_` handles. The bounded in-memory registry enforces a fixed
+  30-minute lifetime, a 1,024-entry limit, endpoint and query-context binding, generic rejection of invalid or
+  expired handles, and restart invalidation. Upstream cursors are neither persisted nor returned or logged.
+- Search uses operator-discriminated request schemas plus source-type-specific validation before the first
+  adapter call. Multi-database requests are prevalidated in full, relation filters require a known page Reader
+  ID, and startup validation rejects incompatible YAML filter type mappings.
+
+Independent validation:
+
+- `git diff --check` and `git diff --check origin/main..HEAD`: passed.
+- `docker compose config --quiet`: passed.
+- `docker compose run --rm app npm run check`: passed formatting, lint, strict type checking, all 49 tests, and
+  production builds.
+- `docker compose run --rm app npm run e2e`: passed Chromium desktop and WebKit mobile profiles.
+- `docker compose run --rm app npm audit`: reported zero known vulnerabilities.
+- Static review found no regression in the public endpoint set, YAML shape, SQLite schema, read-only boundary,
+  API `no-store` policy, or PWA API `NetworkOnly` behavior. Tracked files contained no populated secret.
+
+The only retained limitation is unchanged from live acceptance: the selected live Notion database did not
+exercise a second pagination page. Fixture and mock regression tests provide pagination evidence without
+modifying source data. The completed plan was moved to
+`docs/plans/archive/2026-09-21-notion-reader-v1.md` under the agile independent-review policy.
+
+Next: the user may inspect the local commits and publish them to the remote repository. Programmer agents must
+not run `git push`.
