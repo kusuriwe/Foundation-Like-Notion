@@ -53,8 +53,12 @@ function richText(value: unknown): RichText[] {
   if (!Array.isArray(value)) {
     return []
   }
-  return value.flatMap((item) => {
+  return value.flatMap<RichText>((item) => {
     const entry = record(item)
+    if (entry?.type === "equation") {
+      const expression = text(record(entry.equation)?.expression)
+      return expression === undefined ? [] : [{ type: "equation" as const, expression }]
+    }
     const plainText = text(entry?.plain_text)
     if (plainText === undefined) {
       return []
@@ -83,7 +87,7 @@ function richText(value: unknown): RichText[] {
 
 function plainText(value: unknown): string {
   return richText(value)
-    .map((entry) => entry.text)
+    .map((entry) => ("text" in entry ? entry.text : entry.expression))
     .join("")
 }
 
@@ -270,7 +274,10 @@ export class NotionAdapter implements ContentAdapter {
     const referenceCache = new Map<string, Promise<SourceReference | undefined>>()
     const properties = await this.#properties(page, database, referenceCache)
     const blocks = await this.#blocks(sourcePageId)
-    return { ...this.#summary(page, database), properties, blocks }
+    const titleProperty = findProperty(page, database.titlePropertyId)
+    const titleRichText =
+      titleProperty?.type === "title" ? richText(titleProperty.title) : [{ text: pageTitle(page) }]
+    return { ...this.#summary(page, database), titleRichText, properties, blocks }
   }
 
   async getAsset(sourceAssetId: string): Promise<SourceAsset | undefined> {

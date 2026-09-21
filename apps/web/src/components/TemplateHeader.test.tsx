@@ -6,6 +6,7 @@ import { TemplateHeader } from "./TemplateHeader.js"
 const article: Article = {
   id: "article_12345678",
   databaseId: "database_12345678",
+  titleRichText: [{ text: "Article title" }],
   title: "炎色反応",
   createdTime: "2026-01-01T00:00:00.000Z",
   lastEditedTime: "2026-01-01T00:00:00.000Z",

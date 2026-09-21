@@ -14,12 +14,13 @@ const fixtureArticles: readonly SourceArticle[] = [
   {
     sourceId: "fixture-page-flame-test",
     sourceDataSourceId: "fixture-chemistry-notes",
-    title: "炎色反応",
+    title: "炎色反応 E=h\\nu",
+    titleRichText: [{ text: "炎色反応 " }, { type: "equation", expression: "E=h\\nu" }],
     icon: { kind: "emoji", value: "🔥" },
     createdTime: "2026-01-10T09:00:00.000Z",
     lastEditedTime: "2026-09-01T12:00:00.000Z",
     properties: {
-      "fixture-title": { type: "string", value: "炎色反応" },
+      "fixture-title": { type: "string", value: "炎色反応 E=h\\nu" },
       "fixture-main-class": {
         type: "reference",
         value: {
@@ -51,8 +52,12 @@ const fixtureArticles: readonly SourceArticle[] = [
           {
             text: "炎色反応は、金属元素やその塩を炎の中で加熱したとき、元素ごとに特徴的な色の光が現れる現象です。",
           },
+          { text: " 光子のエネルギーは " },
+          { type: "equation", expression: "E=h\\nu" },
+          { text: " で表せます。" },
         ],
       },
+      { type: "math", expression: "\\ce{Na+ ->[heat] Na^{*} -> Na+ + h\\nu}" },
       { type: "heading", level: 2, content: [{ text: "観察" }] },
       {
         type: "paragraph",
@@ -88,6 +93,7 @@ const fixtureArticles: readonly SourceArticle[] = [
     sourceId: "fixture-page-periodic-table",
     sourceDataSourceId: "fixture-chemistry-notes",
     title: "周期表の読み方",
+    titleRichText: [{ text: "周期表の読み方" }],
     icon: { kind: "emoji", value: "⚛️" },
     createdTime: "2026-02-14T09:00:00.000Z",
     lastEditedTime: "2026-08-20T12:00:00.000Z",

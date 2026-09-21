@@ -9,9 +9,12 @@ test("login, read, switch template, search, recent, and logout", async ({ page }
     page.getByRole("heading", { name: "Your Notion, shaped for reading." }),
   ).toBeVisible()
   await page.getByRole("link", { name: /Chemistry Notes/ }).click()
+  await expect(page.locator(".article-list .katex")).toHaveCount(0)
   await page.getByRole("link", { name: /炎色反応/ }).click()
 
-  await expect(page.getByRole("heading", { name: "炎色反応" })).toBeVisible()
+  await expect(page.getByRole("heading", { name: /炎色反応/ })).toBeVisible()
+  await expect(page.locator(".article-content > h1 .katex")).toBeVisible()
+  await expect(page.getByTestId("display-equation").locator(".katex-display")).toBeVisible()
   await page.getByLabel("Template").selectOption("compact-emblem")
   await expect(page.getByTestId("compact-emblem-header")).toContainText("FLAME TEST")
 

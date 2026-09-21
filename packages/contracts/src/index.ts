@@ -42,11 +42,18 @@ export const RichTextAnnotationSchema = z.object({
   code: z.boolean().default(false),
 })
 
-export const RichTextSchema = z.object({
+export const RichTextTextSchema = z.object({
   text: z.string(),
   href: z.url().nullable().optional(),
   annotations: RichTextAnnotationSchema.optional(),
 })
+
+export const RichTextEquationSchema = z.object({
+  type: z.literal("equation"),
+  expression: z.string(),
+})
+
+export const RichTextSchema = z.union([RichTextTextSchema, RichTextEquationSchema])
 
 const TextBlockSchema = z.object({ content: z.array(RichTextSchema) })
 
@@ -112,6 +119,7 @@ export const ArticleSummarySchema = z.object({
 })
 
 export const ArticleSchema = ArticleSummarySchema.extend({
+  titleRichText: z.array(RichTextSchema),
   variables: z.record(z.string(), ReaderValueSchema),
   blocks: z.array(ArticleBlockSchema),
   defaultTemplate: z.string(),

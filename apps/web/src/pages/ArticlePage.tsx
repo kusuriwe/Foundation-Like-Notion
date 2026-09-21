@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { getArticle } from "../api.js"
 import { ArticleRenderer } from "../components/ArticleRenderer.js"
+import { RichText } from "../components/RichText.js"
 import { TemplateHeader } from "../components/TemplateHeader.js"
 import { recordRecent } from "../recent.js"
 import { preferredTemplate, savePreferredTemplate } from "../template-preference.js"
@@ -73,7 +74,13 @@ export function ArticlePage() {
       </div>
       <TemplateHeader article={article} templateId={templateId} />
       <div className="article-content">
-        <h1>{article.title}</h1>
+        <h1>
+          {article.titleRichText.length > 0 ? (
+            <RichText value={article.titleRichText} />
+          ) : (
+            article.title
+          )}
+        </h1>
         <div className="tag-list">
           {tags(article.variables.tags).map((tag) => (
             <button

@@ -1,5 +1,6 @@
 import type { ArticleBlock } from "@foundation-like-notion/contracts"
 import { createElement } from "react"
+import { MathExpression } from "./MathExpression.js"
 import { RichText } from "./RichText.js"
 
 function Block({ block }: { block: ArticleBlock }) {
@@ -91,7 +92,12 @@ function Block({ block }: { block: ArticleBlock }) {
       </figure>
     )
   }
-  if (block.type === "math") return <pre className="math-block">{block.expression}</pre>
+  if (block.type === "math")
+    return (
+      <div className="math-block">
+        <MathExpression expression={block.expression} displayMode />
+      </div>
+    )
   if (block.type === "file")
     return (
       <p>

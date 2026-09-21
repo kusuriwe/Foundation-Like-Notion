@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest"
-import { ReaderCursorSchema, ReaderValueSchema, SearchRequestSchema } from "../src/index.js"
+import {
+  ReaderCursorSchema,
+  ReaderValueSchema,
+  RichTextSchema,
+  SearchRequestSchema,
+} from "../src/index.js"
 
 describe("Reader contracts", () => {
   it("keeps reference cardinality explicit", () => {
@@ -23,6 +28,14 @@ describe("Reader contracts", () => {
     expect(ReaderCursorSchema.parse(`cur_${"a".repeat(43)}`)).toHaveLength(47)
     expect(() => ReaderCursorSchema.parse("next-notion-cursor")).toThrow()
     expect(() => ReaderCursorSchema.parse(`cur_${"a".repeat(42)}!`)).toThrow()
+  })
+
+  it("accepts text and inline-equation rich text without changing the text wire shape", () => {
+    expect(RichTextSchema.parse({ text: "energy" })).toEqual({ text: "energy" })
+    expect(RichTextSchema.parse({ type: "equation", expression: "E=mc^2" })).toEqual({
+      type: "equation",
+      expression: "E=mc^2",
+    })
   })
 
   it("requires operator-specific filter values", () => {

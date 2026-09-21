@@ -266,6 +266,66 @@ describe("NotionAdapter", () => {
     )
   })
 
+  it("preserves inline equations in article titles and body rich text", async () => {
+    const article = page("page-one")
+    article.properties.Name.title = [
+      { plain_text: "Energy ", href: null, annotations: {} },
+      {
+        type: "equation",
+        equation: { expression: "E=mc^2" },
+        plain_text: "E=mc^2",
+        href: null,
+        annotations: {},
+      },
+    ] as never
+    const client = {
+      dataSources: { query: vi.fn() },
+      pages: { retrieve: vi.fn().mockResolvedValue(article) },
+      blocks: {
+        children: {
+          list: vi.fn().mockResolvedValue({
+            results: [
+              {
+                id: "paragraph-one",
+                type: "paragraph",
+                paragraph: {
+                  rich_text: [
+                    { plain_text: "Value: ", href: null, annotations: {} },
+                    {
+                      type: "equation",
+                      equation: { expression: "x^2" },
+                      plain_text: "x^2",
+                      href: null,
+                      annotations: {},
+                    },
+                  ],
+                },
+              },
+            ],
+            next_cursor: null,
+          }),
+        },
+        retrieve: vi.fn(),
+      },
+    } as unknown as Client
+    const adapter = new NotionAdapter("unused-test-token", config, client)
+
+    const result = await adapter.getArticle(database, "page-one")
+
+    expect(result?.title).toBe("Energy E=mc^2")
+    expect(result?.titleRichText).toEqual([
+      { text: "Energy ", href: null, annotations: expect.any(Object) },
+      { type: "equation", expression: "E=mc^2" },
+    ])
+    expect(result?.blocks[0]).toEqual({
+      type: "paragraph",
+      content: [
+        { text: "Value: ", href: null, annotations: expect.any(Object) },
+        { type: "equation", expression: "x^2" },
+      ],
+    })
+  })
+
   it("maps unexpected upstream failures to the safe unavailable category", async () => {
     const client = {
       dataSources: { query: vi.fn().mockRejectedValue(new Error("rate limited")) },

@@ -151,6 +151,7 @@ export class ReaderService {
     const summary = this.#mapSummary(database, source)
     return {
       ...summary,
+      titleRichText: [...source.titleRichText],
       variables: resolveProperties(database, source.properties, this.#database),
       blocks: source.blocks.flatMap((block) => {
         const mapped = this.#mapBlock(block)

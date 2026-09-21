@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@foundation-like-notion/contracts": "*",
+    "katex": "0.18.7",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",

@@ -99,6 +99,7 @@ describe("Reader API", () => {
     })
     expect(article.statusCode).toBe(200)
     expect(article.body).toContain("FLAME TEST")
+    expect(article.json<{ titleRichText: unknown[] }>().titleRichText.length).toBeGreaterThan(0)
     expect(article.body).not.toContain("fixture-page-flame-test")
     expect(article.headers["cache-control"]).toBe("no-store")
   })

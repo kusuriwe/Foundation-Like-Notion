@@ -74,6 +74,7 @@ export type SourceArticleSummary = Readonly<{
 
 export type SourceArticle = SourceArticleSummary &
   Readonly<{
+    titleRichText: readonly RichText[]
     properties: Readonly<Record<string, SourceValue>>
     blocks: readonly SourceBlock[]
   }>

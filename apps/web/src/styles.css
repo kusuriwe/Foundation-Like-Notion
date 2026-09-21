@@ -488,6 +488,20 @@ select:focus {
   border-radius: 12px;
   background: #07090c;
 }
+.math-expression {
+  max-width: 100%;
+}
+.math-expression-display {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.math-expression-error {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
 .table-scroll {
   overflow-x: auto;
   margin: 26px 0;

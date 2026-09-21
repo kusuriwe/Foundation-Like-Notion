@@ -34,26 +34,30 @@ NOTION_TOKEN=ntn_...
 
 最初は fixture 設定で動作します。実 Notion へ切り替えるときは
 `config/reader.notion.example.yaml` を `.env/reader.yaml` へコピーし、placeholder を実際の Data
-Source / Property ID に置き換え、`.env/reader.env` に `NOTION_TOKEN` を設定します。
+Source ID と Property 名または Property ID に置き換え、`.env/reader.env` に `NOTION_TOKEN` を設定します。
 
 ## Reader YAML reference
 
 アプリが読む実設定は `.env/reader.yaml` です。`config/reader.notion.example.yaml` を雛形として使い、
-Notion の Data Source ID と Property ID は API が返した文字列をそのまま引用符で囲んで記述します。
-Property 名ではなく Property ID を指定してください。設定は厳格に検証されるため、未知の field、
-重複した Reader ID、未許可の filter operator があると起動に失敗します。
+Notion の Data Source は ID で指定し、Property は `propertyId` または `propertyName` のどちらか一方で
+指定します。タイトルでは `titlePropertyId` または `titlePropertyName` を使います。名前指定は選択済み
+Data Source 内で大文字・小文字を区別して完全一致させ、起動時に一度だけ ID へ解決します。ID と名前は
+mapping ごとに混在できますが、同じ mapping へ両方を指定することはできません。
 
-Property ID を Notion UI から集めにくい場合は、最初だけ各 `propertyId` と `titlePropertyId` に
-Property の表示名を正確に記述してから、次の resolver を実行できます。
+解決結果はメモリ内だけで使われ、YAML や SQLite は変更されません。Property の rename、一致なし、
+複数一致、Notion type の不一致、schema 取得失敗がある場合は安全のため起動を中止します。Property 名や
+ID は Browser、通常ログ、SQLite へ出しません。`source: fixture` では Property ID だけを使用します。
+
+名前を ID へ固定したい場合だけ、任意で次の migration command を実行できます。
 
 ```powershell
 docker compose run --rm app npm run config:resolve
 ```
 
 resolver は各 `contentDatabases[]` の選択済み Data Source 内だけを検索します。同名 Property が別の
-Data Source にあっても衝突しません。既存の ID を優先し、それ以外は大文字・小文字を含む完全一致の
-名前だけを候補にします。全 mapping の Notion type が設定と互換である場合に限り、名前を実 ID へ
-一括置換します。
+Data Source にあっても衝突しません。全 mapping の Notion type が設定と互換である場合に限り、
+`propertyName` を `propertyId` へ一括置換します。以前の手順で Property 名を `propertyId` に仮入力した
+設定も、この migration command に限り互換入力として扱います。
 
 書換前の設定は `.env/reader.yaml.bak` に保存されます。不一致が1件でもあれば YAML は変更されません。
 標準出力には Reader field path、型、件数だけを表示し、Property 名、Property ID、Data Source ID、token
@@ -80,7 +84,7 @@ contentDatabases:
   - id: chemistry-notes
     name: Chemistry Notes
     sourceDataSourceId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    titlePropertyId: "title-property-id"
+    titlePropertyName: "Name"
     defaultTemplate: compact-emblem
     templates: [simple, compact-emblem]
     sort:
@@ -95,7 +99,7 @@ contentDatabases:
 | `id` | Browser/API に見せる Reader 固有 ID。Notion ID は使わず、8～128文字の一意な slug にします。 |
 | `name` | Library に表示する名前です。 |
 | `sourceDataSourceId` | 記事を取得する Notion Data Source ID。同じ ID を複数定義できません。 |
-| `titlePropertyId` | Notion の `title` Property ID。記事タイトルと title search に使います。 |
+| `titlePropertyId` / `titlePropertyName` | Notion の `title` Property を ID または完全一致する名前で指定します。どちらか一方が必須です。 |
 | `defaultTemplate` | 初期 template。必ず `templates` にも含めます。 |
 | `templates` | 許可する同梱 template。現在は `simple` と `compact-emblem` だけです。 |
 | `sort` | Notion query に渡す既定 sort。1件以上必要です。 |
@@ -115,16 +119,16 @@ Reader value へ正規化した後の型です。
 ```yaml
 variables:
   codeName:
-    propertyId: "code-name-property-id"
+    propertyName: "Code name"
     type: string
     required: true
     fallback: Untitled
   mainClass:
-    propertyId: "main-class-relation-property-id"
+    propertyName: "Main class"
     type: reference
     required: true
   tags:
-    propertyId: "tags-property-id"
+    propertyName: "Tags"
     type: string[]
 ```
 
@@ -149,7 +153,7 @@ cardinality 不一致の Mapping Error になります。複数件が正しい P
 
 | Field | 説明 |
 | --- | --- |
-| `propertyId` | Notion API が返す Property ID。Property 名ではありません。 |
+| `propertyId` / `propertyName` | Notion Property を ID または完全一致する名前で指定します。どちらか一方だけを設定します。 |
 | `type` | 上表の Reader type。Notion Property と対応させます。 |
 | `required` | 省略時は `false`。v1 では template の契約意図を示す metadata で、欠損だけを理由に記事取得を拒否しません。 |
 | `fallback` | Property が空または取得できないときの代替文字列。`type: string` でのみ使用できます。 |
@@ -166,12 +170,12 @@ Browser から指定させないための allowlist になります。
 ```yaml
 filters:
   tags:
-    propertyId: "tags-property-id"
+    propertyName: "Tags"
     type: string[]
     sourceType: multi_select
     operators: [contains, isEmpty]
   mainClass:
-    propertyId: "main-class-relation-property-id"
+    propertyName: "Main class"
     type: reference
     sourceType: relation
     operators: [equals, isEmpty]
@@ -195,6 +199,16 @@ filters:
 `isEmpty` では `value` 自体を送信しません。それ以外の operator では表に示した型の `value` が必須です。
 YAML の `type` と `sourceType`、request の operator と値が一致しない場合は、Notion へ問い合わせる前に
 Reader が request を拒否します。
+
+### 数式
+
+Notion の equation block は display 数式として、rich text 内の inline equation は文中数式として KaTeX で
+描画します。本文の段落、見出し、引用、callout、list、table、caption と、記事詳細画面の主タイトルが
+対象です。一覧・検索のタイトルと template metadata は plain text のままです。
+
+化学式では `mhchem` の `\ce{...}` を使用できます。解釈できない TeX は実行せず元の式を text-only で
+表示します。KaTeX の HTML/MathML と font はアプリ自身から配信されますが、記事 API response は従来どおり
+Service Worker に保存されません。
 
 ### Pagination cursor
 
