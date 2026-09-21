@@ -352,3 +352,30 @@ After the audit, Tailscale Serve was reset and the production container and Comp
 
 Next: commit this acceptance evidence and request the required independent final diff/evidence review. No PLAN
 revision is needed because the observed behavior matches the approved security and storage contract.
+
+## 2026-09-21 — Independent final review returned findings
+
+**Status:** Review not approved; active plan retained pending corrective design and implementation.
+
+A separate reviewer inspected the complete `origin/main..5a6fcfe` diff, the active plan, this worklog, and the
+automated evidence. The reviewer independently reran Docker Compose validation, the complete 31-test quality
+gate and production builds, Chromium/WebKit end-to-end tests, and npm audit. All commands passed, and npm audit
+reported zero known vulnerabilities. The temporary Compose environment was stopped without changing `.env/`
+or the named data volumes.
+
+The reviewer nevertheless found three medium-severity boundary defects:
+
+- The production Notion SDK client retains its default logger, which can write an upstream error message
+  directly to stdout outside the application's structured redaction boundary.
+- Article-list pagination returns the upstream Notion cursor directly, while search wraps cursor state in
+  reversible Base64. Neither form is a Reader-owned, tamper-resistant cursor bound to its query context.
+- Search filter validation checks the field/operator allowlist but does not enforce the required value or the
+  value type for each configured Notion source type and operator before calling the upstream adapter.
+
+No tracked secret was found, and the accepted live run did not exhibit a leak. These findings concern failure
+paths and adversarial inputs that the current tests do not cover. Under the independent-review policy, no plan
+archive or archive commit was created.
+
+Next: return to PLAN for the cursor and typed-filter semantics, then disable or replace SDK logging, implement
+Reader-owned cursor validation, enforce source-type/operator-specific filter values, add regression tests, rerun
+all gates, and request a fresh independent review before archiving.
