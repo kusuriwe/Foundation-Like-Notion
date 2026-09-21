@@ -3,6 +3,7 @@ import {
   ReaderCursorSchema,
   ReaderValueSchema,
   RichTextSchema,
+  RichTextTextSchema,
   SearchRequestSchema,
 } from "../src/index.js"
 
@@ -32,10 +33,16 @@ describe("Reader contracts", () => {
 
   it("accepts text and inline-equation rich text without changing the text wire shape", () => {
     expect(RichTextSchema.parse({ text: "energy" })).toEqual({ text: "energy" })
-    expect(RichTextSchema.parse({ type: "equation", expression: "E=mc^2" })).toEqual({
+    expect(
+      RichTextSchema.parse({ type: "equation", expression: "E=mc^2", text: "E=mc^2" }),
+    ).toEqual({
       type: "equation",
       expression: "E=mc^2",
+      text: "E=mc^2",
     })
+    expect(
+      RichTextTextSchema.parse({ type: "equation", expression: "E=mc^2", text: "E=mc^2" }),
+    ).toEqual({ text: "E=mc^2" })
   })
 
   it("requires operator-specific filter values", () => {

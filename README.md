@@ -208,7 +208,8 @@ Notion の equation block は display 数式として、rich text 内の inline 
 
 化学式では `mhchem` の `\ce{...}` を使用できます。解釈できない TeX は実行せず元の式を text-only で
 表示します。KaTeX の HTML/MathML と font はアプリ自身から配信されますが、記事 API response は従来どおり
-Service Worker に保存されません。
+Service Worker に保存されません。PWA 更新中の旧画面にはinline equationが一時的にTeX文字列として表示され、
+新しい画面へ切り替わった後にKaTeX表示となります。
 
 ### Pagination cursor
 

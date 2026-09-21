@@ -7,6 +7,7 @@ Reader YAML の Property 名指定を安全に起動時解決し、Notion の in
 ## Status
 
 - 2026-09-21: 実装開始。開始時 HEAD は `456c991`、branch は `main`、worktree は clean。
+- 2026-09-21: 最初のlive smokeで、既存PWAの旧contractと新APIのinline-equation variantが一時的に競合し、記事詳細のparseが失敗した。Serveとproductionを停止し、equationへ旧client用plain `text`を付けるrolling compatibility修正へ移行した。
 
 ## Evidence
 

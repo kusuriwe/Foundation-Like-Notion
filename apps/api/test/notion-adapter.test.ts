@@ -315,13 +315,13 @@ describe("NotionAdapter", () => {
     expect(result?.title).toBe("Energy E=mc^2")
     expect(result?.titleRichText).toEqual([
       { text: "Energy ", href: null, annotations: expect.any(Object) },
-      { type: "equation", expression: "E=mc^2" },
+      { type: "equation", expression: "E=mc^2", text: "E=mc^2" },
     ])
     expect(result?.blocks[0]).toEqual({
       type: "paragraph",
       content: [
         { text: "Value: ", href: null, annotations: expect.any(Object) },
-        { type: "equation", expression: "x^2" },
+        { type: "equation", expression: "x^2", text: "x^2" },
       ],
     })
   })

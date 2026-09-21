@@ -10,7 +10,7 @@
 
 - 入力用 config schema と ID 解決済み config schema を分離する。各 locator は ID / name のどちらか一方だけを許可し、fixture は ID のみとする。
 - Notion schema は content Data Source ごとに起動時一度だけ取得する。完全一致と Property type を検証し、解決結果はメモリだけに保持する。
-- Rich text contract に equation variantを追加し、記事詳細だけ `titleRichText` を返す。一覧・検索は従来の `title: string` を維持する。
+- Rich text contract に equation variantを追加し、記事詳細だけ `titleRichText` を返す。一覧・検索は従来の `title: string` を維持する。更新途中の旧PWA向けに equationへ同値のplain `text`も付け、旧clientはTeX文字列、新clientはKaTeXとして安全に解釈する。
 - KaTeX を safe options で DOM に描画し、失敗時は式を text-only で表示する。KaTeX font は静的 PWA asset として precache する。
 - README、example config、unit/contract/UI/E2E test、worklog を更新する。
 

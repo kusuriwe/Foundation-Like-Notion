@@ -51,9 +51,10 @@ export const RichTextTextSchema = z.object({
 export const RichTextEquationSchema = z.object({
   type: z.literal("equation"),
   expression: z.string(),
+  text: z.string(),
 })
 
-export const RichTextSchema = z.union([RichTextTextSchema, RichTextEquationSchema])
+export const RichTextSchema = z.union([RichTextEquationSchema, RichTextTextSchema])
 
 const TextBlockSchema = z.object({ content: z.array(RichTextSchema) })
 

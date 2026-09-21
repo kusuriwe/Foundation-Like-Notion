@@ -1,6 +1,7 @@
 import { mkdtemp, readFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
+import { RichTextTextSchema } from "@foundation-like-notion/contracts"
 import argon2 from "argon2"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
 import { FixtureAdapter } from "../src/adapters/fixture-adapter.js"
@@ -99,7 +100,14 @@ describe("Reader API", () => {
     })
     expect(article.statusCode).toBe(200)
     expect(article.body).toContain("FLAME TEST")
-    expect(article.json<{ titleRichText: unknown[] }>().titleRichText.length).toBeGreaterThan(0)
+    const articleBody = article.json<{
+      titleRichText: unknown[]
+      blocks: Array<{ content?: unknown[] }>
+    }>()
+    expect(articleBody.titleRichText.length).toBeGreaterThan(0)
+    expect(RichTextTextSchema.parse(articleBody.blocks[0]?.content?.[2])).toEqual({
+      text: "E=h\\nu",
+    })
     expect(article.body).not.toContain("fixture-page-flame-test")
     expect(article.headers["cache-control"]).toBe("no-store")
   })

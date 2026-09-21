@@ -57,7 +57,9 @@ function richText(value: unknown): RichText[] {
     const entry = record(item)
     if (entry?.type === "equation") {
       const expression = text(record(entry.equation)?.expression)
-      return expression === undefined ? [] : [{ type: "equation" as const, expression }]
+      return expression === undefined
+        ? []
+        : [{ type: "equation" as const, expression, text: expression }]
     }
     const plainText = text(entry?.plain_text)
     if (plainText === undefined) {
@@ -87,7 +89,7 @@ function richText(value: unknown): RichText[] {
 
 function plainText(value: unknown): string {
   return richText(value)
-    .map((entry) => ("text" in entry ? entry.text : entry.expression))
+    .map((entry) => ("type" in entry ? entry.expression : entry.text))
     .join("")
 }
 

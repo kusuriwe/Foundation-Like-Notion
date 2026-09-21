@@ -8,7 +8,9 @@ describe("MathExpression", () => {
   it("renders inline, display, and mhchem equations with accessible MathML", () => {
     const { container } = render(
       <>
-        <RichText value={[{ text: "Energy " }, { type: "equation", expression: "E=mc^2" }]} />
+        <RichText
+          value={[{ text: "Energy " }, { type: "equation", expression: "E=mc^2", text: "E=mc^2" }]}
+        />
         <ArticleRenderer blocks={[{ type: "math", expression: "\\ce{H2O}" }]} />
       </>,
     )
