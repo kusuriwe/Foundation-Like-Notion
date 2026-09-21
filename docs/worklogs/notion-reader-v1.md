@@ -174,3 +174,28 @@ Validation after the fix:
 Next: the user opens `http://127.0.0.1:3000`, logs in locally, and checks whether the configured Notion database
 and an article load successfully. This bounded live smoke can proceed directly; any Property type/cardinality or
 connection-scope mismatch must be reported without sharing source IDs or content.
+
+## 2026-09-21 — Live Notion configuration diagnosis
+
+**Status:** Blocked on two local YAML corrections and relation-source access.
+
+The user successfully logged in and loaded the Reader shell. Session creation and `GET /api/databases` returned
+success, while the first Notion-backed article-list and search requests returned 500. Route-only log inspection
+confirmed that the failure begins at the upstream query boundary rather than in authentication or public
+database configuration.
+
+A temporary read-only schema diagnostic found that the content `sourceDataSourceId` and `titlePropertyId` still
+contain example placeholders. It also found that the configured relation source is not accessible to the
+Internal Connection. The likely relation causes are a missing **Add connections** share, use of a Database ID
+instead of its Data Source ID, or selection of the wrong source. No token, article body, Property value, or full
+password hash was printed or persisted. The diagnostic scripts were deleted from both workspace and container.
+
+The Notion SDK emitted one configured relation source ID in its own warning before the temporary diagnostic
+could redact it. The ID is not an authentication credential and the token was not exposed, but it is treated as
+a privacy-boundary deviation and will not be reproduced in tracked evidence. Future live diagnostics must
+suppress or capture the SDK logger before invoking it.
+
+Next: the user replaces the two remaining placeholders with the actual content Data Source ID and title Property
+ID, verifies that every configured relation source is a Data Source ID, and adds the Internal Connection directly
+to each required source. After a restart, the primary agent will rerun the live smoke using only redacted
+application logs.
