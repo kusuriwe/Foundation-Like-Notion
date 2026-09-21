@@ -118,3 +118,28 @@ Next: the user creates the read-only Notion connection and ignored `.env/` confi
 in to Tailscale on Windows and iOS. Once the user reports only that these prerequisites are ready, the bounded,
 documented production smoke can proceed directly without another planning pass. The active plan must remain
 unarchived until the live/device evidence and independent review both pass.
+
+## 2026-09-21 — Configuration reference added
+
+**Status:** Awaiting correction of the local password-hash quoting before further Compose runs.
+
+README now documents every Reader YAML section, the distinction between normalized Reader `type` and Notion
+filter `sourceType`, supported Property mappings, relation cardinality, filter operators, sort fields, strict
+validation, and the current non-enforcing behavior of `required`.
+
+While checking the documentation, Docker Compose warned that dollar-prefixed segments of the locally supplied
+Argon2id hash were being interpreted as environment-variable references. The ignored secret file was not read,
+and no complete hash or password was copied into tracked files. The tracked environment example and README now
+require the complete hash to be enclosed in single quotes so Compose passes each `$` literally. Because warning
+output contained partial hash material, the user should generate a fresh hash locally after correcting the
+quoting and before the production smoke.
+
+Validation:
+
+- `git diff --check`: passed.
+- The repository Biome configuration does not process Markdown or `.env` examples; the earlier full format gate
+  passed before this documentation-only change.
+
+Next: the user replaces the local `READER_PASSWORD_HASH` with a freshly generated, single-quoted full Argon2id
+hash. After the user confirms that correction without sharing its value, the production smoke can proceed
+directly.
