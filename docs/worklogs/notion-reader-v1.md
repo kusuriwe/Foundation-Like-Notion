@@ -296,3 +296,25 @@ Next: the user installs and logs in to Tailscale on Windows and iOS using the sa
 then configure tailnet-only HTTPS Serve, verify Windows browsers over the deployment origin, and hand off the
 physical iOS/Home Screen checklist. No new planning pass is required because this is the already approved bounded
 acceptance stage.
+
+## 2026-09-21 — Tailnet-only HTTPS Serve enabled
+
+**Status:** Serve is active; Windows and physical iOS browser acceptance remains.
+
+Tailscale was already installed at the standard Windows path but was not available through `PATH`, which caused
+the earlier prerequisite check to miss it. Direct inspection verified Tailscale 1.102.4, a running and online
+Windows node, and one online iOS peer in the same tailnet. README now includes the explicit executable-path form
+of the Serve commands.
+
+The user enabled Serve for the node, after which the primary agent configured background HTTPS proxying to the
+Reader's loopback-only port 3000. Tailscale status explicitly reports the endpoint as `tailnet only`; Funnel is
+not enabled. The first HTTPS `/api/health` request returned 200, `source: notion`, and `Cache-Control: no-store`.
+
+Subsequent command-line HTTP checks were limited by this agent shell's localhost proxy configuration and Windows
+Schannel credential context. This is recorded as a tooling limitation rather than application evidence; the
+Tailscale status and initial verified health remain valid. Final navigation, authentication, PWA, and cache
+checks must use Edge/Chrome and physical iOS Safari over the HTTPS Serve origin.
+
+Next: the user opens the Serve URL in Edge, Chrome, and iOS Safari, completes the acceptance checklist, and
+reports outcomes without IDs or content. The service remains running until those checks finish, after which the
+approved plan requires `tailscale serve reset` and production shutdown.

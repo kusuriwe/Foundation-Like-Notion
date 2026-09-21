@@ -251,6 +251,17 @@ tailscale serve status
 tailscale serve reset
 ```
 
+Windows版がインストール済みでも `tailscale` が `PATH` にない場合は、標準インストール先を明示して
+同じcommandを実行します。
+
+```powershell
+$tailscaleExe = 'C:\Program Files\Tailscale\tailscale.exe'
+& $tailscaleExe serve --bg 3000
+& $tailscaleExe serve status
+# 公開設定を解除する場合
+& $tailscaleExe serve reset
+```
+
 表示された `https://<device>.<tailnet>.ts.net` を iOS Safari で開き、Reader Login が引き続き必要な
 ことを確認します。
 
