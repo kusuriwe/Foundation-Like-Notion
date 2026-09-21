@@ -379,3 +379,52 @@ archive or archive commit was created.
 Next: return to PLAN for the cursor and typed-filter semantics, then disable or replace SDK logging, implement
 Reader-owned cursor validation, enforce source-type/operator-specific filter values, add regression tests, rerun
 all gates, and request a fresh independent review before archiving.
+
+## 2026-09-21 — Boundary remediation implemented and accepted
+
+**Status:** Corrective implementation and live smoke passed; fresh independent review remains.
+
+The three independent-review findings were addressed in local commit `c4a4edb` without changing public
+endpoints, YAML structure, or the SQLite schema. The Notion SDK client now uses a no-op logger and converts even
+unexpected request failures to the existing category-only adapter error. Browser pagination now uses a 256-bit
+Reader-owned handle backed by a bounded in-memory registry; upstream cursors are never returned, logged, or
+persisted. Search filters now require operator-specific values and are checked against every selected
+database's configured source type before the first adapter request.
+
+The cursor registry retains at most 1,024 entries for a fixed 30 minutes. It binds list cursors to endpoint,
+Reader database, and page size, and search cursors to the normalized Reader query context. Invalid, expired,
+cross-endpoint, and context-changed handles all fail as a generic Reader 400. Server restart intentionally
+invalidates every outstanding cursor.
+
+Automated validation:
+
+- `docker compose config --quiet`: passed.
+- `docker compose run --rm app npm run check`: passed formatting, lint, strict type checking, 49 tests, and all
+  production builds.
+- `docker compose run --rm app npm run e2e`: passed Chromium desktop and WebKit mobile profiles.
+- `docker compose run --rm app npm audit`: zero known vulnerabilities.
+- Regression coverage includes cursor continuation, tampering, expiry, context and endpoint binding, capacity
+  eviction, SQLite non-persistence, all configured filter source types, invalid value rejection before adapter
+  invocation, multi-database prevalidation, and a real Notion SDK client receiving a fake private 404 without
+  writing to any console method.
+- The production image independently reran its internal quality gate and npm production audit during build.
+
+Short live Notion smoke:
+
+- Production started successfully on `127.0.0.1:3000`; health returned 200, `source: notion`, and `no-store`.
+- Tailscale Serve was explicitly verified as tailnet-only. The user confirmed login, article list, article
+  detail, and search through the HTTPS origin.
+- Redacted route evidence recorded 200 responses for database metadata, three article-list requests, twelve
+  article-detail requests, and four searches.
+- Production logs retained only `endpoint`, `hostname`, `latencyMs`, `level`, `msg`, `pid`, `reqId`, `requestId`,
+  `status`, and `time`. Exact-match checks found zero secrets, configured IDs, or Reader cursor tokens.
+- SQLite retained only 18 resource mappings and five hashed session rows in the unchanged `resources` and
+  `sessions` tables. No cursor or content column was added.
+- The live database did not provide separate evidence of a second pagination page; the fixture/mock regression
+  tests remain the pagination evidence, and no Notion data was added or changed for testing.
+
+After the audit, Tailscale Serve was reset and the production container and Compose network were stopped.
+`.env/` and all named volumes were preserved.
+
+Next: commit this remediation evidence separately, then ask a different reviewer agent to inspect the complete
+diff and evidence. Archive the active plan only if that reviewer approves it.

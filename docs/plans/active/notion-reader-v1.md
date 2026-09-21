@@ -9,8 +9,8 @@
 **Implementation status (2026-09-21):** Automated implementation and fixture acceptance are complete.
 Credentialed Notion, physical iOS/Home Screen, and Tailscale Serve acceptance passed. The first independent
 review returned three medium boundary findings concerning SDK logging, upstream cursors, and typed filter
-values. A corrective implementation is in progress; the plan remains active pending its short live smoke and
-a fresh independent final review.
+values. Corrective implementation and the short live smoke are complete; the plan remains active pending a
+fresh independent final review.
 
 ## Goal
 
