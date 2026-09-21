@@ -318,3 +318,37 @@ checks must use Edge/Chrome and physical iOS Safari over the HTTPS Serve origin.
 Next: the user opens the Serve URL in Edge, Chrome, and iOS Safari, completes the acceptance checklist, and
 reports outcomes without IDs or content. The service remains running until those checks finish, after which the
 approved plan requires `tailscale serve reset` and production shutdown.
+
+## 2026-09-21 — Tailnet browser and PWA acceptance passed
+
+**Status:** Live acceptance and shutdown complete; independent review remains.
+
+The user completed the tailnet-only HTTPS checks in Microsoft Edge, Google Chrome, physical iPhone Safari, and
+the installed Home Screen PWA. All four environments were reported as working. Network inspection confirmed
+that API responses use `Cache-Control: no-store`, no API response was served from memory or disk cache, Cache
+Storage contained zero API entries, local storage stayed within the documented Reader-ID/template/timestamp
+boundary, and the session cookie had the expected security attributes.
+
+The offline check displayed the application's login shell with a load-failure message rather than a browser
+network-error page. No previously viewed article body was displayed. This satisfies the intended static-shell
+behavior: the app shell may start offline, while API-backed authentication and content retrieval fail closed.
+
+Final post-use boundary audit:
+
+- Production remained bound only to `127.0.0.1:3000`, behind tailnet-only Tailscale Serve.
+- Structured production logs still contained only `endpoint`, `hostname`, `latencyMs`, `level`, `msg`, `pid`,
+  `reqId`, `requestId`, `status`, and `time`.
+- Exact-match checks found zero configured tokens, password hashes, Data Source IDs, or Property IDs in the
+  production logs.
+- SQLite still contained only `resources` and `sessions`. The 18 resource rows use only Reader/source mapping
+  columns, and the four session rows use only token hash and timestamp columns; no title, body, Property value,
+  relation result, plaintext token, or cookie column exists.
+- Windows Tailscale was 1.102.4. Edge 153.0.4234.48 and Chrome 153.0.8010.48 were recorded earlier in this
+  acceptance run. The physical iPhone passed Safari and Home Screen checks; its iOS version was not available
+  to the automated host-side inspection.
+
+After the audit, Tailscale Serve was reset and the production container and Compose network were stopped.
+`.env/` remained untouched, and the production SQLite named volume was retained.
+
+Next: commit this acceptance evidence and request the required independent final diff/evidence review. No PLAN
+revision is needed because the observed behavior matches the approved security and storage contract.
