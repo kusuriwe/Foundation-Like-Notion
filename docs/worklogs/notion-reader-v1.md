@@ -270,3 +270,29 @@ Validation evidence:
 
 Next: continue the approved Windows browser, Tailscale HTTPS, and physical iOS/Home Screen acceptance. The active
 plan remains unarchived until those checks and the independent final review pass.
+
+## 2026-09-21 — Windows live-data boundary verified
+
+**Status:** Local live-data smoke passed; Tailscale and physical iOS checks remain.
+
+The user confirmed successful login and live Notion display in the production Reader. Redacted route evidence
+shows 200 responses for database metadata, article list, multiple article details, and search after the corrected
+configuration was loaded. Earlier 500 responses are retained as evidence of the pre-correction configuration,
+not treated as final behavior.
+
+Post-use storage and logging audit:
+
+- SQLite contains 12 `resources` rows and one `sessions` row. Its only application tables remain `resources`
+  (`reader_id`, `source_id`, `kind`, `database_reader_id`, `created_at`) and `sessions` (`token_hash`,
+  `expires_at`, `created_at`); there are no title, body, Property-value, relation-result, token, or cookie columns.
+- Production logs contain only the structured keys `endpoint`, `hostname`, `latencyMs`, `level`, `msg`, `pid`,
+  `reqId`, `requestId`, `status`, and `time`.
+- Exact matching found no configured token, password hash, Data Source ID, or Property ID in the logs.
+- The temporary read-only SQLite audit script was removed from workspace and container.
+- Microsoft Edge 153.0.4234.48 and Google Chrome 153.0.8010.48 are installed. Tailscale CLI is not yet
+  installed on the Windows host.
+
+Next: the user installs and logs in to Tailscale on Windows and iOS using the same tailnet. The primary agent can
+then configure tailnet-only HTTPS Serve, verify Windows browsers over the deployment origin, and hand off the
+physical iOS/Home Screen checklist. No new planning pass is required because this is the already approved bounded
+acceptance stage.
