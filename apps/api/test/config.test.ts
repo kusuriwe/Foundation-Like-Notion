@@ -1,6 +1,6 @@
 import path from "node:path"
 import { describe, expect, it } from "vitest"
-import { loadReaderConfig, ReaderConfigSchema } from "../src/config.js"
+import { loadReaderConfig, ReaderConfigInputSchema, ReaderConfigSchema } from "../src/config.js"
 
 describe("Reader configuration", () => {
   it("loads the tracked fixture example", async () => {
@@ -125,6 +125,84 @@ describe("Reader configuration", () => {
     if (!result.success) {
       expect(result.error.issues.map((issue) => issue.message)).toContain(
         "Reader type string is not valid for number",
+      )
+    }
+  })
+
+  it("accepts mixed Property IDs and names for Notion input", () => {
+    const result = ReaderConfigInputSchema.parse({
+      version: 1,
+      source: "notion",
+      contentDatabases: [
+        {
+          id: "database-one",
+          name: "One",
+          sourceDataSourceId: "source-one",
+          titlePropertyName: "Name",
+          defaultTemplate: "simple",
+          templates: ["simple"],
+          variables: {
+            codeName: { propertyId: "code-id", type: "string" },
+            tags: { propertyName: "Tags", type: "string[]" },
+          },
+          filters: {},
+        },
+      ],
+    })
+
+    expect(result.contentDatabases[0]?.titlePropertyName).toBe("Name")
+    expect(result.contentDatabases[0]?.variables.codeName?.propertyId).toBe("code-id")
+    expect(result.contentDatabases[0]?.variables.tags?.propertyName).toBe("Tags")
+  })
+
+  it("requires exactly one Property locator", () => {
+    const base = {
+      id: "database-one",
+      name: "One",
+      sourceDataSourceId: "source-one",
+      defaultTemplate: "simple",
+      templates: ["simple"],
+      variables: {},
+      filters: {},
+    }
+    expect(
+      ReaderConfigInputSchema.safeParse({
+        version: 1,
+        source: "notion",
+        contentDatabases: [{ ...base, titlePropertyId: "id", titlePropertyName: "Name" }],
+      }).success,
+    ).toBe(false)
+    expect(
+      ReaderConfigInputSchema.safeParse({
+        version: 1,
+        source: "notion",
+        contentDatabases: [{ ...base }],
+      }).success,
+    ).toBe(false)
+  })
+
+  it("requires Property IDs for fixture input", () => {
+    const result = ReaderConfigInputSchema.safeParse({
+      version: 1,
+      source: "fixture",
+      contentDatabases: [
+        {
+          id: "database-one",
+          name: "One",
+          sourceDataSourceId: "source-one",
+          titlePropertyName: "Name",
+          defaultTemplate: "simple",
+          templates: ["simple"],
+          variables: {},
+          filters: {},
+        },
+      ],
+    })
+
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.issues.map((issue) => issue.message)).toContain(
+        "Fixture configuration requires Property IDs",
       )
     }
   })

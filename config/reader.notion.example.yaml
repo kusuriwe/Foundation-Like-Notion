@@ -4,7 +4,7 @@ contentDatabases:
   - id: chemistry-notes
     name: Chemistry Notes
     sourceDataSourceId: "replace-with-notion-data-source-id"
-    titlePropertyId: "replace-with-title-property-id"
+    titlePropertyName: "Name"
     defaultTemplate: compact-emblem
     templates: [simple, compact-emblem]
     sort:
@@ -12,32 +12,32 @@ contentDatabases:
         direction: ascending
     variables:
       title:
-        propertyId: "replace-with-title-property-id"
+        propertyName: "Name"
         type: string
         required: true
       mainClass:
-        propertyId: "replace-with-main-class-property-id"
+        propertyName: "Main class"
         type: reference
         required: true
       subClass:
-        propertyId: "replace-with-sub-class-property-id"
+        propertyName: "Sub class"
         type: reference
         required: true
       codeName:
-        propertyId: "replace-with-code-name-property-id"
+        propertyName: "Code name"
         type: string
         required: true
       tags:
-        propertyId: "replace-with-tags-property-id"
+        propertyName: "Tags"
         type: string[]
     filters:
       tags:
-        propertyId: "replace-with-tags-property-id"
+        propertyName: "Tags"
         type: string[]
         sourceType: multi_select
         operators: [contains]
       mainClass:
-        propertyId: "replace-with-main-class-property-id"
+        propertyName: "Main class"
         type: reference
         sourceType: relation
         operators: [equals]

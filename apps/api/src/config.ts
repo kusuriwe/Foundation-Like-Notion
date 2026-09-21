@@ -14,6 +14,23 @@ const VariableTypeSchema = z.enum([
   "reference[]",
 ])
 
+const propertyLocatorShape = {
+  propertyId: z.string().min(1).optional(),
+  propertyName: z.string().min(1).optional(),
+}
+
+function validatePropertyLocator(
+  value: { propertyId?: string | undefined; propertyName?: string | undefined },
+  context: z.RefinementCtx,
+): void {
+  if ((value.propertyId === undefined) === (value.propertyName === undefined)) {
+    context.addIssue({
+      code: "custom",
+      message: "Exactly one of propertyId or propertyName is required",
+    })
+  }
+}
+
 const VariableMappingSchema = z
   .object({
     propertyId: z.string().min(1),
@@ -22,6 +39,16 @@ const VariableMappingSchema = z
     fallback: z.string().optional(),
   })
   .strict()
+
+const VariableMappingInputSchema = z
+  .object({
+    ...propertyLocatorShape,
+    type: VariableTypeSchema,
+    required: z.boolean().default(false),
+    fallback: z.string().optional(),
+  })
+  .strict()
+  .superRefine(validatePropertyLocator)
 
 const FilterMappingSchema = z
   .object({
@@ -41,6 +68,26 @@ const FilterMappingSchema = z
     operators: z.array(FilterOperatorSchema).min(1),
   })
   .strict()
+
+const FilterMappingInputSchema = z
+  .object({
+    ...propertyLocatorShape,
+    type: VariableTypeSchema,
+    sourceType: z.enum([
+      "title",
+      "rich_text",
+      "select",
+      "status",
+      "multi_select",
+      "checkbox",
+      "number",
+      "date",
+      "relation",
+    ]),
+    operators: z.array(FilterOperatorSchema).min(1),
+  })
+  .strict()
+  .superRefine(validatePropertyLocator)
 
 const SortSchema = z
   .object({
@@ -73,6 +120,69 @@ const readerTypesByFilterSource = {
   relation: ["reference", "reference[]"],
 } as const
 
+function validateDatabaseMappings(
+  value: {
+    variables: Record<
+      string,
+      { type: z.infer<typeof VariableTypeSchema>; fallback?: string | undefined }
+    >
+    filters: Record<
+      string,
+      {
+        type: z.infer<typeof VariableTypeSchema>
+        sourceType: keyof typeof filterOperatorsBySource
+        operators: readonly z.infer<typeof FilterOperatorSchema>[]
+      }
+    >
+    sort: readonly { field: string }[]
+  },
+  context: z.RefinementCtx,
+): void {
+  for (const [variable, mapping] of Object.entries(value.variables)) {
+    if (mapping.fallback !== undefined && mapping.type !== "string") {
+      context.addIssue({
+        code: "custom",
+        path: ["variables", variable, "fallback"],
+        message: "Fallback is supported only for string variables",
+      })
+    }
+  }
+  for (const [field, mapping] of Object.entries(value.filters)) {
+    const allowed = filterOperatorsBySource[mapping.sourceType] as readonly string[]
+    const allowedTypes = readerTypesByFilterSource[mapping.sourceType] as readonly string[]
+    if (!allowedTypes.includes(mapping.type)) {
+      context.addIssue({
+        code: "custom",
+        path: ["filters", field, "type"],
+        message: `Reader type ${mapping.type} is not valid for ${mapping.sourceType}`,
+      })
+    }
+    for (const [index, operator] of mapping.operators.entries()) {
+      if (!allowed.includes(operator)) {
+        context.addIssue({
+          code: "custom",
+          path: ["filters", field, "operators", index],
+          message: `Operator ${operator} is not valid for ${mapping.sourceType}`,
+        })
+      }
+    }
+  }
+  for (const [index, sort] of value.sort.entries()) {
+    if (
+      sort.field !== "created_time" &&
+      sort.field !== "last_edited_time" &&
+      !value.variables[sort.field] &&
+      !value.filters[sort.field]
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["sort", index, "field"],
+        message: "Sort field must be a timestamp or configured Reader field",
+      })
+    }
+  }
+}
+
 export const ContentDatabaseConfigSchema = z
   .object({
     id: z.string().min(8).max(128),
@@ -89,50 +199,31 @@ export const ContentDatabaseConfigSchema = z
     filters: z.record(z.string(), FilterMappingSchema).default({}),
   })
   .strict()
+  .superRefine(validateDatabaseMappings)
+
+export const ContentDatabaseConfigInputSchema = z
+  .object({
+    id: z.string().min(8).max(128),
+    name: z.string().min(1).max(200),
+    sourceDataSourceId: z.string().min(1),
+    titlePropertyId: z.string().min(1).optional(),
+    titlePropertyName: z.string().min(1).optional(),
+    defaultTemplate: z.string().min(1),
+    templates: z.array(z.enum(["simple", "compact-emblem"])).min(1),
+    sort: z
+      .array(SortSchema)
+      .min(1)
+      .default([{ field: "created_time", direction: "ascending" }]),
+    variables: z.record(z.string(), VariableMappingInputSchema),
+    filters: z.record(z.string(), FilterMappingInputSchema).default({}),
+  })
+  .strict()
   .superRefine((value, context) => {
-    for (const [variable, mapping] of Object.entries(value.variables)) {
-      if (mapping.fallback !== undefined && mapping.type !== "string") {
-        context.addIssue({
-          code: "custom",
-          path: ["variables", variable, "fallback"],
-          message: "Fallback is supported only for string variables",
-        })
-      }
-    }
-    for (const [field, mapping] of Object.entries(value.filters)) {
-      const allowed = filterOperatorsBySource[mapping.sourceType] as readonly string[]
-      const allowedTypes = readerTypesByFilterSource[mapping.sourceType] as readonly string[]
-      if (!allowedTypes.includes(mapping.type)) {
-        context.addIssue({
-          code: "custom",
-          path: ["filters", field, "type"],
-          message: `Reader type ${mapping.type} is not valid for ${mapping.sourceType}`,
-        })
-      }
-      for (const [index, operator] of mapping.operators.entries()) {
-        if (!allowed.includes(operator)) {
-          context.addIssue({
-            code: "custom",
-            path: ["filters", field, "operators", index],
-            message: `Operator ${operator} is not valid for ${mapping.sourceType}`,
-          })
-        }
-      }
-    }
-    for (const [index, sort] of value.sort.entries()) {
-      if (
-        sort.field !== "created_time" &&
-        sort.field !== "last_edited_time" &&
-        !value.variables[sort.field] &&
-        !value.filters[sort.field]
-      ) {
-        context.addIssue({
-          code: "custom",
-          path: ["sort", index, "field"],
-          message: "Sort field must be a timestamp or configured Reader field",
-        })
-      }
-    }
+    validatePropertyLocator(
+      { propertyId: value.titlePropertyId, propertyName: value.titlePropertyName },
+      context,
+    )
+    validateDatabaseMappings(value, context)
   })
 
 export const ReaderConfigSchema = z
@@ -143,38 +234,71 @@ export const ReaderConfigSchema = z
     relationSources: z.array(z.string().min(1)).default([]),
   })
   .strict()
-  .superRefine((value, context) => {
-    const ids = new Set<string>()
-    const sourceIds = new Set<string>()
-    for (const [index, database] of value.contentDatabases.entries()) {
-      if (ids.has(database.id)) {
-        context.addIssue({
-          code: "custom",
-          path: ["contentDatabases", index, "id"],
-          message: "Database reader IDs must be unique",
-        })
-      }
-      if (sourceIds.has(database.sourceDataSourceId)) {
-        context.addIssue({
-          code: "custom",
-          path: ["contentDatabases", index, "sourceDataSourceId"],
-          message: "Content data source IDs must be unique",
-        })
-      }
-      if (!database.templates.includes(database.defaultTemplate as "simple" | "compact-emblem")) {
-        context.addIssue({
-          code: "custom",
-          path: ["contentDatabases", index, "defaultTemplate"],
-          message: "Default template must be listed in templates",
-        })
-      }
-      ids.add(database.id)
-      sourceIds.add(database.sourceDataSourceId)
+  .superRefine(validateReaderDatabases)
+
+function validateReaderDatabases(
+  value: {
+    source: "fixture" | "notion"
+    contentDatabases: readonly z.infer<typeof ContentDatabaseConfigInputSchema>[]
+  },
+  context: z.RefinementCtx,
+): void {
+  const ids = new Set<string>()
+  const sourceIds = new Set<string>()
+  for (const [index, database] of value.contentDatabases.entries()) {
+    if (ids.has(database.id)) {
+      context.addIssue({
+        code: "custom",
+        path: ["contentDatabases", index, "id"],
+        message: "Database reader IDs must be unique",
+      })
     }
+    if (sourceIds.has(database.sourceDataSourceId)) {
+      context.addIssue({
+        code: "custom",
+        path: ["contentDatabases", index, "sourceDataSourceId"],
+        message: "Content data source IDs must be unique",
+      })
+    }
+    if (!database.templates.includes(database.defaultTemplate as "simple" | "compact-emblem")) {
+      context.addIssue({
+        code: "custom",
+        path: ["contentDatabases", index, "defaultTemplate"],
+        message: "Default template must be listed in templates",
+      })
+    }
+    if (value.source === "fixture") {
+      const hasNamedMapping =
+        database.titlePropertyName !== undefined ||
+        Object.values(database.variables).some((mapping) => mapping.propertyName !== undefined) ||
+        Object.values(database.filters).some((mapping) => mapping.propertyName !== undefined)
+      if (hasNamedMapping) {
+        context.addIssue({
+          code: "custom",
+          path: ["contentDatabases", index],
+          message: "Fixture configuration requires Property IDs",
+        })
+      }
+    }
+    ids.add(database.id)
+    sourceIds.add(database.sourceDataSourceId)
+  }
+}
+
+export const ReaderConfigInputSchema = z
+  .object({
+    version: z.literal(1),
+    source: z.enum(["fixture", "notion"]),
+    contentDatabases: z.array(ContentDatabaseConfigInputSchema).min(1),
+    relationSources: z.array(z.string().min(1)).default([]),
   })
+  .strict()
+  .superRefine(validateReaderDatabases)
 
 export type ReaderConfig = z.infer<typeof ReaderConfigSchema>
+export type ReaderConfigInput = z.infer<typeof ReaderConfigInputSchema>
 export type ContentDatabaseConfig = z.infer<typeof ContentDatabaseConfigSchema>
+export type ContentDatabaseConfigInput = z.infer<typeof ContentDatabaseConfigInputSchema>
 export type VariableMapping = z.infer<typeof VariableMappingSchema>
 
 export type RuntimeConfig = Readonly<{
@@ -187,6 +311,9 @@ export type RuntimeConfig = Readonly<{
   notionToken?: string
   serveWeb: boolean
 }>
+
+export type RuntimeConfigInput = Omit<RuntimeConfig, "reader"> &
+  Readonly<{ reader: ReaderConfigInput }>
 
 /**
  * Load and strictly validate the Reader YAML configuration.
@@ -207,6 +334,23 @@ export async function loadReaderConfig(filePath: string): Promise<ReaderConfig> 
 }
 
 /**
+ * Load a Reader YAML that may contain Property names. / Property 名を含められる Reader YAML を読み込みます。
+ *
+ * Args:
+ *   filePath: YAML file path.
+ *
+ * Returns:
+ *   Validated unresolved configuration.
+ *
+ * Raises:
+ *   Error: The file is unreadable or invalid.
+ */
+export async function loadReaderConfigInput(filePath: string): Promise<ReaderConfigInput> {
+  const text = await readFile(filePath, "utf8")
+  return ReaderConfigInputSchema.parse(yaml.load(text))
+}
+
+/**
  * Load process settings without exposing secret values.
  * Secret 値を公開せずに process 設定を読み込みます。
  *
@@ -216,11 +360,11 @@ export async function loadReaderConfig(filePath: string): Promise<ReaderConfig> 
  * Raises:
  *   Error: A required setting is missing or unsafe.
  */
-export async function loadRuntimeConfig(): Promise<RuntimeConfig> {
+export async function loadRuntimeConfig(): Promise<RuntimeConfigInput> {
   const environmentValue = process.env.NODE_ENV ?? "development"
   const environment = z.enum(["development", "test", "production"]).parse(environmentValue)
   const configPath = path.resolve(process.env.READER_CONFIG_PATH ?? "config/reader.example.yaml")
-  const reader = await loadReaderConfig(configPath)
+  const reader = await loadReaderConfigInput(configPath)
   const passwordHash = process.env.READER_PASSWORD_HASH ?? ""
   if (passwordHash.length === 0) {
     throw new Error("READER_PASSWORD_HASH is required")

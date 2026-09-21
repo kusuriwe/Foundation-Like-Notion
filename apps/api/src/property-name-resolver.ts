@@ -1,6 +1,12 @@
 import { copyFile, readFile, rename, rm, writeFile } from "node:fs/promises"
 import yaml from "js-yaml"
-import { type ReaderConfig, ReaderConfigSchema, type VariableMapping } from "./config.js"
+import {
+  type ReaderConfig,
+  type ReaderConfigInput,
+  ReaderConfigInputSchema,
+  ReaderConfigSchema,
+  type VariableMapping,
+} from "./config.js"
 
 export type SourcePropertySchema = Readonly<{
   name: string
@@ -33,6 +39,11 @@ type ResolutionResult = Readonly<{
   issues: readonly PropertyResolutionIssue[]
 }>
 
+type PropertyLocator = Readonly<{
+  propertyId?: string | undefined
+  propertyName?: string | undefined
+}>
+
 const sourceTypesByReaderType: Readonly<Record<VariableMapping["type"], readonly string[]>> = {
   string: ["title", "rich_text", "select", "status"],
   "string[]": ["multi_select"],
@@ -43,27 +54,44 @@ const sourceTypesByReaderType: Readonly<Record<VariableMapping["type"], readonly
   "reference[]": ["relation"],
 }
 
+/** A redacted startup failure that never includes configured names or IDs. */
+export class PropertyConfigurationError extends Error {
+  readonly issues: readonly PropertyResolutionIssue[]
+
+  constructor(issues: readonly PropertyResolutionIssue[]) {
+    super(
+      `Property configuration invalid: ${issues.map(({ path, issue }) => `${issue} at ${path}`).join(", ")}`,
+    )
+    this.name = "PropertyConfigurationError"
+    this.issues = issues
+  }
+}
+
 function resolveProperty(
-  configuredPropertyId: string,
-  setPropertyId: (propertyId: string) => void,
+  locator: PropertyLocator,
   path: string,
   expectedTypes: readonly string[],
   properties: readonly SourcePropertySchema[],
   changes: PropertyResolutionChange[],
   issues: PropertyResolutionIssue[],
-): void {
-  const existing = properties.find((property) => property.id === configuredPropertyId)
-  const nameMatches = existing
-    ? []
-    : properties.filter((property) => property.name === configuredPropertyId)
+  allowLegacyNameInId: boolean,
+): string {
+  const existing = locator.propertyId
+    ? properties.find((property) => property.id === locator.propertyId)
+    : undefined
+  const configuredName =
+    locator.propertyName ?? (allowLegacyNameInId && !existing ? locator.propertyId : undefined)
+  const nameMatches = configuredName
+    ? properties.filter((property) => property.name === configuredName)
+    : []
   if (!existing && nameMatches.length !== 1) {
     issues.push({ path, issue: "no_exact_match" })
-    return
+    return locator.propertyId ?? locator.propertyName ?? "unresolved-property"
   }
   const property = existing ?? nameMatches[0]
   if (!property) {
     issues.push({ path, issue: "no_exact_match" })
-    return
+    return locator.propertyId ?? locator.propertyName ?? "unresolved-property"
   }
   if (!expectedTypes.includes(property.type)) {
     issues.push({
@@ -72,82 +100,158 @@ function resolveProperty(
       expectedTypes: [...expectedTypes],
       actualType: property.type,
     })
-    return
+    return property.id
   }
   if (!existing) {
-    setPropertyId(property.id)
     changes.push({ path, actualType: property.type })
   }
+  return property.id
 }
 
 /**
- * Resolve configured Property names within each selected Data Source.
- * 選択済み Data Source ごとに、設定された Property 名を解決します。
+ * Resolve configured Property locators within each selected Data Source.
+ * 選択済み Data Source ごとに設定された Property locator を解決します。
  *
  * Args:
- *   config: Validated Reader configuration containing IDs or exact Property names.
+ *   config: Validated Reader input configuration.
  *   schemas: Property schemas keyed by configured Data Source ID.
+ *   allowLegacyNameInId: Whether the migration command may treat an unmatched ID as an old name.
  *
  * Returns:
- *   A cloned configuration plus redacted change and issue summaries.
+ *   An ID-only configuration plus redacted change and issue summaries.
  */
 export function resolvePropertyNames(
-  config: ReaderConfig,
+  config: ReaderConfigInput,
   schemas: ReadonlyMap<string, readonly SourcePropertySchema[]>,
+  allowLegacyNameInId = false,
 ): ResolutionResult {
-  const resolved = structuredClone(config)
   const changes: PropertyResolutionChange[] = []
   const issues: PropertyResolutionIssue[] = []
-
-  for (const [databaseIndex, database] of resolved.contentDatabases.entries()) {
+  const contentDatabases = config.contentDatabases.map((database, databaseIndex) => {
     const properties = schemas.get(database.sourceDataSourceId)
     if (!properties) {
       issues.push({
         path: `contentDatabases[${databaseIndex}]`,
         issue: "schema_unavailable",
       })
-      continue
     }
-    resolveProperty(
-      database.titlePropertyId,
-      (propertyId) => {
-        database.titlePropertyId = propertyId
+    const available = properties ?? []
+    const titlePath = `contentDatabases[${databaseIndex}].${database.titlePropertyName === undefined ? "titlePropertyId" : "titlePropertyName"}`
+    const titlePropertyId = resolveProperty(
+      {
+        ...(database.titlePropertyId ? { propertyId: database.titlePropertyId } : {}),
+        ...(database.titlePropertyName ? { propertyName: database.titlePropertyName } : {}),
       },
-      `contentDatabases[${databaseIndex}].titlePropertyId`,
+      titlePath,
       ["title"],
-      properties,
+      available,
       changes,
       issues,
+      allowLegacyNameInId,
     )
-    for (const [field, mapping] of Object.entries(database.variables)) {
-      resolveProperty(
-        mapping.propertyId,
-        (propertyId) => {
-          mapping.propertyId = propertyId
-        },
-        `contentDatabases[${databaseIndex}].variables.${field}.propertyId`,
-        sourceTypesByReaderType[mapping.type],
-        properties,
-        changes,
-        issues,
-      )
+    const variables = Object.fromEntries(
+      Object.entries(database.variables).map(([field, mapping]) => {
+        const propertyPath = `contentDatabases[${databaseIndex}].variables.${field}.${mapping.propertyName === undefined ? "propertyId" : "propertyName"}`
+        return [
+          field,
+          {
+            propertyId: resolveProperty(
+              mapping,
+              propertyPath,
+              sourceTypesByReaderType[mapping.type],
+              available,
+              changes,
+              issues,
+              allowLegacyNameInId,
+            ),
+            type: mapping.type,
+            required: mapping.required,
+            ...(mapping.fallback !== undefined ? { fallback: mapping.fallback } : {}),
+          },
+        ]
+      }),
+    )
+    const filters = Object.fromEntries(
+      Object.entries(database.filters).map(([field, mapping]) => {
+        const propertyPath = `contentDatabases[${databaseIndex}].filters.${field}.${mapping.propertyName === undefined ? "propertyId" : "propertyName"}`
+        return [
+          field,
+          {
+            propertyId: resolveProperty(
+              mapping,
+              propertyPath,
+              [mapping.sourceType],
+              available,
+              changes,
+              issues,
+              allowLegacyNameInId,
+            ),
+            type: mapping.type,
+            sourceType: mapping.sourceType,
+            operators: [...mapping.operators],
+          },
+        ]
+      }),
+    )
+    return {
+      id: database.id,
+      name: database.name,
+      sourceDataSourceId: database.sourceDataSourceId,
+      titlePropertyId,
+      defaultTemplate: database.defaultTemplate,
+      templates: [...database.templates],
+      sort: database.sort.map((sort) => ({ ...sort })),
+      variables,
+      filters,
     }
-    for (const [field, mapping] of Object.entries(database.filters)) {
-      resolveProperty(
-        mapping.propertyId,
-        (propertyId) => {
-          mapping.propertyId = propertyId
-        },
-        `contentDatabases[${databaseIndex}].filters.${field}.propertyId`,
-        [mapping.sourceType],
-        properties,
-        changes,
-        issues,
-      )
+  })
+  const resolved = ReaderConfigSchema.parse({
+    version: config.version,
+    source: config.source,
+    contentDatabases,
+    relationSources: [...config.relationSources],
+  })
+  return { config: resolved, changes, issues }
+}
+
+/**
+ * Resolve a Notion Reader configuration at startup without modifying its YAML.
+ * YAML を変更せず、起動時に Notion Reader 設定を解決します。
+ *
+ * Args:
+ *   config: Validated Reader input configuration.
+ *   retrieveSchema: Read-only schema loader for one configured Data Source ID.
+ *
+ * Returns:
+ *   Validated ID-only Reader configuration.
+ *
+ * Raises:
+ *   PropertyConfigurationError: Schema retrieval or Property validation fails.
+ */
+export async function resolvePropertyNamesAtStartup(
+  config: ReaderConfigInput,
+  retrieveSchema: (dataSourceId: string) => Promise<readonly SourcePropertySchema[]>,
+): Promise<ReaderConfig> {
+  const schemas = new Map<string, readonly SourcePropertySchema[]>()
+  const retrievalIssues: PropertyResolutionIssue[] = []
+  for (const [databaseIndex, database] of config.contentDatabases.entries()) {
+    try {
+      schemas.set(database.sourceDataSourceId, await retrieveSchema(database.sourceDataSourceId))
+    } catch {
+      retrievalIssues.push({
+        path: `contentDatabases[${databaseIndex}]`,
+        issue: "schema_unavailable",
+      })
     }
   }
-
-  return { config: resolved, changes, issues }
+  if (retrievalIssues.length > 0) {
+    throw new PropertyConfigurationError(retrievalIssues)
+  }
+  const result = resolvePropertyNames(config, schemas)
+  if (result.issues.length > 0) {
+    throw new PropertyConfigurationError(result.issues)
+  }
+  return result.config
 }
 
 /**
@@ -169,7 +273,7 @@ export async function resolvePropertyNamesInFile(
   retrieveSchema: (dataSourceId: string) => Promise<readonly SourcePropertySchema[]>,
 ): Promise<PropertyResolutionSummary> {
   const sourceText = await readFile(configPath, "utf8")
-  const config = ReaderConfigSchema.parse(yaml.load(sourceText))
+  const config = ReaderConfigInputSchema.parse(yaml.load(sourceText))
   if (config.source !== "notion") {
     throw new Error("Property name resolution requires source: notion")
   }
@@ -178,7 +282,7 @@ export async function resolvePropertyNamesInFile(
   for (const database of config.contentDatabases) {
     schemas.set(database.sourceDataSourceId, await retrieveSchema(database.sourceDataSourceId))
   }
-  const result = resolvePropertyNames(config, schemas)
+  const result = resolvePropertyNames(config, schemas, true)
   if (result.issues.length > 0 || result.changes.length === 0) {
     return {
       written: false,
