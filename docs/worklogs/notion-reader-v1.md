@@ -199,3 +199,25 @@ Next: the user replaces the two remaining placeholders with the actual content D
 ID, verifies that every configured relation source is a Data Source ID, and adds the Internal Connection directly
 to each required source. After a restart, the primary agent will rerun the live smoke using only redacted
 application logs.
+
+## 2026-09-21 — Data Source access verified
+
+**Status:** Upstream query works; non-title Property mappings require correction.
+
+After the user replaced Database/example identifiers with Data Source identifiers, production restarted cleanly
+with no remaining placeholders. A read-only diagnostic with the Notion SDK logger disabled verified all of the
+following without printing source IDs, Property names, or content:
+
+- The configured content Data Source is retrievable by the Internal Connection.
+- The configured title Property exists and has Notion type `title`.
+- The content Data Source can be queried both without sort and with the configured sort.
+- The configured relation Data Source is retrievable by the Internal Connection.
+
+The same schema comparison found that every configured non-title Property ID is absent from the selected content
+Data Source schema. It also found incorrect configured types: `mainClass` and `subClass` use `string` rather than
+`reference`, `codeName` uses `reference` rather than `string`, and the `mainClass` filter uses `rich_text` rather
+than `relation`. The temporary diagnostic script was removed from workspace and container after the check.
+
+Next: the user copies the actual Property IDs from the selected content Data Source schema and restores the
+Reader/Notion type mappings documented in README. After another restart, the primary agent will verify article
+list, detail mapping, relation resolution, and search through the application boundary.
