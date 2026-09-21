@@ -7,8 +7,10 @@
 **Source requirements:** `dev-docs/notion_reader_v1_requirements.md`
 
 **Implementation status (2026-09-21):** Automated implementation and fixture acceptance are complete.
-The plan remains active pending a credentialed read-only Notion smoke, physical iOS/Home Screen verification,
-Tailscale Serve verification, and independent final review.
+Credentialed Notion, physical iOS/Home Screen, and Tailscale Serve acceptance passed. The first independent
+review returned three medium boundary findings concerning SDK logging, upstream cursors, and typed filter
+values. A corrective implementation is in progress; the plan remains active pending its short live smoke and
+a fresh independent final review.
 
 ## Goal
 

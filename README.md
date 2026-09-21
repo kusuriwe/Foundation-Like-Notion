@@ -182,15 +182,26 @@ filters:
 - `operators` は Browser に許可する操作だけを列挙します。`isEmpty` は検索値を必要としません。
 - Relation filter の検索値には Browser が保持する Reader ID を使い、backend が Notion ID に解決します。
 
-| `sourceType` | 推奨 Reader `type` | 許可可能な operator |
-| --- | --- | --- |
-| `title`, `rich_text` | `string` | `equals`, `contains`, `isEmpty` |
-| `select`, `status` | `string` | `equals`, `isEmpty` |
-| `multi_select` | `string[]` | `contains`, `isEmpty` |
-| `checkbox` | `boolean` | `equals` |
-| `number` | `number` | `equals`, `greaterThan`, `greaterThanOrEqual`, `lessThan`, `lessThanOrEqual`, `isEmpty` |
-| `date` | `date` | `equals`, `before`, `after`, `isEmpty` |
-| `relation` | `reference` / `reference[]` | `equals`, `contains`, `isEmpty` |
+| `sourceType` | Reader `type` | 許可可能な operator | `value` |
+| --- | --- | --- | --- |
+| `title`, `rich_text` | `string` | `equals`, `contains`, `isEmpty` | 空でない string |
+| `select`, `status` | `string` | `equals`, `isEmpty` | 空でない string |
+| `multi_select` | `string[]` | `contains`, `isEmpty` | 選択肢を表す空でない string |
+| `checkbox` | `boolean` | `equals` | boolean |
+| `number` | `number` | `equals`, `greaterThan`, `greaterThanOrEqual`, `lessThan`, `lessThanOrEqual`, `isEmpty` | finite number |
+| `date` | `date` | `equals`, `before`, `after`, `isEmpty` | ISO date または offset 付き ISO datetime |
+| `relation` | `reference` / `reference[]` | `equals`, `contains`, `isEmpty` | 既知の page 用 Reader ID |
+
+`isEmpty` では `value` 自体を送信しません。それ以外の operator では表に示した型の `value` が必須です。
+YAML の `type` と `sourceType`、request の operator と値が一致しない場合は、Notion へ問い合わせる前に
+Reader が request を拒否します。
+
+### Pagination cursor
+
+記事一覧と検索の `nextCursor` は `cur_` で始まる Reader 固有の random handle です。Notion の cursor は
+Browser へ返さず、最大30分間、最大1,024件だけ server process のメモリに保持します。cursor は発行元の
+endpoint、Reader database、検索条件、page size に結び付けられます。改変、別条件での再利用、期限切れ、
+server 再起動前に発行された cursor は400 `invalid_request`になります。cursorはSQLiteへ保存されません。
 
 ### Complete Notion example
 

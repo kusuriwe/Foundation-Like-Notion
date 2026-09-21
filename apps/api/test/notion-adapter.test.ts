@@ -1,6 +1,6 @@
 import { APIErrorCode, APIResponseError, type Client, RequestTimeoutError } from "@notionhq/client"
 import { describe, expect, it, vi } from "vitest"
-import type { ContentAdapterError } from "../src/adapters/content-adapter.js"
+import type { ContentAdapterError, SourceFilter } from "../src/adapters/content-adapter.js"
 import { NotionAdapter } from "../src/adapters/notion-adapter.js"
 import { type ContentDatabaseConfig, ReaderConfigSchema } from "../src/config.js"
 
@@ -80,6 +80,108 @@ describe("NotionAdapter", () => {
     )
     expect(result.nextCursor).toBe("next-notion-cursor")
     expect(result.items[0]?.sourceId).toBe("page-one")
+  })
+
+  it("converts every validated source filter type to the Notion query shape", async () => {
+    const query = vi.fn().mockResolvedValue({ results: [], next_cursor: null })
+    const client = {
+      dataSources: { query },
+      pages: { retrieve: vi.fn() },
+      blocks: { children: { list: vi.fn() }, retrieve: vi.fn() },
+    } as unknown as Client
+    const adapter = new NotionAdapter("unused-test-token", config, client)
+    const filters: SourceFilter[] = [
+      {
+        propertyId: "title",
+        type: "string",
+        sourceType: "title",
+        operator: "contains",
+        value: "Title",
+      },
+      {
+        propertyId: "text",
+        type: "string",
+        sourceType: "rich_text",
+        operator: "equals",
+        value: "Text",
+      },
+      {
+        propertyId: "select",
+        type: "string",
+        sourceType: "select",
+        operator: "equals",
+        value: "Choice",
+      },
+      {
+        propertyId: "status",
+        type: "string",
+        sourceType: "status",
+        operator: "equals",
+        value: "Active",
+      },
+      {
+        propertyId: "tags",
+        type: "string[]",
+        sourceType: "multi_select",
+        operator: "contains",
+        value: "Tag",
+      },
+      {
+        propertyId: "checked",
+        type: "boolean",
+        sourceType: "checkbox",
+        operator: "equals",
+        value: true,
+      },
+      {
+        propertyId: "amount",
+        type: "number",
+        sourceType: "number",
+        operator: "greaterThan",
+        value: 10,
+      },
+      {
+        propertyId: "date",
+        type: "date",
+        sourceType: "date",
+        operator: "before",
+        value: "2026-09-21",
+      },
+      {
+        propertyId: "relation",
+        type: "reference",
+        sourceType: "relation",
+        operator: "equals",
+        value: "private-relation-id",
+      },
+      {
+        propertyId: "empty",
+        type: "number",
+        sourceType: "number",
+        operator: "isEmpty",
+      },
+    ]
+
+    await adapter.listArticles(database, { filters, pageSize: 20 })
+
+    expect(query).toHaveBeenCalledWith(
+      expect.objectContaining({
+        filter: {
+          and: [
+            { property: "title", title: { contains: "Title" } },
+            { property: "text", rich_text: { equals: "Text" } },
+            { property: "select", select: { equals: "Choice" } },
+            { property: "status", status: { equals: "Active" } },
+            { property: "tags", multi_select: { contains: "Tag" } },
+            { property: "checked", checkbox: { equals: true } },
+            { property: "amount", number: { greater_than: 10 } },
+            { property: "date", date: { before: "2026-09-21" } },
+            { property: "relation", relation: { contains: "private-relation-id" } },
+            { property: "empty", number: { is_empty: true } },
+          ],
+        },
+      }),
+    )
   })
 
   it("omits relation values whose parent is outside the allowlist", async () => {
@@ -164,14 +266,48 @@ describe("NotionAdapter", () => {
     )
   })
 
-  it("surfaces upstream failures for the API error boundary", async () => {
+  it("maps unexpected upstream failures to the safe unavailable category", async () => {
     const client = {
       dataSources: { query: vi.fn().mockRejectedValue(new Error("rate limited")) },
       pages: { retrieve: vi.fn() },
       blocks: { children: { list: vi.fn() }, retrieve: vi.fn() },
     } as unknown as Client
     const adapter = new NotionAdapter("unused-test-token", config, client)
-    await expect(adapter.listArticles(database, { pageSize: 20 })).rejects.toThrow("rate limited")
+    await expect(adapter.listArticles(database, { pageSize: 20 })).rejects.toEqual(
+      expect.objectContaining<Partial<ContentAdapterError>>({ category: "unavailable" }),
+    )
+  })
+
+  it("suppresses SDK logging when a real client receives a private upstream error", async () => {
+    const consoleSpies = (["debug", "info", "log", "warn", "error"] as const).map((method) =>
+      vi.spyOn(console, method).mockImplementation(() => undefined),
+    )
+    const fetchMock = vi.fn(
+      async () =>
+        new Response(
+          JSON.stringify({
+            object: "error",
+            status: 404,
+            code: "object_not_found",
+            message: "private upstream detail with notion-object-id",
+            request_id: "private-notion-request-id",
+          }),
+          { status: 404, headers: { "content-type": "application/json" } },
+        ),
+    )
+    vi.stubGlobal("fetch", fetchMock)
+
+    try {
+      const adapter = new NotionAdapter("unused-test-token", config)
+      await expect(adapter.listArticles(database, { pageSize: 20 })).rejects.toEqual(
+        expect.objectContaining<Partial<ContentAdapterError>>({ category: "not_found" }),
+      )
+      expect(fetchMock).toHaveBeenCalledOnce()
+      for (const spy of consoleSpies) expect(spy).not.toHaveBeenCalled()
+    } finally {
+      vi.unstubAllGlobals()
+      for (const spy of consoleSpies) spy.mockRestore()
+    }
   })
 
   it.each([

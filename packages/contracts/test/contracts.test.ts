@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { ReaderValueSchema, SearchRequestSchema } from "../src/index.js"
+import { ReaderCursorSchema, ReaderValueSchema, SearchRequestSchema } from "../src/index.js"
 
 describe("Reader contracts", () => {
   it("keeps reference cardinality explicit", () => {
@@ -17,5 +17,46 @@ describe("Reader contracts", () => {
   it("rejects unbounded search requests", () => {
     expect(() => SearchRequestSchema.parse({ pageSize: 101 })).toThrow()
     expect(() => SearchRequestSchema.parse({ query: "x".repeat(201) })).toThrow()
+  })
+
+  it("accepts only Reader-owned cursor tokens", () => {
+    expect(ReaderCursorSchema.parse(`cur_${"a".repeat(43)}`)).toHaveLength(47)
+    expect(() => ReaderCursorSchema.parse("next-notion-cursor")).toThrow()
+    expect(() => ReaderCursorSchema.parse(`cur_${"a".repeat(42)}!`)).toThrow()
+  })
+
+  it("requires operator-specific filter values", () => {
+    expect(
+      SearchRequestSchema.parse({ filters: [{ fieldId: "empty", operator: "isEmpty" }] }),
+    ).toBeDefined()
+    expect(
+      SearchRequestSchema.parse({
+        filters: [{ fieldId: "number", operator: "greaterThan", value: 10 }],
+      }),
+    ).toBeDefined()
+    expect(
+      SearchRequestSchema.parse({
+        filters: [{ fieldId: "date", operator: "before", value: "2026-09-21" }],
+      }),
+    ).toBeDefined()
+
+    expect(() =>
+      SearchRequestSchema.parse({
+        filters: [{ fieldId: "empty", operator: "isEmpty", value: "unexpected" }],
+      }),
+    ).toThrow()
+    expect(() =>
+      SearchRequestSchema.parse({ filters: [{ fieldId: "number", operator: "greaterThan" }] }),
+    ).toThrow()
+    expect(() =>
+      SearchRequestSchema.parse({
+        filters: [{ fieldId: "number", operator: "greaterThan", value: "10" }],
+      }),
+    ).toThrow()
+    expect(() =>
+      SearchRequestSchema.parse({
+        filters: [{ fieldId: "date", operator: "after", value: "tomorrow" }],
+      }),
+    ).toThrow()
   })
 })

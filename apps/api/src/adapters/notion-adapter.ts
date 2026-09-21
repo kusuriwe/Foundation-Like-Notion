@@ -18,9 +18,9 @@ import type {
 
 type UnknownRecord = Record<string, unknown>
 
-function notionFailure(error: unknown): ContentAdapterError | unknown {
+function notionFailure(error: unknown): ContentAdapterError {
   if (!isNotionClientError(error)) {
-    return error
+    return new ContentAdapterError("unavailable")
   }
   if (
     error.code === APIErrorCode.ObjectNotFound ||
@@ -211,7 +211,8 @@ export class NotionAdapter implements ContentAdapter {
   readonly #allowedSourceIds: ReadonlySet<string>
 
   constructor(token: string, config: ReaderConfig, client?: Client) {
-    this.#client = client ?? new Client({ auth: token, notionVersion: "2026-03-11" })
+    this.#client =
+      client ?? new Client({ auth: token, notionVersion: "2026-03-11", logger: () => undefined })
     this.#allowedSourceIds = new Set([
       ...config.contentDatabases.map((database) => database.sourceDataSourceId),
       ...config.relationSources,

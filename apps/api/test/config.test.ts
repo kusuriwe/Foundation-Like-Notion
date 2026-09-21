@@ -95,4 +95,37 @@ describe("Reader configuration", () => {
       )
     }
   })
+
+  it("rejects Reader filter types that do not match their source types", () => {
+    const result = ReaderConfigSchema.safeParse({
+      version: 1,
+      source: "fixture",
+      contentDatabases: [
+        {
+          id: "database-one",
+          name: "One",
+          sourceDataSourceId: "source-one",
+          titlePropertyId: "title",
+          defaultTemplate: "simple",
+          templates: ["simple"],
+          variables: {},
+          filters: {
+            amount: {
+              propertyId: "amount",
+              type: "string",
+              sourceType: "number",
+              operators: ["equals"],
+            },
+          },
+        },
+      ],
+    })
+
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.issues.map((issue) => issue.message)).toContain(
+        "Reader type string is not valid for number",
+      )
+    }
+  })
 })

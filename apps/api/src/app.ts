@@ -4,6 +4,7 @@ import cookie from "@fastify/cookie"
 import rateLimit from "@fastify/rate-limit"
 import staticFiles from "@fastify/static"
 import {
+  ReaderCursorSchema,
   SearchRequestSchema,
   SessionRequestSchema,
   type ApiError,
@@ -17,19 +18,21 @@ import Fastify, {
 import { ZodError, z } from "zod"
 import { ContentAdapterError, type ContentAdapter } from "./adapters/content-adapter.js"
 import type { RuntimeConfig } from "./config.js"
+import type { CursorRegistry } from "./cursor-registry.js"
 import { ReaderDatabase } from "./database.js"
 import { MappingError } from "./domain/property-resolver.js"
 import { ReaderNotFoundError, ReaderRequestError, ReaderService } from "./reader-service.js"
 import { SessionService, sessionLifetimeSeconds } from "./session-service.js"
 
 const ListQuerySchema = z.object({
-  cursor: z.string().max(512).optional(),
+  cursor: ReaderCursorSchema.optional(),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 })
 
 type BuildAppOptions = Readonly<{
   runtime: RuntimeConfig
   adapter: ContentAdapter
+  cursorRegistry?: CursorRegistry
   logger?: boolean
 }>
 
@@ -104,7 +107,12 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   })
   const database = new ReaderDatabase(options.runtime.databasePath)
   const sessions = new SessionService(database, options.runtime.passwordHash)
-  const reader = new ReaderService(options.runtime.reader, database, options.adapter)
+  const reader = new ReaderService(
+    options.runtime.reader,
+    database,
+    options.adapter,
+    options.cursorRegistry,
+  )
   const cookiePolicy = sessionCookiePolicy(options.runtime.environment)
   const cookieName = cookiePolicy.name
 

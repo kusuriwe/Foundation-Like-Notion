@@ -1,15 +1,23 @@
-import type {
-  Article,
-  ArticleBlock,
-  ArticlePage,
-  ArticleSummary,
-  DatabaseSummary,
-  ReaderIcon,
-  SearchFilter,
-  SearchRequest,
+import {
+  ReaderIdSchema,
+  type Article,
+  type ArticleBlock,
+  type ArticlePage,
+  type ArticleSummary,
+  type DatabaseSummary,
+  type ReaderIcon,
+  type SearchFilter,
+  type SearchRequest,
 } from "@foundation-like-notion/contracts"
-import type { ContentAdapter, SourceBlock, SourceIcon } from "./adapters/content-adapter.js"
+import { z } from "zod"
+import type {
+  ContentAdapter,
+  SourceBlock,
+  SourceFilter,
+  SourceIcon,
+} from "./adapters/content-adapter.js"
 import type { ContentDatabaseConfig, ReaderConfig } from "./config.js"
+import { CursorRegistry } from "./cursor-registry.js"
 import type { ReaderDatabase } from "./database.js"
 import { resolveProperties } from "./domain/property-resolver.js"
 
@@ -27,33 +35,27 @@ export class ReaderRequestError extends Error {
   }
 }
 
-type SearchCursor = Readonly<{ databaseIndex: number; sourceCursor?: string }>
+const FilterDateValueSchema = z.union([z.iso.date(), z.iso.datetime({ offset: true })])
 
-function encodeSearchCursor(cursor: SearchCursor): string {
-  return Buffer.from(JSON.stringify(cursor), "utf8").toString("base64url")
+function listCursorContext(databaseId: string, pageSize: number): readonly unknown[] {
+  return ["article-list", databaseId, pageSize]
 }
 
-function decodeSearchCursor(cursor: string | undefined): SearchCursor {
-  if (!cursor) {
-    return { databaseIndex: 0 }
-  }
-  try {
-    const parsed = JSON.parse(Buffer.from(cursor, "base64url").toString("utf8")) as unknown
-    if (
-      typeof parsed === "object" &&
-      parsed !== null &&
-      "databaseIndex" in parsed &&
-      typeof parsed.databaseIndex === "number" &&
-      Number.isSafeInteger(parsed.databaseIndex) &&
-      parsed.databaseIndex >= 0 &&
-      (!("sourceCursor" in parsed) || typeof parsed.sourceCursor === "string")
-    ) {
-      return parsed as SearchCursor
-    }
-  } catch {
-    // The public error below deliberately hides cursor internals.
-  }
-  throw new ReaderRequestError("Invalid search cursor")
+function searchCursorContext(
+  request: SearchRequest,
+  databases: readonly ContentDatabaseConfig[],
+): readonly unknown[] {
+  return [
+    "search",
+    request.query ?? null,
+    databases.map((database) => database.id),
+    request.filters.map((filter) => [
+      filter.fieldId,
+      filter.operator,
+      "value" in filter ? filter.value : null,
+    ]),
+    request.pageSize,
+  ]
 }
 
 function safeWebUrl(url: string): string | undefined {
@@ -75,11 +77,18 @@ export class ReaderService {
   readonly #config: ReaderConfig
   readonly #database: ReaderDatabase
   readonly #adapter: ContentAdapter
+  readonly #cursors: CursorRegistry
 
-  constructor(config: ReaderConfig, database: ReaderDatabase, adapter: ContentAdapter) {
+  constructor(
+    config: ReaderConfig,
+    database: ReaderDatabase,
+    adapter: ContentAdapter,
+    cursors = new CursorRegistry(),
+  ) {
     this.#config = config
     this.#database = database
     this.#adapter = adapter
+    this.#cursors = cursors
   }
 
   /** Return configured public database metadata. / 設定済み database の公開 metadata を返します。 */
@@ -102,13 +111,23 @@ export class ReaderService {
     pageSize: number,
   ): Promise<ArticlePage> {
     const database = this.#getDatabase(databaseId)
+    const context = listCursorContext(database.id, pageSize)
+    const cursorState = cursor ? this.#cursors.resolve(cursor, "article-list", context) : undefined
+    if (cursor && cursorState?.kind !== "article-list") {
+      throw new ReaderRequestError("Invalid article cursor")
+    }
     const page = await this.#adapter.listArticles(database, {
-      ...(cursor ? { cursor } : {}),
+      ...(cursorState?.kind === "article-list" ? { cursor: cursorState.sourceCursor } : {}),
       pageSize,
     })
     return {
       items: page.items.map((article) => this.#mapSummary(database, article)),
-      nextCursor: page.nextCursor,
+      nextCursor: page.nextCursor
+        ? this.#cursors.issue(context, {
+            kind: "article-list",
+            sourceCursor: page.nextCursor,
+          })
+        : null,
     }
   }
 
@@ -150,7 +169,20 @@ export class ReaderService {
     const selected = request.databaseIds?.length
       ? request.databaseIds.map((id) => this.#getDatabase(id))
       : this.#config.contentDatabases
-    const cursor = decodeSearchCursor(request.cursor)
+    const mappedFilters = selected.map((database) =>
+      request.filters.map((filter) => this.#mapFilter(database, filter)),
+    )
+    const context = searchCursorContext(request, selected)
+    const resolvedCursor = request.cursor
+      ? this.#cursors.resolve(request.cursor, "search", context)
+      : undefined
+    if (request.cursor && resolvedCursor?.kind !== "search") {
+      throw new ReaderRequestError("Invalid search cursor")
+    }
+    const cursor =
+      resolvedCursor?.kind === "search"
+        ? resolvedCursor
+        : { kind: "search" as const, databaseIndex: 0 }
     if (cursor.databaseIndex > selected.length) {
       throw new ReaderRequestError("Invalid search cursor")
     }
@@ -163,7 +195,7 @@ export class ReaderService {
       if (!database) {
         break
       }
-      const filters = request.filters.map((filter) => this.#mapFilter(database, filter))
+      const filters = mappedFilters[databaseIndex] ?? []
       const page = await this.#adapter.listArticles(database, {
         ...(request.query ? { query: request.query } : {}),
         filters,
@@ -183,7 +215,8 @@ export class ReaderService {
     return {
       items,
       nextCursor: hasMore
-        ? encodeSearchCursor({
+        ? this.#cursors.issue(context, {
+            kind: "search",
             databaseIndex,
             ...(sourceCursor ? { sourceCursor } : {}),
           })
@@ -299,13 +332,37 @@ export class ReaderService {
     return undefined
   }
 
-  #mapFilter(database: ContentDatabaseConfig, filter: SearchFilter) {
+  #mapFilter(database: ContentDatabaseConfig, filter: SearchFilter): SourceFilter {
     const mapping = database.filters[filter.fieldId]
     if (!mapping?.operators.includes(filter.operator)) {
       throw new ReaderRequestError(`Filter ${filter.fieldId} is not allowed`)
     }
-    let value = filter.value
-    if (mapping.sourceType === "relation" && typeof value === "string") {
+    if (filter.operator === "isEmpty") {
+      return {
+        propertyId: mapping.propertyId,
+        type: mapping.type,
+        sourceType: mapping.sourceType,
+        operator: filter.operator,
+      }
+    }
+
+    let value: string | number | boolean = filter.value
+    const valid =
+      mapping.sourceType === "checkbox"
+        ? typeof value === "boolean"
+        : mapping.sourceType === "number"
+          ? typeof value === "number" && Number.isFinite(value)
+          : mapping.sourceType === "date"
+            ? typeof value === "string" && FilterDateValueSchema.safeParse(value).success
+            : typeof value === "string" && value.length > 0
+    if (!valid) {
+      throw new ReaderRequestError(`Filter ${filter.fieldId} value is invalid`)
+    }
+
+    if (mapping.sourceType === "relation") {
+      if (typeof value !== "string" || !ReaderIdSchema.safeParse(value).success) {
+        throw new ReaderRequestError(`Relation filter ${filter.fieldId} is invalid`)
+      }
       const resource = this.#database.getResource(value, "page")
       if (!resource) {
         throw new ReaderRequestError(`Relation filter ${filter.fieldId} is invalid`)

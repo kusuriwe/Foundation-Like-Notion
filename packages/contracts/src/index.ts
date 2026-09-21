@@ -2,6 +2,8 @@ import { z } from "zod"
 
 export const ReaderIdSchema = z.string().min(8).max(128)
 
+export const ReaderCursorSchema = z.string().regex(/^cur_[A-Za-z0-9_-]{43}$/)
+
 export const ReaderIconSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("emoji"), value: z.string().min(1).max(16) }),
   z.object({ kind: z.literal("asset"), assetId: ReaderIdSchema }),
@@ -118,7 +120,7 @@ export const ArticleSchema = ArticleSummarySchema.extend({
 
 export const ArticlePageSchema = z.object({
   items: z.array(ArticleSummarySchema),
-  nextCursor: z.string().nullable(),
+  nextCursor: ReaderCursorSchema.nullable(),
 })
 
 export const FilterOperatorSchema = z.enum([
@@ -133,17 +135,53 @@ export const FilterOperatorSchema = z.enum([
   "after",
 ])
 
-export const SearchFilterSchema = z.object({
-  fieldId: z.string().min(1).max(64),
-  operator: FilterOperatorSchema,
-  value: z.union([z.string(), z.number(), z.boolean()]).optional(),
-})
+const SearchFilterFieldSchema = z.string().min(1).max(64)
+const SearchFilterStringValueSchema = z.string().min(1)
+const SearchFilterDateValueSchema = z.union([z.iso.date(), z.iso.datetime({ offset: true })])
+
+export const SearchFilterSchema = z.discriminatedUnion("operator", [
+  z
+    .object({
+      fieldId: SearchFilterFieldSchema,
+      operator: z.literal("isEmpty"),
+      value: z.never().optional(),
+    })
+    .strict(),
+  z
+    .object({
+      fieldId: SearchFilterFieldSchema,
+      operator: z.literal("equals"),
+      value: z.union([SearchFilterStringValueSchema, z.number().finite(), z.boolean()]),
+    })
+    .strict(),
+  z
+    .object({
+      fieldId: SearchFilterFieldSchema,
+      operator: z.literal("contains"),
+      value: SearchFilterStringValueSchema,
+    })
+    .strict(),
+  z
+    .object({
+      fieldId: SearchFilterFieldSchema,
+      operator: z.enum(["greaterThan", "greaterThanOrEqual", "lessThan", "lessThanOrEqual"]),
+      value: z.number().finite(),
+    })
+    .strict(),
+  z
+    .object({
+      fieldId: SearchFilterFieldSchema,
+      operator: z.enum(["before", "after"]),
+      value: SearchFilterDateValueSchema,
+    })
+    .strict(),
+])
 
 export const SearchRequestSchema = z.object({
   query: z.string().trim().max(200).optional(),
   databaseIds: z.array(ReaderIdSchema).max(20).optional(),
   filters: z.array(SearchFilterSchema).max(20).default([]),
-  cursor: z.string().max(512).optional(),
+  cursor: ReaderCursorSchema.optional(),
   pageSize: z.number().int().min(1).max(100).default(20),
 })
 
@@ -167,6 +205,7 @@ export const ApiErrorSchema = z.object({
 })
 
 export type ReaderIcon = z.infer<typeof ReaderIconSchema>
+export type ReaderCursor = z.infer<typeof ReaderCursorSchema>
 export type Reference = z.infer<typeof ReferenceSchema>
 export type ReaderDate = z.infer<typeof ReaderDateSchema>
 export type ReaderValue = z.infer<typeof ReaderValueSchema>

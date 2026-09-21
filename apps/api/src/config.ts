@@ -61,6 +61,18 @@ const filterOperatorsBySource = {
   relation: ["equals", "contains", "isEmpty"],
 } as const
 
+const readerTypesByFilterSource = {
+  title: ["string"],
+  rich_text: ["string"],
+  select: ["string"],
+  status: ["string"],
+  multi_select: ["string[]"],
+  checkbox: ["boolean"],
+  number: ["number"],
+  date: ["date"],
+  relation: ["reference", "reference[]"],
+} as const
+
 export const ContentDatabaseConfigSchema = z
   .object({
     id: z.string().min(8).max(128),
@@ -89,6 +101,14 @@ export const ContentDatabaseConfigSchema = z
     }
     for (const [field, mapping] of Object.entries(value.filters)) {
       const allowed = filterOperatorsBySource[mapping.sourceType] as readonly string[]
+      const allowedTypes = readerTypesByFilterSource[mapping.sourceType] as readonly string[]
+      if (!allowedTypes.includes(mapping.type)) {
+        context.addIssue({
+          code: "custom",
+          path: ["filters", field, "type"],
+          message: `Reader type ${mapping.type} is not valid for ${mapping.sourceType}`,
+        })
+      }
       for (const [index, operator] of mapping.operators.entries()) {
         if (!allowed.includes(operator)) {
           context.addIssue({

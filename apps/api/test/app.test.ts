@@ -83,7 +83,14 @@ describe("Reader API", () => {
     expect(list.statusCode).toBe(200)
     expect(list.body).not.toContain("fixture-page")
     const page = list.json<{ items: Array<{ id: string }>; nextCursor: string | null }>()
-    expect(page.nextCursor).not.toBeNull()
+    expect(page.nextCursor).toMatch(/^cur_[A-Za-z0-9_-]{43}$/)
+
+    const rawCursor = await app.inject({
+      method: "GET",
+      url: "/api/databases/chemistry-notes/articles?pageSize=1&cursor=next-notion-cursor",
+      headers: { cookie },
+    })
+    expect(rawCursor.statusCode).toBe(400)
 
     const article = await app.inject({
       method: "GET",
@@ -119,6 +126,26 @@ describe("Reader API", () => {
       },
     })
     expect(rejected.statusCode).toBe(400)
+
+    const wrongType = await app.inject({
+      method: "POST",
+      url: "/api/search",
+      headers: { cookie },
+      payload: {
+        filters: [{ fieldId: "mainClass", operator: "equals", value: true }],
+      },
+    })
+    expect(wrongType.statusCode).toBe(400)
+
+    const unexpectedEmptyValue = await app.inject({
+      method: "POST",
+      url: "/api/search",
+      headers: { cookie },
+      payload: {
+        filters: [{ fieldId: "tags", operator: "isEmpty", value: "unexpected" }],
+      },
+    })
+    expect(unexpectedEmptyValue.statusCode).toBe(400)
 
     const proxy = await app.inject({
       method: "POST",
