@@ -243,3 +243,30 @@ Compose validation passed, production restarted with zero placeholders, and `/ap
 Next: the user reloads the Reader and checks article list, one article detail, relation-backed `codeName`, tag
 search, and logout. If the one-time resolver proves useful for additional databases, promote it separately to a
 tested, documented setup command rather than retaining ad hoc scripts.
+
+## 2026-09-21 — Property resolver formalized
+
+**Status:** Resolver complete and live data retrieval confirmed; device acceptance remains.
+
+The user confirmed that the Reader could retrieve and display the configured Notion data after local name
+resolution. The temporary approach was promoted to the documented `npm run config:resolve` setup command without
+changing the production YAML schema or browser API.
+
+The command scopes exact, case-sensitive Property-name matching to each selected content Data Source, preserves
+existing IDs, validates all Reader/Notion type pairs, and performs no write if any mapping is missing or
+incompatible. A successful change creates `.env/reader.yaml.bak` and atomically replaces the ignored YAML. SDK
+logging is suppressed, and command summaries contain only Reader field paths, types, counts, and safe error
+categories—not names, IDs, token, or content.
+
+Validation evidence:
+
+- Focused resolver tests cover identical names in separate Data Sources, type mismatch redaction, atomic write
+  with backup, and all-or-nothing failure behavior.
+- Running `docker compose run --rm app npm run config:resolve` against the already resolved live configuration
+  returned zero changes and zero issues, confirming idempotence without printing source identifiers.
+- `docker compose run --rm app npm run check` passed formatting, lint, strict type checking, 31 tests, and all
+  production builds.
+- `docker compose run --rm app npm run e2e` passed the Chromium desktop and WebKit mobile reader flows.
+
+Next: continue the approved Windows browser, Tailscale HTTPS, and physical iOS/Home Screen acceptance. The active
+plan remains unarchived until those checks and the independent final review pass.

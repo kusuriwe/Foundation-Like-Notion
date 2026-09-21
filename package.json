@@ -14,6 +14,7 @@
     "predev": "npm run build --workspace @foundation-like-notion/contracts",
     "dev": "concurrently -k -n api,web -c cyan,magenta \"npm run dev --workspace @foundation-like-notion/api\" \"npm run dev --workspace @foundation-like-notion/web\"",
     "build": "npm run build --workspace @foundation-like-notion/contracts && npm run build --workspace @foundation-like-notion/web && npm run build --workspace @foundation-like-notion/api",
+    "config:resolve": "npm run config:resolve --workspace @foundation-like-notion/api",
     "pretest": "npm run build --workspace @foundation-like-notion/contracts",
     "test": "npm run test --workspaces --if-present",
     "pretypecheck": "npm run build --workspace @foundation-like-notion/contracts",

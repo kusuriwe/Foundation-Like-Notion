@@ -43,6 +43,23 @@ Notion の Data Source ID と Property ID は API が返した文字列をその
 Property 名ではなく Property ID を指定してください。設定は厳格に検証されるため、未知の field、
 重複した Reader ID、未許可の filter operator があると起動に失敗します。
 
+Property ID を Notion UI から集めにくい場合は、最初だけ各 `propertyId` と `titlePropertyId` に
+Property の表示名を正確に記述してから、次の resolver を実行できます。
+
+```powershell
+docker compose run --rm app npm run config:resolve
+```
+
+resolver は各 `contentDatabases[]` の選択済み Data Source 内だけを検索します。同名 Property が別の
+Data Source にあっても衝突しません。既存の ID を優先し、それ以外は大文字・小文字を含む完全一致の
+名前だけを候補にします。全 mapping の Notion type が設定と互換である場合に限り、名前を実 ID へ
+一括置換します。
+
+書換前の設定は `.env/reader.yaml.bak` に保存されます。不一致が1件でもあれば YAML は変更されません。
+標準出力には Reader field path、型、件数だけを表示し、Property 名、Property ID、Data Source ID、token
+は表示しません。`sourceDataSourceId` と `relationSources` は対象 Data Source を選ぶ境界なので、この
+resolver の対象外です。これらには Data Source ID を設定してください。
+
 ### Top-level fields
 
 | Field | 値 | 説明 |
