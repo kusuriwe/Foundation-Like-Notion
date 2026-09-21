@@ -221,6 +221,10 @@ docker compose --profile production up --build production
 Production container は `127.0.0.1:3000` のみへ公開します。iOS 検証時は host 上の Tailscale Serve
 からこの endpoint へ HTTPS proxy し、一般 Internet へは公開しません。
 
+Development の fixture DB と production の Notion ID/session DB は、それぞれ独立した Docker named
+volume に保存されます。`docker compose down` では削除されません。明示的に `--volumes` を付けると
+Reader ID mapping と session も失われるため、通常の停止では使用しないでください。
+
 Tailscale を host に導入・login した後、tailnet 内だけへ公開します。Funnel は使用しません。
 
 ```powershell

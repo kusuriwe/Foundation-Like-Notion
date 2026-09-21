@@ -143,3 +143,34 @@ Validation:
 Next: the user replaces the local `READER_PASSWORD_HASH` with a freshly generated, single-quoted full Argon2id
 hash. After the user confirms that correction without sharing its value, the production smoke can proceed
 directly.
+
+## 2026-09-21 — Credentialed production startup
+
+**Status:** Production is running on loopback; authenticated Notion UI verification remains.
+
+The user completed the ignored Notion YAML and environment settings. Structural checks confirmed that both
+files are ignored, the Argon2id hash is complete and single-quoted, and Compose parses the configuration without
+interpolation warnings. Secret values and configured Notion IDs were not printed.
+
+The first production start exposed a Docker storage defect rather than a YAML defect: development and
+production shared one named SQLite volume, which had been initialized with permissions incompatible with the
+production image's unprivileged `node` user. Startup failed with `SQLITE_CANTOPEN`. Compose now uses separate
+development and production named volumes. The existing development volume was retained, no volume was deleted,
+and README explains the persistence boundary and the effect of `docker compose down --volumes`.
+
+Validation after the fix:
+
+- Production image build passed the complete formatting, lint, strict type checking, 27-test, build, prune, and
+  zero-vulnerability audit gates.
+- The production container remains running with port 3000 bound only to `127.0.0.1`.
+- `GET /api/health` returned 200, `source: notion`, and `Cache-Control: no-store`.
+- Unauthenticated `GET /api/databases` returned 401 with `Cache-Control: no-store`.
+- `/`, `/manifest.webmanifest`, and `/sw.js` returned 200 with their expected content types.
+- Read-only SQLite inspection found only `resources` and `sessions`; both were empty before login. The temporary
+  audit script was removed from both the workspace and container.
+- Exact-match inspection found no configured token, password hash, Data Source ID, or Property ID in production
+  logs.
+
+Next: the user opens `http://127.0.0.1:3000`, logs in locally, and checks whether the configured Notion database
+and an article load successfully. This bounded live smoke can proceed directly; any Property type/cardinality or
+connection-scope mismatch must be reported without sharing source IDs or content.

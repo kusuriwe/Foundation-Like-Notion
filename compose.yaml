@@ -39,8 +39,9 @@ services:
         required: true
     volumes:
       - ./.env/reader.yaml:/app/config/reader.yaml:ro
-      - reader_data:/app/.data
+      - production_reader_data:/app/.data
 
 volumes:
   node_modules:
   reader_data:
+  production_reader_data:
