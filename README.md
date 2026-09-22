@@ -291,6 +291,87 @@ $tailscaleExe = 'C:\Program Files\Tailscale\tailscale.exe'
 表示された `https://<device>.<tailnet>.ts.net` を iOS Safari で開き、Reader Login が引き続き必要な
 ことを確認します。
 
+## Presentation customization
+
+`reader.yaml` の任意の `presentation` セクションで、通常版と静的demo版に共通する表示を変更できます。省略時は従来の文言、配色、`simple` / `compact-emblem` headerが使われます。
+
+```yaml
+presentation:
+  version: 1
+  locale: ja-JP
+  brand:
+    name: My Reader
+    shortName: Reader
+    eyebrow: Personal reference
+    tagline: Notes, shaped for reading.
+  theme:
+    colorScheme: dark
+    colors:
+      background: "#0B0D10"
+      panel: "#11151B"
+      panelAlt: "#171C24"
+      line: "#2A313C"
+      text: "#EDF2F7"
+      muted: "#98A2B3"
+      accent: "#D8FF5F"
+      accentSecondary: "#7CECFF"
+      danger: "#FF7A90"
+  messages:
+    navHome: Home
+    navSearch: Search
+    navLogout: Logout
+    templateLabel: Template
+  articleHeaders:
+    reading-grid:
+      name: Reading Grid
+      renderer: field-grid
+      title: { placement: header, alignment: start }
+      tone: accent
+      density: comfortable
+      fields:
+        - { variable: mainClass, label: Domain, width: half, showIcon: true }
+        - { variable: subClass, label: Topic, width: half, showIcon: true }
+        - { variable: codeName, label: Code name, width: full, emphasis: strong }
+```
+
+- `brand` は画面、document title、Web App Manifestへ反映されます。
+- 色は `#RRGGBB` のみです。HTML、JavaScript、CSS、外部font/stylesheet URLは指定できません。
+- `messages` はschemaで許可されたplain textだけを上書きします。API error本文は変更できません。
+- template IDは小文字英数字とhyphenだけで最大64文字です。`contentDatabases[].templates` と `defaultTemplate` は `articleHeaders` の定義を参照します。
+- `field-grid` の `width` は `third` / `half` / `full`、`emphasis` は `normal` / `strong` です。値がない記事ではfield自体を表示しません。
+- `compact-emblem` は `emblemVariable`、`headlineVariable`、任意の `headlineLabel`、metadata `fields` を持ちます。`headlineVariable` が空なら記事titleへfallbackします。
+- `title.placement` は `header` または `content` です。rich textとinline equationを保ったtitleを必ず一度だけ表示します。
+- custom headerが参照する `variable` は、そのdatabaseの `variables` に存在する必要があります。誤字は起動時に拒否されます。
+
+新しいtrusted rendererをコードとして追加する場合は [Header renderer guide](docs/header-renderers.md) を参照してください。
+
+## Static fixture demo
+
+公開demoは `demo/demo.yaml`、`demo/articles/*.yaml`、`apps/web/public/demo/` だけを入力にする静的PWAです。Notion、Fastify、SQLite、password、`.env/` は使いません。IDはすべて `demo_` prefixにし、参照切れや無効なReader DTOはbuild時に拒否されます。
+
+```powershell
+docker compose run --rm app npm run demo:build
+docker compose run --rm app npm run demo:verify
+docker compose run --rm app npm run e2e:demo
+```
+
+出力は `apps/web/dist-demo`、base pathは `/Foundation-Like-Notion/` です。demoのdummy contentは意図的にService Workerへprecacheされ、offlineでも読めます。通常版の `/api/**` は従来どおりNetworkOnlyで、実Notion contentはoffline保存されません。
+
+## GitHub Pages release procedure
+
+`.github/workflows/pages.yml` は `release` branchへのpushだけで起動し、検証済みの `apps/web/dist-demo` だけをPages artifactとしてdeployします。`main`へのpush、手動実行、GitHub Secrets、Notion設定では起動しません。
+
+初回公開時は、GitHub Settings → PagesのSourceを **GitHub Actions** に設定し、remoteに既存の `release` branchがないことを確認してから、人間が最新`main`から作成・pushします。
+
+```powershell
+git switch main
+git status
+git switch -c release
+git push -u origin release
+```
+
+既存のremote `release` がある場合は上書きせず、先に差分を確認して統合方法を決めてください。想定URLは `https://kusuriwe.github.io/Foundation-Like-Notion/` です。
+
 ## Configuration boundaries
 
 - `contentDatabases`: Reader の library/search/article として公開可能な Data Source

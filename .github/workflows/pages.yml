@@ -1,0 +1,52 @@
+name: Deploy static Reader demo
+
+on:
+  push:
+    branches: [release]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release
+        uses: actions/checkout@v5
+      - name: Use Node.js 24.21.0
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24.21.0
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Verify Pages workflow policy
+        run: npm run pages:verify
+      - name: Build static demo
+        run: npm run demo:build
+      - name: Verify public artifact
+        run: npm run demo:verify
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/dist-demo
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
