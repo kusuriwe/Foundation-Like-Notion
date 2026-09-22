@@ -57,6 +57,26 @@ describe("Reader API", () => {
     expect(response.headers["cache-control"]).toBe("no-store")
   })
 
+  it("serves only resolved public presentation and a matching manifest without authentication", async () => {
+    const presentation = await app.inject({ method: "GET", url: "/api/presentation" })
+    expect(presentation.statusCode).toBe(200)
+    expect(presentation.headers["cache-control"]).toBe("no-store")
+    expect(presentation.json()).toEqual(expect.objectContaining({ version: 1, locale: "ja-JP" }))
+    expect(presentation.body).not.toMatch(/sourceDataSourceId|propertyId|NOTION_TOKEN/i)
+
+    const manifest = await app.inject({ method: "GET", url: "/manifest.webmanifest" })
+    expect(manifest.statusCode).toBe(200)
+    expect(manifest.headers["content-type"]).toContain("application/manifest+json")
+    expect(manifest.json()).toEqual(
+      expect.objectContaining({
+        name: "Notion Reader",
+        short_name: "Reader",
+        theme_color: "#0b0d10",
+      }),
+    )
+    expect(manifest.body).not.toMatch(/sourceDataSourceId|propertyId|NOTION_TOKEN/i)
+  })
+
   it("uses a host-only secure production cookie policy", () => {
     expect(sessionCookiePolicy("production")).toEqual({
       name: "__Host-reader_session",

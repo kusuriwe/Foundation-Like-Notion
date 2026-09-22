@@ -1,0 +1,203 @@
+.header {
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--panel-2) 82%, transparent),
+    var(--panel)
+  );
+}
+
+.header[data-tone="flat"] {
+  background: transparent;
+}
+.header[data-tone="accent"] {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--accent) 9%, var(--panel)),
+    var(--panel)
+  );
+}
+.grid {
+  padding: 26px 28px;
+}
+.header[data-density="compact"].grid {
+  padding-block: 18px;
+}
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.field {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+}
+.field {
+  grid-column: span 3;
+}
+.fieldThird {
+  grid-column: span 2;
+}
+.fieldFull {
+  grid-column: 1 / -1;
+}
+.value {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 7px;
+  overflow-wrap: anywhere;
+  font-size: 18px;
+}
+.fieldStrong .value {
+  font-size: 21px;
+}
+.value > span,
+.value > img {
+  display: grid;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.title {
+  grid-column: 1 / -1;
+  margin: 0 0 20px;
+  text-align: center;
+}
+.title[data-alignment="start"] {
+  text-align: left;
+}
+.title[data-alignment="end"] {
+  text-align: right;
+}
+.emblem {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  min-height: 144px;
+}
+.emblemIcon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-size: 40px;
+}
+.emblemIcon::before,
+.emblemIcon::after {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-radius: 50%;
+  content: "";
+}
+.emblemIcon::after {
+  width: 46px;
+  height: 46px;
+  border-style: dashed;
+}
+.emblemIcon > * {
+  z-index: 1;
+}
+.emblemContent {
+  display: grid;
+  align-content: center;
+  padding: 20px 34px 18px 10px;
+}
+.headline {
+  padding-bottom: 20px;
+  text-align: center;
+}
+.headline strong {
+  display: block;
+  margin-top: 7px;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: 0.17em;
+}
+.emblemFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.emblemFields .field {
+  grid-column: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+@media (max-width: 700px) {
+  .fieldGrid {
+    grid-template-columns: 1fr;
+  }
+  .field,
+  .fieldThird,
+  .fieldFull {
+    grid-column: auto;
+  }
+  .grid {
+    padding: 16px;
+  }
+  .emblem {
+    grid-template-columns: 76px 1fr;
+    min-height: 128px;
+  }
+  .emblemIcon {
+    font-size: 30px;
+  }
+  .emblemIcon::before {
+    width: 58px;
+    height: 58px;
+  }
+  .emblemIcon::after {
+    width: 36px;
+    height: 36px;
+  }
+  .emblemContent {
+    padding: 17px 16px 15px 6px;
+  }
+  .headline {
+    padding-bottom: 15px;
+  }
+  .headline strong {
+    font-size: 22px;
+    letter-spacing: 0.1em;
+  }
+  .emblemFields {
+    gap: 8px;
+  }
+  .emblemFields .value {
+    font-size: 13px;
+    line-height: 1.25;
+  }
+  .value > span,
+  .value > img {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .header > * {
+    animation: reveal-header 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+}
+
+@keyframes reveal-header {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}

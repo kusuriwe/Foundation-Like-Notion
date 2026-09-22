@@ -1,8 +1,10 @@
 import { type FormEvent, useState } from "react"
-import { login } from "../api.js"
+import { useReaderRuntime } from "../reader-runtime.js"
 
 /** Render the single-reader password form. / single-reader password form を描画します。 */
 export function LoginPage({ onAuthenticated }: { onAuthenticated: () => void }) {
+  const { client, presentation } = useReaderRuntime()
+  const { messages } = presentation
   const [password, setPassword] = useState("")
   const [error, setError] = useState<string>()
   const [pending, setPending] = useState(false)
@@ -12,7 +14,7 @@ export function LoginPage({ onAuthenticated }: { onAuthenticated: () => void }) 
     setPending(true)
     setError(undefined)
     try {
-      await login(password)
+      await client.login(password)
       setPassword("")
       onAuthenticated()
     } catch (reason) {
@@ -25,10 +27,10 @@ export function LoginPage({ onAuthenticated }: { onAuthenticated: () => void }) 
   return (
     <main className="login-page">
       <form className="login-card" onSubmit={submit}>
-        <span className="eyebrow">Private library</span>
-        <h1>Notion Reader</h1>
-        <p>Reader password を入力してください。</p>
-        <label htmlFor="password">Password</label>
+        <span className="eyebrow">{messages.loginEyebrow}</span>
+        <h1>{messages.loginTitle}</h1>
+        <p>{messages.loginPrompt}</p>
+        <label htmlFor="password">{messages.passwordLabel}</label>
         <input
           id="password"
           type="password"
@@ -43,7 +45,7 @@ export function LoginPage({ onAuthenticated }: { onAuthenticated: () => void }) 
           </p>
         )}
         <button className="primary-button" type="submit" disabled={pending}>
-          {pending ? "Signing in…" : "Login"}
+          {pending ? messages.loginPending : messages.loginButton}
         </button>
       </form>
     </main>

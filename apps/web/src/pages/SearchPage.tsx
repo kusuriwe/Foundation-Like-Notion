@@ -1,11 +1,13 @@
 import type { ArticleSummary } from "@foundation-like-notion/contracts"
 import { type FormEvent, useCallback, useEffect, useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
-import { searchArticles } from "../api.js"
 import { ReaderIcon } from "../components/ReaderIcon.js"
+import { useReaderRuntime } from "../reader-runtime.js"
 
 /** Render title and allowlisted property search. / title と許可済み property search を描画します。 */
 export function SearchPage() {
+  const { client, presentation } = useReaderRuntime()
+  const { messages } = presentation
   const [params, setParams] = useSearchParams()
   const [query, setQuery] = useState(params.get("q") ?? "")
   const [articles, setArticles] = useState<ArticleSummary[]>([])
@@ -18,7 +20,7 @@ export function SearchPage() {
     async (nextQuery: string, searchTag: string) => {
       setError(undefined)
       try {
-        const page = await searchArticles({
+        const page = await client.searchArticles({
           ...(nextQuery ? { query: nextQuery } : {}),
           ...(databaseId ? { databaseIds: [databaseId] } : {}),
           filters: searchTag ? [{ fieldId: "tags", operator: "contains", value: searchTag }] : [],
@@ -29,7 +31,7 @@ export function SearchPage() {
         setError(reason instanceof Error ? reason.message : "検索できませんでした。")
       }
     },
-    [databaseId],
+    [client, databaseId],
   )
 
   useEffect(() => {
@@ -47,19 +49,19 @@ export function SearchPage() {
 
   return (
     <div className="page narrow-page">
-      <span className="eyebrow">Registered databases only</span>
-      <h1>Title & property search</h1>
-      <p className="search-note">本文全文検索ではありません。</p>
+      <span className="eyebrow">{messages.searchEyebrow}</span>
+      <h1>{messages.searchTitle}</h1>
+      <p className="search-note">{messages.searchDescription}</p>
       <form className="search-form" onSubmit={submit}>
         <input
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Title"
+          placeholder={messages.searchPlaceholder}
           aria-label="Title search"
         />
         <button className="primary-button" type="submit">
-          Search
+          {messages.searchButton}
         </button>
       </form>
       {tag && (
@@ -88,7 +90,7 @@ export function SearchPage() {
           </Link>
         ))}
       </div>
-      {!error && articles.length === 0 && <p className="empty-state">該当する記事はありません。</p>}
+      {!error && articles.length === 0 && <p className="empty-state">{messages.emptySearch}</p>}
     </div>
   )
 }

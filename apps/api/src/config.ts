@@ -1,6 +1,13 @@
 import { readFile } from "node:fs/promises"
 import path from "node:path"
-import { FilterOperatorSchema } from "@foundation-like-notion/contracts"
+import {
+  FilterOperatorSchema,
+  PresentationInputSchema,
+  TemplateIdSchema,
+  defaultPresentation,
+  type ArticleHeader,
+  type PresentationConfig,
+} from "@foundation-like-notion/contracts"
 import yaml from "js-yaml"
 import { z } from "zod"
 
@@ -190,7 +197,7 @@ export const ContentDatabaseConfigSchema = z
     sourceDataSourceId: z.string().min(1),
     titlePropertyId: z.string().min(1),
     defaultTemplate: z.string().min(1),
-    templates: z.array(z.enum(["simple", "compact-emblem"])).min(1),
+    templates: z.array(TemplateIdSchema).min(1),
     sort: z
       .array(SortSchema)
       .min(1)
@@ -209,7 +216,7 @@ export const ContentDatabaseConfigInputSchema = z
     titlePropertyId: z.string().min(1).optional(),
     titlePropertyName: z.string().min(1).optional(),
     defaultTemplate: z.string().min(1),
-    templates: z.array(z.enum(["simple", "compact-emblem"])).min(1),
+    templates: z.array(TemplateIdSchema).min(1),
     sort: z
       .array(SortSchema)
       .min(1)
@@ -232,6 +239,9 @@ export const ReaderConfigSchema = z
     source: z.enum(["fixture", "notion"]),
     contentDatabases: z.array(ContentDatabaseConfigSchema).min(1),
     relationSources: z.array(z.string().min(1)).default([]),
+    presentation: PresentationInputSchema.optional().transform(
+      (presentation) => presentation ?? defaultPresentation,
+    ),
   })
   .strict()
   .superRefine(validateReaderDatabases)
@@ -240,6 +250,7 @@ function validateReaderDatabases(
   value: {
     source: "fixture" | "notion"
     contentDatabases: readonly z.infer<typeof ContentDatabaseConfigInputSchema>[]
+    presentation: PresentationConfig
   },
   context: z.RefinementCtx,
 ): void {
@@ -260,12 +271,35 @@ function validateReaderDatabases(
         message: "Content data source IDs must be unique",
       })
     }
-    if (!database.templates.includes(database.defaultTemplate as "simple" | "compact-emblem")) {
+    if (!database.templates.includes(database.defaultTemplate)) {
       context.addIssue({
         code: "custom",
         path: ["contentDatabases", index, "defaultTemplate"],
         message: "Default template must be listed in templates",
       })
+    }
+    for (const [templateIndex, templateId] of database.templates.entries()) {
+      const header = value.presentation.articleHeaders[templateId]
+      if (!header) {
+        context.addIssue({
+          code: "custom",
+          path: ["contentDatabases", index, "templates", templateIndex],
+          message: "Template must reference a configured article header",
+        })
+        continue
+      }
+      for (const variable of headerVariables(header)) {
+        const optionalBuiltInVariable =
+          (templateId === "simple" || templateId === "compact-emblem") &&
+          ["mainClass", "subClass", "codeName"].includes(variable)
+        if (!database.variables[variable] && !optionalBuiltInVariable) {
+          context.addIssue({
+            code: "custom",
+            path: ["contentDatabases", index, "templates", templateIndex],
+            message: "Article header references an unknown Reader variable",
+          })
+        }
+      }
     }
     if (value.source === "fixture") {
       const hasNamedMapping =
@@ -291,6 +325,9 @@ export const ReaderConfigInputSchema = z
     source: z.enum(["fixture", "notion"]),
     contentDatabases: z.array(ContentDatabaseConfigInputSchema).min(1),
     relationSources: z.array(z.string().min(1)).default([]),
+    presentation: PresentationInputSchema.optional().transform(
+      (presentation) => presentation ?? defaultPresentation,
+    ),
   })
   .strict()
   .superRefine(validateReaderDatabases)
@@ -300,6 +337,13 @@ export type ReaderConfigInput = z.infer<typeof ReaderConfigInputSchema>
 export type ContentDatabaseConfig = z.infer<typeof ContentDatabaseConfigSchema>
 export type ContentDatabaseConfigInput = z.infer<typeof ContentDatabaseConfigInputSchema>
 export type VariableMapping = z.infer<typeof VariableMappingSchema>
+
+function headerVariables(header: ArticleHeader): readonly string[] {
+  const fields = header.fields.map((field) => field.variable)
+  return header.renderer === "compact-emblem"
+    ? [...fields, header.emblemVariable, header.headlineVariable]
+    : fields
+}
 
 export type RuntimeConfig = Readonly<{
   reader: ReaderConfig

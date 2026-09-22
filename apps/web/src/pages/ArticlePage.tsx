@@ -1,10 +1,10 @@
 import type { Article, ReaderValue } from "@foundation-like-notion/contracts"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { getArticle } from "../api.js"
 import { ArticleRenderer } from "../components/ArticleRenderer.js"
 import { RichText } from "../components/RichText.js"
-import { TemplateHeader } from "../components/TemplateHeader.js"
+import { TemplateHeader, templateTitlePlacement } from "../components/TemplateHeader.js"
+import { useReaderRuntime } from "../reader-runtime.js"
 import { recordRecent } from "../recent.js"
 import { preferredTemplate, savePreferredTemplate } from "../template-preference.js"
 
@@ -16,6 +16,8 @@ function tags(value: ReaderValue | undefined): readonly string[] {
 
 /** Load and render an article selected by opaque route ID. / opaque route ID で選択された article を読み込み描画します。 */
 export function ArticlePage() {
+  const { client, presentation, storageNamespace } = useReaderRuntime()
+  const { messages } = presentation
   const { articleId = "" } = useParams()
   const navigate = useNavigate()
   const [article, setArticle] = useState<Article>()
@@ -24,12 +26,20 @@ export function ArticlePage() {
 
   useEffect(() => {
     let active = true
-    getArticle(articleId)
+    client
+      .getArticle(articleId)
       .then((value) => {
         if (!active) return
         setArticle(value)
-        setTemplateId(preferredTemplate(value.databaseId, value.templates, value.defaultTemplate))
-        recordRecent(value.id)
+        setTemplateId(
+          preferredTemplate(
+            value.databaseId,
+            value.templates,
+            value.defaultTemplate,
+            storageNamespace,
+          ),
+        )
+        recordRecent(value.id, new Date(), storageNamespace)
       })
       .catch((reason: unknown) => {
         if (active)
@@ -38,7 +48,7 @@ export function ArticlePage() {
     return () => {
       active = false
     }
-  }, [articleId])
+  }, [articleId, client, storageNamespace])
 
   if (error)
     return (
@@ -52,21 +62,21 @@ export function ArticlePage() {
 
   const selectTemplate = (selected: string) => {
     setTemplateId(selected)
-    savePreferredTemplate(article.databaseId, selected)
+    savePreferredTemplate(article.databaseId, selected, storageNamespace)
   }
 
   return (
     <article className="article-page">
       <div className="article-toolbar">
         <Link className="back-link" to={`/library/${article.databaseId}`}>
-          ← Library
+          {messages.backLibrary}
         </Link>
         <label>
-          Template{" "}
+          {messages.templateLabel}{" "}
           <select value={templateId} onChange={(event) => selectTemplate(event.target.value)}>
             {article.templates.map((template) => (
               <option value={template} key={template}>
-                {template}
+                {presentation.articleHeaders[template]?.name ?? template}
               </option>
             ))}
           </select>
@@ -74,13 +84,15 @@ export function ArticlePage() {
       </div>
       <TemplateHeader article={article} templateId={templateId} />
       <div className="article-content">
-        <h1>
-          {article.titleRichText.length > 0 ? (
-            <RichText value={article.titleRichText} />
-          ) : (
-            article.title
-          )}
-        </h1>
+        {templateTitlePlacement(presentation.articleHeaders, templateId) === "content" && (
+          <h1>
+            {article.titleRichText.length > 0 ? (
+              <RichText value={article.titleRichText} />
+            ) : (
+              article.title
+            )}
+          </h1>
+        )}
         <div className="tag-list">
           {tags(article.variables.tags).map((tag) => (
             <button

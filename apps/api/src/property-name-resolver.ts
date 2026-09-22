@@ -210,6 +210,7 @@ export function resolvePropertyNames(
     source: config.source,
     contentDatabases,
     relationSources: [...config.relationSources],
+    presentation: config.presentation,
   })
   return { config: resolved, changes, issues }
 }

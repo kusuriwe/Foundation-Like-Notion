@@ -167,6 +167,31 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
 
   app.get("/api/health", async () => ({ status: "ok", source: options.runtime.reader.source }))
 
+  app.get("/api/presentation", async () => options.runtime.reader.presentation)
+
+  app.get("/manifest.webmanifest", async (_request, reply) => {
+    const { brand, theme, locale } = options.runtime.reader.presentation
+    reply.header("Content-Type", "application/manifest+json")
+    reply.header("Cache-Control", "no-cache")
+    return {
+      name: brand.name,
+      short_name: brand.shortName,
+      description: brand.tagline,
+      id: "/",
+      lang: locale,
+      theme_color: theme.colors.background,
+      background_color: theme.colors.background,
+      display: "standalone",
+      start_url: "/",
+      icons: [
+        { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+        { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+        { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+        { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+      ],
+    }
+  })
+
   app.get("/api/session", async (request) => ({
     authenticated: sessions.isAuthenticated(request.cookies[cookieName]),
   }))

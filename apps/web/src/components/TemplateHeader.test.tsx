@@ -1,6 +1,12 @@
-import type { Article } from "@foundation-like-notion/contracts"
+import {
+  PresentationInputSchema,
+  type Article,
+  type PresentationConfig,
+} from "@foundation-like-notion/contracts"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
+import type { ReaderClient } from "../reader-client.js"
+import { ReaderRuntimeProvider } from "../reader-runtime.js"
 import { TemplateHeader } from "./TemplateHeader.js"
 
 const article: Article = {
@@ -22,6 +28,23 @@ const article: Article = {
   templates: ["simple", "compact-emblem"],
 }
 
+const unavailableClient = {} as ReaderClient
+
+function renderWithPresentation(templateId: string, presentation: PresentationConfig) {
+  return render(
+    <ReaderRuntimeProvider
+      value={{
+        client: unavailableClient,
+        mode: "reader",
+        presentation,
+        storageNamespace: "reader",
+      }}
+    >
+      <TemplateHeader article={article} templateId={templateId} />
+    </ReaderRuntimeProvider>,
+  )
+}
+
 describe("TemplateHeader", () => {
   it("omits missing optional fields in the Simple template", () => {
     render(<TemplateHeader article={article} templateId="simple" />)
@@ -33,5 +56,30 @@ describe("TemplateHeader", () => {
     render(<TemplateHeader article={article} templateId="compact-emblem" />)
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("FLAME TEST")
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("CHEMISTRY")
+  })
+
+  it("renders configured field order and a rich title exactly once in the header", () => {
+    const presentation = PresentationInputSchema.parse({
+      articleHeaders: {
+        "custom-grid": {
+          name: "Custom grid",
+          renderer: "field-grid",
+          title: { placement: "header", alignment: "start" },
+          fields: [
+            { variable: "codeName", label: "First", width: "half" },
+            { variable: "mainClass", label: "Second", width: "half" },
+          ],
+        },
+      },
+    })
+    const { container } = renderWithPresentation("custom-grid", presentation)
+
+    const header = container.querySelector('[data-testid="simple-header"]')
+    if (!header) throw new Error("Configured header was not rendered")
+    expect(header).toHaveTextContent("Article title")
+    expect(header.textContent?.indexOf("First")).toBeLessThan(
+      header.textContent?.indexOf("Second") ?? 0,
+    )
+    expect(header?.querySelectorAll("h1")).toHaveLength(1)
   })
 })

@@ -43,3 +43,34 @@ contentDatabases:
         operators: [equals]
 relationSources:
   - "replace-with-relation-data-source-id"
+presentation:
+  version: 1
+  locale: ja-JP
+  brand:
+    name: Notion Reader
+    shortName: Reader
+    eyebrow: Personal reference
+    tagline: Your Notion, shaped for reading.
+  articleHeaders:
+    simple:
+      name: Simple
+      renderer: field-grid
+      title: { placement: content, alignment: center }
+      tone: panel
+      density: comfortable
+      fields:
+        - { variable: mainClass, label: Main-class, width: half }
+        - { variable: subClass, label: Sub-class, width: half }
+        - { variable: codeName, label: Code name, width: full, emphasis: strong }
+    compact-emblem:
+      name: Compact Emblem
+      renderer: compact-emblem
+      title: { placement: content, alignment: center }
+      tone: panel
+      density: compact
+      emblemVariable: mainClass
+      headlineVariable: codeName
+      headlineFallback: title
+      fields:
+        - { variable: mainClass, label: Main-class, width: half }
+        - { variable: subClass, label: Sub-class, width: half }

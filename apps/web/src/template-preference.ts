@@ -1,8 +1,11 @@
-const STORAGE_KEY = "notion-reader:templates:v1"
+function storageKey(namespace: string): string {
+  if (namespace === "reader") return "notion-reader:templates:v1"
+  return `notion-reader:${namespace}:templates:v1`
+}
 
-function readPreferences(): Record<string, string> {
+function readPreferences(namespace: string): Record<string, string> {
   try {
-    const value = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}") as unknown
+    const value = JSON.parse(localStorage.getItem(storageKey(namespace)) ?? "{}") as unknown
     if (typeof value !== "object" || value === null || Array.isArray(value)) return {}
     return Object.fromEntries(
       Object.entries(value).filter(
@@ -22,15 +25,20 @@ export function preferredTemplate(
   databaseId: string,
   allowed: readonly string[],
   defaultTemplate: string,
+  namespace = "reader",
 ): string {
-  const selected = readPreferences()[databaseId]
+  const selected = readPreferences(namespace)[databaseId]
   return selected && allowed.includes(selected) ? selected : defaultTemplate
 }
 
 /** Persist one Reader template ID by database. / database ごとに Reader template ID を保存します。 */
-export function savePreferredTemplate(databaseId: string, templateId: string): void {
+export function savePreferredTemplate(
+  databaseId: string,
+  templateId: string,
+  namespace = "reader",
+): void {
   localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify({ ...readPreferences(), [databaseId]: templateId }),
+    storageKey(namespace),
+    JSON.stringify({ ...readPreferences(namespace), [databaseId]: templateId }),
   )
 }

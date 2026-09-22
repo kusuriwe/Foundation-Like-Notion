@@ -1,9 +1,16 @@
 import type { ArticleBlock } from "@foundation-like-notion/contracts"
 import { createElement } from "react"
+import { useReaderRuntime } from "../reader-runtime.js"
 import { MathExpression } from "./MathExpression.js"
 import { RichText } from "./RichText.js"
 
-function Block({ block }: { block: ArticleBlock }) {
+function Block({
+  block,
+  assetUrl,
+}: {
+  block: ArticleBlock
+  assetUrl: (assetId: string) => string
+}) {
   if (block.type === "heading") {
     return createElement(`h${block.level}`, {}, <RichText value={block.content} />)
   }
@@ -83,7 +90,7 @@ function Block({ block }: { block: ArticleBlock }) {
   if (block.type === "image") {
     return (
       <figure>
-        <img className="article-image" src={`/api/assets/${block.assetId}`} alt="" />
+        <img className="article-image" src={assetUrl(block.assetId)} alt="" />
         {block.caption.length > 0 && (
           <figcaption>
             <RichText value={block.caption} />
@@ -101,7 +108,7 @@ function Block({ block }: { block: ArticleBlock }) {
   if (block.type === "file")
     return (
       <p>
-        <a href={`/api/assets/${block.assetId}`}>{block.name}</a>
+        <a href={assetUrl(block.assetId)}>{block.name}</a>
       </p>
     )
   if (block.type === "link")
@@ -117,11 +124,13 @@ function Block({ block }: { block: ArticleBlock }) {
 
 /** Render safe structured article blocks. / 安全な構造化 article block を描画します。 */
 export function ArticleRenderer({ blocks }: { blocks: readonly ArticleBlock[] }) {
+  const runtime = useReaderRuntime()
+  const assetUrl = runtime.client.assetUrl
   return (
     <div className="article-body">
       {blocks.map((block, index) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: Reader blocks are immutable and have no local component state.
-        <Block key={index} block={block} />
+        <Block key={index} block={block} assetUrl={assetUrl} />
       ))}
     </div>
   )

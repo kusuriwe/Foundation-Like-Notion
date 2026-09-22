@@ -2,13 +2,16 @@ import {
   ArticlePageSchema,
   ArticleSchema,
   DatabaseSummarySchema,
+  PresentationResponseSchema,
   SessionResponseSchema,
   type Article,
   type ArticlePage,
   type DatabaseSummary,
+  type PresentationConfig,
   type SearchRequest,
 } from "@foundation-like-notion/contracts"
 import type { ZodType } from "zod"
+import type { ReaderClient } from "./reader-client.js"
 
 /** Represent a sanitized Reader API failure. / 無害化済み Reader API failure を表します。 */
 export class ApiRequestError extends Error {
@@ -47,6 +50,11 @@ async function request<T>(url: string, schema: ZodType<T>, init?: RequestInit): 
 /** Return whether the current browser session is authenticated. / 現在の browser session の認証状態を返します。 */
 export async function getSession(): Promise<boolean> {
   return (await request("/api/session", SessionResponseSchema)).authenticated
+}
+
+/** Return the public, display-only Reader presentation. / 公開表示専用の Reader presentation を返します。 */
+export function getPresentation(): Promise<PresentationConfig> {
+  return request("/api/presentation", PresentationResponseSchema)
 }
 
 /**
@@ -120,4 +128,16 @@ export function searchArticles(value: SearchRequest): Promise<ArticlePage> {
     method: "POST",
     body: JSON.stringify(value),
   })
+}
+
+export const httpReaderClient: ReaderClient = {
+  getPresentation,
+  getSession,
+  login,
+  logout,
+  getDatabases,
+  getArticles,
+  getArticle,
+  searchArticles,
+  assetUrl: (assetId) => `/api/assets/${encodeURIComponent(assetId)}`,
 }

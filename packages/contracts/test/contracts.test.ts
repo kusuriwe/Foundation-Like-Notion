@@ -1,11 +1,41 @@
 import { describe, expect, it } from "vitest"
 import {
+  DemoDatasetSchema,
+  PresentationInputSchema,
   ReaderCursorSchema,
   ReaderValueSchema,
   RichTextSchema,
   RichTextTextSchema,
   SearchRequestSchema,
 } from "../src/index.js"
+import { defaultPresentationValue } from "../src/presentation-default.js"
+
+const demoDataset = {
+  presentation: {},
+  databases: [
+    {
+      id: "demo_database",
+      name: "Demo",
+      defaultTemplate: "simple",
+      templates: ["simple"],
+    },
+  ],
+  articles: [
+    {
+      id: "demo_article",
+      databaseId: "demo_database",
+      title: "Demo article",
+      titleRichText: [{ text: "Demo article" }],
+      createdTime: "2026-01-01T00:00:00.000+00:00",
+      lastEditedTime: "2026-01-01T00:00:00.000+00:00",
+      variables: {},
+      blocks: [],
+      defaultTemplate: "simple",
+      templates: ["simple"],
+    },
+  ],
+  assets: {},
+}
 
 describe("Reader contracts", () => {
   it("keeps reference cardinality explicit", () => {
@@ -76,6 +106,64 @@ describe("Reader contracts", () => {
     expect(() =>
       SearchRequestSchema.parse({
         filters: [{ fieldId: "date", operator: "after", value: "tomorrow" }],
+      }),
+    ).toThrow()
+  })
+
+  it("resolves safe presentation defaults and rejects executable styling inputs", () => {
+    const presentation = PresentationInputSchema.parse({
+      brand: { name: "Public demo" },
+      theme: { colors: { accent: "#123ABC" } },
+    })
+    expect(presentation.brand.name).toBe("Public demo")
+    expect(presentation.brand.shortName).toBe("Reader")
+    expect(presentation.articleHeaders.simple?.renderer).toBe("field-grid")
+    expect(presentation.theme.colors.accent).toBe("#123ABC")
+    expect(PresentationInputSchema.parse({})).toEqual(defaultPresentationValue)
+
+    expect(() =>
+      PresentationInputSchema.parse({ theme: { colors: { accent: "url(javascript:alert(1))" } } }),
+    ).toThrow()
+    expect(() =>
+      PresentationInputSchema.parse({ stylesheetUrl: "https://example.invalid" }),
+    ).toThrow()
+    expect(() =>
+      PresentationInputSchema.parse({
+        articleHeaders: {
+          "Invalid Header": {
+            name: "Invalid",
+            renderer: "field-grid",
+            title: { placement: "content", alignment: "center" },
+            fields: [],
+          },
+        },
+      }),
+    ).toThrow()
+  })
+
+  it("rejects broken public demo references before bundling", () => {
+    expect(DemoDatasetSchema.parse(demoDataset).articles).toHaveLength(1)
+    expect(() =>
+      DemoDatasetSchema.parse({
+        ...demoDataset,
+        articles: [{ ...demoDataset.articles[0], databaseId: "demo_missing" }],
+      }),
+    ).toThrow(/database/i)
+    expect(() =>
+      DemoDatasetSchema.parse({
+        ...demoDataset,
+        articles: [
+          {
+            ...demoDataset.articles[0],
+            blocks: [{ type: "image", assetId: "demo_missing", caption: [] }],
+          },
+        ],
+      }),
+    ).toThrow(/asset/i)
+    expect(() =>
+      DemoDatasetSchema.parse({
+        ...demoDataset,
+        articles: [{ ...demoDataset.articles[0], sourceDataSourceId: "private-source-id" }],
       }),
     ).toThrow()
   })

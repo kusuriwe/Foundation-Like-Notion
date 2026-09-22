@@ -1,11 +1,13 @@
 import type { ArticleSummary } from "@foundation-like-notion/contracts"
 import { useCallback, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import { getArticles } from "../api.js"
 import { ReaderIcon } from "../components/ReaderIcon.js"
+import { useReaderRuntime } from "../reader-runtime.js"
 
 /** Render a paginated Reader database. / Reader database を pagination 付きで描画します。 */
 export function LibraryPage() {
+  const { client, presentation } = useReaderRuntime()
+  const { messages } = presentation
   const { databaseId = "" } = useParams()
   const [articles, setArticles] = useState<ArticleSummary[]>([])
   const [cursor, setCursor] = useState<string | null>(null)
@@ -16,7 +18,7 @@ export function LibraryPage() {
     async (next?: string) => {
       setLoading(true)
       try {
-        const page = await getArticles(databaseId, next)
+        const page = await client.getArticles(databaseId, next)
         setArticles((current) => (next ? [...current, ...page.items] : page.items))
         setCursor(page.nextCursor)
       } catch (reason) {
@@ -25,7 +27,7 @@ export function LibraryPage() {
         setLoading(false)
       }
     },
-    [databaseId],
+    [client, databaseId],
   )
 
   useEffect(() => {
@@ -35,9 +37,9 @@ export function LibraryPage() {
   return (
     <div className="page narrow-page">
       <Link className="back-link" to="/">
-        ← Home
+        {messages.backHome}
       </Link>
-      <span className="eyebrow">Library</span>
+      <span className="eyebrow">{messages.libraryEyebrow}</span>
       <h1>{databaseId}</h1>
       {error && (
         <p className="error-message" role="alert">
@@ -64,11 +66,11 @@ export function LibraryPage() {
           disabled={loading}
           onClick={() => void load(cursor)}
         >
-          {loading ? "Loading…" : "Load more"}
+          {loading ? messages.loading : messages.loadMore}
         </button>
       )}
       {!cursor && !loading && articles.length === 0 && (
-        <p className="empty-state">記事がありません。</p>
+        <p className="empty-state">{messages.emptyLibrary}</p>
       )}
     </div>
   )

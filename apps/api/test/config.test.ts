@@ -11,6 +11,42 @@ describe("Reader configuration", () => {
     expect(config.contentDatabases[0]?.sort).toEqual([
       { field: "created_time", direction: "ascending" },
     ])
+    expect(config.presentation.articleHeaders.simple?.renderer).toBe("field-grid")
+  })
+
+  it("keeps presentation optional while validating custom header references", () => {
+    const database = {
+      id: "database-one",
+      name: "One",
+      sourceDataSourceId: "source-one",
+      titlePropertyId: "title",
+      defaultTemplate: "custom-header",
+      templates: ["custom-header"],
+      variables: {},
+      filters: {},
+    }
+    const result = ReaderConfigSchema.safeParse({
+      version: 1,
+      source: "fixture",
+      contentDatabases: [database],
+      presentation: {
+        articleHeaders: {
+          "custom-header": {
+            name: "Custom",
+            renderer: "field-grid",
+            title: { placement: "content", alignment: "center" },
+            fields: [{ variable: "typo", label: "Typo" }],
+          },
+        },
+      },
+    })
+
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.issues.map((issue) => issue.message)).toContain(
+        "Article header references an unknown Reader variable",
+      )
+    }
   })
 
   it("rejects duplicate database IDs", () => {

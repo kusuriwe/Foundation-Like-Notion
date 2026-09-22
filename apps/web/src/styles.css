@@ -69,6 +69,16 @@ a {
   align-items: center;
   gap: 18px;
 }
+.demo-badge {
+  padding: 4px 7px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 .topbar nav a {
   color: var(--muted);
   font-size: 13px;
@@ -276,6 +286,9 @@ h2 {
 .login-card p {
   margin: 0 0 8px;
   color: var(--muted);
+}
+.demo-entry {
+  text-align: center;
 }
 .login-card label {
   font-size: 12px;
