@@ -143,6 +143,7 @@ describe("Reader contracts", () => {
     expect(presentation.brand.name).toBe("Public demo")
     expect(presentation.brand.shortName).toBe("Reader")
     expect(presentation.articleHeaders.simple?.renderer).toBe("field-grid")
+    expect(presentation.articleHeaders["cactus-study"]?.renderer).toBe("cactus-study")
     expect(presentation.theme.colors.accent).toBe("#123ABC")
     expect(PresentationInputSchema.parse({})).toEqual(defaultPresentationValue)
 
@@ -160,6 +161,36 @@ describe("Reader contracts", () => {
             renderer: "field-grid",
             title: { placement: "content", alignment: "center" },
             fields: [],
+          },
+        },
+      }),
+    ).toThrow()
+    expect(() =>
+      PresentationInputSchema.parse({
+        articleHeaders: {
+          "wide-cactus": {
+            name: "Wide",
+            renderer: "cactus-study",
+            title: { placement: "content", alignment: "center" },
+            headlineVariable: "codeName",
+            seriesMark: "OVERSIZED",
+            fields: [],
+          },
+        },
+      }),
+    ).toThrow()
+    expect(() =>
+      PresentationInputSchema.parse({
+        articleHeaders: {
+          "unsafe-cactus": {
+            name: "Unsafe",
+            renderer: "cactus-study",
+            title: { placement: "content", alignment: "center" },
+            headlineVariable: "codeName",
+            seriesMark: "Ⅶ",
+            seriesLabel: "Reference file",
+            fields: [],
+            html: "<script>alert(1)</script>",
           },
         },
       }),

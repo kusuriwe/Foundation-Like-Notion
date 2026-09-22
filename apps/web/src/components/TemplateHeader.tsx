@@ -20,7 +20,7 @@ export function templateTitlePlacement(
   const definition = resolveHeaderDefinition(definitions, templateId)
   if (
     article &&
-    definition.renderer === "compact-emblem" &&
+    (definition.renderer === "compact-emblem" || definition.renderer === "cactus-study") &&
     !displayValue(article.variables[definition.headlineVariable])
   ) {
     return "header"

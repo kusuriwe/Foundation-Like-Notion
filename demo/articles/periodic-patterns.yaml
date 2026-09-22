@@ -30,4 +30,4 @@ blocks:
   - type: quote
     content: [{ text: 規則は、比較できる形に整えると見つけやすくなります。 }]
 defaultTemplate: showcase-grid
-templates: [showcase-grid, compact-emblem]
+templates: [showcase-grid, compact-emblem, cactus-study]

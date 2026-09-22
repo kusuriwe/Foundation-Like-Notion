@@ -290,10 +290,12 @@ function validateReaderDatabases(
       }
       for (const variable of headerVariables(header)) {
         const optionalBuiltInVariable =
-          (templateId === "simple" || templateId === "compact-emblem") &&
+          (templateId === "simple" ||
+            templateId === "compact-emblem" ||
+            templateId === "cactus-study") &&
           JSON.stringify(header) ===
             JSON.stringify(defaultPresentation.articleHeaders[templateId]) &&
-          ["mainClass", "subClass", "codeName"].includes(variable)
+          ["mainClass", "subClass", "codeName", "tags"].includes(variable)
         if (!database.variables[variable] && !optionalBuiltInVariable) {
           context.addIssue({
             code: "custom",
@@ -342,9 +344,11 @@ export type VariableMapping = z.infer<typeof VariableMappingSchema>
 
 function headerVariables(header: ArticleHeader): readonly string[] {
   const fields = header.fields.map((field) => field.variable)
-  return header.renderer === "compact-emblem"
-    ? [...fields, header.emblemVariable, header.headlineVariable]
-    : fields
+  if (header.renderer === "compact-emblem") {
+    return [...fields, header.emblemVariable, header.headlineVariable]
+  }
+  if (header.renderer === "cactus-study") return [...fields, header.headlineVariable]
+  return fields
 }
 
 export type RuntimeConfig = Readonly<{

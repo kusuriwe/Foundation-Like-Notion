@@ -26,7 +26,7 @@ const article: Article = {
   },
   blocks: [],
   defaultTemplate: "simple",
-  templates: ["simple", "compact-emblem"],
+  templates: ["simple", "compact-emblem", "cactus-study"],
 }
 
 const unavailableClient = {} as ReaderClient
@@ -57,6 +57,60 @@ describe("TemplateHeader", () => {
     render(<TemplateHeader article={article} templateId="compact-emblem" />)
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("FLAME TEST")
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("CHEMISTRY")
+  })
+
+  it("renders the prototype-inspired Cactus Study cells in configured order", () => {
+    const presentation = PresentationInputSchema.parse({
+      articleHeaders: {
+        "cactus-study": {
+          name: "Cactus Study",
+          renderer: "cactus-study",
+          title: { placement: "content", alignment: "center" },
+          headlineVariable: "codeName",
+          seriesMark: "Ⅶ",
+          seriesLabel: "Reference file",
+          caption: "Classification record",
+          fields: [
+            { variable: "mainClass", label: "Main-class" },
+            { variable: "subClass", label: "Sub-class" },
+          ],
+        },
+      },
+    })
+    renderWithPresentation("cactus-study", presentation)
+    const header = screen.getByTestId("cactus-study-header")
+    expect(header).toHaveTextContent("FLAME TEST")
+    expect(header).toHaveTextContent("Ⅶ")
+    expect(header).toHaveTextContent("CHEMISTRY")
+    expect(header).not.toHaveTextContent("Sub-class")
+    expect(header.textContent?.indexOf("Main-class")).toBeGreaterThan(
+      header.textContent?.indexOf("FLAME TEST") ?? 0,
+    )
+  })
+
+  it("places the rich article title once in Cactus Study when code name is absent", () => {
+    const withoutCodeName: Article = {
+      ...article,
+      variables: {},
+      titleRichText: [{ text: "Article " }, { type: "equation", expression: "x^2", text: "x^2" }],
+    }
+    const { container } = render(
+      <ReaderRuntimeProvider
+        value={{
+          client: unavailableClient,
+          mode: "reader",
+          presentation: defaultPresentation,
+          storageNamespace: "reader",
+        }}
+      >
+        <TemplateHeader article={withoutCodeName} templateId="cactus-study" />
+      </ReaderRuntimeProvider>,
+    )
+    expect(container.querySelectorAll("h1")).toHaveLength(1)
+    expect(container.querySelector(".katex")).toBeTruthy()
+    expect(
+      templateTitlePlacement(defaultPresentation.articleHeaders, "cactus-study", withoutCodeName),
+    ).toBe("header")
   })
 
   it("uses the rich title as the sole headline when code name is missing", () => {

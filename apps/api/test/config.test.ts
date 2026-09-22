@@ -12,6 +12,7 @@ describe("Reader configuration", () => {
       { field: "created_time", direction: "ascending" },
     ])
     expect(config.presentation.articleHeaders.simple?.renderer).toBe("field-grid")
+    expect(config.presentation.articleHeaders["cactus-study"]?.renderer).toBe("cactus-study")
   })
 
   it("keeps presentation optional while validating custom header references", () => {
@@ -72,6 +73,42 @@ describe("Reader configuration", () => {
             renderer: "field-grid",
             title: { placement: "content", alignment: "center" },
             fields: [{ variable: "codeName", label: "Code" }],
+          },
+        },
+      },
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.issues.map((issue) => issue.message)).toContain(
+        "Article header references an unknown Reader variable",
+      )
+    }
+  })
+
+  it("rejects an unknown Cactus Study headline variable before startup", () => {
+    const result = ReaderConfigInputSchema.safeParse({
+      version: 1,
+      source: "fixture",
+      contentDatabases: [
+        {
+          id: "database-one",
+          name: "One",
+          sourceDataSourceId: "source-one",
+          titlePropertyId: "title",
+          defaultTemplate: "cactus-study",
+          templates: ["cactus-study"],
+          variables: {},
+          filters: {},
+        },
+      ],
+      presentation: {
+        articleHeaders: {
+          "cactus-study": {
+            name: "Custom Cactus",
+            renderer: "cactus-study",
+            title: { placement: "content", alignment: "center" },
+            headlineVariable: "missingVariable",
+            fields: [],
           },
         },
       },

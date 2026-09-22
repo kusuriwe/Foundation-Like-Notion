@@ -1,5 +1,6 @@
 import type { ArticleHeader } from "@foundation-like-notion/contracts"
 import { defaultPresentation } from "../../presentation.js"
+import { CactusStudyHeader } from "./CactusStudyHeader.js"
 import { CompactEmblemHeader } from "./CompactEmblemHeader.js"
 import { FieldGridHeader } from "./FieldGridHeader.js"
 import type { HeaderRenderer } from "./types.js"
@@ -7,6 +8,7 @@ import type { HeaderRenderer } from "./types.js"
 const renderers = {
   "field-grid": FieldGridHeader,
   "compact-emblem": CompactEmblemHeader,
+  "cactus-study": CactusStudyHeader,
 } satisfies Readonly<Record<ArticleHeader["renderer"], HeaderRenderer>>
 
 /** Return a trusted renderer for one validated header definition. / 検証済みheader定義に対応するtrusted rendererを返します。 */

@@ -16,6 +16,14 @@ test("starts, reads, switches header, searches, records recent, and exits", asyn
 
   await page.getByLabel("Template").selectOption("compact-emblem")
   await expect(page.getByTestId("compact-emblem-header")).toBeVisible()
+  await page.getByLabel("Template").selectOption("cactus-study")
+  const cactus = page.getByTestId("cactus-study-header")
+  await expect(cactus).toBeVisible()
+  await expect(cactus).toContainText("Classification record")
+  await expect(cactus).toContainText("Main-class")
+  expect(
+    await cactus.evaluate((element) => element.getBoundingClientRect().right <= window.innerWidth),
+  ).toBe(true)
   await page.getByRole("button", { name: "chemistry", exact: true }).click()
   await expect(page.getByText("Tag:")).toBeVisible()
   await expect(page.locator(".article-list a")).not.toHaveCount(0)

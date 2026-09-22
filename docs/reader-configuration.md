@@ -67,7 +67,7 @@ contentDatabases:
 | `sourceDataSourceId` | 記事を取得する Notion Data Source ID。同じ ID を複数定義できません。 |
 | `titlePropertyId` / `titlePropertyName` | Notion の `title` Property を ID または完全一致する名前で指定します。どちらか一方が必須です。 |
 | `defaultTemplate` | 初期 template。必ず `templates` にも含めます。 |
-| `templates` | 許可する同梱 header ID。既定は `simple` と `compact-emblem` で、`presentation.articleHeaders` に追加した ID も指定できます。 |
+| `templates` | 許可する同梱 header ID。`simple`、`compact-emblem`、`cactus-study` を選べます。`presentation.articleHeaders` に追加した ID も指定できます。 |
 | `sort` | Notion query に渡す既定 sort。1件以上必要です。 |
 | `variables` | Template が参照できる Reader variable の allowlist です。 |
 | `filters` | Browser から指定可能な検索 filter の allowlist です。 |
@@ -79,7 +79,7 @@ field 名です。Notion Property ID を直接書きません。`direction` は 
 ### `variables` と `type`
 
 `variables` の key は Reader 内の名前です。組み込み template は `mainClass`、`subClass`、
-`codeName` を参照します。`type` は Notion の Property type そのものではなく、Notion value を安全な
+`codeName` を参照します。`cactus-study` はさらに任意の `tags` を表示できます。`type` は Notion の Property type そのものではなく、Notion value を安全な
 Reader value へ正規化した後の型です。
 
 ```yaml
@@ -196,7 +196,7 @@ docker compose --profile production run --rm production npm run config:check
 
 ## Presentation customization
 
-`reader.yaml` の任意の `presentation` セクションで、通常版と静的demo版に共通する表示を変更できます。省略時は従来の文言、配色、`simple` / `compact-emblem` headerが使われます。
+`reader.yaml` の任意の `presentation` セクションで、通常版と静的demo版に共通する表示を変更できます。省略時も既存の文言・配色と`simple` / `compact-emblem`のtemplate IDを維持します。新しい`cactus-study`は、databaseの`templates`へ明示的に追加した場合だけ選択肢に出ます。
 
 ```yaml
 presentation:
@@ -244,10 +244,14 @@ presentation:
 - template IDは小文字英数字とhyphenだけで最大64文字です。`contentDatabases[].templates` と `defaultTemplate` は `articleHeaders` の定義を参照します。
 - `field-grid` の `width` は `third` / `half` / `full`、`emphasis` は `normal` / `strong` です。値がない記事ではfield自体を表示しません。
 - `compact-emblem` は `emblemVariable`、`headlineVariable`、任意の `headlineLabel`、metadata `fields` を持ちます。`headlineVariable` が空なら記事titleへfallbackします。
+- `compact-emblem` はプロトタイプに合わせて額縁付きicon、中央配置の分類、任意の`caption`を表示します。旧設定のままでも動きます。
+- `cactus-study` は明るい分類バーです。`headlineVariable`、`headlineLabel`、`seriesMark`、`seriesLabel`、任意の`caption`と、表示順に最大3つの`fields`を設定します。最初の表示可能なfieldが大枠、残りが小枠に詰められます。`headlineVariable`が空ならrich text/数式付き記事titleをheaderへ一度だけ表示します。
 - `title.placement` は `header` または `content` です。rich textとinline equationを保ったtitleを必ず一度だけ表示します。
 - custom headerが参照する `variable` は、そのdatabaseの `variables` に存在する必要があります。誤字は起動時に拒否されます。
 
 新しいtrusted rendererをコードとして追加する場合は [Header renderer guide](header-renderers.md) を参照してください。
+
+既存の`.env/reader.yaml`でカクタス風を試すだけなら、対象databaseの`templates`へ`cactus-study`を追加します。組み込み定義は`codeName`、`mainClass`、`subClass`、`tags`を参照し、記事で欠けた値は省略します。labelやシリーズ表記を変える場合は`presentation.articleHeaders.cactus-study`を上書きしてください。完全な設定例は`config/reader.notion.example.yaml`にあります。実設定やNotion IDはGitへ追加しないでください。
 
 ## Configuration boundaries
 

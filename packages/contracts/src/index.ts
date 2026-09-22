@@ -56,7 +56,21 @@ export const ArticleHeaderSchema = z.discriminatedUnion("renderer", [
       headlineVariable: z.string().min(1).max(64),
       headlineLabel: z.string().min(1).max(80).default("Code name"),
       headlineFallback: z.literal("title").default("title"),
+      caption: z.string().min(1).max(120).optional(),
       fields: z.array(HeaderFieldSchema).max(6),
+    })
+    .strict(),
+  z
+    .object({
+      ...HeaderBaseShape,
+      renderer: z.literal("cactus-study"),
+      headlineVariable: z.string().min(1).max(64),
+      headlineLabel: z.string().min(1).max(80).default("Code name"),
+      headlineFallback: z.literal("title").default("title"),
+      seriesMark: z.string().min(1).max(4).default("Ⅶ"),
+      seriesLabel: z.string().min(1).max(80).default("Reference file"),
+      caption: z.string().min(1).max(120).optional(),
+      fields: z.array(HeaderFieldSchema).max(3),
     })
     .strict(),
 ])
@@ -180,6 +194,24 @@ const defaultArticleHeaders = {
     fields: [
       { variable: "mainClass", label: "Main-class", width: "half" },
       { variable: "subClass", label: "Sub-class", width: "half" },
+    ],
+  },
+  "cactus-study": {
+    name: "Cactus Study",
+    renderer: "cactus-study",
+    title: { placement: "content", alignment: "center" },
+    tone: "panel",
+    density: "comfortable",
+    headlineVariable: "codeName",
+    headlineLabel: "Code name",
+    headlineFallback: "title",
+    seriesMark: "Ⅶ",
+    seriesLabel: "Reference file",
+    caption: "Classification record",
+    fields: [
+      { variable: "mainClass", label: "Main-class", width: "half" },
+      { variable: "subClass", label: "Sub-class", width: "half" },
+      { variable: "tags", label: "Tag", width: "half", showIcon: false },
     ],
   },
 } as const

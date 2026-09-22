@@ -53,4 +53,4 @@ blocks:
     assetId: demo_asset_spectrum
     caption: [{ text: ダミーの発光スペクトル図 }]
 defaultTemplate: showcase-grid
-templates: [showcase-grid, compact-emblem]
+templates: [showcase-grid, compact-emblem, cactus-study]

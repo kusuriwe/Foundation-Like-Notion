@@ -24,4 +24,4 @@ blocks:
     code: "observe -> compare -> revise"
     caption: [{ text: ダミーのworkflow表現 }]
 defaultTemplate: compact-emblem
-templates: [showcase-grid, compact-emblem]
+templates: [showcase-grid, compact-emblem, cactus-study]

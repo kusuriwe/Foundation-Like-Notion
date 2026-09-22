@@ -42,7 +42,7 @@ databases:
   - id: demo_chemistry_notes
     name: Demo Science Notes
     defaultTemplate: showcase-grid
-    templates: [showcase-grid, compact-emblem]
+    templates: [showcase-grid, compact-emblem, cactus-study]
 articleFiles:
   - articles/flame-colors.yaml
   - articles/periodic-patterns.yaml

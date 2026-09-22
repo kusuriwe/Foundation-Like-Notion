@@ -9,6 +9,7 @@ contentDatabases:
     templates:
       - simple
       - compact-emblem
+      - cactus-study
     sort:
       - field: created_time
         direction: ascending
@@ -73,6 +74,23 @@ presentation:
       emblemVariable: mainClass
       headlineVariable: codeName
       headlineFallback: title
+      caption: Classification record
       fields:
         - { variable: mainClass, label: Main-class, width: half }
         - { variable: subClass, label: Sub-class, width: half }
+    cactus-study:
+      name: Cactus Study
+      renderer: cactus-study
+      title: { placement: content, alignment: center }
+      tone: panel
+      density: comfortable
+      headlineVariable: codeName
+      headlineLabel: Code name
+      headlineFallback: title
+      seriesMark: "Ⅶ"
+      seriesLabel: Reference file
+      caption: Classification record
+      fields:
+        - { variable: mainClass, label: Main-class }
+        - { variable: subClass, label: Sub-class }
+        - { variable: tags, label: Tag, showIcon: false }

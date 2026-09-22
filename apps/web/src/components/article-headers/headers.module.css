@@ -77,15 +77,32 @@
   text-align: right;
 }
 .emblem {
+  display: block;
+  background:
+    radial-gradient(
+      circle at 8% 50%,
+      color-mix(in srgb, var(--accent) 8%, transparent),
+      transparent 24%
+    ),
+    linear-gradient(180deg, var(--panel-2), var(--panel));
+}
+.emblemRow {
   display: grid;
-  grid-template-columns: 112px 1fr;
-  min-height: 144px;
+  grid-template-columns: 154px minmax(0, 1fr);
+  min-height: 174px;
+  align-items: center;
 }
 .emblemIcon {
   position: relative;
   display: grid;
+  width: 108px;
+  height: 108px;
+  margin: 22px 0 22px 26px;
   place-items: center;
   overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line));
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--accent) 3%, transparent);
   font-size: 40px;
 }
 .emblemIcon::before,
@@ -108,7 +125,8 @@
 .emblemContent {
   display: grid;
   align-content: center;
-  padding: 20px 34px 18px 10px;
+  min-width: 0;
+  padding: 25px 34px 24px 8px;
 }
 .headline {
   padding-bottom: 20px;
@@ -117,6 +135,7 @@
 .headline strong {
   display: block;
   margin-top: 7px;
+  overflow-wrap: anywhere;
   font-size: 34px;
   line-height: 1;
   letter-spacing: 0.17em;
@@ -124,13 +143,30 @@
 .emblemFields {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: 24px;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
 }
 .emblemFields .field {
   grid-column: auto;
+  min-width: 0;
   padding: 0;
   border: 0;
   background: transparent;
+  text-align: center;
+}
+.emblemFields .value {
+  justify-content: center;
+}
+.emblemCaption {
+  padding: 8px 18px 9px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
 }
 
 @media (max-width: 700px) {
@@ -146,10 +182,15 @@
     padding: 16px;
   }
   .emblem {
-    grid-template-columns: 76px 1fr;
-    min-height: 128px;
+    display: block;
+  }
+  .emblemRow {
+    grid-template-columns: 1fr;
   }
   .emblemIcon {
+    width: 100px;
+    height: 100px;
+    margin: 20px auto 0;
     font-size: 30px;
   }
   .emblemIcon::before {
@@ -161,7 +202,7 @@
     height: 36px;
   }
   .emblemContent {
-    padding: 17px 16px 15px 6px;
+    padding: 20px 22px 25px;
   }
   .headline {
     padding-bottom: 15px;
@@ -171,7 +212,7 @@
     letter-spacing: 0.1em;
   }
   .emblemFields {
-    gap: 8px;
+    gap: 15px;
   }
   .emblemFields .value {
     font-size: 13px;
@@ -179,6 +220,9 @@
   }
   .value > span,
   .value > img {
+    display: none;
+  }
+  .emblemCaption {
     display: none;
   }
 }

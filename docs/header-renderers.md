@@ -6,6 +6,7 @@ Article headerはYAMLから任意HTMLを読み込まず、bundle済みのtrusted
 
 - `field-grid`: fieldの順番、label、`third` / `half` / `full`幅、通常/強調、icon有無、密度、tone
 - `compact-emblem`: emblem variable、headline variable、title fallback、metadata fields
+- `cactus-study`: headline variable、シリーズ表記、最大3つの分類field、任意のcaption。fieldの欠損時は詰めて表示
 - 共通: template表示名、記事titleの `header` / `content` 配置とalignment
 
 記事に値がないfieldは隙間を残さず省略されます。一方、YAMLが存在しないReader variableを参照すると、起動時validationが失敗します。
