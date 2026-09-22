@@ -10,7 +10,7 @@ type CompactDefinition = Extract<ArticleHeader, { renderer: "compact-emblem" }>
 export function CompactEmblemHeader({ article, definition }: HeaderRendererProps) {
   const config = definition as CompactDefinition
   const emblemValue = article.variables[config.emblemVariable]
-  const headline = displayValue(article.variables[config.headlineVariable]) ?? article.title
+  const headline = displayValue(article.variables[config.headlineVariable])
   return (
     <header
       className={`${styles.header} ${styles.emblem}`}
@@ -22,12 +22,16 @@ export function CompactEmblemHeader({ article, definition }: HeaderRendererProps
         <Icon icon={valueIcon(emblemValue) ?? article.icon} />
       </div>
       <div className={styles.emblemContent}>
-        {config.title.placement === "header" && (
+        {headline && config.title.placement === "header" && (
           <HeaderTitle article={article} alignment={config.title.alignment} />
         )}
         <div className={styles.headline}>
           <span className="eyebrow">{config.headlineLabel}</span>
-          <strong>{headline}</strong>
+          {headline ? (
+            <strong>{headline}</strong>
+          ) : (
+            <HeaderTitle article={article} alignment={config.title.alignment} />
+          )}
         </div>
         <div className={styles.emblemFields}>
           {config.fields.map((field) => (

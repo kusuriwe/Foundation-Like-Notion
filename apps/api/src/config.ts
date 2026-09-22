@@ -291,6 +291,8 @@ function validateReaderDatabases(
       for (const variable of headerVariables(header)) {
         const optionalBuiltInVariable =
           (templateId === "simple" || templateId === "compact-emblem") &&
+          JSON.stringify(header) ===
+            JSON.stringify(defaultPresentation.articleHeaders[templateId]) &&
           ["mainClass", "subClass", "codeName"].includes(variable)
         if (!database.variables[variable] && !optionalBuiltInVariable) {
           context.addIssue({

@@ -58,7 +58,7 @@ export function ArticlePage() {
         </p>
       </div>
     )
-  if (!article) return <div className="page loading-state">Loading…</div>
+  if (!article) return <div className="page loading-state">{messages.loading}</div>
 
   const selectTemplate = (selected: string) => {
     setTemplateId(selected)
@@ -84,7 +84,7 @@ export function ArticlePage() {
       </div>
       <TemplateHeader article={article} templateId={templateId} />
       <div className="article-content">
-        {templateTitlePlacement(presentation.articleHeaders, templateId) === "content" && (
+        {templateTitlePlacement(presentation.articleHeaders, templateId, article) === "content" && (
           <h1>
             {article.titleRichText.length > 0 ? (
               <RichText value={article.titleRichText} />

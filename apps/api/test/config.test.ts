@@ -49,6 +49,41 @@ describe("Reader configuration", () => {
     }
   })
 
+  it("rejects an unmapped variable when a built-in header ID is overridden", () => {
+    const result = ReaderConfigSchema.safeParse({
+      version: 1,
+      source: "fixture",
+      contentDatabases: [
+        {
+          id: "database-one",
+          name: "One",
+          sourceDataSourceId: "source-one",
+          titlePropertyId: "title",
+          defaultTemplate: "simple",
+          templates: ["simple"],
+          variables: {},
+          filters: {},
+        },
+      ],
+      presentation: {
+        articleHeaders: {
+          simple: {
+            name: "Custom simple",
+            renderer: "field-grid",
+            title: { placement: "content", alignment: "center" },
+            fields: [{ variable: "codeName", label: "Code" }],
+          },
+        },
+      },
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.issues.map((issue) => issue.message)).toContain(
+        "Article header references an unknown Reader variable",
+      )
+    }
+  })
+
   it("rejects duplicate database IDs", () => {
     const database = {
       id: "duplicate-db",

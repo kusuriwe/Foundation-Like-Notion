@@ -58,7 +58,7 @@ export function SearchPage() {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder={messages.searchPlaceholder}
-          aria-label="Title search"
+          aria-label={messages.searchInputLabel}
         />
         <button className="primary-button" type="submit">
           {messages.searchButton}
@@ -66,7 +66,7 @@ export function SearchPage() {
       </form>
       {tag && (
         <div className="active-filter">
-          Tag: <strong>{tag}</strong>
+          {messages.tagFilterLabel}: <strong>{tag}</strong>
           <button type="button" onClick={() => setParams(query ? { q: query } : {})}>
             ×
           </button>

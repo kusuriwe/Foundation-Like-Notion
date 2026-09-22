@@ -38,6 +38,13 @@ const demoDataset = {
 }
 
 describe("Reader contracts", () => {
+  it("uses a light palette when only the light scheme is configured", () => {
+    const presentation = PresentationInputSchema.parse({ theme: { colorScheme: "light" } })
+    expect(presentation.theme.colors.background).toBe("#f5f7fa")
+    expect(presentation.theme.colors.text).toBe("#17202c")
+    expect(presentation.theme.colors.accent).toBe("#365314")
+  })
+
   it("keeps reference cardinality explicit", () => {
     expect(
       ReaderValueSchema.parse({

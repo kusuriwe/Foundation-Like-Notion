@@ -5,9 +5,10 @@ import {
 } from "@foundation-like-notion/contracts"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
+import { defaultPresentation } from "../presentation.js"
 import type { ReaderClient } from "../reader-client.js"
 import { ReaderRuntimeProvider } from "../reader-runtime.js"
-import { TemplateHeader } from "./TemplateHeader.js"
+import { TemplateHeader, templateTitlePlacement } from "./TemplateHeader.js"
 
 const article: Article = {
   id: "article_12345678",
@@ -56,6 +57,31 @@ describe("TemplateHeader", () => {
     render(<TemplateHeader article={article} templateId="compact-emblem" />)
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("FLAME TEST")
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("CHEMISTRY")
+  })
+
+  it("uses the rich title as the sole headline when code name is missing", () => {
+    const withoutCodeName: Article = {
+      ...article,
+      variables: {},
+      titleRichText: [{ text: "Article " }, { type: "equation", expression: "x^2", text: "x^2" }],
+    }
+    const { container } = render(
+      <ReaderRuntimeProvider
+        value={{
+          client: unavailableClient,
+          mode: "reader",
+          presentation: defaultPresentation,
+          storageNamespace: "reader",
+        }}
+      >
+        <TemplateHeader article={withoutCodeName} templateId="compact-emblem" />
+      </ReaderRuntimeProvider>,
+    )
+    expect(container.querySelectorAll("h1")).toHaveLength(1)
+    expect(container.querySelector(".katex")).toBeTruthy()
+    expect(
+      templateTitlePlacement(defaultPresentation.articleHeaders, "compact-emblem", withoutCodeName),
+    ).toBe("header")
   })
 
   it("renders configured field order and a rich title exactly once in the header", () => {

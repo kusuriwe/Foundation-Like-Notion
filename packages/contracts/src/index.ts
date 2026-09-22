@@ -79,7 +79,9 @@ const defaultMessages = {
   searchTitle: "Title & property search",
   searchDescription: "本文全文検索ではありません。",
   searchPlaceholder: "Title",
+  searchInputLabel: "Title search",
   searchButton: "Search",
+  tagFilterLabel: "Tag",
   emptySearch: "該当する記事はありません。",
   templateLabel: "Template",
   demoTitle: "Explore the Reader demo",
@@ -110,6 +112,18 @@ const defaultColors = {
   accent: "#d8ff5f",
   accentSecondary: "#7cecff",
   danger: "#ff7a90",
+} as const
+
+const lightColors = {
+  background: "#f5f7fa",
+  panel: "#ffffff",
+  panelAlt: "#ebeff4",
+  line: "#cbd5e1",
+  text: "#17202c",
+  muted: "#475569",
+  accent: "#365314",
+  accentSecondary: "#075985",
+  danger: "#b4233d",
 } as const
 
 const PresentationThemeSchema = z
@@ -212,7 +226,10 @@ export const PresentationInputSchema = PresentationInputObjectSchema.transform((
     brand: { ...defaultPresentation.brand, ...value.brand },
     theme: {
       colorScheme: value.theme?.colorScheme ?? defaultPresentation.theme.colorScheme,
-      colors: { ...defaultPresentation.theme.colors, ...value.theme?.colors },
+      colors: {
+        ...(value.theme?.colorScheme === "light" ? lightColors : defaultPresentation.theme.colors),
+        ...value.theme?.colors,
+      },
     },
     messages: { ...defaultPresentation.messages, ...value.messages },
     articleHeaders: { ...defaultPresentation.articleHeaders, ...value.articleHeaders },

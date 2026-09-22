@@ -27,6 +27,7 @@ function applyPresentation(presentation: PresentationConfig): void {
     "--accent": presentation.theme.colors.accent,
     "--accent-2": presentation.theme.colors.accentSecondary,
     "--danger": presentation.theme.colors.danger,
+    "--accent-foreground": presentation.theme.colorScheme === "light" ? "#ffffff" : "#10140a",
   }
   for (const [property, value] of Object.entries(variables)) {
     document.documentElement.style.setProperty(property, value)

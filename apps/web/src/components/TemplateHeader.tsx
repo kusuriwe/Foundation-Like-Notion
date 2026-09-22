@@ -1,6 +1,7 @@
 import type { Article, ArticleHeader } from "@foundation-like-notion/contracts"
 import { useReaderRuntime } from "../reader-runtime.js"
 import { headerRenderer, resolveHeaderDefinition } from "./article-headers/registry.js"
+import { displayValue } from "./article-headers/shared.js"
 
 /** Render an article header using an allowlisted bundled template. / 許可された同梱 template で article header を描画します。 */
 export function TemplateHeader({ article, templateId }: { article: Article; templateId: string }) {
@@ -14,6 +15,15 @@ export function TemplateHeader({ article, templateId }: { article: Article; temp
 export function templateTitlePlacement(
   definitions: Readonly<Record<string, ArticleHeader>>,
   templateId: string,
+  article?: Article,
 ): "header" | "content" {
-  return resolveHeaderDefinition(definitions, templateId).title.placement
+  const definition = resolveHeaderDefinition(definitions, templateId)
+  if (
+    article &&
+    definition.renderer === "compact-emblem" &&
+    !displayValue(article.variables[definition.headlineVariable])
+  ) {
+    return "header"
+  }
+  return definition.title.placement
 }

@@ -54,7 +54,7 @@ export function LibraryPage() {
             </span>
             <span>
               <strong>{article.title}</strong>
-              <small>{new Date(article.createdTime).toLocaleDateString("ja-JP")}</small>
+              <small>{new Date(article.createdTime).toLocaleDateString(presentation.locale)}</small>
             </span>
           </Link>
         ))}

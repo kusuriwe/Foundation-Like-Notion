@@ -101,7 +101,7 @@ contentDatabases:
 | `sourceDataSourceId` | 記事を取得する Notion Data Source ID。同じ ID を複数定義できません。 |
 | `titlePropertyId` / `titlePropertyName` | Notion の `title` Property を ID または完全一致する名前で指定します。どちらか一方が必須です。 |
 | `defaultTemplate` | 初期 template。必ず `templates` にも含めます。 |
-| `templates` | 許可する同梱 template。現在は `simple` と `compact-emblem` だけです。 |
+| `templates` | 許可する同梱 header ID。既定は `simple` と `compact-emblem` で、`presentation.articleHeaders` に追加した ID も指定できます。 |
 | `sort` | Notion query に渡す既定 sort。1件以上必要です。 |
 | `variables` | Template が参照できる Reader variable の allowlist です。 |
 | `filters` | Browser から指定可能な検索 filter の allowlist です。 |
