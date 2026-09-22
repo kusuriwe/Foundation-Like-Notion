@@ -1,0 +1,11 @@
+version: 1
+source: notion
+contentDatabases:
+  - id: my-notes
+    name: My Notes
+    sourceDataSourceId: "replace-with-notion-data-source-id"
+    titlePropertyName: "Name"
+    defaultTemplate: simple
+    templates: [simple]
+    variables: {}
+relationSources: []

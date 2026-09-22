@@ -20,6 +20,8 @@
     "demo:verify": "node scripts/verify-demo.mjs",
     "pages:verify": "node scripts/verify-pages-workflow.mjs",
     "config:resolve": "npm run config:resolve --workspace @foundation-like-notion/api",
+    "config:check": "node apps/api/dist/check-config.js",
+    "setup:hash": "node apps/api/dist/hash-password.js",
     "pretest": "npm run build --workspace @foundation-like-notion/contracts",
     "test": "npm run test --workspaces --if-present",
     "pretypecheck": "npm run build --workspace @foundation-like-notion/contracts",
