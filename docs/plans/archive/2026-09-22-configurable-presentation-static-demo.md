@@ -19,3 +19,7 @@ local `main`で通常版と公開demoに共通する安全なpresentation設定�
 - `git diff --check`、Compose config、`npm run check`、通常/demo Chromium desktop・WebKit mobile E2E、`npm audit`、demo build/verify、workflow静的検査を通す。
 - ローカルproject-path production previewでdummy offline PWAを確認し、通常版は実Notionの短いlogin/list/detail/header smokeとログ・SQLite/cache境界を監査する。
 - 実装・証跡はlocal `main`へcommitする。別reviewerが最終diff、gate、artifact、workflow、worklogを独立確認し、findingがない場合だけ本planをarchiveする。programmer agentはpushしない。
+
+## Completion (2026-09-22)
+
+通常版の短い実Notion smoke、静的demoのPages相当preview、全自動gate、公開境界と保存境界の監査が完了した。独立reviewerは最終差分と[worklog](../../worklogs/configurable-presentation-static-demo.md)を確認し、未解決findingなしでarchiveを承認した。実GitHub Pages deployは今回行っておらず、`release` branch作成とpushは人間による別作業である。

@@ -4,7 +4,7 @@
 
 通常版と公開用の静的demoに共通する安全な表示設定と拡張可能な記事headerを実装し、`release` branchへ人間がpushすればGitHub Pagesへdeployされる状態にする。実Pages公開とremote操作は今回の範囲外である。
 
-2026-09-22現在、通常版とdemoの自動gate、Pages相当のproject subpath preview、productionコンテナの起動、実Notionの短い目視smoke、ログ・SQLite・cache境界監査は合格した。認証後のlogin→記事一覧→記事詳細→Simple/Compact Emblem切替はユーザーが「smoke OK」と報告した。Serveとproductionコンテナは停止し、ignored設定とnamed SQLite volumeを保全した。コード・artifact・workflowは独立reviewerが暫定承認済みであり、本記録を含む最終判定とarchiveはまだ行っていない。
+2026-09-22現在、通常版とdemoの自動gate、Pages相当のproject subpath preview、productionコンテナの起動、実Notionの短い目視smoke、ログ・SQLite・cache境界監査は合格した。認証後のlogin→記事一覧→記事詳細→Simple/Compact Emblem切替はユーザーが「smoke OK」と報告した。Serveとproductionコンテナは停止し、ignored設定とnamed SQLite volumeを保全した。独立reviewerは最終差分、artifact、workflow、本記録を確認し、未解決findingなしで[完了plan](../plans/archive/2026-09-22-configurable-presentation-static-demo.md)をarchiveした。
 
 ## Independent review remediation (2026-09-22)
 
@@ -51,4 +51,8 @@
 
 ## Next step
 
-本記録をlocal `main`へcommitする。独立reviewerが最終差分・gate・artifact・workflow・本記録を確認し、findingがない場合だけactive planをarchiveする。実Pages deploy、`release` branch作成、remote pushは別作業として人間が担当する。
+実Pages deploy、`release` branch作成、remote pushは別作業として人間が担当する。公開前にremote `release`の有無を確認し、既存branchがあれば上書きせず差分と統合方法を判断する。公開後は実URLでinstall、offline表示、公開artifactを受け入れ確認する。
+
+## Independent final review (2026-09-22)
+
+独立reviewerは`548968c..4026f55`の全差分、修正commit `021729b`・`652b54a`、最終worklog、demo artifact、`release`限定Pages workflow、全gateとユーザーの短い実Notion smoke結果を確認した。通常版のread-only/API NetworkOnly、demoの公開dummy contentのみのoffline cache、ログとSQLiteの非コンテンツ保存境界が維持されている。既レビューfindingはすべて修正済みで、新たなfindingはなかった。実Pages runとWebKit offline自動試験は未実施として残すが、今回の「releaseへの将来のpushでdeploy開始可能な状態」という完了条件を妨げないため、plan archiveを承認した。remoteへはpushしていない。
