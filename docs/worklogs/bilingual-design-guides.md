@@ -2,7 +2,7 @@
 
 ## Goal and status
 
-利用者がReaderの文言・色・headerを安全に変更できるよう、LLM向けクイックガイド付きの文書を追加し、主要な利用者向け文書を日本語・英語の両方で読めるようにした。実装とローカル検証は完了し、独立reviewとarchiveは未実施である。
+利用者がReaderの文言・色・headerを安全に変更できるよう、LLM向けクイックガイド付きの文書を追加し、主要な利用者向け文書を日本語・英語の両方で読めるようにした。独立reviewで日英の手順、実装との一致、秘密情報境界を確認し、blocking findingがなかったため、[計画をarchive](../plans/archive/2026-09-23-bilingual-design-guides.md)した。実環境での操作や英語の人間による校閲は引き続き未実施である。
 
 ## Scope and decisions
 
@@ -18,6 +18,12 @@
 - `git diff --check`、`docker compose config --quiet`、`docker compose run --rm app npm run check`がpassした。品質gateにはformat、lint、typecheck、unit tests、production buildが含まれる。
 - 実Notion、実機iOS、GitHub Pagesの状態は本書き換えで操作・検証していない。英語表現の人間による校閲も未実施。
 
+## Independent review (2026-09-23)
+
+- Reviewerは`723e6c4`の親commitからの全差分と、6つの利用者向け文書、active plan、worklogを確認した。日本語・英語の手順と設定キーを比較し、Compose、package scripts、Notion設定schema、header registry、demo build設定、Pages workflowと照合した。READMEのfixture開発手順、セットアップの本番image手順、デザインガイドのYAMLとtrusted renderer手順にblocking findingはなかった。
+- `git diff 723e6c4^ 723e6c4 --check`、`docker compose config --quiet`、`docker compose run --rm app npm run check`をreviewerが再実行し、すべてpassした。後者ではAPI 60件、Web 12件、contracts 10件のtestとproduction buildがpassした。
+- `.env/`、実Notion、SQLiteの値は読まず、GitHub Pagesへのpushも行っていない。実macOS・Linux、実iOS、公開Pages、英語の人間による校閲はこのreviewの範囲外である。
+
 ## Next step
 
-local commit後、別reviewerが日本語・英語の手順の一致、秘密情報境界、リンク、YAML例を確認する。findingがなければreviewerだけがactive planをarchiveする。remoteへpushしない。
+利用者がガイドに沿って新しいデザインを試し、必要に応じて文言・画面の微調整を行う。表示仕様に新しい選択肢が出る場合は先にPLAN、既存設定内の小さな修正なら直接実装できる。remoteへのpushは利用者だけが行う。
