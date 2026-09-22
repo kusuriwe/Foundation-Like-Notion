@@ -1,32 +1,69 @@
-# Header renderer guide
+# Header renderer guide / 記事header renderer開発ガイド
 
-Article headerはYAMLから任意HTMLを読み込まず、bundle済みのtrusted renderer registryだけを使用します。この境界により、利用者はfield・label・順番・配置をYAMLで安全に変更でき、開発者は新しい見た目を小さな差分で追加できます。
+[日本語](#japanese) · [English](#english)
 
-## 設定だけで変更できる範囲
+<a id="japanese"></a>
+
+## 日本語
+
+これは新しいheaderレイアウトをコードで追加する開発者向けの手順です。まず[利用者向けデザイン追加ガイド](design-customization.md)で、YAMLだけで目的を達成できるか確認してください。記事headerはYAMLから任意HTMLを読み込まず、bundle済みのtrusted renderer registryだけを使用します。
+
+### 設定だけで変更できる範囲
 
 - `field-grid`: fieldの順番、label、`third` / `half` / `full`幅、通常/強調、icon有無、密度、tone
-- `compact-emblem`: emblem variable、headline variable、title fallback、metadata fields
-- `cactus-study`: headline variable、シリーズ表記、最大3つの分類field、任意のcaption。fieldの欠損時は詰めて表示
-- 共通: template表示名、記事titleの `header` / `content` 配置とalignment
+- `compact-emblem`: emblem variable、headline variable、title fallback、metadata fields、任意caption
+- `cactus-study`: headline variable、シリーズ表記、最大3つの分類field、任意caption。欠損fieldは詰めて表示
+- 共通: template表示名、記事titleの`header` / `content`配置とalignment
 
-記事に値がないfieldは隙間を残さず省略されます。一方、YAMLが存在しないReader variableを参照すると、起動時validationが失敗します。
+記事に値がないfieldは隙間を残さず省略します。custom headerが存在しないReader variableを参照すると、起動時validationが失敗します。
 
-## 新しいrendererを追加する手順
+### 新しいrendererの追加
 
-1. `packages/contracts/src/index.ts` の `ArticleHeaderSchema` discriminated unionへ新しいrenderer設定branchを追加します。任意HTML、script、生CSS、外部URLは受け付けないschemaにします。
-2. `apps/web/src/components/article-headers/` にReact componentとCSS Moduleのclassを追加します。共通の `HeaderTitle`、`HeaderField`、`ReaderIcon`、ReaderValue formatterを再利用します。
-3. `registry.ts` の `renderers` へcomponentを登録します。`ArticlePage`、Reader Service、公開endpointへrenderer固有分岐を追加しません。
-4. `config/reader.example.yaml` に安全な例を追加します。
-5. component testでfield順序、欠損値、title placement、mobile reflow、reduced motionを確認します。config testで未知variableと無効設定が起動時に拒否されることも確認します。
+1. `packages/contracts/src/index.ts`の`ArticleHeaderSchema` discriminated unionへ設定branchを追加します。任意HTML、script、生CSS、外部URLを受け付けないstrict schemaにします。
+2. built-inとして提供する場合は、同ファイルの`defaultArticleHeaders`と`packages/contracts/src/presentation-default.ts`のZod非依存fallbackを同じ内容に更新します。
+3. `apps/api/src/config.ts`の`headerVariables`で、新rendererが参照するReader variableを起動時検証に含めます。built-inの欠損許容が必要なら、その条件も明示します。
+4. `apps/web/src/components/article-headers/`へReact componentとCSS Moduleを追加し、`registry.ts`へ登録します。共通の`HeaderTitle`、`HeaderField`、`ReaderIcon`、ReaderValue formatterを再利用します。記事titleはheaderまたはcontentに一度だけ表示し、rich text・inline数式を保持します。headline欠損時にtitleへfallbackするrendererでは`TemplateHeader.tsx`のtitle配置判定も確認します。
+5. `config/reader.example.yaml`と`config/reader.notion.example.yaml`に安全な例を追加し、公開ダミーデモを更新する場合は`demo/demo.yaml`と`demo/articles/*.yaml`だけを使います。`.env/`や実記事をdemoへコピーしません。
+6. contract/config/component testで無効設定、未知variable、field順序、欠損値、title一回表示、数式を確認します。desktop/mobile E2Eでreflow・横はみ出し・reduced motionを確認します。
 
-最小componentは次の形です。
+公開endpoint、Reader Service、Notion adapterにrenderer固有分岐は追加しません。TypeScriptは未登録rendererをregistry型検査で検出します。runtimeの未知template IDはbuilt-in `simple`へ安全にfallbackしますが、設定内の未知template参照はbuild/起動時に拒否されます。
 
-```tsx
-import type { HeaderRendererProps } from "./types.js"
-
-export function NewHeader({ article, definition }: HeaderRendererProps) {
-  return <header>{/* validated definitionだけを描画する */}</header>
-}
+```sh
+docker compose run --rm app npm run check
+docker compose run --rm app npm run e2e
+docker compose run --rm app npm run e2e:demo
+docker compose run --rm app npm run demo:verify
 ```
 
-rendererが未登録の状態はTypeScriptのregistry型検査で検出します。runtimeで未知template IDを受け取った場合はbuilt-in `simple`へ安全にfallbackしますが、正常なReader YAMLやdemo YAMLの未知template参照はbuild/起動時に拒否されます。
+<a id="english"></a>
+
+## English
+
+This is the developer checklist for adding a new header layout in code. First read the [user-facing design guide](design-customization.md) to see whether YAML already covers the change. Article headers never load arbitrary HTML from YAML; they use only bundled, trusted renderers in a registry.
+
+### Changes available in YAML
+
+- `field-grid`: field order, labels, `third` / `half` / `full` widths, normal/strong emphasis, icons, density, and tone
+- `compact-emblem`: emblem and headline variables, title fallback, metadata fields, and an optional caption
+- `cactus-study`: headline variable, series text, up to three classification fields, and an optional caption; missing fields collapse
+- All renderers: template name and article-title placement (`header` or `content`) and alignment
+
+A missing value in an article removes that field without leaving a gap. A custom header referencing an undefined Reader variable fails startup validation.
+
+### Add a new renderer
+
+1. Add a strict branch to the `ArticleHeaderSchema` discriminated union in `packages/contracts/src/index.ts`. Do not accept arbitrary HTML, scripts, raw CSS, or external URLs.
+2. If it is built in, update both `defaultArticleHeaders` in that file and the Zod-free fallback in `packages/contracts/src/presentation-default.ts` with matching definitions.
+3. Include the renderer's Reader variable references in startup validation in `headerVariables` in `apps/api/src/config.ts`. Explicitly define any missing-value exception for a built-in default.
+4. Add the React component and CSS Module under `apps/web/src/components/article-headers/`, then register it in `registry.ts`. Reuse `HeaderTitle`, `HeaderField`, `ReaderIcon`, and the ReaderValue formatter. Render the article title exactly once, in the header or content, preserving rich text and inline equations. Check the title-placement logic in `TemplateHeader.tsx` if a missing headline falls back to the title.
+5. Add safe examples to `config/reader.example.yaml` and `config/reader.notion.example.yaml`. If updating the public demo, edit only `demo/demo.yaml` and `demo/articles/*.yaml` with fictional content; never copy `.env/` or real articles into it.
+6. Test invalid configuration, unknown variables, field order, missing values, one-time title rendering, and equations at contract/config/component level. Use desktop/mobile E2E to check reflow, horizontal overflow, and reduced motion.
+
+Do not add renderer-specific branches to public endpoints, Reader Service, or the Notion adapter. TypeScript's registry type catches missing bundled renderers. An unknown runtime template ID falls back safely to built-in `simple`, while unknown template references in Reader or demo configuration fail at startup/build time.
+
+```sh
+docker compose run --rm app npm run check
+docker compose run --rm app npm run e2e
+docker compose run --rm app npm run e2e:demo
+docker compose run --rm app npm run demo:verify
+```
