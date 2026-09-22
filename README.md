@@ -14,7 +14,7 @@
 
 ## 開発と検証
 
-開発には起動済みのDocker Desktop、またはDocker EngineとCompose pluginが必要です。fixtureで開発する場合は、`.env/reader.yaml`に`config/reader.example.yaml`をコピーし、`.env/reader.env`にログイン用hashを設定してから`docker compose up app`を実行します。画面は <http://localhost:5173>、API healthは <http://localhost:3000/api/health> です。ファイルコピーとhash生成は[初回セットアップ](docs/setup.md)の手順2～3と同様です。実Notion用の秘密情報は`.env/`内だけに置き、Gitへ追加しないでください。
+開発には起動済みのDocker Desktop、またはDocker EngineとCompose pluginが必要です。`app`サービスは追跡対象の`config/reader.example.yaml`をfixture設定として直接使うため、`.env/reader.yaml`へのコピーは不要です。[初回セットアップ](docs/setup.md)の手順を参考に`.env/reader.env`へログイン用hashを設定し、`docker compose up app`を実行します。画面は <http://localhost:5173>、API healthは <http://localhost:3000/api/health> です。実Notion用の秘密情報は`.env/`内だけに置き、Gitへ追加しないでください。
 
 ```sh
 docker compose run --rm app npm run check

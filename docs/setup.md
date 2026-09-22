@@ -2,6 +2,13 @@
 
 Windows・macOS・Linux共通で、ホスト側のNode.jsは不要です。Docker Desktop（LinuxではDocker EngineとCompose plugin）とGitを用意し、Dockerを起動してからこのリポジトリを取得してください。Readerは自分の端末の`127.0.0.1:3000`で動き、実Notionの内容をGitHub Pagesへ公開しません。
 
+リポジトリを取得し、そのルートへ移動します。次の2行はWindows PowerShellとmacOS・LinuxのPOSIX shellで共通です。リポジトリが非公開の場合は、アクセス権のあるアカウントで認証してください。
+
+```sh
+git clone https://github.com/kusuriwe/Foundation-Like-Notion.git
+cd Foundation-Like-Notion
+```
+
 ## 1. Notionの読み取り接続を準備
 
 読み取り専用のInternal Connectionを作り、利用する記事Data Sourceに接続してください。relationのタイトル・アイコンも表示する場合は、その参照先Data Source/Pageも必要な範囲だけ共有します。親ページやworkspace全体への接続拡大は不要です。token、記事Data Source ID、タイトルPropertyの正確な名前を手元で確認します。ここで使うのはDatabase IDではなく**Data Source ID**です。
