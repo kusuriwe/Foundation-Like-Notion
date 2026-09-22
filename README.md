@@ -335,6 +335,7 @@ presentation:
 ```
 
 - `brand` は画面、document title、Web App Manifestへ反映されます。
+- `locale` は有効な言語タグ（例: `ja-JP`、`en-US`）を指定します。不正な値は起動時またはdemo build時に拒否します。`colorScheme: light` だけでもlight用の既定配色が適用され、`colors` で個別に上書きできます。
 - 色は `#RRGGBB` のみです。HTML、JavaScript、CSS、外部font/stylesheet URLは指定できません。
 - `messages` はschemaで許可されたplain textだけを上書きします。API error本文は変更できません。
 - template IDは小文字英数字とhyphenだけで最大64文字です。`contentDatabases[].templates` と `defaultTemplate` は `articleHeaders` の定義を参照します。
@@ -347,7 +348,7 @@ presentation:
 
 ## Static fixture demo
 
-公開demoは `demo/demo.yaml`、`demo/articles/*.yaml`、`apps/web/public/demo/` だけを入力にする静的PWAです。Notion、Fastify、SQLite、password、`.env/` は使いません。IDはすべて `demo_` prefixにし、参照切れや無効なReader DTOはbuild時に拒否されます。
+公開demoは `demo/demo.yaml`、`demo/articles/*.yaml`、`apps/web/public/demo/` だけを入力にする静的PWAです。Notion、Fastify、SQLite、password、`.env/` は使いません。IDはすべて `demo_` prefixにし、未知のmanifest欄、参照切れ、無効なReader DTOはbuild時に拒否されます。
 
 ```powershell
 docker compose run --rm app npm run demo:build

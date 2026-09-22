@@ -4,6 +4,17 @@ export const TemplateIdSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,63}$/)
 
 const PresentationTextSchema = z.string().min(1).max(240)
 const PresentationColorSchema = z.string().regex(/^#[0-9A-Fa-f]{6}$/)
+const PresentationLocaleSchema = z
+  .string()
+  .min(2)
+  .max(35)
+  .refine((locale) => {
+    try {
+      return Intl.getCanonicalLocales(locale).length === 1
+    } catch {
+      return false
+    }
+  }, "Invalid locale")
 
 export const HeaderFieldSchema = z
   .object({
@@ -185,7 +196,7 @@ const PresentationBrandSchema = z
 const PresentationInputObjectSchema = z
   .object({
     version: z.literal(1).default(1),
-    locale: z.string().min(2).max(35).default("ja-JP"),
+    locale: PresentationLocaleSchema.default("ja-JP"),
     brand: PresentationBrandSchema.partial().optional(),
     theme: z
       .object({
@@ -202,7 +213,7 @@ const PresentationInputObjectSchema = z
 export const PresentationConfigSchema = z
   .object({
     version: z.literal(1),
-    locale: z.string().min(2).max(35),
+    locale: PresentationLocaleSchema,
     brand: PresentationBrandSchema,
     theme: PresentationThemeSchema,
     messages: PresentationMessagesSchema,
@@ -459,6 +470,15 @@ export const DemoArticleSchema = ArticleSchema.extend({
 }).strict()
 
 export const DemoDatabaseSchema = DatabaseSummarySchema.extend({ id: DemoIdSchema }).strict()
+
+export const DemoManifestSchema = z
+  .object({
+    presentation: z.unknown(),
+    databases: z.unknown(),
+    articleFiles: z.array(z.string().min(1)).min(1).max(200),
+    assets: z.unknown(),
+  })
+  .strict()
 
 export const DemoDatasetSchema = z
   .object({

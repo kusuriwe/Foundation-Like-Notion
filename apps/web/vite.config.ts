@@ -1,7 +1,11 @@
 import { readFileSync } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
-import { DemoDatasetSchema, type DemoDataset } from "@foundation-like-notion/contracts"
+import {
+  DemoDatasetSchema,
+  DemoManifestSchema,
+  type DemoDataset,
+} from "@foundation-like-notion/contracts"
 import react from "@vitejs/plugin-react"
 import yaml from "js-yaml"
 import type { Plugin } from "vite"
@@ -12,18 +16,9 @@ const repositoryRoot = fileURLToPath(new URL("../..", import.meta.url))
 const demoRoot = path.join(repositoryRoot, "demo")
 
 function loadDemoDataset(): DemoDataset {
-  const manifest = yaml.load(readFileSync(path.join(demoRoot, "demo.yaml"), "utf8")) as {
-    presentation?: unknown
-    databases?: unknown
-    articleFiles?: unknown
-    assets?: unknown
-  }
-  if (
-    !Array.isArray(manifest.articleFiles) ||
-    !manifest.articleFiles.every((file) => typeof file === "string")
-  ) {
-    throw new Error("Demo articleFiles must be a string array")
-  }
+  const manifest = DemoManifestSchema.parse(
+    yaml.load(readFileSync(path.join(demoRoot, "demo.yaml"), "utf8")),
+  )
   const articles = manifest.articleFiles.map((relativePath) => {
     const absolutePath = path.resolve(demoRoot, relativePath)
     if (!absolutePath.startsWith(`${demoRoot}${path.sep}`)) {

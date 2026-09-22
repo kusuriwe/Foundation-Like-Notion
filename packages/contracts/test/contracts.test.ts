@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import {
   DemoDatasetSchema,
+  DemoManifestSchema,
   PresentationInputSchema,
   ReaderCursorSchema,
   ReaderValueSchema,
@@ -43,6 +44,23 @@ describe("Reader contracts", () => {
     expect(presentation.theme.colors.background).toBe("#f5f7fa")
     expect(presentation.theme.colors.text).toBe("#17202c")
     expect(presentation.theme.colors.accent).toBe("#365314")
+  })
+
+  it("rejects a locale that would throw during date formatting", () => {
+    expect(() => PresentationInputSchema.parse({ locale: "not_a_locale" })).toThrow()
+    expect(PresentationInputSchema.parse({ locale: "en-US" }).locale).toBe("en-US")
+  })
+
+  it("rejects private or unknown top-level demo manifest fields", () => {
+    const manifest = {
+      presentation: {},
+      databases: [],
+      articleFiles: ["articles/example.yaml"],
+      assets: {},
+    }
+    expect(DemoManifestSchema.parse(manifest).articleFiles).toHaveLength(1)
+    expect(() => DemoManifestSchema.parse({ ...manifest, notionToken: "must-not-build" })).toThrow()
+    expect(() => DemoManifestSchema.parse({ ...manifest, sourceDataSourceId: "private" })).toThrow()
   })
 
   it("keeps reference cardinality explicit", () => {
