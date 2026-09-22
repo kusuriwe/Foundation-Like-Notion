@@ -1,0 +1,33 @@
+id: demo_article_periodic_patterns
+databaseId: demo_chemistry_notes
+title: 周期的なパターンの読み方
+titleRichText: [{ text: 周期的なパターンの読み方 }]
+icon: { kind: emoji, value: "🧭" }
+createdTime: "2026-02-14T09:00:00.000+00:00"
+lastEditedTime: "2026-08-20T12:00:00.000+00:00"
+variables:
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_reference_science
+      title: SCIENCE
+      icon: { kind: emoji, value: "⚗️" }
+  subClass:
+    type: reference
+    value:
+      readerId: demo_reference_patterns
+      title: PATTERNS
+      icon: { kind: emoji, value: "🧩" }
+  tags: { type: "string[]", value: [patterns, learning] }
+blocks:
+  - type: paragraph
+    content: [{ text: 欠損しているcodeNameが自動的に詰められることを確認する記事です。 }]
+  - type: bulletedList
+    items:
+      - [{ text: 同じ特徴をまとめる }]
+      - [{ text: 変化する順序を探す }]
+      - [{ text: 例外を別に記録する }]
+  - type: quote
+    content: [{ text: 規則は、比較できる形に整えると見つけやすくなります。 }]
+defaultTemplate: showcase-grid
+templates: [showcase-grid, compact-emblem]

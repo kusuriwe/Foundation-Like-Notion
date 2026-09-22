@@ -1,0 +1,56 @@
+id: demo_article_flame_colors
+databaseId: demo_chemistry_notes
+title: "炎の色と光 E=hν"
+titleRichText:
+  - text: "炎の色と光 "
+  - type: equation
+    expression: "E=h\\nu"
+    text: "E=h\\nu"
+icon:
+  kind: emoji
+  value: "🔥"
+createdTime: "2026-01-10T09:00:00.000+00:00"
+lastEditedTime: "2026-09-01T12:00:00.000+00:00"
+variables:
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_reference_science
+      title: SCIENCE
+      icon: { kind: emoji, value: "⚗️" }
+  subClass:
+    type: reference
+    value:
+      readerId: demo_reference_spectroscopy
+      title: SPECTROSCOPY
+      icon: { kind: emoji, value: "🌈" }
+  codeName: { type: string, value: FLAME COLORS }
+  tags: { type: "string[]", value: [chemistry, light, demo] }
+blocks:
+  - type: paragraph
+    content:
+      - text: "原子が放つ光のエネルギーは "
+      - type: equation
+        expression: "E=h\\nu"
+        text: "E=h\\nu"
+      - text: " で表せます。"
+  - type: math
+    expression: "\\ce{Na+ ->[heat] Na^{*} -> Na+ + h\\nu}"
+  - type: heading
+    level: 2
+    content: [{ text: 観察メモ }]
+  - type: callout
+    icon: { kind: emoji, value: "💡" }
+    content: [{ text: これは公開デモ用に作成した架空の観察記録です。 }]
+  - type: table
+    hasColumnHeader: true
+    hasRowHeader: false
+    rows:
+      - [[{ text: Sample }], [{ text: Color }]]
+      - [[{ text: A }], [{ text: Yellow }]]
+      - [[{ text: B }], [{ text: Violet }]]
+  - type: image
+    assetId: demo_asset_spectrum
+    caption: [{ text: ダミーの発光スペクトル図 }]
+defaultTemplate: showcase-grid
+templates: [showcase-grid, compact-emblem]

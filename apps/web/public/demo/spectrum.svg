@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">
+  <title id="title">Demo emission spectrum</title>
+  <desc id="desc">A decorative spectrum made only for the public demo.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" x2="1">
+      <stop stop-color="#090b10"/>
+      <stop offset="1" stop-color="#151b25"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="360" rx="28" fill="url(#background)"/>
+  <g opacity=".9">
+    <rect x="142" y="58" width="14" height="244" rx="7" fill="#80edff"/>
+    <rect x="319" y="92" width="9" height="176" rx="4" fill="#d8ff5f"/>
+    <rect x="472" y="44" width="20" height="272" rx="10" fill="#f4d35e"/>
+    <rect x="692" y="72" width="12" height="216" rx="6" fill="#ff7a90"/>
+    <rect x="802" y="116" width="7" height="128" rx="3" fill="#b28dff"/>
+  </g>
+  <path d="M70 316H890" stroke="#354052" stroke-width="2"/>
+  <text x="70" y="48" fill="#edf2f7" font-family="system-ui,sans-serif" font-size="24">DEMO SPECTRUM</text>
+  <text x="70" y="342" fill="#98a2b3" font-family="system-ui,sans-serif" font-size="15">Illustrative data — not a measurement</text>
+</svg>

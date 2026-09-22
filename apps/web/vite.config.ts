@@ -1,58 +1,142 @@
+import { readFileSync } from "node:fs"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+import { DemoDatasetSchema, type DemoDataset } from "@foundation-like-notion/contracts"
 import react from "@vitejs/plugin-react"
+import yaml from "js-yaml"
+import type { Plugin } from "vite"
 import { VitePWA } from "vite-plugin-pwa"
 import { defineConfig } from "vitest/config"
 
-// Compose keeps development cookies enabled, but a build must still emit React's production variant.
-// Compose では development cookie を使いますが、build は React の production variant を出力します。
-if (process.env.npm_lifecycle_event === "build") {
-  process.env.NODE_ENV = "production"
+const repositoryRoot = fileURLToPath(new URL("../..", import.meta.url))
+const demoRoot = path.join(repositoryRoot, "demo")
+
+function loadDemoDataset(): DemoDataset {
+  const manifest = yaml.load(readFileSync(path.join(demoRoot, "demo.yaml"), "utf8")) as {
+    presentation?: unknown
+    databases?: unknown
+    articleFiles?: unknown
+    assets?: unknown
+  }
+  if (
+    !Array.isArray(manifest.articleFiles) ||
+    !manifest.articleFiles.every((file) => typeof file === "string")
+  ) {
+    throw new Error("Demo articleFiles must be a string array")
+  }
+  const articles = manifest.articleFiles.map((relativePath) => {
+    const absolutePath = path.resolve(demoRoot, relativePath)
+    if (!absolutePath.startsWith(`${demoRoot}${path.sep}`)) {
+      throw new Error("Demo article path escapes the demo directory")
+    }
+    return yaml.load(readFileSync(absolutePath, "utf8"))
+  })
+  const dataset = DemoDatasetSchema.parse({
+    presentation: manifest.presentation,
+    databases: manifest.databases,
+    articles,
+    assets: manifest.assets,
+  })
+  const publicRoot = path.join(repositoryRoot, "apps", "web", "public")
+  for (const relativePath of Object.values(dataset.assets)) {
+    const absolutePath = path.resolve(publicRoot, relativePath)
+    if (!absolutePath.startsWith(`${publicRoot}${path.sep}`)) {
+      throw new Error("Demo asset path escapes the public directory")
+    }
+    readFileSync(absolutePath)
+  }
+  return dataset
 }
 
-export default defineConfig({
-  plugins: [
-    react(),
-    VitePWA({
-      registerType: "autoUpdate",
-      includeAssets: ["icon.svg", "icon-192.png", "icon-512.png", "apple-touch-icon.png"],
-      manifest: {
-        name: "Notion Reader",
-        short_name: "Reader",
-        description: "Private read-only Notion reader",
-        id: "/",
-        lang: "ja",
-        theme_color: "#0b0d10",
-        background_color: "#0b0d10",
-        display: "standalone",
-        start_url: "/",
-        icons: [
-          { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
-          { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
-          { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
-          { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
-        ],
-      },
-      workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2}"],
-        navigateFallbackDenylist: [/^\/api\//],
-        runtimeCaching: [
-          {
-            urlPattern: ({ url }) => url.pathname.startsWith("/api/"),
-            handler: "NetworkOnly",
-          },
-        ],
-      },
-    }),
-  ],
-  server: {
-    proxy: {
-      "/api": {
-        target: "http://127.0.0.1:3000",
-        changeOrigin: false,
+function demoDataPlugin(dataset: DemoDataset): Plugin {
+  const publicId = "virtual:demo-data"
+  const resolvedId = `\0${publicId}`
+  return {
+    name: "foundation-reader-demo-data",
+    resolveId(id) {
+      return id === publicId ? resolvedId : undefined
+    },
+    load(id) {
+      return id === resolvedId ? `export default ${JSON.stringify(dataset)}` : undefined
+    },
+    transformIndexHtml: {
+      order: "pre",
+      handler(html) {
+        return html.replace("/src/main.tsx", "/src/main.demo.tsx")
       },
     },
-  },
-  test: {
-    environment: "jsdom",
-    setupFiles: ["./src/test/setup.ts"],
-  },
+    generateBundle() {
+      const { brand, theme, locale } = dataset.presentation
+      const base = "/Foundation-Like-Notion/"
+      this.emitFile({
+        type: "asset",
+        fileName: "manifest.webmanifest",
+        source: JSON.stringify({
+          name: brand.name,
+          short_name: brand.shortName,
+          description: brand.tagline,
+          id: base,
+          lang: locale,
+          theme_color: theme.colors.background,
+          background_color: theme.colors.background,
+          display: "standalone",
+          start_url: base,
+          icons: [
+            { src: `${base}icon-192.png`, sizes: "192x192", type: "image/png", purpose: "any" },
+            { src: `${base}icon-512.png`, sizes: "512x512", type: "image/png", purpose: "any" },
+            {
+              src: `${base}icon-512.png`,
+              sizes: "512x512",
+              type: "image/png",
+              purpose: "maskable",
+            },
+            { src: `${base}icon.svg`, sizes: "any", type: "image/svg+xml", purpose: "any" },
+          ],
+        }),
+      })
+    },
+  }
+}
+
+export default defineConfig(({ mode }) => {
+  const demo = mode === "demo"
+  const dataset = demo ? loadDemoDataset() : undefined
+  const base = demo ? "/Foundation-Like-Notion/" : "/"
+  return {
+    base,
+    plugins: [
+      react(),
+      ...(dataset ? [demoDataPlugin(dataset)] : []),
+      VitePWA({
+        registerType: "autoUpdate",
+        manifest: false,
+        includeAssets: ["icon.svg", "icon-192.png", "icon-512.png", "apple-touch-icon.png"],
+        workbox: {
+          globPatterns: ["**/*.{js,css,html,webmanifest,ico,png,svg,woff,woff2}"],
+          ...(demo
+            ? {}
+            : {
+                navigateFallbackDenylist: [/^\/api\//],
+                runtimeCaching: [
+                  {
+                    urlPattern: ({ url }: { url: URL }) => url.pathname.startsWith("/api/"),
+                    handler: "NetworkOnly" as const,
+                  },
+                ],
+              }),
+        },
+      }),
+    ],
+    build: { outDir: demo ? "dist-demo" : "dist" },
+    server: {
+      proxy: {
+        "/api": { target: "http://127.0.0.1:3000", changeOrigin: false },
+        "/manifest.webmanifest": { target: "http://127.0.0.1:3000", changeOrigin: false },
+      },
+    },
+    test: {
+      environment: "jsdom",
+      setupFiles: ["./src/test/setup.ts"],
+    },
+  }
 })

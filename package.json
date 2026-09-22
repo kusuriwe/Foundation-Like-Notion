@@ -14,6 +14,11 @@
     "predev": "npm run build --workspace @foundation-like-notion/contracts",
     "dev": "concurrently -k -n api,web -c cyan,magenta \"npm run dev --workspace @foundation-like-notion/api\" \"npm run dev --workspace @foundation-like-notion/web\"",
     "build": "npm run build --workspace @foundation-like-notion/contracts && npm run build --workspace @foundation-like-notion/web && npm run build --workspace @foundation-like-notion/api",
+    "demo:build": "npm run build --workspace @foundation-like-notion/contracts && npm run demo:build --workspace @foundation-like-notion/web",
+    "demo:dev": "npm run build --workspace @foundation-like-notion/contracts && npm run demo:dev --workspace @foundation-like-notion/web",
+    "demo:preview": "npm run demo:preview --workspace @foundation-like-notion/web",
+    "demo:verify": "node scripts/verify-demo.mjs",
+    "pages:verify": "node scripts/verify-pages-workflow.mjs",
     "config:resolve": "npm run config:resolve --workspace @foundation-like-notion/api",
     "pretest": "npm run build --workspace @foundation-like-notion/contracts",
     "test": "npm run test --workspaces --if-present",
@@ -24,6 +29,7 @@
     "format:check": "biome format .",
     "icons:render": "node scripts/render-pwa-icons.mjs",
     "e2e": "playwright test",
+    "e2e:demo": "playwright test --config playwright.demo.config.ts",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "devDependencies": {

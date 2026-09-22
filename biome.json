@@ -6,6 +6,7 @@
       "!.agents",
       "!AGENTS.md",
       "!**/dist",
+      "!**/dist-demo",
       "!**/coverage",
       "!**/node_modules",
       "!.cache",
