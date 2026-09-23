@@ -2,7 +2,7 @@
 
 ## Status
 
-Ready for independent review / 独立レビュー待ち。
+Completed and independently approved / 完了・独立レビュー承認済み。
 
 ## Goal
 
@@ -57,4 +57,4 @@ Notion callout の構造と外観、記事内 child database の read-only table
 
 ## Next step
 
-同じ独立 reviewer がremediation差分と更新済み証跡を再確認する。finding がなければ active plan を `docs/plans/archive/2026-09-23-callout-embedded-database-class-icons.md` へ移動し、worklog statusを更新してarchive commitを作る。remoteへはpushしない。
+2026-09-23 の再レビューで remediation 差分、全体差分、更新済み証跡を確認し、追加 finding なしで承認した。focused review tests は Web 10件、API 36件が合格し、`git diff --check`も合格した。計画は `docs/plans/archive/2026-09-23-callout-embedded-database-class-icons.md` へarchiveした。remoteへのpushは行っていない。実データに対象blockがある場合の短いvisual smokeは、ユーザーが必要に応じて追加できる。
