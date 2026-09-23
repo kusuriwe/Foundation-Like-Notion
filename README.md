@@ -32,6 +32,26 @@ docker compose run --rm app npm run e2e
 
 実Notion用の秘密情報は`.env/`内だけに置き、Gitへ追加しないでください。一般Internetへ実Notionを公開しないでください。別端末から使う場合は[セットアップガイド](docs/setup.md)のtailnet限定HTTPS手順を参照してください。
 
+### ライセンスと著作権
+
+このリポジトリは混在ライセンスです。原則としてソースコード・文書・設定例は
+[Apache License 2.0](LICENSE)ですが、次の例外があります。
+
+- `Cactus Study header`のReact/CSSは、SCP Wikiの
+  [Anomaly Classification System (ACS) Guide](https://scp-wiki.wikidot.com/anomaly-classification-system-guide)
+  （Woedenaz、協力者は[`NOTICE`](NOTICE)に記載）を翻案したもので、
+  [CC BY-SA 3.0](LICENSES/CC-BY-SA-3.0.txt)です。レスポンシブなReader用headerとして
+  再実装し、layout・label・色・typography・field・icon入力を変更しています。
+- SDQの記事本文は通常の著作権で保護され、個別表示がない限り再利用許諾はありません。
+- Readerに表示するclass iconのうち、`Tusmujimagari` / `Kojire` classには
+  [ICOOON MONO](https://icooon-mono.com/)の素材を使用し、それ以外にはNotion公式iconを
+  使用しています。著作権は各提供元に帰属し、このrepositoryから素材単体の再利用許諾は行いません。
+- project独自のapp icon・demo画像は通常の著作権で保護され、個別表示がない限り再利用許諾はありません。
+
+ファイルごとの適用範囲、Cactus headerの作品名・作者・出典・ライセンス（TASL）、
+変更表示、再配布条件は[ライセンス一覧](LICENSES/README.md)と[`NOTICE`](NOTICE)を
+確認してください。SCP Wikiや原作者が本プロジェクトを支持していることを示すものではありません。
+
 <a id="english"></a>
 
 ## English
@@ -61,3 +81,29 @@ docker compose run --rm app npm run e2e
 ```
 
 Keep real Notion credentials only in `.env/`, and never commit them. Do not expose a real Notion reader to the public Internet. For another device, use the tailnet-only HTTPS instructions in the [setup guide](docs/setup.md).
+
+### License and copyright
+
+This is a mixed-license repository. Source code, documentation, and
+configuration examples are generally under the [Apache License 2.0](LICENSE),
+with these exceptions:
+
+- The React/CSS for the `Cactus Study header` adapts the SCP Wiki
+  [Anomaly Classification System (ACS) Guide](https://scp-wiki.wikidot.com/anomaly-classification-system-guide)
+  by Woedenaz, with assistance credited in [`NOTICE`](NOTICE), and is licensed
+  under [CC BY-SA 3.0](LICENSES/CC-BY-SA-3.0.txt). It was reimplemented as a
+  responsive Reader header; layout, labels, colors, typography, fields, and
+  icon inputs were changed.
+- SDQ article text remains under standard copyright, with no reuse license
+  granted unless a specific notice says otherwise.
+- The `Tusmujimagari` and `Kojire` class icons displayed by the Reader use
+  material from [ICOOON MONO](https://icooon-mono.com/); other class icons are
+  official Notion icons. Copyright remains with the respective providers, and
+  this repository does not grant a standalone reuse license for those assets.
+- Project-owned app icons and demo images remain under standard copyright,
+  with no reuse license granted unless a specific notice says otherwise.
+
+See the [license scope](LICENSES/README.md) and [`NOTICE`](NOTICE) for the
+file-level boundaries, Cactus header title/author/source/license (TASL),
+change notice, and redistribution requirements. No endorsement by SCP Wiki or
+the original authors is implied.

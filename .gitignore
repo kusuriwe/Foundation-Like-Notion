@@ -11,3 +11,7 @@ test-results/
 .vite/
 .cache/
 *.tsbuildinfo
+
+# Keep bundled headers tracked, but ignore user-added renderer files by default.
+# Existing tracked files in this directory remain tracked by Git.
+apps/web/src/components/article-headers/

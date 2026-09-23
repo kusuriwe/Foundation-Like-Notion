@@ -17,9 +17,67 @@ cd Foundation-Like-Notion
 
 ### 1. Notionの読み取り接続を準備
 
-読み取り専用のInternal Connectionを作り、利用する記事Data Sourceに接続してください。relationのタイトル・アイコンも表示する場合は、その参照先Data Source/Pageも必要な範囲だけ共有します。親ページやworkspace全体への接続拡大は不要です。token、記事Data Source ID、タイトルPropertyの正確な名前を手元で確認します。ここで使うのはDatabase IDではなく**Data Source ID**です。
+Notionの表示名は変更されることがあります。迷った場合は
+[Developer Modeの公式手順](https://www.notion.com/help/turn-on-developer-mode-to-use-developer-tools-in-notion)と
+[connection作成の公式手順](https://www.notion.com/help/create-integrations-with-the-notion-api)も
+併せて確認してください。
 
-token、Data Source ID、記事内容、パスワードをチャット・issue・コミットへ貼らないでください。Property名は選択したData Source内で大文字小文字まで完全一致させます。
+#### 1-1. Developer Modeを有効にする
+
+Notionのdesktop appまたはbrowser版で、サイドバーの **Settings** →
+**Developer Mode** を開き、toggleをONにします。Developer Modeはbrowserまたはdesktop
+appごとのlocal設定です。別browserではもう一度有効にしてください。mobile appでは利用できません。
+
+有効になると、page・block・database・Data Sourceを選択したときに画面下部へdeveloper barが
+表示されます。ここから後述のIDを安全にコピーできます。
+
+#### 1-2. 読み取り専用connectionを作る
+
+1. **Settings** → **Connections** を開きます。
+2. developer向けconnectionまたはpersonal access tokenの項目から **+ New connection** を選びます。
+3. connection名と対象workspaceを選びます。作成にはworkspace owner権限が必要な場合があります。
+4. content capabilityは **Read content** だけにします。挿入・更新・commentなどのwrite権限は有効にしません。
+5. 作成後の`•••` menuからinternal integration tokenをコピーし、password managerなどへ一時保管します。
+
+tokenをスクリーンショット、チャット、issue、shellのコマンドラインへ貼らないでください。
+このReaderはuser情報の読み取りやNotionへの書き込みを必要としません。
+
+#### 1-3. 読ませる範囲だけをconnectionへ共有する
+
+記事databaseのpageを開き、右上の`•••` → **Add connections** から、作成したconnectionを
+追加します。relationのタイトルやiconも表示する場合は、必要なrelation先Data Sourceまたは
+個別pageにも同じ操作を行います。
+
+親pageやworkspace全体へ共有範囲を広げる必要はありません。404やrelation欠落が出ても、まず
+必要な対象だけが共有されているか確認してください。共有操作の詳細は
+[Notionのconnection管理手順](https://www.notion.com/help/add-and-manage-connections-with-the-api)を
+参照してください。
+
+#### 1-4. Data Source IDをコピーする
+
+ここで使うのはDatabase IDやpage URLではなく、**Data Source ID**です。
+
+1. Readerで表示したいdatabaseを開き、目的のData Sourceを選択します。
+2. 画面下部のdeveloper barで対象が **Data source** になっていることを確認します。
+3. IDのcopy操作を選び、`.env/reader.yaml`の`sourceDataSourceId`へ後で貼り付けます。
+
+見つからない場合は、databaseを右clickして **Developer** → Data Source IDのcopy操作を
+選ぶ方法もあります。1つのdatabaseに複数Data Sourceがある場合は、現在表示している記事の
+schemaを持つData Sourceを選んでください。IDは公開情報ではないため、文書やissueには記載しません。
+
+#### 1-5. タイトルProperty名を確認する
+
+記事名が入るtitle列のProperty名をNotion上で確認します。最小設定は名前で参照するため、
+大文字小文字・空白・記号を含めて完全一致させます。後で名前を変更するとReaderの起動診断が
+fail-closedで停止するので、`.env/reader.yaml`も更新してください。
+
+最終的に手元へ用意する値は、connection token、記事Data Source ID、title Propertyの正確な
+名前の3つです。これらと記事内容、Reader passwordをチャット・issue・commitへ貼らないでください。
+
+> **スクリーンショットについて:** 公式helpには現行UIの画像があります。このguideには第三者の
+> 画像を転載せず、UI更新にも追随しやすい文章手順を置いています。独自画像を追加する場合は、
+> Developer Mode toggle、Add connections、developer barのData Source IDの3画面が有用です。
+> token、ID、workspace名、user名、記事titleを必ず伏せてください。
 
 ### 2. ignored設定を作る
 
@@ -107,9 +165,80 @@ cd Foundation-Like-Notion
 
 ### 1. Prepare a read-only Notion connection
 
-Create an Internal Connection with read-only capabilities and connect it only to the article Data Source you intend to read. If you also want relation titles or icons, share only the required target Data Sources or pages. Do not broaden access to a parent page or the entire workspace. Keep the connection token, article **Data Source ID** (not Database ID), and exact title Property name at hand. Property names are case-sensitive within the selected Data Source.
+Notion's labels may change. If the UI differs, also consult Notion's current
+[Developer Mode instructions](https://www.notion.com/help/turn-on-developer-mode-to-use-developer-tools-in-notion)
+and [connection creation guide](https://www.notion.com/help/create-integrations-with-the-notion-api).
 
-Never paste tokens, IDs, article content, or passwords into chat, issues, or commits.
+#### 1.1 Enable Developer Mode
+
+In the Notion desktop app or browser, open **Settings** → **Developer Mode**
+and turn the toggle on. Developer Mode is a local setting for each browser or
+desktop app, so enable it again in another browser. It is unavailable in the
+mobile app.
+
+Once enabled, a developer bar appears at the bottom when you select a page,
+block, database, or Data Source. You can safely copy the required ID there.
+
+#### 1.2 Create a read-only connection
+
+1. Open **Settings** → **Connections**.
+2. Under the developer connection or personal access token area, choose
+   **+ New connection**.
+3. Choose a name and workspace. Creating it may require workspace-owner access.
+4. Enable only the **Read content** capability. Do not enable insert, update,
+   comment, or other write capabilities.
+5. After creation, use the `•••` menu to copy the internal integration token
+   and temporarily keep it in a password manager.
+
+Do not place the token in screenshots, chat, issues, or shell command lines.
+This Reader does not require user-information access or Notion write access.
+
+#### 1.3 Share only the content that the Reader needs
+
+Open the page containing the article database, then use the top-right `•••` →
+**Add connections** to add the connection. To display relation titles or
+icons, repeat this only for the required relation-target Data Sources or
+individual pages.
+
+Do not broaden access to a parent page or the entire workspace. If you see a
+404 or a missing relation, first check the specific required objects. See
+Notion's [connection management guide](https://www.notion.com/help/add-and-manage-connections-with-the-api)
+for the current sharing UI.
+
+#### 1.4 Copy the Data Source ID
+
+The required value is the **Data Source ID**, not the Database ID or page URL.
+
+1. Open the database that the Reader should display and select the intended
+   Data Source.
+2. In the developer bar at the bottom, confirm that the selected object is a
+   **Data source**.
+3. Use its copy-ID action. You will paste it into `sourceDataSourceId` in
+   `.env/reader.yaml` later.
+
+If the bottom bar is not convenient, right-click the database and use
+**Developer** → the Data Source ID copy action. When a database contains
+multiple Data Sources, choose the one whose schema contains your articles.
+Treat this ID as private configuration; do not put it in documentation or an
+issue.
+
+#### 1.5 Confirm the title Property name
+
+Read the Property name of the title column that contains each article name.
+The minimal configuration resolves it by name, so match case, spaces, and
+symbols exactly. If you rename it later, the Reader's startup check fails
+closed until you update `.env/reader.yaml`.
+
+You should now have three local values: the connection token, article Data
+Source ID, and exact title Property name. Never paste these, article content,
+or the Reader password into chat, issues, or commits.
+
+> **About screenshots:** Notion's official help pages contain images of the
+> current UI. This guide uses text instead of republishing third-party images
+> and is less likely to become stale. If project-owned screenshots are added,
+> the three most useful views are the Developer Mode toggle, Add connections,
+> and the developer bar's Data Source ID. Always redact tokens, IDs, workspace
+> and user names, and article titles.
 
 ### 2. Create ignored local settings
 

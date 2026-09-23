@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: CC-BY-SA-3.0
+ * "Cactus Study header" adapts the SCP Wiki Anomaly Classification System (ACS).
+ * Attribution and modification details: NOTICE and LICENSES/README.md.
+ */
 .cactus {
   padding: 30px clamp(24px, 5vw, 58px) 32px;
   border-bottom: 1px solid var(--line);

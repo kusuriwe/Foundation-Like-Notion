@@ -1,0 +1,47 @@
+Foundation Like Notion
+Mixed-license notices
+
+Except for the expressly listed exceptions below, the source code,
+documentation, and configuration examples in this repository are made
+available under the Apache License, Version 2.0. See LICENSE.
+
+Cactus Study header (CC BY-SA 3.0)
+----------------------------------
+
+Adaptation title: Cactus Study header
+Adaptation files:
+  apps/web/src/components/article-headers/CactusStudyHeader.tsx
+  apps/web/src/components/article-headers/cactus-study.module.css
+
+Original title: Anomaly Classification System (ACS) Guide
+Original author: Woedenaz
+Original assistance: The Great Hippo, Rounderhouse, djkaktus, Yossipossi,
+  Captain Kirby, CadaverCommander, Uncle Nicolini, aismallard, Jade Skylar,
+  Lt Flops, and Sterbai
+Source: https://scp-wiki.wikidot.com/anomaly-classification-system-guide
+Original license: Creative Commons Attribution-ShareAlike 3.0 Unported
+  (CC BY-SA 3.0), https://creativecommons.org/licenses/by-sa/3.0/
+
+Changes: The classification-bar concept was reimplemented and simplified as
+a responsive React/CSS article header for a read-only Notion reader. Layout,
+labels, colors, typography, field selection, and icon inputs were changed.
+This adaptation is licensed under CC BY-SA 3.0. See
+LICENSES/CC-BY-SA-3.0.txt.
+
+The SCP Foundation name and related marks belong to their respective owners.
+This project is not endorsed by or affiliated with the SCP Wiki or its
+contributors.
+
+Third-party icons and other reserved material
+----------------------------------------------
+
+The Tusmujimagari and Kojire class icons use material from ICOOON MONO
+(https://icooon-mono.com/). Other class icons displayed by the Reader are
+official Notion icons. These third-party assets remain subject to their
+providers' rights and terms; this project does not relicense them.
+
+SDQ article text and project-owned app icons or demo images are not licensed
+under Apache 2.0 merely because they are distributed alongside this project.
+Unless an individual asset states otherwise, copyright remains with its
+respective author or rightsholder and no reuse license is granted. See
+LICENSES/README.md for the current scope.

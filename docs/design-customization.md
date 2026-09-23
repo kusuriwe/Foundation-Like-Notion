@@ -8,6 +8,8 @@
 
 このガイドは、Readerの文言・色・記事headerを変えたい利用者向けです。まずYAMLでできる範囲を試し、まったく新しいレイアウトが必要な場合だけReact/CSSのrendererを追加します。[設定リファレンス](reader-configuration.md)は全fieldの意味、[renderer開発ガイド](header-renderers.md)はコード側の詳細を説明します。
 
+新しく作成した未追跡fileは `apps/web/src/components/article-headers/` 配下で既定でGit ignoreされます。repository同梱の既存headerはすでに追跡されているため、そのまま残ります。schemaや`registry.ts`など既存fileへの変更は通常どおり差分に出ます。新しいheaderをupstreamへ寄稿する場合だけ、licenseを確認したうえで `git add -f` を明示的に使ってください。ignoreは著作権やlicenseを付与するものではありません。
+
 ### LLMを使う場合のクイックガイド
 
 LLMにデザイン作業を依頼する場合は、リポジトリの作業コピーと、公開可能な参考画像・プロトタイプだけを渡してください。`.env/reader.yaml`、`.env/reader.env`、Notion token・ID、実記事本文、ログイン情報は貼らないでください。実データに合わせたfield名が必要なら、架空の名前へ置き換えた対応表を使います。
@@ -108,6 +110,8 @@ docker compose run --rm app npm run demo:verify
 ## English
 
 This guide is for readers who want to change copy, colors, or article headers. Try the YAML options first; add a React/CSS renderer only when you need a genuinely new layout. The [configuration reference](reader-configuration.md) defines the fields, and the [renderer development guide](header-renderers.md) covers code changes.
+
+New untracked files under `apps/web/src/components/article-headers/` are ignored by Git by default. Existing bundled headers remain tracked because they are already in the repository. Changes to tracked files such as the schema or `registry.ts` still appear normally. Use an explicit `git add -f` only when intentionally contributing a new header upstream, after checking its license. Ignoring a file does not grant or change copyright or license rights.
 
 ### Quick guide for working with an LLM
 
