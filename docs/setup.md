@@ -31,6 +31,11 @@ appごとのlocal設定です。別browserではもう一度有効にしてく�
 有効になると、page・block・database・Data Sourceを選択したときに画面下部へdeveloper barが
 表示されます。ここから後述のIDを安全にコピーできます。
 
+<figure id="setup-ja-developer-mode">
+  <img src="assets/setup/01-developer-mode.png" width="960" alt="Notionの設定で開発者画面を選び、開発者機能を有効にするtoggleを示すスクリーンショット">
+  <figcaption>図1: Settingsの開発者画面でDeveloper Modeを有効にします。</figcaption>
+</figure>
+
 #### 1-2. 読み取り専用connectionを作る
 
 1. **Settings** → **Connections** を開きます。
@@ -42,6 +47,21 @@ appごとのlocal設定です。別browserではもう一度有効にしてく�
 tokenをスクリーンショット、チャット、issue、shellのコマンドラインへ貼らないでください。
 このReaderはuser情報の読み取りやNotionへの書き込みを必要としません。
 
+<figure id="setup-ja-connection-menu">
+  <img src="assets/setup/02-connection-menu.png" width="960" alt="Notionの開発者ツールにあるコネクション一覧と新規コネクトbuttonを示すスクリーンショット">
+  <figcaption>図2: 開発者ツールのConnectionsから新しいconnectionを作成します。</figcaption>
+</figure>
+
+<figure id="setup-ja-create-connection">
+  <img src="assets/setup/03-create-connection.png" width="960" alt="新規connectionの名前とアクセストークン認証を選ぶ画面">
+  <figcaption>図3: connection名を入力し、個人用ReaderではAccess tokenを選択します。</figcaption>
+</figure>
+
+<figure id="setup-ja-connection-settings">
+  <img src="assets/setup/04-connection-settings.png" width="960" alt="Read contentのみを有効にし、ユーザー情報なしを選択したconnection設定画面">
+  <figcaption>図4: Read contentだけを有効にし、No user informationを選択します。write・comment・Agent権限は不要です。</figcaption>
+</figure>
+
 #### 1-3. 読ませる範囲だけをconnectionへ共有する
 
 記事databaseのpageを開き、右上の`•••` → **Add connections** から、作成したconnectionを
@@ -52,6 +72,11 @@ tokenをスクリーンショット、チャット、issue、shellのコマン�
 必要な対象だけが共有されているか確認してください。共有操作の詳細は
 [Notionのconnection管理手順](https://www.notion.com/help/add-and-manage-connections-with-the-api)を
 参照してください。
+
+<figure id="setup-ja-connection-access">
+  <img src="assets/setup/05-connection-page.png" width="960" alt="connectionがアクセスできるpageを編集するダミーワークスペースの画面">
+  <figcaption>図5: 画像はダミーワークスペースです。実運用では記事Data Sourceを含むpageに加え、titleやclass iconの解決に使うrelation先Data Source／pageも必要最小限だけ追加します。親pageやworkspace全体へアクセスを広げる必要はありません。</figcaption>
+</figure>
 
 #### 1-4. Data Source IDをコピーする
 
@@ -65,6 +90,11 @@ tokenをスクリーンショット、チャット、issue、shellのコマン�
 選ぶ方法もあります。1つのdatabaseに複数Data Sourceがある場合は、現在表示している記事の
 schemaを持つData Sourceを選んでください。IDは公開情報ではないため、文書やissueには記載しません。
 
+<figure id="setup-ja-data-source-id">
+  <img src="assets/setup/06-data-source-id.png" width="960" alt="Notion画面下部のdeveloper barにあるData Source IDのcopy操作を示すスクリーンショット">
+  <figcaption>図6: developer barのData Source欄からIDをcopyします。Database IDやpage IDではありません。</figcaption>
+</figure>
+
 #### 1-5. タイトルProperty名を確認する
 
 記事名が入るtitle列のProperty名をNotion上で確認します。最小設定は名前で参照するため、
@@ -74,10 +104,8 @@ fail-closedで停止するので、`.env/reader.yaml`も更新してください
 最終的に手元へ用意する値は、connection token、記事Data Source ID、title Propertyの正確な
 名前の3つです。これらと記事内容、Reader passwordをチャット・issue・commitへ貼らないでください。
 
-> **スクリーンショットについて:** 公式helpには現行UIの画像があります。このguideには第三者の
-> 画像を転載せず、UI更新にも追随しやすい文章手順を置いています。独自画像を追加する場合は、
-> Developer Mode toggle、Add connections、developer barのData Source IDの3画面が有用です。
-> token、ID、workspace名、user名、記事titleを必ず伏せてください。
+> **スクリーンショットについて:** 画像は日本語UIのダミーワークスペースで作成し、tokenとIDを
+> 伏せています。NotionのUIが変わった場合は、本文とリンク先の公式helpを優先してください。
 
 ### 2. ignored設定を作る
 
@@ -179,6 +207,11 @@ mobile app.
 Once enabled, a developer bar appears at the bottom when you select a page,
 block, database, or Data Source. You can safely copy the required ID there.
 
+<figure id="setup-en-developer-mode">
+  <img src="assets/setup/01-developer-mode.png" width="960" alt="Japanese Notion UI showing Developer settings and the toggle that enables Developer Mode">
+  <figcaption>Figure 1: Enable Developer Mode from Settings. The screenshot uses the Japanese UI.</figcaption>
+</figure>
+
 #### 1.2 Create a read-only connection
 
 1. Open **Settings** → **Connections**.
@@ -193,6 +226,21 @@ block, database, or Data Source. You can safely copy the required ID there.
 Do not place the token in screenshots, chat, issues, or shell command lines.
 This Reader does not require user-information access or Notion write access.
 
+<figure id="setup-en-connection-menu">
+  <img src="assets/setup/02-connection-menu.png" width="960" alt="Japanese Notion Developer Tools showing the Connections list and New connection button">
+  <figcaption>Figure 2: Create a connection from Connections in Developer Tools.</figcaption>
+</figure>
+
+<figure id="setup-en-create-connection">
+  <img src="assets/setup/03-create-connection.png" width="960" alt="Japanese New connection dialog with a name and Access token authentication selected">
+  <figcaption>Figure 3: Enter a connection name and select Access token for this personal Reader.</figcaption>
+</figure>
+
+<figure id="setup-en-connection-settings">
+  <img src="assets/setup/04-connection-settings.png" width="960" alt="Japanese connection settings with only Read content enabled and No user information selected">
+  <figcaption>Figure 4: Enable only Read content and select No user information. Write, comment, and Agent capabilities are unnecessary.</figcaption>
+</figure>
+
 #### 1.3 Share only the content that the Reader needs
 
 Open the page containing the article database, then use the top-right `•••` →
@@ -204,6 +252,11 @@ Do not broaden access to a parent page or the entire workspace. If you see a
 404 or a missing relation, first check the specific required objects. See
 Notion's [connection management guide](https://www.notion.com/help/add-and-manage-connections-with-the-api)
 for the current sharing UI.
+
+<figure id="setup-en-connection-access">
+  <img src="assets/setup/05-connection-page.png" width="960" alt="Japanese dummy workspace showing the pages available to a connection">
+  <figcaption>Figure 5: This is a dummy workspace. In production, add the page containing the article Data Source and the minimum relation-target Data Sources or pages required to resolve titles and class icons. Do not grant access to an entire parent hierarchy or workspace.</figcaption>
+</figure>
 
 #### 1.4 Copy the Data Source ID
 
@@ -222,6 +275,11 @@ multiple Data Sources, choose the one whose schema contains your articles.
 Treat this ID as private configuration; do not put it in documentation or an
 issue.
 
+<figure id="setup-en-data-source-id">
+  <img src="assets/setup/06-data-source-id.png" width="960" alt="Japanese Notion UI showing the Data Source ID copy action in the developer bar at the bottom">
+  <figcaption>Figure 6: Copy the ID from the Data Source field in the developer bar, not the Database ID or page ID.</figcaption>
+</figure>
+
 #### 1.5 Confirm the title Property name
 
 Read the Property name of the title column that contains each article name.
@@ -233,12 +291,9 @@ You should now have three local values: the connection token, article Data
 Source ID, and exact title Property name. Never paste these, article content,
 or the Reader password into chat, issues, or commits.
 
-> **About screenshots:** Notion's official help pages contain images of the
-> current UI. This guide uses text instead of republishing third-party images
-> and is less likely to become stale. If project-owned screenshots are added,
-> the three most useful views are the Developer Mode toggle, Add connections,
-> and the developer bar's Data Source ID. Always redact tokens, IDs, workspace
-> and user names, and article titles.
+> **About screenshots:** The images use a dummy workspace in the Japanese UI,
+> with tokens and IDs redacted. If Notion changes its UI, follow the written
+> steps and the linked official help pages.
 
 ### 2. Create ignored local settings
 

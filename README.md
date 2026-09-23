@@ -14,7 +14,8 @@
 
 | やりたいこと | 手順 |
 | --- | --- |
-| 公開ダミーデモを見る | 公開後のGitHub Pages URLを開きます。公開状況を確認するまでは、URLが稼働中とは想定しないでください。 |
+| 公開ダミーデモを見る | [静的Reader demo（公開予定）](https://kusuriwe.github.io/Foundation-Like-Notion/)を開きます。初回deployまでは404になる場合があります。 |
+| 公開元のSDQ Notionを見る | [SDQ Public Library](https://magic-behavior-7d1.notion.site/Home-3e32ed92200180908146d3807ad98239)を開きます。静的dummy demoとは別の公開Notionです。 |
 | 自分のNotionを接続する | [初回セットアップ](docs/setup.md)を上から進めます。Windows・macOS・Linuxに対応します。 |
 | ダミーデモを編集・配布する | [デモ配布ガイド](docs/demo-publishing.md)を参照します。実NotionはPagesへ含めません。 |
 | 文言・色・記事headerを変更する | [デザイン追加ガイド](docs/design-customization.md)から始めます。 |
@@ -64,7 +65,8 @@ Article bodies support equations, colored nested callouts, plain tables, and chi
 
 | Goal | Guide |
 | --- | --- |
-| View the public dummy demo | Open its GitHub Pages URL once deployment is confirmed. Do not assume the URL is live beforehand. |
+| View the public dummy demo | Open the [static Reader demo (pending first deployment)](https://kusuriwe.github.io/Foundation-Like-Notion/). It may return 404 until that deployment completes. |
+| View the public source Notion | Open the [SDQ Public Library](https://magic-behavior-7d1.notion.site/Home-3e32ed92200180908146d3807ad98239). It is separate from the static dummy demo. |
 | Connect your own Notion | Follow the [first-time setup guide](docs/setup.md). It covers Windows, macOS, and Linux. |
 | Edit or publish the dummy demo | Follow the [demo publishing guide](docs/demo-publishing.md). Real Notion data is never included in Pages. |
 | Change copy, colors, or article headers | Start with the [design customization guide](docs/design-customization.md). |

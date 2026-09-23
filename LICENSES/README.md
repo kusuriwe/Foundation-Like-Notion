@@ -14,6 +14,7 @@
 | SDQの記事本文 | 通常の著作権。個別表示がない限り再利用許諾はありません |
 | `Tusmujimagari` / `Kojire` class icon | [ICOOON MONO](https://icooon-mono.com/)の素材。著作権はTopeconHeroesに帰属し、[同サイトの利用条件](https://icooon-mono.com/license/)に従います |
 | その他のclass icon | Notion公式icon。権利はNotion Labs, Inc.またはそのlicensorに帰属し、このrepositoryは素材単体を再許諾しません |
+| `docs/assets/setup/`の説明用スクリーンショット | ダミーワークスペースのNotion UI。setup説明のために収録し、素材単体の再利用許諾は行いません。Notion UIと商標の権利はNotion Labs, Inc.に帰属します |
 | project独自のapp icon・demo画像 | 通常の著作権。個別表示がない限り再利用許諾はありません |
 
 現在「project独自のapp icon・demo画像」に含める追跡対象は、`apps/web/public/icon.svg`、
@@ -56,6 +57,7 @@ assume that the root [`LICENSE`](../LICENSE) applies uniformly to every file.
 | SDQ article text | Standard copyright; no reuse license is granted unless a specific notice says otherwise |
 | `Tusmujimagari` / `Kojire` class icons | Material from [ICOOON MONO](https://icooon-mono.com/); copyright is retained by TopeconHeroes and use is subject to its [license terms](https://icooon-mono.com/license/) |
 | Other class icons | Official Notion icons; rights remain with Notion Labs, Inc. or its licensors, and this repository does not relicense the standalone assets |
+| Setup screenshots under `docs/assets/setup/` | Notion UI in a dummy workspace, included only to explain setup and not offered for standalone reuse; rights in the Notion UI and marks remain with Notion Labs, Inc. |
 | Project-owned app icons and demo images | Standard copyright; no reuse license is granted unless a specific notice says otherwise |
 
 Tracked “project-owned app icons and demo images” currently include

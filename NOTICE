@@ -40,6 +40,12 @@ The Tusmujimagari and Kojire class icons use material from ICOOON MONO
 official Notion icons. These third-party assets remain subject to their
 providers' rights and terms; this project does not relicense them.
 
+The documentation screenshots under docs/assets/setup depict the Notion user
+interface in a dummy workspace. They are included only to explain setup and
+are not offered as standalone assets. Notion and the Notion logo are
+trademarks of Notion Labs, Inc. This project is not affiliated with or
+endorsed by Notion Labs, Inc.
+
 SDQ article text and project-owned app icons or demo images are not licensed
 under Apache 2.0 merely because they are distributed alongside this project.
 Unless an individual asset states otherwise, copyright remains with its

@@ -83,5 +83,34 @@ setupは現行desktop/browser UIのDeveloper Mode、connection作成、限定共
   legal advice.
 - Notion can change UI labels. The official help links are the source of truth
   when the written path differs.
-- No third-party screenshot was bundled. Project-owned redacted screenshots can
-  be added later without changing the setup flow.
+- Separate English-UI, macOS, and Linux screenshots are not maintained. The
+  same redacted Japanese-UI images are paired with bilingual captions.
+
+## Screenshot and public-link follow-up / 画像・公開リンク追補
+
+On 2026-09-23, six user-provided screenshots from a dummy Japanese Notion
+workspace were added under `docs/assets/setup/` and embedded in both language
+sections of `docs/setup.md`. The permission screenshot shows Read content only,
+No user information, and no write, comment, or Agent capabilities. The content
+access caption explicitly requires the article Data Source and only the
+relation targets needed for title or class-icon resolution.
+
+2026-09-23に、日本語版Notionのダミーワークスペースで撮影された利用者提供の6画像を
+`docs/assets/setup/`へ追加し、`docs/setup.md`の日英両sectionから参照した。権限画像は
+Read contentのみ、user情報なし、write・comment・Agent権限なしを示す。共有範囲のcaptionは、
+記事Data Sourceに加えてtitleまたはclass icon解決に必要なrelation先だけを追加することを
+明記した。
+
+The README now distinguishes the expected GitHub Pages dummy-demo URL from the
+public SDQ Notion Site. The Notion URL is intentionally public; the static demo
+remains labeled as pending until its first deployment is confirmed.
+
+Validation for this follow-up:
+
+- SHA-256 comparison confirmed that all six repository PNGs exactly match the
+  user-provided source files, including the corrected permission screenshot.
+- Every local `src="assets/setup/..."` reference in `docs/setup.md` resolves to
+  an existing file.
+- `git diff --check` passed.
+- `docker compose run --rm app npm run check` passed, including format, lint,
+  typecheck, 100 unit/component tests, and the production build.
