@@ -1,10 +1,10 @@
-id: demo_2d860b4dc59bdcbc81a3fa9a
-databaseId: demo_7de8d995c9f569d451cd9ffb
-title: Mandatory Password Changes
-createdTime: '2026-09-22T14:01:00.000Z'
-lastEditedTime: '2026-09-22T17:25:00.000Z'
+id: "demo_2d860b4dc59bdcbc81a3fa9a"
+databaseId: "demo_7de8d995c9f569d451cd9ffb"
+title: "Mandatory Password Changes"
+createdTime: "2026-09-22T14:01:00.000Z"
+lastEditedTime: "2026-09-22T17:25:00.000Z"
 titleRichText:
-  - text: Mandatory Password Changes
+  - text: "Mandatory Password Changes"
     href: null
     annotations:
       bold: false
@@ -14,33 +14,33 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: Mandatory Password Changes
+    type: "string"
+    value: "Mandatory Password Changes"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_a94132e6436c6f3ab131af2c
-      title: Tsumujimagari
+      readerId: "demo_a94132e6436c6f3ab131af2c"
+      title: "Tsumujimagari"
       icon:
-        kind: asset
-        assetId: demo_0022c877e0c9d0c87c4cda81
+        kind: "asset"
+        assetId: "demo_0022c877e0c9d0c87c4cda81"
   subClass:
-    type: string
-    value: Information
+    type: "string"
+    value: "Information"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_7fb51bf4f42eec7a44affc8f
-      title: SDQ-441
+      readerId: "demo_7fb51bf4f42eec7a44affc8f"
+      title: "SDQ-441"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - INFORMATIONAL
-      - TECHNOLOGICAL
-      - BEHAVIORAL
+      - "INFORMATIONAL"
+      - "TECHNOLOGICAL"
+      - "BEHAVIORAL"
 blocks:
   - content:
-      - text: Standard Deviation Quarantine
+      - text: "Standard Deviation Quarantine"
         href: null
         annotations:
           bold: false
@@ -48,16 +48,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          Systems using SDQ-441 must record the reason a password change is being required. When a
-          change is required solely because a fixed period has elapsed, administrators must not
-          assume in advance that the replacement string will be less predictable than the previous
-          one. If the same user is required to change a password repeatedly within a short period,
-          security must not be evaluated solely on the basis of how much the new password differs
-          from the immediately preceding one.
+      - text: "Systems using SDQ-441 must record the reason a password change is being required. When a change is required solely because a fixed period has elapsed, administrators must not assume in advance that the replacement string will be less predictable than the previous one. If the same user is required to change a password repeatedly within a short period, security must not be evaluated solely on the basis of how much the new password differs from the immediately preceding one."
         href: null
         annotations:
           bold: false
@@ -65,11 +59,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          The following patterns are recorded in Foundation systems as examples that may
-          simultaneously satisfy the conditions of “changed” and “functionally identical”:
+      - text: "The following patterns are recorded in Foundation systems as examples that may simultaneously satisfy the conditions of “changed” and “functionally identical”:"
         href: null
         annotations:
           bold: false
@@ -77,10 +69,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: bulletedList
+    type: "paragraph"
+  - type: "bulletedList"
     items:
-      - - text: Example2025!
+      - - text: "Example2025!"
           href: null
           annotations:
             bold: false
@@ -88,7 +80,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-        - text: ' → '
+        - text: " → "
           href: null
           annotations:
             bold: false
@@ -96,7 +88,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-        - text: Example2026!
+        - text: "Example2026!"
           href: null
           annotations:
             bold: false
@@ -104,7 +96,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-      - - text: Password1!
+      - - text: "Password1!"
           href: null
           annotations:
             bold: false
@@ -112,7 +104,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-        - text: ' → '
+        - text: " → "
           href: null
           annotations:
             bold: false
@@ -120,7 +112,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-        - text: Password2!
+        - text: "Password2!"
           href: null
           annotations:
             bold: false
@@ -128,7 +120,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-      - - text: Spring!
+      - - text: "Spring!"
           href: null
           annotations:
             bold: false
@@ -136,7 +128,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-        - text: ' → '
+        - text: " → "
           href: null
           annotations:
             bold: false
@@ -144,7 +136,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-        - text: Summer!
+        - text: "Summer!"
           href: null
           annotations:
             bold: false
@@ -152,7 +144,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-      - - text: adding a single symbol to the end;
+      - - text: "adding a single symbol to the end;"
           href: null
           annotations:
             bold: false
@@ -160,7 +152,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: incrementing a number each time a change is required.
+      - - text: "incrementing a number each time a change is required."
           href: null
           annotations:
             bold: false
@@ -169,7 +161,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: Observation Summary
+      - text: "Observation Summary"
         href: null
         annotations:
           bold: false
@@ -177,14 +169,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-441 is a policy or user interface that requires users to discard an existing password
-          and establish a new one. Nominally, SDQ-441 is intended to improve security by refreshing
-          authentication credentials. However, when change requests are repeated, users tend to
-          shift from inventing 
+      - text: "SDQ-441 is a policy or user interface that requires users to discard an existing password and establish a new one. Nominally, SDQ-441 is intended to improve security by refreshing authentication credentials. However, when change requests are repeated, users tend to shift from inventing "
         href: null
         annotations:
           bold: false
@@ -192,7 +180,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: “a new secret”
+      - text: "“a new secret”"
         href: null
         annotations:
           bold: true
@@ -200,7 +188,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ' to adopting a strategy of '
+      - text: " to adopting a strategy of "
         href: null
         annotations:
           bold: false
@@ -208,9 +196,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: >-
-          “modifying the previous secret only enough for the system to recognize it as something
-          different.”
+      - text: "“modifying the previous secret only enough for the system to recognize it as something different.”"
         href: null
         annotations:
           bold: true
@@ -218,9 +204,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 'The Foundation refers to this phenomenon as '
+      - text: "The Foundation refers to this phenomenon as "
         href: null
         annotations:
           bold: false
@@ -228,7 +214,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: minimum-difference behavior
+      - text: "minimum-difference behavior"
         href: null
         annotations:
           bold: true
@@ -236,7 +222,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: '. If '
+      - text: ". If "
         href: null
         annotations:
           bold: false
@@ -244,10 +230,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - type: equation
-        expression: n
-        text: n
-      - text: ' represents the number of required password changes and '
+      - type: "equation"
+        expression: "n"
+        text: "n"
+      - text: " represents the number of required password changes and "
         href: null
         annotations:
           bold: false
@@ -255,10 +241,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - type: equation
-        expression: c
-        text: c
-      - text: ' represents the number of characters actually altered from the original password, observed user behavior tends approximately in the following direction:'
+      - type: "equation"
+        expression: "c"
+        text: "c"
+      - text: " represents the number of characters actually altered from the original password, observed user behavior tends approximately in the following direction:"
         href: null
         annotations:
           bold: false
@@ -266,13 +252,11 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: math
-    expression: n \uparrow \quad \Rightarrow \quad c \downarrow
+    type: "paragraph"
+  - type: "math"
+    expression: "n \\uparrow \\quad \\Rightarrow \\quad c \\downarrow"
   - content:
-      - text: >-
-          This equation is not a cryptographic law. The Information Systems Division nevertheless
-          recognizes it as “a law with an unsettling degree of explanatory power.”
+      - text: "This equation is not a cryptographic law. The Information Systems Division nevertheless recognizes it as “a law with an unsettling degree of explanatory power.”"
         href: null
         annotations:
           bold: false
@@ -280,9 +264,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Assessment Log 441-D
+      - text: "Assessment Log 441-D"
         href: null
         annotations:
           bold: false
@@ -290,13 +274,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          Sixty-eight Foundation personnel were asked to generate four successive password proposals
-          under the assumption that a fictional system required them to change their password every
-          90 days.
+      - text: "Sixty-eight Foundation personnel were asked to generate four successive password proposals under the assumption that a fictional system required them to change their password every 90 days."
         href: null
         annotations:
           bold: false
@@ -304,10 +285,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: table
+    type: "paragraph"
+  - type: "table"
     rows:
-      - - - text: Generation
+      - - - text: "Generation"
             href: null
             annotations:
               bold: false
@@ -315,7 +296,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Proposals retaining a string from the previous generation
+        - - text: "Proposals retaining a string from the previous generation"
             href: null
             annotations:
               bold: false
@@ -323,7 +304,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: '1'
+      - - - text: "1"
             href: null
             annotations:
               bold: false
@@ -331,7 +312,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 18%
+        - - text: "18%"
             href: null
             annotations:
               bold: false
@@ -339,7 +320,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: '2'
+      - - - text: "2"
             href: null
             annotations:
               bold: false
@@ -347,7 +328,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 46%
+        - - text: "46%"
             href: null
             annotations:
               bold: false
@@ -355,7 +336,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: '3'
+      - - - text: "3"
             href: null
             annotations:
               bold: false
@@ -363,7 +344,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 69%
+        - - text: "69%"
             href: null
             annotations:
               bold: false
@@ -371,7 +352,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: '4'
+      - - - text: "4"
             href: null
             annotations:
               bold: false
@@ -379,7 +360,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 81%
+        - - text: "81%"
             href: null
             annotations:
               bold: false
@@ -390,11 +371,7 @@ blocks:
     hasColumnHeader: true
     hasRowHeader: false
   - content:
-      - text: >-
-          The most common response in the free-response section was, “I can't remember them
-          otherwise.” The Foundation Oversight Division subsequently issued a recommendation asking
-          whether more complex password-change rules should be imposed. The recommendation was
-          recorded by the lead researcher and placed on hold without comment.
+      - text: "The most common response in the free-response section was, “I can't remember them otherwise.” The Foundation Oversight Division subsequently issued a recommendation asking whether more complex password-change rules should be imposed. The recommendation was recorded by the lead researcher and placed on hold without comment."
         href: null
         annotations:
           bold: false
@@ -402,9 +379,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"

@@ -1,10 +1,10 @@
-id: demo_ba9aa3e850000a6c5c8a5a2f
-databaseId: demo_7de8d995c9f569d451cd9ffb
-title: Oshi
-createdTime: '2026-09-22T14:01:00.000Z'
-lastEditedTime: '2026-09-22T17:25:00.000Z'
+id: "demo_ba9aa3e850000a6c5c8a5a2f"
+databaseId: "demo_7de8d995c9f569d451cd9ffb"
+title: "Oshi"
+createdTime: "2026-09-22T14:01:00.000Z"
+lastEditedTime: "2026-09-22T17:25:00.000Z"
 titleRichText:
-  - text: Oshi
+  - text: "Oshi"
     href: null
     annotations:
       bold: false
@@ -14,33 +14,33 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: Oshi
+    type: "string"
+    value: "Oshi"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_ff1072d73a63742554edc064
-      title: Distributed
+      readerId: "demo_ff1072d73a63742554edc064"
+      title: "Distributed"
       icon:
-        kind: asset
-        assetId: demo_ce0294865be5927323393f14
+        kind: "asset"
+        assetId: "demo_ce0294865be5927323393f14"
   subClass:
-    type: string
-    value: Subculture
+    type: "string"
+    value: "Subculture"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_df0a6c53c58c4a54140a3e38
-      title: SDQ-526
+      readerId: "demo_df0a6c53c58c4a54140a3e38"
+      title: "SDQ-526"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - SOCIAL
-      - BEHAVIORAL
-      - INFORMATIONAL
+      - "SOCIAL"
+      - "BEHAVIORAL"
+      - "INFORMATIONAL"
 blocks:
   - content:
-      - text: Standard Deviation Quarantine
+      - text: "Standard Deviation Quarantine"
         href: null
         annotations:
           bold: false
@@ -48,16 +48,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          Individuals affected by SDQ-526 do not require blanket separation from the relevant
-          subject. However, if sustained effects on spending, sleep, employment, education, or other
-          aspects of daily life are observed, personnel should assess the magnitude of those effects
-          individually rather than treating the subject itself as the problem. Instructions such as
-          “reduce the number of your oshi” or “switch to a different oshi” are not recognized as
-          effective management procedures.
+      - text: "Individuals affected by SDQ-526 do not require blanket separation from the relevant subject. However, if sustained effects on spending, sleep, employment, education, or other aspects of daily life are observed, personnel should assess the magnitude of those effects individually rather than treating the subject itself as the problem. Instructions such as “reduce the number of your oshi” or “switch to a different oshi” are not recognized as effective management procedures."
         href: null
         annotations:
           bold: false
@@ -65,12 +59,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          When birthdays, anniversaries, graduations, retirements, finales, limited sales, preorder
-          deadlines, or similar events occur, the affected individual's statement that “this time is
-          an exception” must not be treated as a constant for budgeting purposes.
+      - text: "When birthdays, anniversaries, graduations, retirements, finales, limited sales, preorder deadlines, or similar events occur, the affected individual's statement that “this time is an exception” must not be treated as a constant for budgeting purposes."
         href: null
         annotations:
           bold: false
@@ -78,9 +69,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Observation Summary
+      - text: "Observation Summary"
         href: null
         annotations:
           bold: false
@@ -88,13 +79,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-526 is a phenomenon involving sustained, action-oriented support toward a person,
-          character, creative work, group, or other subject that extends beyond ordinary preference
-          or affection. The subject of SDQ-526 is commonly referred to in Japanese as an 
+      - text: "SDQ-526 is a phenomenon involving sustained, action-oriented support toward a person, character, creative work, group, or other subject that extends beyond ordinary preference or affection. The subject of SDQ-526 is commonly referred to in Japanese as an "
         href: null
         annotations:
           bold: false
@@ -102,7 +90,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: oshi
+      - text: "oshi"
         href: null
         annotations:
           bold: true
@@ -110,9 +98,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: >-
-          : a person, character, or other subject to whom an individual directs particular
-          enthusiasm and active support.
+      - text: ": a person, character, or other subject to whom an individual directs particular enthusiasm and active support."
         href: null
         annotations:
           bold: false
@@ -120,11 +106,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          Observed instances of SDQ-526 exert the following effects on the affected individual's
-          decision-making:
+      - text: "Observed instances of SDQ-526 exert the following effects on the affected individual's decision-making:"
         href: null
         annotations:
           bold: false
@@ -132,12 +116,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: bulletedList
+    type: "paragraph"
+  - type: "bulletedList"
     items:
-      - - text: >-
-            The perceived price of merchandise associated with the oshi is systematically
-            undervalued relative to unrelated goods.
+      - - text: "The perceived price of merchandise associated with the oshi is systematically undervalued relative to unrelated goods."
           href: null
           annotations:
             bold: false
@@ -145,9 +127,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: >-
-            Purchasing multiple copies of materially identical products is reclassified as a
-            rational decision.
+      - - text: "Purchasing multiple copies of materially identical products is reclassified as a rational decision."
           href: null
           annotations:
             bold: false
@@ -155,7 +135,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Travel distances are categorized as “doable” rather than “far.”
+      - - text: "Travel distances are categorized as “doable” rather than “far.”"
           href: null
           annotations:
             bold: false
@@ -163,10 +143,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: >-
-            Weekday schedules are reorganized around event start times. This may result in the
-            reduction or omission of time allocated to activities necessary for survival, including
-            sleep and meals.
+      - - text: "Weekday schedules are reorganized around event start times. This may result in the reduction or omission of time allocated to activities necessary for survival, including sleep and meals."
           href: null
           annotations:
             bold: false
@@ -174,9 +151,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: >-
-            Success achieved by the oshi produces substantial satisfaction in the affected
-            individual despite not constituting an achievement by that individual.
+      - - text: "Success achieved by the oshi produces substantial satisfaction in the affected individual despite not constituting an achievement by that individual."
           href: null
           annotations:
             bold: false
@@ -185,10 +160,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: >-
-          These behaviors are not necessarily harmful. SDQ-526 may instead have positive effects on
-          personal motivation, community formation, creative activity, consumer activity, and other
-          aspects of daily life.
+      - text: "These behaviors are not necessarily harmful. SDQ-526 may instead have positive effects on personal motivation, community formation, creative activity, consumer activity, and other aspects of daily life."
         href: null
         annotations:
           bold: false
@@ -196,13 +168,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          The Deviation recorded by the Foundation is that affected individuals routinely describe
-          SDQ-526 as “just a hobby,” while the same hobby independently exerts measurable influence
-          over transportation planning, household finances, sleep schedules, social relationships,
-          and the annual calendar.
+      - text: "The Deviation recorded by the Foundation is that affected individuals routinely describe SDQ-526 as “just a hobby,” while the same hobby independently exerts measurable influence over transportation planning, household finances, sleep schedules, social relationships, and the annual calendar."
         href: null
         annotations:
           bold: false
@@ -210,9 +178,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Observation Table 526-C
+      - text: "Observation Table 526-C"
         href: null
         annotations:
           bold: false
@@ -220,12 +188,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          The following records were obtained during a month in which one participant declared, “I'm
-          cutting back on oshi-related spending this month.”
+      - text: "The following records were obtained during a month in which one participant declared, “I'm cutting back on oshi-related spending this month.”"
         href: null
         annotations:
           bold: false
@@ -233,10 +199,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: table
+    type: "paragraph"
+  - type: "table"
     rows:
-      - - - text: Item
+      - - - text: "Item"
             href: null
             annotations:
               bold: false
@@ -244,7 +210,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Initial Budget
+        - - text: "Initial Budget"
             href: null
             annotations:
               bold: false
@@ -252,7 +218,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Actual
+        - - text: "Actual"
             href: null
             annotations:
               bold: false
@@ -260,7 +226,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Notes
+        - - text: "Notes"
             href: null
             annotations:
               bold: false
@@ -268,7 +234,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Standard merchandise
+      - - - text: "Standard merchandise"
             href: null
             annotations:
               bold: false
@@ -276,7 +242,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥5,000
+        - - text: "¥5,000"
             href: null
             annotations:
               bold: false
@@ -284,7 +250,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥4,800
+        - - text: "¥4,800"
             href: null
             annotations:
               bold: false
@@ -292,7 +258,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: “Within budget.”
+        - - text: "“Within budget.”"
             href: null
             annotations:
               bold: false
@@ -300,7 +266,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Limited merchandise
+      - - - text: "Limited merchandise"
             href: null
             annotations:
               bold: false
@@ -308,7 +274,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥0
+        - - text: "¥0"
             href: null
             annotations:
               bold: false
@@ -316,7 +282,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥7,200
+        - - text: "¥7,200"
             href: null
             annotations:
               bold: false
@@ -324,7 +290,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: “Limited items are a separate category.”
+        - - text: "“Limited items are a separate category.”"
             href: null
             annotations:
               bold: false
@@ -332,7 +298,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Streams / tickets
+      - - - text: "Streams / tickets"
             href: null
             annotations:
               bold: false
@@ -340,7 +306,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥3,000
+        - - text: "¥3,000"
             href: null
             annotations:
               bold: false
@@ -348,7 +314,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥3,000
+        - - text: "¥3,000"
             href: null
             annotations:
               bold: false
@@ -356,7 +322,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: “As planned.”
+        - - text: "“As planned.”"
             href: null
             annotations:
               bold: false
@@ -364,7 +330,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Transportation
+      - - - text: "Transportation"
             href: null
             annotations:
               bold: false
@@ -372,7 +338,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥0
+        - - text: "¥0"
             href: null
             annotations:
               bold: false
@@ -380,7 +346,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥6,420
+        - - text: "¥6,420"
             href: null
             annotations:
               bold: false
@@ -388,7 +354,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: “I wasn't planning to go in person.”
+        - - text: "“I wasn't planning to go in person.”"
             href: null
             annotations:
               bold: false
@@ -396,7 +362,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Contingency
+      - - - text: "Contingency"
             href: null
             annotations:
               bold: false
@@ -404,7 +370,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥2,000
+        - - text: "¥2,000"
             href: null
             annotations:
               bold: false
@@ -412,7 +378,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ¥0
+        - - text: "¥0"
             href: null
             annotations:
               bold: false
@@ -420,7 +386,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Absorbed by the above
+        - - text: "Absorbed by the above"
             href: null
             annotations:
               bold: false
@@ -431,7 +397,7 @@ blocks:
     hasColumnHeader: true
     hasRowHeader: false
   - content:
-      - text: The participant's final assessment was, “I managed to cut back quite a lot.”
+      - text: "The participant's final assessment was, “I managed to cut back quite a lot.”"
         href: null
         annotations:
           bold: false
@@ -439,9 +405,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: The Foundation has assessed this conclusion as entirely reasonable.
+      - text: "The Foundation has assessed this conclusion as entirely reasonable."
         href: null
         annotations:
           bold: false
@@ -449,9 +415,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Supplement 526-F
+      - text: "Supplement 526-F"
         href: null
         annotations:
           bold: false
@@ -459,13 +425,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          During a research meeting concerning SDQ-526, personnel identified the need to establish a
-          formal definition of “oshi.” Despite exceeding its scheduled duration by 47 minutes, the
-          meeting failed to produce such a definition.
+      - text: "During a research meeting concerning SDQ-526, personnel identified the need to establish a formal definition of “oshi.” Despite exceeding its scheduled duration by 47 minutes, the meeting failed to produce such a definition."
         href: null
         annotations:
           bold: false
@@ -473,11 +436,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          Scheduling of the next meeting has encountered significant difficulties due to various
-          personnel reporting unspecified “personal commitments.”
+      - text: "Scheduling of the next meeting has encountered significant difficulties due to various personnel reporting unspecified “personal commitments.”"
         href: null
         annotations:
           bold: false
@@ -485,9 +446,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"

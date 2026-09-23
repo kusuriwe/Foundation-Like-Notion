@@ -1,10 +1,10 @@
-id: demo_3a4334fbe78ad0637d202723
-databaseId: demo_7de8d995c9f569d451cd9ffb
-title: SDQ Foundation
-createdTime: '2026-09-22T14:01:00.000Z'
-lastEditedTime: '2026-09-22T17:25:00.000Z'
+id: "demo_3a4334fbe78ad0637d202723"
+databaseId: "demo_7de8d995c9f569d451cd9ffb"
+title: "SDQ Foundation"
+createdTime: "2026-09-22T14:01:00.000Z"
+lastEditedTime: "2026-09-22T17:25:00.000Z"
 titleRichText:
-  - text: SDQ Foundation
+  - text: "SDQ Foundation"
     href: null
     annotations:
       bold: false
@@ -14,32 +14,32 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: SDQ Foundation
+    type: "string"
+    value: "SDQ Foundation"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_d6b52561ff514781523b9fda
-      title: Administrative
+      readerId: "demo_d6b52561ff514781523b9fda"
+      title: "Administrative"
       icon:
-        kind: asset
-        assetId: demo_ebc587531864182310f11e7b
+        kind: "asset"
+        assetId: "demo_ebc587531864182310f11e7b"
   subClass:
-    type: string
-    value: Meta
+    type: "string"
+    value: "Meta"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_0998818be2657dbfaa21868d
-      title: SDQ-001
+      readerId: "demo_0998818be2657dbfaa21868d"
+      title: "SDQ-001"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - INFORMATIONAL
-      - SOCIAL
+      - "INFORMATIONAL"
+      - "SOCIAL"
 blocks:
   - content:
-      - text: SDQ Foundation
+      - text: "SDQ Foundation"
         href: null
         annotations:
           bold: false
@@ -47,10 +47,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: About This Content
+      - text: "About This Content"
         href: null
         annotations:
           bold: true
@@ -58,14 +58,14 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: callout
+    type: "callout"
     icon:
-      kind: emoji
-      value: 💡
-    color: gray_background
+      kind: "emoji"
+      value: "💡"
+    color: "gray_background"
     children:
       - content:
-          - text: 'This content is a parody document created as a demo for a deliberately overdramatic, '
+          - text: "This content is a parody document created as a demo for a deliberately overdramatic, "
             href: null
             annotations:
               bold: false
@@ -73,7 +73,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-          - text: chūnibyō
+          - text: "chūnibyō"
             href: null
             annotations:
               bold: false
@@ -81,7 +81,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-          - text: '-style Notion Viewer inspired by the SCP Foundation.'
+          - text: "-style Notion Viewer inspired by the SCP Foundation."
             href: null
             annotations:
               bold: false
@@ -89,14 +89,9 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        type: paragraph
+        type: "paragraph"
       - content:
-          - text: >-
-              This content is an independently created work. It is neither official content of the
-              SCP Foundation or SCP Wiki nor a derivative work thereof, and does not indicate any
-              affiliation with, endorsement by, or other relationship with their operators or
-              contributors. It is also not intended to establish or operate an independent creative
-              community.
+          - text: "This content is an independently created work. It is neither official content of the SCP Foundation or SCP Wiki nor a derivative work thereof, and does not indicate any affiliation with, endorsement by, or other relationship with their operators or contributors. It is also not intended to establish or operate an independent creative community."
             href: null
             annotations:
               bold: false
@@ -104,12 +99,9 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        type: paragraph
+        type: "paragraph"
       - content:
-          - text: >-
-              The “SDQ Foundation” is a fictional organization created for demonstration purposes,
-              using document-based collaborative fiction, classified research materials, and similar
-              formats as its subject matter. It has no connection to any real organization.
+          - text: "The “SDQ Foundation” is a fictional organization created for demonstration purposes, using document-based collaborative fiction, classified research materials, and similar formats as its subject matter. It has no connection to any real organization."
             href: null
             annotations:
               bold: false
@@ -117,9 +109,9 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        type: paragraph
+        type: "paragraph"
   - content:
-      - text: Standard Deviation Quarantine
+      - text: "Standard Deviation Quarantine"
         href: null
         annotations:
           bold: false
@@ -127,16 +119,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          Documents concerning the SDQ Foundation must not be treated as official materials issued
-          by any real research institution, government agency, corporation, or other existing
-          organization. This archive is a work of fiction that observes and documents ordinary
-          objects, systems, customs, and concepts with an unnecessarily serious tone. Even when the
-          subject exists in the real world, any Foundation designation, investigation, quarantine
-          measure, classification, or similar action is fictional.
+      - text: "Documents concerning the SDQ Foundation must not be treated as official materials issued by any real research institution, government agency, corporation, or other existing organization. This archive is a work of fiction that observes and documents ordinary objects, systems, customs, and concepts with an unnecessarily serious tone. Even when the subject exists in the real world, any Foundation designation, investigation, quarantine measure, classification, or similar action is fictional."
         href: null
         annotations:
           bold: false
@@ -144,12 +130,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          The document format used in this archive is part of a parody/demo project inspired by the
-          SCP Foundation. It is not intended to directly reuse SCP-specific settings, classification
-          names, terminology systems, or article text.
+      - text: "The document format used in this archive is part of a parody/demo project inspired by the SCP Foundation. It is not intended to directly reuse SCP-specific settings, classification names, terminology systems, or article text."
         href: null
         annotations:
           bold: false
@@ -157,9 +140,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Observation Summary
+      - text: "Observation Summary"
         href: null
         annotations:
           bold: false
@@ -167,10 +150,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: The SDQ Foundation (
+      - text: "The SDQ Foundation ("
         href: null
         annotations:
           bold: false
@@ -178,7 +161,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: Survey, Documentation and Quarantine Foundation
+      - text: "Survey, Documentation and Quarantine Foundation"
         href: null
         annotations:
           bold: true
@@ -186,10 +169,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: >-
-          ) is a fictional organization that observes and documents objects, systems, information,
-          customs, phenomena, and other subjects that exhibit meaningful departures from normally
-          expected behavior. The Foundation refers to such departures as 
+      - text: ") is a fictional organization that observes and documents objects, systems, information, customs, phenomena, and other subjects that exhibit meaningful departures from normally expected behavior. The Foundation refers to such departures as "
         href: null
         annotations:
           bold: false
@@ -197,7 +177,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: Deviations
+      - text: "Deviations"
         href: null
         annotations:
           bold: true
@@ -205,10 +185,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: >-
-          . A Deviation is not necessarily supernatural. Subjects may qualify simply because they
-          are repeatedly reported, operationally inconvenient in peculiar ways, socially difficult
-          to explain, or familiar to nearly everyone despite never having been seriously documented.
+      - text: ". A Deviation is not necessarily supernatural. Subjects may qualify simply because they are repeatedly reported, operationally inconvenient in peculiar ways, socially difficult to explain, or familiar to nearly everyone despite never having been seriously documented."
         href: null
         annotations:
           bold: false
@@ -216,9 +193,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 'The Foundation''s general position is summarized as follows:'
+      - text: "The Foundation's general position is summarized as follows:"
         href: null
         annotations:
           bold: false
@@ -226,9 +203,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: The fact that something can be explained does not mean that it is not worth documenting.
+      - text: "The fact that something can be explained does not mean that it is not worth documenting."
         href: null
         annotations:
           bold: true
@@ -236,9 +213,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: quote
+    type: "quote"
   - content:
-      - text: 'Each case is assigned an identifier in the format '
+      - text: "Each case is assigned an identifier in the format "
         href: null
         annotations:
           bold: false
@@ -246,7 +223,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: SDQ-XXXX
+      - text: "SDQ-XXXX"
         href: null
         annotations:
           bold: false
@@ -254,10 +231,7 @@ blocks:
           strikethrough: false
           underline: false
           code: true
-      - text: >-
-          . Case numbers do not, as a rule, correspond to their contents, and personnel are
-          discouraged from attempting to infer meaning from the numbers. It has been confirmed that
-          this notice increases attempts to infer meaning from the numbers.
+      - text: ". Case numbers do not, as a rule, correspond to their contents, and personnel are discouraged from attempting to infer meaning from the numbers. It has been confirmed that this notice increases attempts to infer meaning from the numbers."
         href: null
         annotations:
           bold: false
@@ -265,9 +239,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Main Class
+      - text: "Main Class"
         href: null
         annotations:
           bold: false
@@ -275,10 +249,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: 'Each SDQ case is assigned a '
+      - text: "Each SDQ case is assigned a "
         href: null
         annotations:
           bold: false
@@ -286,7 +260,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: Main Class (Handling Disposition)
+      - text: "Main Class (Handling Disposition)"
         href: null
         annotations:
           bold: true
@@ -294,7 +268,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ' describing '
+      - text: " describing "
         href: null
         annotations:
           bold: false
@@ -302,7 +276,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: how the subject responds to management by the Foundation
+      - text: "how the subject responds to management by the Foundation"
         href: null
         annotations:
           bold: true
@@ -310,7 +284,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ', rather than how dangerous the subject is.'
+      - text: ", rather than how dangerous the subject is."
         href: null
         annotations:
           bold: false
@@ -318,13 +292,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          Main Class does not represent hazard level, importance, or the severity of a Deviation. An
-          ordinary and harmless subject may receive a particular Class if its management conditions
-          are sufficiently complicated. Conversely, a subject capable of producing significant
-          effects may still respond predictably to ordinary management procedures.
+      - text: "Main Class does not represent hazard level, importance, or the severity of a Deviation. An ordinary and harmless subject may receive a particular Class if its management conditions are sufficiently complicated. Conversely, a subject capable of producing significant effects may still respond predictably to ordinary management procedures."
         href: null
         annotations:
           bold: false
@@ -332,9 +302,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 'The Foundation currently uses the following primary Classes:'
+      - text: "The Foundation currently uses the following primary Classes:"
         href: null
         annotations:
           bold: false
@@ -342,10 +312,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: table
+    type: "paragraph"
+  - type: "table"
     rows:
-      - - - text: Main Class
+      - - - text: "Main Class"
             href: null
             annotations:
               bold: false
@@ -353,7 +323,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Description
+        - - text: "Description"
             href: null
             annotations:
               bold: false
@@ -361,7 +331,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Docile
+      - - - text: "Docile"
             href: null
             annotations:
               bold: true
@@ -369,10 +339,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: >-
-              Responds generally predictably to ordinary management procedures. No exceptional
-              conditions are required, and the subject can be managed using existing systems,
-              equipment, and procedures.
+        - - text: "Responds generally predictably to ordinary management procedures. No exceptional conditions are required, and the subject can be managed using existing systems, equipment, and procedures."
             href: null
             annotations:
               bold: false
@@ -380,7 +347,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Kojire
+      - - - text: "Kojire"
             href: null
             annotations:
               bold: true
@@ -388,10 +355,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: >-
-              Management is possible, but circumstances are easily complicated by conditions,
-              exceptions, the perceptions of involved parties, or other factors. Simplified
-              responses frequently create additional problems.
+        - - text: "Management is possible, but circumstances are easily complicated by conditions, exceptions, the perceptions of involved parties, or other factors. Simplified responses frequently create additional problems."
             href: null
             annotations:
               bold: false
@@ -399,7 +363,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Tsumujimagari
+      - - - text: "Tsumujimagari"
             href: null
             annotations:
               bold: true
@@ -407,10 +371,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: >-
-              Tends to exhibit contrary behavior or unintended outcomes in response to attempts at
-              management, correction, or suppression. More intensive intervention does not
-              necessarily produce better results.
+        - - text: "Tends to exhibit contrary behavior or unintended outcomes in response to attempts at management, correction, or suppression. More intensive intervention does not necessarily produce better results."
             href: null
             annotations:
               bold: false
@@ -418,7 +379,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Distributed
+      - - - text: "Distributed"
             href: null
             annotations:
               bold: true
@@ -426,10 +387,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: >-
-              The Deviation is distributed across multiple individuals, institutions, devices,
-              informational environments, or other components, making isolation or management of a
-              single subject insufficient.
+        - - text: "The Deviation is distributed across multiple individuals, institutions, devices, informational environments, or other components, making isolation or management of a single subject insufficient."
             href: null
             annotations:
               bold: false
@@ -437,7 +395,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Administrative
+      - - - text: "Administrative"
             href: null
             annotations:
               bold: true
@@ -445,10 +403,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: >-
-              The need for active management is unclear, but the administrative work required to
-              close, release, or reclassify the case exceeds the administrative work required to
-              continue managing it.
+        - - text: "The need for active management is unclear, but the administrative work required to close, release, or reclassify the case exceeds the administrative work required to continue managing it."
             href: null
             annotations:
               bold: false
@@ -459,10 +414,7 @@ blocks:
     hasColumnHeader: true
     hasRowHeader: false
   - content:
-      - text: >-
-          Main Class is a summary of the case's management characteristics and does not replace its
-          Standard Deviation Quarantine procedures. When managing a case, personnel must defer to
-          the procedures specified in the relevant case file.
+      - text: "Main Class is a summary of the case's management characteristics and does not replace its Standard Deviation Quarantine procedures. When managing a case, personnel must defer to the procedures specified in the relevant case file."
         href: null
         annotations:
           bold: false
@@ -470,12 +422,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          Proposals to add, consolidate, or rename Classes are accepted on an ongoing basis. The
-          Classification Review Committee, established to prevent unnecessary complexity in the
-          classification system, is currently reviewing 17 proposals for new Classes.
+      - text: "Proposals to add, consolidate, or rename Classes are accepted on an ongoing basis. The Classification Review Committee, established to prevent unnecessary complexity in the classification system, is currently reviewing 17 proposals for new Classes."
         href: null
         annotations:
           bold: false
@@ -483,9 +432,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Editorial Note
+      - text: "Editorial Note"
         href: null
         annotations:
           bold: false
@@ -493,17 +442,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          The articles included in this demo were produced collaboratively by the demo's human
-          creator and ChatGPT, an AI system developed by OpenAI. AI assistance has been used for
-          structural planning, stylistic refinement, development of expressions, English
-          translation, and related tasks. However, interpretations that assign sole responsibility
-          to generative AI for the sarcasm, pedantry, excessive generalization, and unnecessarily
-          spiteful observations about everyday life found throughout these articles are not
-          recommended.
+      - text: "The articles included in this demo were produced collaboratively by the demo's human creator and ChatGPT, an AI system developed by OpenAI. AI assistance has been used for structural planning, stylistic refinement, development of expressions, English translation, and related tasks. However, interpretations that assign sole responsibility to generative AI for the sarcasm, pedantry, excessive generalization, and unnecessarily spiteful observations about everyday life found throughout these articles are not recommended."
         href: null
         annotations:
           bold: false
@@ -511,11 +453,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          Editorial records indicate that a substantial proportion of such material was actively
-          adopted, selected, or amplified by the human creator.
+      - text: "Editorial records indicate that a substantial proportion of such material was actively adopted, selected, or amplified by the human creator."
         href: null
         annotations:
           bold: false
@@ -523,10 +463,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: table
+    type: "paragraph"
+  - type: "table"
     rows:
-      - - - text: Observed tendency
+      - - - text: "Observed tendency"
             href: null
             annotations:
               bold: false
@@ -534,7 +474,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Primary source
+        - - text: "Primary source"
             href: null
             annotations:
               bold: false
@@ -542,7 +482,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Prose is more bureaucratic than necessary
+      - - - text: "Prose is more bureaucratic than necessary"
             href: null
             annotations:
               bold: false
@@ -550,7 +490,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Both parties
+        - - text: "Both parties"
             href: null
             annotations:
               bold: false
@@ -558,7 +498,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Trivial phenomena are treated as major incidents
+      - - - text: "Trivial phenomena are treated as major incidents"
             href: null
             annotations:
               bold: false
@@ -566,7 +506,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: The premise itself
+        - - text: "The premise itself"
             href: null
             annotations:
               bold: false
@@ -574,7 +514,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Sarcasm becomes suspiciously specific
+      - - - text: "Sarcasm becomes suspiciously specific"
             href: null
             annotations:
               bold: false
@@ -582,7 +522,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Human contribution suspected
+        - - text: "Human contribution suspected"
             href: null
             annotations:
               bold: false
@@ -590,7 +530,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Tables appear whenever possible
+      - - - text: "Tables appear whenever possible"
             href: null
             annotations:
               bold: false
@@ -598,7 +538,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Both parties
+        - - text: "Both parties"
             href: null
             annotations:
               bold: false
@@ -606,7 +546,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Some passages make the reader think, “Was that really necessary?”
+      - - - text: "Some passages make the reader think, “Was that really necessary?”"
             href: null
             annotations:
               bold: false
@@ -614,7 +554,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Generally within specification
+        - - text: "Generally within specification"
             href: null
             annotations:
               bold: false
@@ -625,7 +565,7 @@ blocks:
     hasColumnHeader: true
     hasRowHeader: false
   - content:
-      - text: Supplement 001-A — Naming
+      - text: "Supplement 001-A — Naming"
         href: null
         annotations:
           bold: false
@@ -633,10 +573,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: 'The '
+      - text: "The "
         href: null
         annotations:
           bold: false
@@ -644,7 +584,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: SDQ
+      - text: "SDQ"
         href: null
         annotations:
           bold: true
@@ -652,7 +592,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ' in the Foundation''s name stands for '
+      - text: " in the Foundation's name stands for "
         href: null
         annotations:
           bold: false
@@ -660,7 +600,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: Survey, Documentation and Quarantine
+      - text: "Survey, Documentation and Quarantine"
         href: null
         annotations:
           bold: true
@@ -668,7 +608,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: '. Meanwhile, the case-specific management procedure known as '
+      - text: ". Meanwhile, the case-specific management procedure known as "
         href: null
         annotations:
           bold: false
@@ -676,7 +616,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: Standard Deviation Quarantine
+      - text: "Standard Deviation Quarantine"
         href: null
         annotations:
           bold: true
@@ -684,7 +624,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ' is also abbreviated '
+      - text: " is also abbreviated "
         href: null
         annotations:
           bold: false
@@ -692,7 +632,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: SDQ
+      - text: "SDQ"
         href: null
         annotations:
           bold: true
@@ -700,10 +640,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: >-
-          . This naming redundancy has repeatedly been identified as detrimental to the readability
-          of internal documentation. All proposals to rename either term have been rejected on the
-          grounds that doing so would require revising too much existing material.
+      - text: ". This naming redundancy has repeatedly been identified as detrimental to the readability of internal documentation. All proposals to rename either term have been rejected on the grounds that doing so would require revising too much existing material."
         href: null
         annotations:
           bold: false
@@ -711,9 +648,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"

@@ -204,6 +204,7 @@ describe("static demo exporter", () => {
           id: "demo_article",
           databaseId: "demo_database",
           icon: undefined,
+          titleRichText: [{ text: "Public article " }],
           variables: {},
           blocks: [],
         },
@@ -212,5 +213,7 @@ describe("static demo exporter", () => {
     }
     await writeDemoCandidate(directory, dataset, [])
     await expect(readDemoCandidate(directory)).resolves.toEqual(dataset)
+    const serialized = await readFile(path.join(directory, "articles", "demo_article.yaml"), "utf8")
+    expect(serialized).not.toMatch(/[ \t]+$/m)
   })
 })

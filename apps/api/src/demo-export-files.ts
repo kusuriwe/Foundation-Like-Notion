@@ -167,7 +167,14 @@ export function createDemoAssetWriter(
 }
 
 function dumpYaml(value: unknown): string {
-  return yaml.dump(value, { lineWidth: 100, noCompatMode: true, noRefs: true, sortKeys: false })
+  return yaml.dump(value, {
+    forceQuotes: true,
+    lineWidth: 100,
+    noCompatMode: true,
+    noRefs: true,
+    quotingType: '"',
+    sortKeys: false,
+  })
 }
 
 /**

@@ -1,10 +1,10 @@
-id: demo_17a5eefbc3debe5fe92d066e
-databaseId: demo_680645fe4048c0eece7426de
-title: パスワード変更要求
-createdTime: '2026-09-21T06:42:00.000Z'
-lastEditedTime: '2026-09-22T17:27:00.000Z'
+id: "demo_17a5eefbc3debe5fe92d066e"
+databaseId: "demo_680645fe4048c0eece7426de"
+title: "パスワード変更要求"
+createdTime: "2026-09-21T06:42:00.000Z"
+lastEditedTime: "2026-09-22T17:27:00.000Z"
 titleRichText:
-  - text: パスワード変更要求
+  - text: "パスワード変更要求"
     href: null
     annotations:
       bold: false
@@ -14,33 +14,33 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: パスワード変更要求
+    type: "string"
+    value: "パスワード変更要求"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_a94132e6436c6f3ab131af2c
-      title: Tsumujimagari
+      readerId: "demo_a94132e6436c6f3ab131af2c"
+      title: "Tsumujimagari"
       icon:
-        kind: asset
-        assetId: demo_0022c877e0c9d0c87c4cda81
+        kind: "asset"
+        assetId: "demo_0022c877e0c9d0c87c4cda81"
   subClass:
-    type: string
-    value: Information
+    type: "string"
+    value: "Information"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_7fb51bf4f42eec7a44affc8f
-      title: SDQ-441
+      readerId: "demo_7fb51bf4f42eec7a44affc8f"
+      title: "SDQ-441"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - INFORMATIONAL
-      - TECHNOLOGICAL
-      - BEHAVIORAL
+      - "INFORMATIONAL"
+      - "TECHNOLOGICAL"
+      - "BEHAVIORAL"
 blocks:
   - content:
-      - text: 標準偏差隔離プロトコル
+      - text: "標準偏差隔離プロトコル"
         href: null
         annotations:
           bold: false
@@ -48,11 +48,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-441を運用するシステムでは、パスワード変更を要求する理由を記録してください。「一定期間が経過したため」という理由だけで変更を要求する場合、変更後の文字列が変更前より推測しにくくなることを事前に仮定してはいけません。同一利用者に対して短期間に複数回の変更を要求する場合、少なくとも直前のパスワードとの差分だけで安全性を評価しないでください。
+      - text: "SDQ-441を運用するシステムでは、パスワード変更を要求する理由を記録してください。「一定期間が経過したため」という理由だけで変更を要求する場合、変更後の文字列が変更前より推測しにくくなることを事前に仮定してはいけません。同一利用者に対して短期間に複数回の変更を要求する場合、少なくとも直前のパスワードとの差分だけで安全性を評価しないでください。"
         href: null
         annotations:
           bold: false
@@ -60,9 +59,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 以下の形式は、財団内部システムにおいて「変更済み」と「実質的に同一」を同時に満たす例として記録されています。
+      - text: "以下の形式は、財団内部システムにおいて「変更済み」と「実質的に同一」を同時に満たす例として記録されています。"
         href: null
         annotations:
           bold: false
@@ -70,10 +69,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: bulletedList
+    type: "paragraph"
+  - type: "bulletedList"
     items:
-      - - text: Example2025!
+      - - text: "Example2025!"
           href: null
           annotations:
             bold: false
@@ -81,7 +80,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-        - text: ' → '
+        - text: " → "
           href: null
           annotations:
             bold: false
@@ -89,7 +88,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-        - text: Example2026!
+        - text: "Example2026!"
           href: null
           annotations:
             bold: false
@@ -97,7 +96,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-      - - text: Password1!
+      - - text: "Password1!"
           href: null
           annotations:
             bold: false
@@ -105,7 +104,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-        - text: ' → '
+        - text: " → "
           href: null
           annotations:
             bold: false
@@ -113,7 +112,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-        - text: Password2!
+        - text: "Password2!"
           href: null
           annotations:
             bold: false
@@ -121,7 +120,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-      - - text: Spring!
+      - - text: "Spring!"
           href: null
           annotations:
             bold: false
@@ -129,7 +128,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-        - text: ' → '
+        - text: " → "
           href: null
           annotations:
             bold: false
@@ -137,7 +136,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-        - text: Summer!
+        - text: "Summer!"
           href: null
           annotations:
             bold: false
@@ -145,7 +144,7 @@ blocks:
             strikethrough: false
             underline: false
             code: true
-      - - text: 末尾に記号を1個追加する。
+      - - text: "末尾に記号を1個追加する。"
           href: null
           annotations:
             bold: false
@@ -153,7 +152,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 変更を要求された回数だけ数字を増やす。
+      - - text: "変更を要求された回数だけ数字を増やす。"
           href: null
           annotations:
             bold: false
@@ -162,7 +161,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: 観測サマリ
+      - text: "観測サマリ"
         href: null
         annotations:
           bold: false
@@ -170,11 +169,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-441は、利用者に既存のパスワードを破棄し、新しいパスワードを設定するよう要求する制度またはUIです。表面上、SDQ-441は認証情報を更新することで安全性を向上させることを目的としています。しかし、変更要求が反復されると、利用者は「新しい秘密」を考案するよりも、「前回の秘密をシステムが別物と認識する程度に変更する」戦略へ移行する傾向があります。
+      - text: "SDQ-441は、利用者に既存のパスワードを破棄し、新しいパスワードを設定するよう要求する制度またはUIです。表面上、SDQ-441は認証情報を更新することで安全性を向上させることを目的としています。しかし、変更要求が反復されると、利用者は「新しい秘密」を考案するよりも、「前回の秘密をシステムが別物と認識する程度に変更する」戦略へ移行する傾向があります。"
         href: null
         annotations:
           bold: false
@@ -182,9 +180,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: '財団ではこの現象を '
+      - text: "財団ではこの現象を "
         href: null
         annotations:
           bold: false
@@ -192,7 +190,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: 差分最小化行動
+      - text: "差分最小化行動"
         href: null
         annotations:
           bold: true
@@ -200,7 +198,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ' と呼んでいます。変更回数を '
+      - text: " と呼んでいます。変更回数を "
         href: null
         annotations:
           bold: false
@@ -208,10 +206,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - type: equation
-        expression: n
-        text: n
-      - text: '、元のパスワードから実際に変更された文字数を '
+      - type: "equation"
+        expression: "n"
+        text: "n"
+      - text: "、元のパスワードから実際に変更された文字数を "
         href: null
         annotations:
           bold: false
@@ -219,10 +217,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - type: equation
-        expression: c
-        text: c
-      - text: ' としたとき、観測された利用者行動は概ね次の方向へ進みます。'
+      - type: "equation"
+        expression: "c"
+        text: "c"
+      - text: " としたとき、観測された利用者行動は概ね次の方向へ進みます。"
         href: null
         annotations:
           bold: false
@@ -230,11 +228,11 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: math
-    expression: n \uparrow \quad \Rightarrow \quad c \downarrow
+    type: "paragraph"
+  - type: "math"
+    expression: "n \\uparrow \\quad \\Rightarrow \\quad c \\downarrow"
   - content:
-      - text: この式は暗号学的な法則ではありませんが、情報システム部門では「驚くほど説明力がある法則である」と認知されています。
+      - text: "この式は暗号学的な法則ではありませんが、情報システム部門では「驚くほど説明力がある法則である」と認知されています。"
         href: null
         annotations:
           bold: false
@@ -242,9 +240,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 評価記録 441-D
+      - text: "評価記録 441-D"
         href: null
         annotations:
           bold: false
@@ -252,10 +250,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: 職員68名に、架空システムから90日ごとに変更要求を受けたという想定で、4世代分のパスワード案を作成してもらいました。
+      - text: "職員68名に、架空システムから90日ごとに変更要求を受けたという想定で、4世代分のパスワード案を作成してもらいました。"
         href: null
         annotations:
           bold: false
@@ -263,10 +261,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: table
+    type: "paragraph"
+  - type: "table"
     rows:
-      - - - text: 世代
+      - - - text: "世代"
             href: null
             annotations:
               bold: false
@@ -274,7 +272,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 前世代と共通する文字列を持つ案
+        - - text: "前世代と共通する文字列を持つ案"
             href: null
             annotations:
               bold: false
@@ -282,7 +280,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: '1'
+      - - - text: "1"
             href: null
             annotations:
               bold: false
@@ -290,7 +288,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 18%
+        - - text: "18%"
             href: null
             annotations:
               bold: false
@@ -298,7 +296,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: '2'
+      - - - text: "2"
             href: null
             annotations:
               bold: false
@@ -306,7 +304,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 46%
+        - - text: "46%"
             href: null
             annotations:
               bold: false
@@ -314,7 +312,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: '3'
+      - - - text: "3"
             href: null
             annotations:
               bold: false
@@ -322,7 +320,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 69%
+        - - text: "69%"
             href: null
             annotations:
               bold: false
@@ -330,7 +328,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: '4'
+      - - - text: "4"
             href: null
             annotations:
               bold: false
@@ -338,7 +336,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 81%
+        - - text: "81%"
             href: null
             annotations:
               bold: false
@@ -349,8 +347,7 @@ blocks:
     hasColumnHeader: true
     hasRowHeader: false
   - content:
-      - text: >-
-          自由記述欄では、「覚えられないので仕方がない」という回答が最も多く確認されました。財団監督部門より「もっと複雑な変更規則を課すべきではないか」という勧告がなされましたが、実験責任者によって記録された後、コメントなしで保留されています。
+      - text: "自由記述欄では、「覚えられないので仕方がない」という回答が最も多く確認されました。財団監督部門より「もっと複雑な変更規則を課すべきではないか」という勧告がなされましたが、実験責任者によって記録された後、コメントなしで保留されています。"
         href: null
         annotations:
           bold: false
@@ -358,9 +355,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"

@@ -1,13 +1,13 @@
-id: demo_df329e28e85086673b48d5b2
-databaseId: demo_680645fe4048c0eece7426de
-title: 猫
+id: "demo_df329e28e85086673b48d5b2"
+databaseId: "demo_680645fe4048c0eece7426de"
+title: "猫"
 icon:
-  kind: emoji
-  value: 🐈
-createdTime: '2026-09-21T06:42:00.000Z'
-lastEditedTime: '2026-09-23T04:25:00.000Z'
+  kind: "emoji"
+  value: "🐈"
+createdTime: "2026-09-21T06:42:00.000Z"
+lastEditedTime: "2026-09-23T04:25:00.000Z"
 titleRichText:
-  - text: 猫
+  - text: "猫"
     href: null
     annotations:
       bold: false
@@ -17,33 +17,33 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: 猫
+    type: "string"
+    value: "猫"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_b7c0c23df5be3cb647ae21b2
-      title: Kojire
+      readerId: "demo_b7c0c23df5be3cb647ae21b2"
+      title: "Kojire"
       icon:
-        kind: asset
-        assetId: demo_565459aa9467d035bff2d5de
+        kind: "asset"
+        assetId: "demo_565459aa9467d035bff2d5de"
   subClass:
-    type: string
-    value: Natural Science
+    type: "string"
+    value: "Natural Science"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_8555e5b91f03b415b284b3ba
-      title: SDQ-1843
+      readerId: "demo_8555e5b91f03b415b284b3ba"
+      title: "SDQ-1843"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - PHYSICAL
-      - BEHAVIORAL
-      - PERCEPTUAL
+      - "PHYSICAL"
+      - "BEHAVIORAL"
+      - "PERCEPTUAL"
 blocks:
   - content:
-      - text: 標準偏差隔離プロトコル
+      - text: "標準偏差隔離プロトコル"
         href: null
         annotations:
           bold: false
@@ -51,11 +51,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-1843は、一般的な飼育環境において通常の愛玩動物として扱ってください。容器適合性を確認する目的で、対象を箱、袋、洗面器、段ボール、収納ケースその他へ強制的に入れてはいけません。観測は対象が自発的に進入した場合に限ります。
+      - text: "SDQ-1843は、一般的な飼育環境において通常の愛玩動物として扱ってください。容器適合性を確認する目的で、対象を箱、袋、洗面器、段ボール、収納ケースその他へ強制的に入れてはいけません。観測は対象が自発的に進入した場合に限ります。"
         href: null
         annotations:
           bold: false
@@ -63,9 +62,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 対象が作業中のノートPC、印刷物、衣類、梱包材等の上に移動した場合、それらの物品が「ちょうど使用中だった」ことは対象を移動させる根拠として十分ではない場合があります。
+      - text: "対象が作業中のノートPC、印刷物、衣類、梱包材等の上に移動した場合、それらの物品が「ちょうど使用中だった」ことは対象を移動させる根拠として十分ではない場合があります。"
         href: null
         annotations:
           bold: false
@@ -73,11 +72,11 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: image
-    assetId: demo_728d0e40b450611ad3029abe
+    type: "paragraph"
+  - type: "image"
+    assetId: "demo_728d0e40b450611ad3029abe"
     caption:
-      - text: 自発的に小型の箱へ収まっている一般的なイエネコ
+      - text: "自発的に小型の箱へ収まっている一般的なイエネコ"
         href: null
         annotations:
           bold: false
@@ -86,7 +85,7 @@ blocks:
           underline: false
           code: false
   - content:
-      - text: 観測サマリ
+      - text: "観測サマリ"
         href: null
         annotations:
           bold: false
@@ -94,10 +93,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: SDQ-1843は、一般的なイエネコ（
+      - text: "SDQ-1843は、一般的なイエネコ（"
         href: null
         annotations:
           bold: false
@@ -105,7 +104,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: Felis catus
+      - text: "Felis catus"
         href: null
         annotations:
           bold: false
@@ -113,7 +112,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ）です。財団では、SDQ-1843が以下の性質を反復して示すことに注目しています。
+      - text: "）です。財団では、SDQ-1843が以下の性質を反復して示すことに注目しています。"
         href: null
         annotations:
           bold: false
@@ -121,10 +120,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: numberedList
+    type: "paragraph"
+  - type: "numberedList"
     items:
-      - - text: 外形上、身体容積より小さく見える容器へ進入します。
+      - - text: "外形上、身体容積より小さく見える容器へ進入します。"
           href: null
           annotations:
             bold: false
@@ -132,7 +131,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 使用者が必要としている平面を優先的に占有する傾向があります。
+      - - text: "使用者が必要としている平面を優先的に占有する傾向があります。"
           href: null
           annotations:
             bold: false
@@ -140,7 +139,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 高価な専用品より、配送用の段ボール箱を選択する場合があります。
+      - - text: "高価な専用品より、配送用の段ボール箱を選択する場合があります。"
           href: null
           annotations:
             bold: false
@@ -148,7 +147,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 呼びかけには応答しない一方、開封音や包装音に対して遠距離から反応する場合があります。
+      - - text: "呼びかけには応答しない一方、開封音や包装音に対して遠距離から反応する場合があります。"
           href: null
           annotations:
             bold: false
@@ -156,7 +155,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 観測者が写真を撮ろうとした瞬間に姿勢を変更することがあります。
+      - - text: "観測者が写真を撮ろうとした瞬間に姿勢を変更することがあります。"
           href: null
           annotations:
             bold: false
@@ -165,8 +164,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: >-
-          一般社会では、1の性質を根拠としてSDQ-1843を「液体」と表現する事例があります。財団材料科学部門・生物行動部門は、この表現が比喩であることを繰り返し説明していますが、職員の多くはこの見解に懐疑的です。
+      - text: "一般社会では、1の性質を根拠としてSDQ-1843を「液体」と表現する事例があります。財団材料科学部門・生物行動部門は、この表現が比喩であることを繰り返し説明していますが、職員の多くはこの見解に懐疑的です。"
         href: null
         annotations:
           bold: false
@@ -174,9 +172,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 実験記録 1843-A
+      - text: "実験記録 1843-A"
         href: null
         annotations:
           bold: false
@@ -184,10 +182,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: 異なるサイズの空箱を同一室内に設置し、対象3個体が自発的に進入するまでの時間を記録しました。
+      - text: "異なるサイズの空箱を同一室内に設置し、対象3個体が自発的に進入するまでの時間を記録しました。"
         href: null
         annotations:
           bold: false
@@ -195,10 +193,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: table
+    type: "paragraph"
+  - type: "table"
     rows:
-      - - - text: 箱
+      - - - text: "箱"
             href: null
             annotations:
               bold: false
@@ -206,7 +204,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 対象から見た余裕
+        - - text: "対象から見た余裕"
             href: null
             annotations:
               bold: false
@@ -214,7 +212,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 最初の進入まで
+        - - text: "最初の進入まで"
             href: null
             annotations:
               bold: false
@@ -222,7 +220,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: A
+      - - - text: "A"
             href: null
             annotations:
               bold: false
@@ -230,7 +228,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 十分に広い
+        - - text: "十分に広い"
             href: null
             annotations:
               bold: false
@@ -238,7 +236,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 18分42秒
+        - - text: "18分42秒"
             href: null
             annotations:
               bold: false
@@ -246,7 +244,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: B
+      - - - text: "B"
             href: null
             annotations:
               bold: false
@@ -254,7 +252,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: ほぼ適切
+        - - text: "ほぼ適切"
             href: null
             annotations:
               bold: false
@@ -262,7 +260,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 6分11秒
+        - - text: "6分11秒"
             href: null
             annotations:
               bold: false
@@ -270,7 +268,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: C
+      - - - text: "C"
             href: null
             annotations:
               bold: false
@@ -278,7 +276,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 明らかに狭い
+        - - text: "明らかに狭い"
             href: null
             annotations:
               bold: false
@@ -286,7 +284,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 1分53秒
+        - - text: "1分53秒"
             href: null
             annotations:
               bold: false
@@ -294,7 +292,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: D
+      - - - text: "D"
             href: null
             annotations:
               bold: false
@@ -302,7 +300,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 商品価格12,000円の猫用ベッド
+        - - text: "商品価格12,000円の猫用ベッド"
             href: null
             annotations:
               bold: false
@@ -310,7 +308,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 進入なし
+        - - text: "進入なし"
             href: null
             annotations:
               bold: false
@@ -321,7 +319,7 @@ blocks:
     hasColumnHeader: true
     hasRowHeader: false
   - content:
-      - text: 当該映像記録は、職員への精神影響を考慮し監督職員のみ閲覧可能です。
+      - text: "当該映像記録は、職員への精神影響を考慮し監督職員のみ閲覧可能です。"
         href: null
         annotations:
           bold: false
@@ -329,9 +327,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 事件記録 1843-2
+      - text: "事件記録 1843-2"
         href: null
         annotations:
           bold: false
@@ -339,10 +337,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: 以下は██研究員のオフィスで発生した事件の記録です。
+      - text: "以下は██研究員のオフィスで発生した事件の記録です。"
         href: null
         annotations:
           bold: false
@@ -350,29 +348,13 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: code
-    code: |-
-      ██研究員が重要書類を机上に広げて確認していたところ、SDQ-1843が書類中央に着座しました。
-
-      ██研究員は対象を隣の空席へ移動させました。
-
-      対象は11秒後に書類中央へ戻りました。
-
-      ██研究員は対象を床へ移動させました。
-
-      対象は26秒後に書類中央へ戻りました。
-
-      ██研究員は書類を別の机へ移動させました。
-
-      対象は移動先を追跡しました。
-
-      記録は、██研究員が書類確認を中止し、大きなため息をつきながら対象を撫ではじめた時点で終了しています。
-    language: plain text
+    type: "paragraph"
+  - type: "code"
+    code: "██研究員が重要書類を机上に広げて確認していたところ、SDQ-1843が書類中央に着座しました。\n\n██研究員は対象を隣の空席へ移動させました。\n\n対象は11秒後に書類中央へ戻りました。\n\n██研究員は対象を床へ移動させました。\n\n対象は26秒後に書類中央へ戻りました。\n\n██研究員は書類を別の机へ移動させました。\n\n対象は移動先を追跡しました。\n\n記録は、██研究員が書類確認を中止し、大きなため息をつきながら対象を撫ではじめた時点で終了しています。"
+    language: "plain text"
     caption: []
   - content:
-      - text: >-
-          以上の現象は、SDQ-1843が人類もしくは財団に対して潜在的な危険性を保持していることを示唆しています。現在財団が管理するすべてのSDQ-1843個体は監督部門オフィスに接収され、監督職員の管理下に置かれています。
+      - text: "以上の現象は、SDQ-1843が人類もしくは財団に対して潜在的な危険性を保持していることを示唆しています。現在財団が管理するすべてのSDQ-1843個体は監督部門オフィスに接収され、監督職員の管理下に置かれています。"
         href: null
         annotations:
           bold: false
@@ -380,9 +362,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"

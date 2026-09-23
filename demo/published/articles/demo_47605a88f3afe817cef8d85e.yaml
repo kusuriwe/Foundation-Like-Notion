@@ -1,13 +1,13 @@
-id: demo_47605a88f3afe817cef8d85e
-databaseId: demo_7de8d995c9f569d451cd9ffb
-title: Banana
+id: "demo_47605a88f3afe817cef8d85e"
+databaseId: "demo_7de8d995c9f569d451cd9ffb"
+title: "Banana"
 icon:
-  kind: asset
-  assetId: demo_c2d6c40dcc111007f45ef63a
-createdTime: '2026-09-22T14:01:00.000Z'
-lastEditedTime: '2026-09-23T04:35:00.000Z'
+  kind: "asset"
+  assetId: "demo_c2d6c40dcc111007f45ef63a"
+createdTime: "2026-09-22T14:01:00.000Z"
+lastEditedTime: "2026-09-23T04:35:00.000Z"
 titleRichText:
-  - text: Banana
+  - text: "Banana"
     href: null
     annotations:
       bold: false
@@ -17,33 +17,33 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: Banana
+    type: "string"
+    value: "Banana"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_c4044c8b225cc4aa526da80a
-      title: Docile
+      readerId: "demo_c4044c8b225cc4aa526da80a"
+      title: "Docile"
       icon:
-        kind: asset
-        assetId: demo_de4fe7ee94b8e0a675e4e382
+        kind: "asset"
+        assetId: "demo_de4fe7ee94b8e0a675e4e382"
   subClass:
-    type: string
-    value: Natural Science
+    type: "string"
+    value: "Natural Science"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_904ae035e3f2caf0b82eb702
-      title: SDQ-1609
+      readerId: "demo_904ae035e3f2caf0b82eb702"
+      title: "SDQ-1609"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - PHYSICAL
-      - STATISTICAL
-      - PERCEPTUAL
+      - "PHYSICAL"
+      - "STATISTICAL"
+      - "PERCEPTUAL"
 blocks:
   - content:
-      - text: Standard Deviation Quarantine
+      - text: "Standard Deviation Quarantine"
         href: null
         annotations:
           bold: false
@@ -51,14 +51,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-1609 may be stored, distributed, and consumed as ordinary food. When SDQ-1609 is used
-          as a comparative unit in explanations concerning radiation, it must be clearly stated that
-          it is not an official SI unit, but an informal comparison intended to aid understanding.
-          We are tired of explaining this. This is our limit.
+      - text: "SDQ-1609 may be stored, distributed, and consumed as ordinary food. When SDQ-1609 is used as a comparative unit in explanations concerning radiation, it must be clearly stated that it is not an official SI unit, but an informal comparison intended to aid understanding. We are tired of explaining this. This is our limit."
         href: null
         annotations:
           bold: false
@@ -66,12 +62,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          If the use of bananas to make a comparison easier to understand results in the audience
-          becoming more interested in the bananas than in the original subject, a different unit
-          should be used.
+      - text: "If the use of bananas to make a comparison easier to understand results in the audience becoming more interested in the bananas than in the original subject, a different unit should be used."
         href: null
         annotations:
           bold: false
@@ -79,11 +72,11 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: image
-    assetId: demo_0424e79430141a862e0518d1
+    type: "paragraph"
+  - type: "image"
+    assetId: "demo_0424e79430141a862e0518d1"
     caption:
-      - text: SDQ-1609. Radiation meter shown for illustrative purposes.
+      - text: "SDQ-1609. Radiation meter shown for illustrative purposes."
         href: null
         annotations:
           bold: false
@@ -92,7 +85,7 @@ blocks:
           underline: false
           code: false
   - content:
-      - text: Observation Summary
+      - text: "Observation Summary"
         href: null
         annotations:
           bold: false
@@ -100,10 +93,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: SDQ-1609 is the fruit commonly known as a “banana.”
+      - text: "SDQ-1609 is the fruit commonly known as a “banana.”"
         href: null
         annotations:
           bold: false
@@ -111,13 +104,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          SDQ-1609 contains naturally occurring potassium, a portion of which consists of
-          radioactive isotopes. As a result, SDQ-1609 is sometimes used as a familiar point of
-          comparison when explaining low doses of radiation. In official documentation, the
-          Foundation Communications Division uses the 
+      - text: "SDQ-1609 contains naturally occurring potassium, a portion of which consists of radioactive isotopes. As a result, SDQ-1609 is sometimes used as a familiar point of comparison when explaining low doses of radiation. In official documentation, the Foundation Communications Division uses the "
         href: null
         annotations:
           bold: false
@@ -125,15 +114,15 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: Banana Equivalent Dose
-        href: https://en.wikipedia.org/wiki/Banana_equivalent_dose
+      - text: "Banana Equivalent Dose"
+        href: "https://en.wikipedia.org/wiki/Banana_equivalent_dose"
         annotations:
           bold: true
           italic: false
           strikethrough: false
           underline: false
           code: false
-      - text: ', '
+      - text: ", "
         href: null
         annotations:
           bold: false
@@ -141,10 +130,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - type: equation
-        expression: N_B
-        text: N_B
-      - text: ', defined for an arbitrary dose '
+      - type: "equation"
+        expression: "N_B"
+        text: "N_B"
+      - text: ", defined for an arbitrary dose "
         href: null
         annotations:
           bold: false
@@ -152,10 +141,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - type: equation
-        expression: D
-        text: D
-      - text: ' using an explanatory reference quantity '
+      - type: "equation"
+        expression: "D"
+        text: "D"
+      - text: " using an explanatory reference quantity "
         href: null
         annotations:
           bold: false
@@ -163,10 +152,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - type: equation
-        expression: d_B
-        text: d_B
-      - text: ' representing the “reference dose equivalent to one SDQ-1609,” as follows:'
+      - type: "equation"
+        expression: "d_B"
+        text: "d_B"
+      - text: " representing the “reference dose equivalent to one SDQ-1609,” as follows:"
         href: null
         annotations:
           bold: false
@@ -174,11 +163,11 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: math
-    expression: N_B = \frac{D}{d_B}
+    type: "paragraph"
+  - type: "math"
+    expression: "N_B = \\frac{D}{d_B}"
   - content:
-      - text: 'However, '
+      - text: "However, "
         href: null
         annotations:
           bold: false
@@ -186,10 +175,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - type: equation
-        expression: N_B
-        text: N_B
-      - text: ' is not a formal unit of physics. This is explained every single time. Please stop. The fact that this must be explained every single time is itself one of the primary observations associated with SDQ-1609.'
+      - type: "equation"
+        expression: "N_B"
+        text: "N_B"
+      - text: " is not a formal unit of physics. This is explained every single time. Please stop. The fact that this must be explained every single time is itself one of the primary observations associated with SDQ-1609."
         href: null
         annotations:
           bold: false
@@ -197,9 +186,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Supplement 1609-D
+      - text: "Supplement 1609-D"
         href: null
         annotations:
           bold: false
@@ -207,15 +196,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          During a meeting of the Oversight Division, the researcher responsible for the initial
-          draft of this report was asked to explain the radiation-exposure risks associated with
-          collecting large quantities of bananas. Despite repeatedly making irregular statements
-          throughout the process, the researcher continued the explanation for 131 minutes,
-          eventually reaching a consensus among all participants.
+      - text: "During a meeting of the Oversight Division, the researcher responsible for the initial draft of this report was asked to explain the radiation-exposure risks associated with collecting large quantities of bananas. Despite repeatedly making irregular statements throughout the process, the researcher continued the explanation for 131 minutes, eventually reaching a consensus among all participants."
         href: null
         annotations:
           bold: false
@@ -223,12 +207,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          Of particular note, the researcher responsible for the explanation subsequently exhibited
-          a phenomenon in which severe stress rendered them unable to continue performing their
-          duties. The staff member is currently on medical leave.
+      - text: "Of particular note, the researcher responsible for the explanation subsequently exhibited a phenomenon in which severe stress rendered them unable to continue performing their duties. The staff member is currently on medical leave."
         href: null
         annotations:
           bold: false
@@ -236,11 +217,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          The Foundation Interrogation Division is currently investigating potential applications of
-          this phenomenon in enhanced interrogation.
+      - text: "The Foundation Interrogation Division is currently investigating potential applications of this phenomenon in enhanced interrogation."
         href: null
         annotations:
           bold: false
@@ -248,9 +227,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"

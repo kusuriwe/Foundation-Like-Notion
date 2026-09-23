@@ -1,10 +1,10 @@
-id: demo_80a68f492de27402e6d6d1d5
-databaseId: demo_7de8d995c9f569d451cd9ffb
-title: Official Canon
-createdTime: '2026-09-22T14:01:00.000Z'
-lastEditedTime: '2026-09-22T17:25:00.000Z'
+id: "demo_80a68f492de27402e6d6d1d5"
+databaseId: "demo_7de8d995c9f569d451cd9ffb"
+title: "Official Canon"
+createdTime: "2026-09-22T14:01:00.000Z"
+lastEditedTime: "2026-09-22T17:25:00.000Z"
 titleRichText:
-  - text: Official Canon
+  - text: "Official Canon"
     href: null
     annotations:
       bold: false
@@ -14,33 +14,33 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: Official Canon
+    type: "string"
+    value: "Official Canon"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_a94132e6436c6f3ab131af2c
-      title: Tsumujimagari
+      readerId: "demo_a94132e6436c6f3ab131af2c"
+      title: "Tsumujimagari"
       icon:
-        kind: asset
-        assetId: demo_0022c877e0c9d0c87c4cda81
+        kind: "asset"
+        assetId: "demo_0022c877e0c9d0c87c4cda81"
   subClass:
-    type: string
-    value: Subculture
+    type: "string"
+    value: "Subculture"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_3859a09199116d16b01698ab
-      title: SDQ-1178
+      readerId: "demo_3859a09199116d16b01698ab"
+      title: "SDQ-1178"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - INFORMATIONAL
-      - SOCIAL
-      - TEMPORAL
+      - "INFORMATIONAL"
+      - "SOCIAL"
+      - "TEMPORAL"
 blocks:
   - content:
-      - text: Standard Deviation Quarantine
+      - text: "Standard Deviation Quarantine"
         href: null
         annotations:
           bold: false
@@ -48,14 +48,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          When new setting materials, statements by creators, updates to official websites, sequels,
-          revised editions, or other materials are released for a work affected by SDQ-1178,
-          existing records must not be immediately deleted. If older and newer statements cannot be
-          reconciled, the following information must be recorded for each:
+      - text: "When new setting materials, statements by creators, updates to official websites, sequels, revised editions, or other materials are released for a work affected by SDQ-1178, existing records must not be immediately deleted. If older and newer statements cannot be reconciled, the following information must be recorded for each:"
         href: null
         annotations:
           bold: false
@@ -63,10 +59,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: numberedList
+    type: "paragraph"
+  - type: "numberedList"
     items:
-      - - text: Date and time of publication
+      - - text: "Date and time of publication"
           href: null
           annotations:
             bold: false
@@ -74,7 +70,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Medium of publication
+      - - text: "Medium of publication"
           href: null
           annotations:
             bold: false
@@ -82,7 +78,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Individual or entity responsible for the statement or description
+      - - text: "Individual or entity responsible for the statement or description"
           href: null
           annotations:
             bold: false
@@ -90,7 +86,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: The degree to which it was regarded as “official” at the time
+      - - text: "The degree to which it was regarded as “official” at the time"
           href: null
           annotations:
             bold: false
@@ -98,9 +94,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: >-
-            Whether it was subsequently overwritten, supplemented, contradicted, or ignored by later
-            material
+      - - text: "Whether it was subsequently overwritten, supplemented, contradicted, or ignored by later material"
           href: null
           annotations:
             bold: false
@@ -109,9 +103,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: >-
-          Simple determinations such as “newer means correct” or “older means invalid” must be
-          avoided.
+      - text: "Simple determinations such as “newer means correct” or “older means invalid” must be avoided."
         href: null
         annotations:
           bold: false
@@ -119,9 +111,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Observation Summary
+      - text: "Observation Summary"
         href: null
         annotations:
           bold: false
@@ -129,13 +121,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-1178 is a phenomenon in which information concerning a fictional setting is presented
-          by a creator, rights holder, official publication, or other authoritative source and
-          consequently treated as 
+      - text: "SDQ-1178 is a phenomenon in which information concerning a fictional setting is presented by a creator, rights holder, official publication, or other authoritative source and consequently treated as "
         href: null
         annotations:
           bold: false
@@ -143,7 +132,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: official canon
+      - text: "official canon"
         href: null
         annotations:
           bold: true
@@ -151,11 +140,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: >-
-          . Under ordinary circumstances, SDQ-1178 increases the amount of available information.
-          However, with respect to existing interpretations, fan works, theories, and shared
-          understandings within fan communities, it may function not as the addition of new
-          information but as an 
+      - text: ". Under ordinary circumstances, SDQ-1178 increases the amount of available information. However, with respect to existing interpretations, fan works, theories, and shared understandings within fan communities, it may function not as the addition of new information but as an "
         href: null
         annotations:
           bold: false
@@ -163,7 +148,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: alteration of past meaning
+      - text: "alteration of past meaning"
         href: null
         annotations:
           bold: true
@@ -171,7 +156,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: .
+      - text: "."
         href: null
         annotations:
           bold: false
@@ -179,14 +164,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          For example, if the motivation behind a character's actions remains unexplained for an
-          extended period and an official explanation is later issued stating, “This was actually
-          the reason,” interpretations developed by earlier readers may move from “possible correct
-          interpretations” to “outdated theories,” despite the original text itself remaining
-          entirely unchanged.
+      - text: "For example, if the motivation behind a character's actions remains unexplained for an extended period and an official explanation is later issued stating, “This was actually the reason,” interpretations developed by earlier readers may move from “possible correct interpretations” to “outdated theories,” despite the original text itself remaining entirely unchanged."
         href: null
         annotations:
           bold: false
@@ -194,11 +174,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          The Foundation therefore records SDQ-1178 as an informational phenomenon capable of
-          altering meaning retroactively along the temporal axis.
+      - text: "The Foundation therefore records SDQ-1178 as an informational phenomenon capable of altering meaning retroactively along the temporal axis."
         href: null
         annotations:
           bold: false
@@ -206,9 +184,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Example Revision History 1178-C
+      - text: "Example Revision History 1178-C"
         href: null
         annotations:
           bold: false
@@ -216,41 +194,37 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
-  - type: embeddedDatabase
-    title: 1178-C
+  - type: "embeddedDatabase"
+    title: "1178-C"
     tables:
-      - status: available
-        tableId: demo_bc8fe8a7258bdb1da6ea6f20
-        title: 1178-C
+      - status: "available"
+        tableId: "demo_bc8fe8a7258bdb1da6ea6f20"
+        title: "1178-C"
         columns:
-          - Stage
-          - Description
-          - General Status Among Fans
+          - "Stage"
+          - "Description"
+          - "General Status Among Fans"
         rows:
-          - - Revised edition
-            - The relevant scene is altered
-            - >-
-              An “it was always like this” faction emerges. Retroactive alteration produces
-              significant distortions in the timeline.
-          - - Sequel
-            - New material suggesting B is introduced
-            - Attempts are made to reconcile A and B
-          - - Creator interview
-            - Creator states, “I hadn't really decided at the time”
-            - Confusion ensues
-          - - Official guide
-            - “A was the reason” is stated
-            - A becomes the prevailing interpretation
-          - - Original work
-            - No reason is explicitly stated
-            - Multiple interpretations coexist
+          - - "Revised edition"
+            - "The relevant scene is altered"
+            - "An “it was always like this” faction emerges. Retroactive alteration produces significant distortions in the timeline."
+          - - "Sequel"
+            - "New material suggesting B is introduced"
+            - "Attempts are made to reconcile A and B"
+          - - "Creator interview"
+            - "Creator states, “I hadn't really decided at the time”"
+            - "Confusion ensues"
+          - - "Official guide"
+            - "“A was the reason” is stated"
+            - "A becomes the prevailing interpretation"
+          - - "Original work"
+            - "No reason is explicitly stated"
+            - "Multiple interpretations coexist"
         nextCursor: null
   - content:
-      - text: >-
-          The Foundation is monitoring the phenomenon described in the final row with particular
-          attention.
+      - text: "The Foundation is monitoring the phenomenon described in the final row with particular attention."
         href: null
         annotations:
           bold: false
@@ -258,9 +232,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Incident Record 1178-6
+      - text: "Incident Record 1178-6"
         href: null
         annotations:
           bold: false
@@ -268,10 +242,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: 'An official account associated with ██████''s manga series '
+      - text: "An official account associated with ██████'s manga series "
         href: null
         annotations:
           bold: false
@@ -279,7 +253,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ████████████
+      - text: "████████████"
         href: null
         annotations:
           bold: false
@@ -287,7 +261,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ' was observed to publish a post identifying the age of the character ██ as “28.” Fourteen minutes after publication, the Foundation discovered that a previous official character profile listed the same character''s age as “27.” The Foundation notified ██████ of the discrepancy through government channels.'
+      - text: " was observed to publish a post identifying the age of the character ██ as “28.” Fourteen minutes after publication, the Foundation discovered that a previous official character profile listed the same character's age as “27.” The Foundation notified ██████ of the discrepancy through government channels."
         href: null
         annotations:
           bold: false
@@ -295,14 +269,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          Twenty-seven minutes later, the post was deleted for reasons unknown. However, as the
-          Foundation possessed neither the technology nor the enthusiasm required to control the
-          memories of third parties, attempts to mitigate the effects of the resulting SDQ-1178
-          contradiction were unsuccessful. The following theories subsequently came to coexist
-          within the fan community surrounding 
+      - text: "Twenty-seven minutes later, the post was deleted for reasons unknown. However, as the Foundation possessed neither the technology nor the enthusiasm required to control the memories of third parties, attempts to mitigate the effects of the resulting SDQ-1178 contradiction were unsuccessful. The following theories subsequently came to coexist within the fan community surrounding "
         href: null
         annotations:
           bold: false
@@ -310,7 +279,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ████████████
+      - text: "████████████"
         href: null
         annotations:
           bold: false
@@ -318,7 +287,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: ':'
+      - text: ":"
         href: null
         annotations:
           bold: false
@@ -326,10 +295,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: bulletedList
+    type: "paragraph"
+  - type: "bulletedList"
     items:
-      - - text: The character is 27.
+      - - text: "The character is 27."
           href: null
           annotations:
             bold: false
@@ -337,7 +306,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: The character is 28.
+      - - text: "The character is 28."
           href: null
           annotations:
             bold: false
@@ -345,7 +314,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: The character had a birthday during the events of the story.
+      - - text: "The character had a birthday during the events of the story."
           href: null
           annotations:
             bold: false
@@ -353,7 +322,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: The character's age differs between media.
+      - - text: "The character's age differs between media."
           href: null
           annotations:
             bold: false
@@ -361,7 +330,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: The official sources do not know either.
+      - - text: "The official sources do not know either."
           href: null
           annotations:
             bold: false
@@ -369,7 +338,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: The fact that the character has no fixed age is itself official canon.
+      - - text: "The fact that the character has no fixed age is itself official canon."
           href: null
           annotations:
             bold: false
@@ -378,9 +347,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: >-
-          The Foundation Interrogation Division has scheduled the interrogation and enhanced
-          interrogation of the creator and employees of the publisher.
+      - text: "The Foundation Interrogation Division has scheduled the interrogation and enhanced interrogation of the creator and employees of the publisher."
         href: null
         annotations:
           bold: false
@@ -388,9 +355,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Supplement 1178-G
+      - text: "Supplement 1178-G"
         href: null
         annotations:
           bold: false
@@ -398,10 +365,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: 'During a meeting concerning SDQ-1178, the following question was submitted:'
+      - text: "During a meeting concerning SDQ-1178, the following question was submitted:"
         href: null
         annotations:
           bold: false
@@ -409,9 +376,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: “If a creator's statements contradict the work itself, which should take precedence?”
+      - text: "“If a creator's statements contradict the work itself, which should take precedence?”"
         href: null
         annotations:
           bold: false
@@ -419,12 +386,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          Citing concerns regarding the potential fragmentation, dissolution, or weakening of the
-          Foundation, the Oversight Division has frozen all attempts to answer this question
-          indefinitely.
+      - text: "Citing concerns regarding the potential fragmentation, dissolution, or weakening of the Foundation, the Oversight Division has frozen all attempts to answer this question indefinitely."
         href: null
         annotations:
           bold: false
@@ -432,9 +396,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"

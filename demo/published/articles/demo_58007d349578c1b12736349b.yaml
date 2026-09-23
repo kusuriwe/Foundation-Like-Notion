@@ -1,13 +1,13 @@
-id: demo_58007d349578c1b12736349b
-databaseId: demo_7de8d995c9f569d451cd9ffb
-title: Printer
+id: "demo_58007d349578c1b12736349b"
+databaseId: "demo_7de8d995c9f569d451cd9ffb"
+title: "Printer"
 icon:
-  kind: asset
-  assetId: demo_1bb979b4df78f54d9a8515bd
-createdTime: '2026-09-22T14:01:00.000Z'
-lastEditedTime: '2026-09-23T07:44:00.000Z'
+  kind: "asset"
+  assetId: "demo_1bb979b4df78f54d9a8515bd"
+createdTime: "2026-09-22T14:01:00.000Z"
+lastEditedTime: "2026-09-23T07:44:00.000Z"
 titleRichText:
-  - text: Printer
+  - text: "Printer"
     href: null
     annotations:
       bold: false
@@ -17,33 +17,33 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: Printer
+    type: "string"
+    value: "Printer"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_a94132e6436c6f3ab131af2c
-      title: Tsumujimagari
+      readerId: "demo_a94132e6436c6f3ab131af2c"
+      title: "Tsumujimagari"
       icon:
-        kind: asset
-        assetId: demo_0022c877e0c9d0c87c4cda81
+        kind: "asset"
+        assetId: "demo_0022c877e0c9d0c87c4cda81"
   subClass:
-    type: string
-    value: Information
+    type: "string"
+    value: "Information"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_a4f705669852a30aa47df351
-      title: SDQ-994
+      readerId: "demo_a4f705669852a30aa47df351"
+      title: "SDQ-994"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - TECHNOLOGICAL
-      - STATISTICAL
-      - BEHAVIORAL
+      - "TECHNOLOGICAL"
+      - "STATISTICAL"
+      - "BEHAVIORAL"
 blocks:
   - content:
-      - text: Standard Deviation Quarantine
+      - text: "Standard Deviation Quarantine"
         href: null
         annotations:
           bold: false
@@ -51,14 +51,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          Devices designated as SDQ-994 may remain in service as ordinary office printers. However,
-          SDQ-994 must not be used as the sole means of producing documents when fewer than 30
-          minutes remain before a submission, dispatch, meeting, or other explicit deadline. An
-          electronic copy or a secondary output device must be available as an alternative.
+      - text: "Devices designated as SDQ-994 may remain in service as ordinary office printers. However, SDQ-994 must not be used as the sole means of producing documents when fewer than 30 minutes remain before a submission, dispatch, meeting, or other explicit deadline. An electronic copy or a secondary output device must be available as an alternative."
         href: null
         annotations:
           bold: false
@@ -66,9 +62,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 'Personnel using SDQ-994 must confirm the following before initiating a print job:'
+      - text: "Personnel using SDQ-994 must confirm the following before initiating a print job:"
         href: null
         annotations:
           bold: false
@@ -76,10 +72,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: bulletedList
+    type: "paragraph"
+  - type: "bulletedList"
     items:
-      - - text: Sufficient paper is loaded.
+      - - text: "Sufficient paper is loaded."
           href: null
           annotations:
             bold: false
@@ -87,7 +83,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Toner or ink levels are adequate.
+      - - text: "Toner or ink levels are adequate."
           href: null
           annotations:
             bold: false
@@ -95,7 +91,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Network connectivity has been established.
+      - - text: "Network connectivity has been established."
           href: null
           annotations:
             bold: false
@@ -103,9 +99,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: >-
-            The fact that the printer was “working normally a moment ago” is not treated as grounds
-            for reassurance.
+      - - text: "The fact that the printer was “working normally a moment ago” is not treated as grounds for reassurance."
           href: null
           annotations:
             bold: false
@@ -114,9 +108,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: >-
-          The judgment that “it will probably be fine because I'm in a hurry” is recorded as a known
-          risk factor associated with SDQ-994.
+      - text: "The judgment that “it will probably be fine because I'm in a hurry” is recorded as a known risk factor associated with SDQ-994."
         href: null
         annotations:
           bold: false
@@ -124,9 +116,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Observation Summary
+      - text: "Observation Summary"
         href: null
         annotations:
           bold: false
@@ -134,15 +126,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-994 is the collective designation for ordinary printers used in offices, schools,
-          public facilities, and similar environments, together with their associated printing
-          infrastructure. Devices designated as SDQ-994 generally operate within normal
-          specifications under ordinary conditions. However, when users are subject to time
-          constraints, the following events are reported at elevated rates:
+      - text: "SDQ-994 is the collective designation for ordinary printers used in offices, schools, public facilities, and similar environments, together with their associated printing infrastructure. Devices designated as SDQ-994 generally operate within normal specifications under ordinary conditions. However, when users are subject to time constraints, the following events are reported at elevated rates:"
         href: null
         annotations:
           bold: false
@@ -150,10 +137,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: bulletedList
+    type: "paragraph"
+  - type: "bulletedList"
     items:
-      - - text: Paper jams
+      - - text: "Paper jams"
           href: null
           annotations:
             bold: false
@@ -161,7 +148,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Depleted paper supplies
+      - - text: "Depleted paper supplies"
           href: null
           annotations:
             bold: false
@@ -169,7 +156,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Depleted toner
+      - - text: "Depleted toner"
           href: null
           annotations:
             bold: false
@@ -177,7 +164,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Stalled print queues
+      - - text: "Stalled print queues"
           href: null
           annotations:
             bold: false
@@ -185,7 +172,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Jobs being sent to unintended printers
+      - - text: "Jobs being sent to unintended printers"
           href: null
           annotations:
             bold: false
@@ -193,7 +180,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Unexpected changes to duplex settings
+      - - text: "Unexpected changes to duplex settings"
           href: null
           annotations:
             bold: false
@@ -201,7 +188,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: Unexplained “offline” states
+      - - text: "Unexplained “offline” states"
           href: null
           annotations:
             bold: false
@@ -209,7 +196,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: A second, unrelated error immediately following resolution of the first
+      - - text: "A second, unrelated error immediately following resolution of the first"
           href: null
           annotations:
             bold: false
@@ -218,12 +205,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: >-
-          An internal investigation by the Foundation Statistics Division has identified a tendency
-          for SDQ-994-related failure reports to increase when users believe that a document “must
-          be printed immediately.” Conversely, the effect becomes substantially less reproducible
-          during scheduled testing, simulated deadlines, or situations in which sufficient time
-          remains to recover from equipment failure.
+      - text: "An internal investigation by the Foundation Statistics Division has identified a tendency for SDQ-994-related failure reports to increase when users believe that a document “must be printed immediately.” Conversely, the effect becomes substantially less reproducible during scheduled testing, simulated deadlines, or situations in which sufficient time remains to recover from equipment failure."
         href: null
         annotations:
           bold: false
@@ -231,11 +213,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          At present, no physical mechanism by which SDQ-994 could detect time constraints
-          themselves has been identified.
+      - text: "At present, no physical mechanism by which SDQ-994 could detect time constraints themselves has been identified."
         href: null
         annotations:
           bold: false
@@ -243,9 +223,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Assessment Log 994-A
+      - text: "Assessment Log 994-A"
         href: null
         annotations:
           bold: false
@@ -253,13 +233,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          Twelve printers of the same general model within Foundation facilities were observed to
-          determine the relationship between time remaining before a deadline and print failure
-          rate.
+      - text: "Twelve printers of the same general model within Foundation facilities were observed to determine the relationship between time remaining before a deadline and print failure rate."
         href: null
         annotations:
           bold: false
@@ -267,10 +244,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: table
+    type: "paragraph"
+  - type: "table"
     rows:
-      - - - text: User Condition
+      - - - text: "User Condition"
             href: null
             annotations:
               bold: false
@@ -278,7 +255,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: Print Failure Rate
+        - - text: "Print Failure Rate"
             href: null
             annotations:
               bold: false
@@ -286,7 +263,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: No meaningful deadline
+      - - - text: "No meaningful deadline"
             href: null
             annotations:
               bold: false
@@ -294,7 +271,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 2.1%
+        - - text: "2.1%"
             href: null
             annotations:
               bold: false
@@ -302,7 +279,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: More than 2 hours remaining
+      - - - text: "More than 2 hours remaining"
             href: null
             annotations:
               bold: false
@@ -310,7 +287,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 2.4%
+        - - text: "2.4%"
             href: null
             annotations:
               bold: false
@@ -318,7 +295,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: 30–60 minutes remaining
+      - - - text: "30–60 minutes remaining"
             href: null
             annotations:
               bold: false
@@ -326,7 +303,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 4.8%
+        - - text: "4.8%"
             href: null
             annotations:
               bold: false
@@ -334,7 +311,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: 10–30 minutes remaining
+      - - - text: "10–30 minutes remaining"
             href: null
             annotations:
               bold: false
@@ -342,7 +319,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 11.6%
+        - - text: "11.6%"
             href: null
             annotations:
               bold: false
@@ -350,7 +327,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Less than 10 minutes remaining
+      - - - text: "Less than 10 minutes remaining"
             href: null
             annotations:
               bold: false
@@ -358,7 +335,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 27.3%
+        - - text: "27.3%"
             href: null
             annotations:
               bold: false
@@ -366,7 +343,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-      - - - text: Immediately after stating, “If this prints now, I can still make it”
+      - - - text: "Immediately after stating, “If this prints now, I can still make it”"
             href: null
             annotations:
               bold: false
@@ -374,7 +351,7 @@ blocks:
               strikethrough: false
               underline: false
               code: false
-        - - text: 41.7%
+        - - text: "41.7%"
             href: null
             annotations:
               bold: false
@@ -385,10 +362,7 @@ blocks:
     hasColumnHeader: true
     hasRowHeader: false
   - content:
-      - text: >-
-          In response to these results, the Oversight Division revised the regulations governing the
-          use of SDQ-994-designated equipment and mandated immediate disciplinary action against
-          personnel making the prohibited utterance in particular.
+      - text: "In response to these results, the Oversight Division revised the regulations governing the use of SDQ-994-designated equipment and mandated immediate disciplinary action against personnel making the prohibited utterance in particular."
         href: null
         annotations:
           bold: false
@@ -396,9 +370,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: The Statistics Division has noted potential sampling bias in the final condition.
+      - text: "The Statistics Division has noted potential sampling bias in the final condition."
         href: null
         annotations:
           bold: false
@@ -406,9 +380,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Incident Record 994-3
+      - text: "Incident Record 994-3"
         href: null
         annotations:
           bold: false
@@ -416,12 +390,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          On 20██/06/14, Researcher ██ began printing 42 copies of materials for an external meeting
-          scheduled to begin at 16:00. Printing commenced at 15:41.
+      - text: "On 20██/06/14, Researcher ██ began printing 42 copies of materials for an external meeting scheduled to begin at 16:00. Printing commenced at 15:41."
         href: null
         annotations:
           bold: false
@@ -429,44 +401,13 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: code
-    code: >-
-      15:43 — SDQ-994 reports a paper jam.
-
-
-      15:45 — The paper jam is cleared.
-
-
-      15:46 — SDQ-994 reports insufficient magenta toner. The document is monochrome.
-
-
-      15:48 — Personnel confirm that the print setting cannot be changed from “Color.” Video records
-      indicate a marked deterioration in Researcher ██'s psychological state.
-
-
-      15:51 — The issue is resolved.
-
-
-      15:52 — Of the 42 copies requested, only the first is produced.
-
-
-      15:53 — Researcher ██ states, “Forget it. I'll show them the PDF.” At the same moment, SDQ-994
-      abruptly resumes normal operation.
-
-
-      15:54 — The remaining 41 copies print without error.
-
-
-      16:01 — Researcher ██ runs into the meeting room. The meeting has already been in progress for
-      one minute. Researcher ██ collapses to the floor in tears.
-    language: plain text
+    type: "paragraph"
+  - type: "code"
+    code: "15:43 — SDQ-994 reports a paper jam.\n\n15:45 — The paper jam is cleared.\n\n15:46 — SDQ-994 reports insufficient magenta toner. The document is monochrome.\n\n15:48 — Personnel confirm that the print setting cannot be changed from “Color.” Video records indicate a marked deterioration in Researcher ██'s psychological state.\n\n15:51 — The issue is resolved.\n\n15:52 — Of the 42 copies requested, only the first is produced.\n\n15:53 — Researcher ██ states, “Forget it. I'll show them the PDF.” At the same moment, SDQ-994 abruptly resumes normal operation.\n\n15:54 — The remaining 41 copies print without error.\n\n16:01 — Researcher ██ runs into the meeting room. The meeting has already been in progress for one minute. Researcher ██ collapses to the floor in tears."
+    language: "plain text"
     caption: []
   - content:
-      - text: >-
-          The above incident suggests that SDQ-994 may possess a degree of intelligence
-          substantially greater than previously assumed. Administration of an intelligence test is
-          currently awaiting approval from the Oversight Division.
+      - text: "The above incident suggests that SDQ-994 may possess a degree of intelligence substantially greater than previously assumed. Administration of an intelligence test is currently awaiting approval from the Oversight Division."
         href: null
         annotations:
           bold: false
@@ -474,9 +415,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: The Statistics Division has noted potential sampling bias.
+      - text: "The Statistics Division has noted potential sampling bias."
         href: null
         annotations:
           bold: false
@@ -484,9 +425,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: Supplement 994-B
+      - text: "Supplement 994-B"
         href: null
         annotations:
           bold: false
@@ -494,13 +435,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          Since Incident Record 994-3, the explanation “it starts working once you give up” has
-          circulated informally throughout the facility. In response to this finding, the Oversight
-          Division is preparing a further revision of the relevant regulations.
+      - text: "Since Incident Record 994-3, the explanation “it starts working once you give up” has circulated informally throughout the facility. In response to this finding, the Oversight Division is preparing a further revision of the relevant regulations."
         href: null
         annotations:
           bold: false
@@ -508,9 +446,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: The Statistics Division has noted potential sampling bias.
+      - text: "The Statistics Division has noted potential sampling bias."
         href: null
         annotations:
           bold: false
@@ -518,9 +456,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"

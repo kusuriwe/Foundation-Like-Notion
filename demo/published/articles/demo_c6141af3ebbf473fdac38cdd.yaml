@@ -1,10 +1,10 @@
-id: demo_c6141af3ebbf473fdac38cdd
-databaseId: demo_680645fe4048c0eece7426de
-title: 公式設定
-createdTime: '2026-09-21T06:42:00.000Z'
-lastEditedTime: '2026-09-22T17:27:00.000Z'
+id: "demo_c6141af3ebbf473fdac38cdd"
+databaseId: "demo_680645fe4048c0eece7426de"
+title: "公式設定"
+createdTime: "2026-09-21T06:42:00.000Z"
+lastEditedTime: "2026-09-22T17:27:00.000Z"
 titleRichText:
-  - text: 公式設定
+  - text: "公式設定"
     href: null
     annotations:
       bold: false
@@ -14,33 +14,33 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: 公式設定
+    type: "string"
+    value: "公式設定"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_a94132e6436c6f3ab131af2c
-      title: Tsumujimagari
+      readerId: "demo_a94132e6436c6f3ab131af2c"
+      title: "Tsumujimagari"
       icon:
-        kind: asset
-        assetId: demo_0022c877e0c9d0c87c4cda81
+        kind: "asset"
+        assetId: "demo_0022c877e0c9d0c87c4cda81"
   subClass:
-    type: string
-    value: Subculture
+    type: "string"
+    value: "Subculture"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_3859a09199116d16b01698ab
-      title: SDQ-1178
+      readerId: "demo_3859a09199116d16b01698ab"
+      title: "SDQ-1178"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - INFORMATIONAL
-      - SOCIAL
-      - TEMPORAL
+      - "INFORMATIONAL"
+      - "SOCIAL"
+      - "TEMPORAL"
 blocks:
   - content:
-      - text: 標準偏差隔離プロトコル
+      - text: "標準偏差隔離プロトコル"
         href: null
         annotations:
           bold: false
@@ -48,11 +48,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-1178の影響を受ける作品について、新たな設定資料、作者発言、公式サイト更新、続編、再編集版その他が公開された場合、既存資料を直ちに削除してはいけません。新旧の記述が両立しない場合は、各記述について以下を記録してください。
+      - text: "SDQ-1178の影響を受ける作品について、新たな設定資料、作者発言、公式サイト更新、続編、再編集版その他が公開された場合、既存資料を直ちに削除してはいけません。新旧の記述が両立しない場合は、各記述について以下を記録してください。"
         href: null
         annotations:
           bold: false
@@ -60,10 +59,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: numberedList
+    type: "paragraph"
+  - type: "numberedList"
     items:
-      - - text: 公開日時
+      - - text: "公開日時"
           href: null
           annotations:
             bold: false
@@ -71,7 +70,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 公開媒体
+      - - text: "公開媒体"
           href: null
           annotations:
             bold: false
@@ -79,7 +78,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 発言または記述の主体
+      - - text: "発言または記述の主体"
           href: null
           annotations:
             bold: false
@@ -87,7 +86,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 当時どの程度「公式」と認識されていたか
+      - - text: "当時どの程度「公式」と認識されていたか"
           href: null
           annotations:
             bold: false
@@ -95,7 +94,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 後続資料によって上書き、補足、否定、または無視されたか
+      - - text: "後続資料によって上書き、補足、否定、または無視されたか"
           href: null
           annotations:
             bold: false
@@ -104,7 +103,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: 「最新なので正しい」「古いので無効」という単純な処理は避けてください。
+      - text: "「最新なので正しい」「古いので無効」という単純な処理は避けてください。"
         href: null
         annotations:
           bold: false
@@ -112,9 +111,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 観測サマリ
+      - text: "観測サマリ"
         href: null
         annotations:
           bold: false
@@ -122,11 +121,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-1178は、作品世界に関する情報が、制作者、権利者、公式媒体その他から提示されることで「公式設定」として扱われる現象です。通常、SDQ-1178は情報を増加させます。一方、既存の解釈、二次創作、考察、ファン間の共通理解に対しては、情報の追加ではなく
+      - text: "SDQ-1178は、作品世界に関する情報が、制作者、権利者、公式媒体その他から提示されることで「公式設定」として扱われる現象です。通常、SDQ-1178は情報を増加させます。一方、既存の解釈、二次創作、考察、ファン間の共通理解に対しては、情報の追加ではなく"
         href: null
         annotations:
           bold: false
@@ -134,7 +132,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: 過去の意味の変更
+      - text: "過去の意味の変更"
         href: null
         annotations:
           bold: true
@@ -142,7 +140,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: として作用する場合があります。
+      - text: "として作用する場合があります。"
         href: null
         annotations:
           bold: false
@@ -150,10 +148,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          たとえば、ある人物の行動理由が長期間不明だった作品において、後年「実はこういう理由でした」と公式説明が追加された場合、それ以前の読者が行っていた解釈は、文章自体が変化していないにもかかわらず「正解候補」から「旧説」へ移動します。
+      - text: "たとえば、ある人物の行動理由が長期間不明だった作品において、後年「実はこういう理由でした」と公式説明が追加された場合、それ以前の読者が行っていた解釈は、文章自体が変化していないにもかかわらず「正解候補」から「旧説」へ移動します。"
         href: null
         annotations:
           bold: false
@@ -161,9 +158,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: このため財団では、SDQ-1178を時間方向に遡って意味づけを変更する情報現象として記録しています。
+      - text: "このため財団では、SDQ-1178を時間方向に遡って意味づけを変更する情報現象として記録しています。"
         href: null
         annotations:
           bold: false
@@ -171,9 +168,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 改訂履歴例 1178-C
+      - text: "改訂履歴例 1178-C"
         href: null
         annotations:
           bold: false
@@ -181,37 +178,37 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
-  - type: embeddedDatabase
-    title: Database 1178-C
+  - type: "embeddedDatabase"
+    title: "Database 1178-C"
     tables:
-      - status: available
-        tableId: demo_b3392fa9d2b29d671761211c
-        title: Database 1178-C
+      - status: "available"
+        tableId: "demo_b3392fa9d2b29d671761211c"
+        title: "Database 1178-C"
         columns:
-          - 時点
-          - ファン側での一般的状態
-          - 記述
+          - "時点"
+          - "ファン側での一般的状態"
+          - "記述"
         rows:
-          - - 再編集版
-            - 「最初からそうだった」派が出現する。過去改変の影響によりタイムラインに大きな歪が生じる
-            - 該当場面が修正される
-          - - 続編
-            - AとBの整合性が議論される
-            - Bを示唆する描写が追加される
-          - - 作者インタビュー
-            - 混乱が発生する
-            - 「当時は特に決めていなかった」と発言される
-          - - 公式ガイド
-            - Aが有力となる
-            - 「Aが理由」と記述される
-          - - 初期作品
-            - 解釈が複数並存する
-            - 理由は明示されない
+          - - "再編集版"
+            - "「最初からそうだった」派が出現する。過去改変の影響によりタイムラインに大きな歪が生じる"
+            - "該当場面が修正される"
+          - - "続編"
+            - "AとBの整合性が議論される"
+            - "Bを示唆する描写が追加される"
+          - - "作者インタビュー"
+            - "混乱が発生する"
+            - "「当時は特に決めていなかった」と発言される"
+          - - "公式ガイド"
+            - "Aが有力となる"
+            - "「Aが理由」と記述される"
+          - - "初期作品"
+            - "解釈が複数並存する"
+            - "理由は明示されない"
         nextCursor: null
   - content:
-      - text: 財団は、最終行の現象を特に注意して観測しています。
+      - text: "財団は、最終行の現象を特に注意して観測しています。"
         href: null
         annotations:
           bold: false
@@ -219,9 +216,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 事件記録 1178-6
+      - text: "事件記録 1178-6"
         href: null
         annotations:
           bold: false
@@ -229,11 +226,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          ██████氏の漫画作品『████████████』について、公式アカウントが登場人物██の年齢を「28歳」と投稿していることが確認されました。しかし投稿から14分後、財団は過去の公式プロフィールに「27歳」と記載されていることを発見しました。財団は政府機関経由で██████氏に指摘を通達しました。
+      - text: "██████氏の漫画作品『████████████』について、公式アカウントが登場人物██の年齢を「28歳」と投稿していることが確認されました。しかし投稿から14分後、財団は過去の公式プロフィールに「27歳」と記載されていることを発見しました。財団は政府機関経由で██████氏に指摘を通達しました。"
         href: null
         annotations:
           bold: false
@@ -241,10 +237,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          27分後、投稿は未知の理由により削除されましたが、財団には他者の記憶を制御する技術も熱意もなかったため、SDQ-1178の矛盾による影響の緩和に失敗しました。以後、漫画作品『████████████』のファンコミュニティ内では以下の説が並存することとなりました。
+      - text: "27分後、投稿は未知の理由により削除されましたが、財団には他者の記憶を制御する技術も熱意もなかったため、SDQ-1178の矛盾による影響の緩和に失敗しました。以後、漫画作品『████████████』のファンコミュニティ内では以下の説が並存することとなりました。"
         href: null
         annotations:
           bold: false
@@ -252,10 +247,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-  - type: bulletedList
+    type: "paragraph"
+  - type: "bulletedList"
     items:
-      - - text: 27歳説
+      - - text: "27歳説"
           href: null
           annotations:
             bold: false
@@ -263,7 +258,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 28歳説
+      - - text: "28歳説"
           href: null
           annotations:
             bold: false
@@ -271,7 +266,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 作中で誕生日を迎えた説
+      - - text: "作中で誕生日を迎えた説"
           href: null
           annotations:
             bold: false
@@ -279,7 +274,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 媒体ごとに設定が異なる説
+      - - text: "媒体ごとに設定が異なる説"
           href: null
           annotations:
             bold: false
@@ -287,7 +282,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 公式も分かっていない説
+      - - text: "公式も分かっていない説"
           href: null
           annotations:
             bold: false
@@ -295,7 +290,7 @@ blocks:
             strikethrough: false
             underline: false
             code: false
-      - - text: 年齢を固定しないことが公式設定である説
+      - - text: "年齢を固定しないことが公式設定である説"
           href: null
           annotations:
             bold: false
@@ -304,7 +299,7 @@ blocks:
             underline: false
             code: false
   - content:
-      - text: 財団尋問部による作者及び出版社従業員への尋問および強化尋問が予定されています。
+      - text: "財団尋問部による作者及び出版社従業員への尋問および強化尋問が予定されています。"
         href: null
         annotations:
           bold: false
@@ -312,9 +307,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 補遺 1178-G
+      - text: "補遺 1178-G"
         href: null
         annotations:
           bold: false
@@ -322,11 +317,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-1178に関する会議で、「作者の発言と作品本文が矛盾した場合、どちらを優先するか」という質問が提出されましたが、財団の分裂・解体や弱体化を懸念した監督部門によりこの質問への回答は無期限に凍結されました。
+      - text: "SDQ-1178に関する会議で、「作者の発言と作品本文が矛盾した場合、どちらを優先するか」という質問が提出されましたが、財団の分裂・解体や弱体化を懸念した監督部門によりこの質問への回答は無期限に凍結されました。"
         href: null
         annotations:
           bold: false
@@ -334,9 +328,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"

@@ -1,10 +1,10 @@
-id: demo_f7d41f27053ab0ee70913209
-databaseId: demo_680645fe4048c0eece7426de
-title: 「諸説あります」
-createdTime: '2026-09-21T06:42:00.000Z'
-lastEditedTime: '2026-09-22T17:27:00.000Z'
+id: "demo_f7d41f27053ab0ee70913209"
+databaseId: "demo_680645fe4048c0eece7426de"
+title: "「諸説あります」"
+createdTime: "2026-09-21T06:42:00.000Z"
+lastEditedTime: "2026-09-22T17:27:00.000Z"
 titleRichText:
-  - text: 「諸説あります」
+  - text: "「諸説あります」"
     href: null
     annotations:
       bold: false
@@ -14,32 +14,32 @@ titleRichText:
       code: false
 variables:
   title:
-    type: string
-    value: 「諸説あります」
+    type: "string"
+    value: "「諸説あります」"
   mainClass:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_d6b52561ff514781523b9fda
-      title: Administrative
+      readerId: "demo_d6b52561ff514781523b9fda"
+      title: "Administrative"
       icon:
-        kind: asset
-        assetId: demo_ebc587531864182310f11e7b
+        kind: "asset"
+        assetId: "demo_ebc587531864182310f11e7b"
   subClass:
-    type: string
-    value: Humanities
+    type: "string"
+    value: "Humanities"
   codeName:
-    type: reference
+    type: "reference"
     value:
-      readerId: demo_6224ac7d2484ee4d960e3e78
-      title: SDQ-287
+      readerId: "demo_6224ac7d2484ee4d960e3e78"
+      title: "SDQ-287"
   tags:
-    type: string[]
+    type: "string[]"
     value:
-      - INFORMATIONAL
-      - SOCIAL
+      - "INFORMATIONAL"
+      - "SOCIAL"
 blocks:
   - content:
-      - text: 標準偏差隔離プロトコル
+      - text: "標準偏差隔離プロトコル"
         href: null
         annotations:
           bold: false
@@ -47,11 +47,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: >-
-          SDQ-287の使用は禁止されていません。ただし、研究報告、展示解説、教育資料その他においてSDQ-287を使用する場合は、少なくとも1件の実在する異説、反対説、または資料上の不確実性が存在することを確認してください。
+      - text: "SDQ-287の使用は禁止されていません。ただし、研究報告、展示解説、教育資料その他においてSDQ-287を使用する場合は、少なくとも1件の実在する異説、反対説、または資料上の不確実性が存在することを確認してください。"
         href: null
         annotations:
           bold: false
@@ -59,9 +58,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 単に調査を終了させる目的でSDQ-287を使用してはいけません。
+      - text: "単に調査を終了させる目的でSDQ-287を使用してはいけません。"
         href: null
         annotations:
           bold: false
@@ -69,9 +68,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 観測サマリ
+      - text: "観測サマリ"
         href: null
         annotations:
           bold: false
@@ -79,10 +78,10 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: heading
+    type: "heading"
     level: 2
   - content:
-      - text: SDQ-287は、日本語圏の歴史、民俗、文化、自然科学その他の解説文に出現する定型句、
+      - text: "SDQ-287は、日本語圏の歴史、民俗、文化、自然科学その他の解説文に出現する定型句、"
         href: null
         annotations:
           bold: false
@@ -90,9 +89,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: 「諸説あります」
+      - text: "「諸説あります」"
         href: null
         annotations:
           bold: true
@@ -100,9 +99,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: quote
+    type: "quote"
   - content:
-      - text: およびこれと実質的に同等の表現です。
+      - text: "およびこれと実質的に同等の表現です。"
         href: null
         annotations:
           bold: false
@@ -110,10 +109,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: >-
-          SDQ-287は、ある事象の起源、理由、年代、人物、意味等について複数の説明が存在することを示す目的で使用されます。一方、財団による観測では、SDQ-287が文章末尾に配置された場合、読者が当該問題について追加情報を要求する確率が低下する傾向があります。執筆者側においても、SDQ-287の挿入後に出典確認、比較検討、断定回避のための追加作業が停止する例が確認されています。
+      - text: "SDQ-287は、ある事象の起源、理由、年代、人物、意味等について複数の説明が存在することを示す目的で使用されます。一方、財団による観測では、SDQ-287が文章末尾に配置された場合、読者が当該問題について追加情報を要求する確率が低下する傾向があります。執筆者側においても、SDQ-287の挿入後に出典確認、比較検討、断定回避のための追加作業が停止する例が確認されています。"
         href: null
         annotations:
           bold: false
@@ -121,9 +119,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
+    type: "paragraph"
   - content:
-      - text: このためSDQ-287は、情報の不確実性を示す表現であると同時に、
+      - text: "このためSDQ-287は、情報の不確実性を示す表現であると同時に、"
         href: null
         annotations:
           bold: false
@@ -131,7 +129,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: 不確実性そのものを処理済みとして扱わせる終端記号
+      - text: "不確実性そのものを処理済みとして扱わせる終端記号"
         href: null
         annotations:
           bold: true
@@ -139,7 +137,7 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-      - text: として機能する可能性があります。SDQ-287がこの効果を有する理由については、諸説あります。
+      - text: "として機能する可能性があります。SDQ-287がこの効果を有する理由については、諸説あります。"
         href: null
         annotations:
           bold: false
@@ -147,9 +145,9 @@ blocks:
           strikethrough: false
           underline: false
           code: false
-    type: paragraph
-defaultTemplate: compact-emblem
+    type: "paragraph"
+defaultTemplate: "compact-emblem"
 templates:
-  - simple
-  - compact-emblem
-  - cactus-study
+  - "simple"
+  - "compact-emblem"
+  - "cactus-study"
