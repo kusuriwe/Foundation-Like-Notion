@@ -3,7 +3,8 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import { RichTextTextSchema } from "@foundation-like-notion/contracts"
 import argon2 from "argon2"
-import { afterEach, beforeEach, describe, expect, it } from "vitest"
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+import type { ContentAdapter } from "../src/adapters/content-adapter.js"
 import { FixtureAdapter } from "../src/adapters/fixture-adapter.js"
 import { assetRequestInit, buildApp, sessionCookiePolicy } from "../src/app.js"
 import { loadReaderConfig, type RuntimeConfig } from "../src/config.js"
@@ -11,6 +12,7 @@ import { loadReaderConfig, type RuntimeConfig } from "../src/config.js"
 describe("Reader API", () => {
   let app: Awaited<ReturnType<typeof buildApp>>
   let workingDirectory: string
+  let runtime: RuntimeConfig
 
   beforeEach(async () => {
     workingDirectory = await mkdtemp(path.join(tmpdir(), "notion-reader-test-"))
@@ -23,7 +25,7 @@ describe("Reader API", () => {
       timeCost: 2,
       parallelism: 1,
     })
-    const runtime: RuntimeConfig = {
+    runtime = {
       reader,
       environment: "test",
       host: "127.0.0.1",
@@ -37,6 +39,7 @@ describe("Reader API", () => {
 
   afterEach(async () => {
     await app.close()
+    vi.unstubAllGlobals()
   })
 
   async function login(): Promise<string> {
@@ -103,6 +106,67 @@ describe("Reader API", () => {
       Accept: "image/svg+xml,image/*,*/*;q=0.8",
       "User-Agent": "Foundation-Like-Notion/0.1",
     })
+  })
+
+  it("streams a native Notion icon without an empty or upstream content length", async () => {
+    await app.close()
+    const fixture = new FixtureAdapter()
+    const adapter: ContentAdapter = {
+      async listArticles(database, query) {
+        const page = await fixture.listArticles(database, query)
+        return {
+          ...page,
+          items: page.items.map((item, index) =>
+            index === 0 ? { ...item, icon: { kind: "asset", sourceAssetId: "native-icon" } } : item,
+          ),
+        }
+      },
+      getArticle: (database, sourcePageId) => fixture.getArticle(database, sourcePageId),
+      getEmbeddedTablePage: (sourceTableId, columns, cursor, pageSize) =>
+        fixture.getEmbeddedTablePage(sourceTableId, columns, cursor, pageSize),
+      async getAsset() {
+        return {
+          url: "https://www.notion.so/icons/book_blue.svg?mode=light",
+          kind: "image",
+          fetchProfile: "notion-icon",
+        }
+      },
+    }
+    app = await buildApp({ runtime, adapter, logger: false })
+    const upstreamFetch = vi.fn().mockResolvedValue(
+      new Response('<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        status: 200,
+        headers: {
+          "content-type": "image/svg+xml",
+          "content-encoding": "br",
+        },
+      }),
+    )
+    vi.stubGlobal("fetch", upstreamFetch)
+    const cookie = await login()
+    const list = await app.inject({
+      method: "GET",
+      url: "/api/databases/chemistry-notes/articles?pageSize=1",
+      headers: { cookie },
+    })
+    const assetId = list.json<{ items: Array<{ icon?: { assetId?: string } }> }>().items[0]?.icon
+      ?.assetId
+    const asset = await app.inject({
+      method: "GET",
+      url: `/api/assets/${assetId}`,
+      headers: { cookie },
+    })
+
+    expect(asset.statusCode).toBe(200)
+    expect(asset.headers["content-type"]).toContain("image/svg+xml")
+    expect(asset.headers["content-length"]).toBeUndefined()
+    expect(asset.body).toContain("<svg")
+    expect(upstreamFetch).toHaveBeenCalledWith(
+      "https://www.notion.so/icons/book_blue.svg?mode=light",
+      expect.objectContaining({
+        headers: expect.objectContaining({ Accept: "image/svg+xml,image/*,*/*;q=0.8" }),
+      }),
+    )
   })
 
   it("rejects cross-origin state-changing requests", async () => {

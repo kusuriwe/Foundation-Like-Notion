@@ -62,3 +62,16 @@ Completed; native Notion icon follow-up implemented / 基本修正およびNotio
 - 最終sourceからproduction imageを再構築した。`GET /api/health` は `status=ok`、`source=notion` を返し、containerは `127.0.0.1:3000` のみにbindされている。構造化logは起動情報とhealth request metadataだけで、icon metadata、Notion ID、token、本文を含まなかった。
 - `docker compose run --rm app npm run e2e`: Chromium desktop and WebKit mobile both passed. `docker compose run --rm app npm audit`: 0 vulnerabilities.
 - `docker compose run --rm app npm run e2e`: Chromium desktopとWebKit mobileがともにpass。`docker compose run --rm app npm audit`: 0 vulnerabilities。
+
+### Tailscale 502 follow-up / Tailscale 502追補
+
+- A user visual check found that opening the proxied icon could produce a Tailscale 502 even though Fastify recorded the asset route as 200.
+- ユーザーのvisual checkで、Fastifyはasset routeを200と記録する一方、proxy済みiconを開くとTailscaleが502を返す場合があることを確認した。
+- A safe live probe reproduced the relevant protocol shape without exposing metadata: the official SVG response was `200 image/svg+xml`, Brotli encoded, had no `Content-Length`, and completed as a valid 662-byte SVG through an injected Reader request.
+- metadataを出さない安全なlive probeで該当protocol形状を再現した。公式SVGは `200 image/svg+xml`、Brotli圧縮、`Content-Length`なしで、Reader内部requestでは有効な662-byte SVGとして完了した。
+- The asset route had converted a missing upstream length into an invalid empty `Content-Length` response header. Fastify injection tolerated it, while an HTTP proxy could reject the response after Fastify had logged 200. The route now omits upstream content length for all streamed assets and lets transfer framing be generated safely.
+- asset routeは上流に長さがない場合、不正な空の `Content-Length` response headerへ変換していた。Fastify injectionは許容するが、HTTP proxyはFastifyが200を記録した後に応答を拒否し得る。全streaming assetで上流lengthの転送をやめ、安全なtransfer framingへ任せるよう修正した。
+- A regression test covers an upstream Brotli SVG without `Content-Length` and verifies a complete 200 SVG response with no empty length header.
+- 上流が `Content-Length` を持たないBrotli SVGの回帰testを追加し、空length headerなしで完全な200 SVGを返すことを確認した。
+- The final `npm run check` passed with API 72, Web 17, and Contracts 11 tests. The production image was rebuilt, health again returned `status=ok` / `source=notion`, and Tailscale Serve still proxied the tailnet-only URL to `127.0.0.1:3000`.
+- 最終 `npm run check` はAPI 72、Web 17、Contracts 11 testsでpassした。production imageを再構築し、healthは再び `status=ok` / `source=notion`、Tailscale Serveはtailnet限定URLから `127.0.0.1:3000` へのproxyを維持している。

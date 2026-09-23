@@ -302,7 +302,6 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         .send(publicError(request, "asset_unavailable", "File を取得できませんでした。"))
     }
     reply.header("Content-Type", response.headers.get("content-type") ?? "application/octet-stream")
-    reply.header("Content-Length", response.headers.get("content-length") ?? undefined)
     if (asset.kind === "file") {
       const fileName = (asset.name ?? "download").replaceAll(/[\r\n"\\]/g, "_")
       reply.header("Content-Disposition", `attachment; filename="${fileName}"`)
