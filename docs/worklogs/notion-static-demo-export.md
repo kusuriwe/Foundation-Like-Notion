@@ -2,7 +2,7 @@
 
 ## Status
 
-Implementation and validation completed on 2026-09-23 from `main` at `a41ddb5`. The existing `release` branch remains unchanged. The change is ready for independent review and has not been pushed.
+Implementation, validation, remediation, and independent review completed on 2026-09-23. The existing `release` branch remains unchanged, the plan is archived, and nothing has been pushed.
 
 ## Goal
 
@@ -12,7 +12,7 @@ Create a local, read-only export path that turns the current ignored Notion conf
 
 - Confirmed that `main`, local `release`, `origin/main`, and `origin/release` all began at `a41ddb5`.
 - Confirmed the worktree was clean before switching from `release` to `main`.
-- Recorded the approved implementation contract in `docs/plans/active/notion-static-demo-export.md`.
+- Recorded the approved implementation contract, now archived at `docs/plans/archive/2026-09-23-notion-static-demo-export.md`.
 - The existing public DTO permits at most 500 rows per embedded table. The exporter will fail above that limit instead of implementing the initially discussed 2,000-row export ceiling, preserving the approved no-contract-change boundary.
 - The original demo kept YAML under `demo/` and assets under `apps/web/public/demo/`. The implementation will consolidate both under `demo/published/` and let Vite emit the validated assets. This keeps the public URL unchanged while making `--apply` a single-directory, rollback-safe replacement.
 - The first read-only candidate export stopped before apply because a short Property ID also appeared as ordinary public text. Structural schemas already prohibit Property-ID fields, so exact value matching now follows the existing bundle verifier threshold of eight characters; long identifiers and all source-shaped UUIDs remain fail-closed.
@@ -32,7 +32,7 @@ Create a local, read-only export path that turns the current ignored Notion conf
 - Normal E2E: passed in Chromium and WebKit (2 passed).
 - Demo E2E: Chromium online/offline and WebKit mobile passed (3 passed); WebKit offline remains intentionally skipped by the existing test matrix.
 - `npm run demo:build`, `npm run demo:verify`, and `npm run pages:verify`: passed. Source and built bundle scans found no forbidden API marker, source-shaped Notion ID, signed URL, ignored local value, or secret marker.
-- Final post-documentation checks: `git diff --check`, `npm run format:check`, API typecheck, and the 6 focused exporter tests passed.
+- Final post-documentation checks: `git diff --check`, `npm run format:check`, API typecheck, and the 11 focused exporter tests passed.
 - `npm audit`: 0 vulnerabilities.
 - Non-blocking limitation: Vite reports an approximately 994 kB JavaScript chunk warning. It does not change correctness or the publication boundary.
 
@@ -42,6 +42,8 @@ The tracked snapshot is intentionally public and offline-cacheable. Source crede
 
 The first independent review did not approve archival because the tests did not yet demonstrate multi-page article enumeration, every configured limit, recovery after a post-backup replacement failure, or CLI redaction. The implementation now includes those cases, and the worklog no longer relies on the earlier six-test description.
 
+The independent re-review inspected `a41ddb5..a09ade4`, reran all 11 focused exporter tests, rebuilt and revalidated the static demo and Pages workflow, and found no remaining implementation or privacy-boundary issue. The reviewer therefore approved completion and archived the plan.
+
 ## Next step
 
-Commit the independent-review remediation on `main`, then request re-review. Archive the active plan only if that reviewer finds no remaining blocking issue. A human may then fast-forward and push `release`.
+A human may now review the local commits, fast-forward `release` from `main`, and push `release` to start the Pages deployment.
