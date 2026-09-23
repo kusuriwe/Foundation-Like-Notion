@@ -11,8 +11,8 @@
 ### 設定だけで変更できる範囲
 
 - `field-grid`: fieldの順番、label、`third` / `half` / `full`幅、通常/強調、icon有無、密度、tone
-- `compact-emblem`: emblem variable、headline variable、title fallback、metadata fields、任意caption
-- `cactus-study`: headline variable、シリーズ表記、最大3つの分類field、任意caption。欠損fieldは詰めて表示
+- `compact-emblem`: 記事icon優先のemblem（未設定時はemblem variableへfallback）、headline variable、title fallback、metadata fields、任意caption
+- `cactus-study`: 記事icon優先の右端seal（未設定時はシリーズ表記へfallback）、headline variable、シリーズ表記、最大3つの分類field、任意caption。欠損fieldは詰めて表示
 - 共通: template表示名、記事titleの`header` / `content`配置とalignment
 
 記事に値がないfieldは隙間を残さず省略します。custom headerが存在しないReader variableを参照すると、起動時validationが失敗します。
@@ -44,8 +44,8 @@ This is the developer checklist for adding a new header layout in code. First re
 ### Changes available in YAML
 
 - `field-grid`: field order, labels, `third` / `half` / `full` widths, normal/strong emphasis, icons, density, and tone
-- `compact-emblem`: emblem and headline variables, title fallback, metadata fields, and an optional caption
-- `cactus-study`: headline variable, series text, up to three classification fields, and an optional caption; missing fields collapse
+- `compact-emblem`: an article-icon-first emblem (falling back to the emblem variable), headline variable, title fallback, metadata fields, and an optional caption
+- `cactus-study`: an article-icon-first right-hand seal (falling back to the series mark), headline variable, series text, up to three classification fields, and an optional caption; missing fields collapse
 - All renderers: template name and article-title placement (`header` or `content`) and alignment
 
 A missing value in an article removes that field without leaving a gap. A custom header referencing an undefined Reader variable fails startup validation.

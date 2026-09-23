@@ -5,7 +5,15 @@ import { MathExpression } from "./MathExpression.js"
 import { ReaderIcon } from "./ReaderIcon.js"
 import { RichText } from "./RichText.js"
 
-function EmbeddedTableView({ table, articleId }: { table: EmbeddedTable; articleId: string }) {
+function EmbeddedTableView({
+  table,
+  articleId,
+  showTitle,
+}: {
+  table: EmbeddedTable
+  articleId: string
+  showTitle: boolean
+}) {
   const { client, presentation } = useReaderRuntime()
   const [rows, setRows] = useState(table.status === "available" ? table.rows : [])
   const [cursor, setCursor] = useState(table.status === "available" ? table.nextCursor : null)
@@ -14,7 +22,7 @@ function EmbeddedTableView({ table, articleId }: { table: EmbeddedTable; article
   if (table.status === "unavailable") {
     return (
       <section className="embedded-table-unavailable">
-        <h4>{table.title}</h4>
+        {showTitle && <h4>{table.title}</h4>}
         <p>{presentation.messages.embeddedTableUnavailable}</p>
       </section>
     )
@@ -35,7 +43,7 @@ function EmbeddedTableView({ table, articleId }: { table: EmbeddedTable; article
   }
   return (
     <section className="embedded-table">
-      <h4>{table.title}</h4>
+      {showTitle && <h4>{table.title}</h4>}
       <div className="table-scroll">
         <table>
           <thead>
@@ -206,6 +214,7 @@ function Block({
             }
             table={table}
             articleId={articleId}
+            showTitle={block.tables.length > 1}
           />
         ))}
       </section>

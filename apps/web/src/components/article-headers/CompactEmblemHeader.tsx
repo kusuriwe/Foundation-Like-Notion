@@ -11,7 +11,7 @@ export function CompactEmblemHeader({ article, definition }: HeaderRendererProps
   const config = definition as CompactDefinition
   const emblemValue = article.variables[config.emblemVariable]
   const headline = displayValue(article.variables[config.headlineVariable])
-  const icon = valueIcon(emblemValue) ?? article.icon
+  const icon = article.icon ?? valueIcon(emblemValue)
   return (
     <header
       className={`${styles.header} ${styles.emblem}`}
@@ -20,7 +20,7 @@ export function CompactEmblemHeader({ article, definition }: HeaderRendererProps
       data-testid="compact-emblem-header"
     >
       <div className={styles.emblemRow}>
-        <div className={styles.emblemIcon}>
+        <div className={styles.emblemIcon} data-testid="compact-emblem-icon">
           {icon ? <Icon icon={icon} /> : <span aria-hidden="true">◐</span>}
         </div>
         <div className={styles.emblemContent}>

@@ -58,7 +58,7 @@ function renderer(
               {
                 status: "available",
                 tableId,
-                title: "Observations",
+                title: "Notebook",
                 columns: ["Name", "Result"],
                 rows: [[firstRow, "10"]],
                 nextCursor: `cur_${"b".repeat(43)}`,
@@ -81,6 +81,7 @@ describe("ArticleRenderer", () => {
     const { container } = renderWithClient(client)
     expect(screen.getByText("Important")).toBeInTheDocument()
     expect(screen.getByText("Nested detail")).toBeInTheDocument()
+    expect(screen.getAllByText("Notebook")).toHaveLength(1)
     expect(container.querySelector(".callout-blue_background")).not.toBeNull()
     expect(container.querySelector("img")).toHaveAttribute("src", "/api/assets/asset_reader_icon")
   })

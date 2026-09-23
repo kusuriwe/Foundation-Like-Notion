@@ -17,6 +17,7 @@ const article: Article = {
   title: "炎色反応",
   createdTime: "2026-01-01T00:00:00.000Z",
   lastEditedTime: "2026-01-01T00:00:00.000Z",
+  icon: { kind: "emoji", value: "📄" },
   variables: {
     codeName: { type: "string", value: "FLAME TEST" },
     mainClass: {
@@ -62,6 +63,8 @@ describe("TemplateHeader", () => {
     const { container } = render(<TemplateHeader article={article} templateId="compact-emblem" />)
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("FLAME TEST")
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("CHEMISTRY")
+    expect(screen.getByTestId("compact-emblem-icon")).toHaveTextContent("📄")
+    expect(screen.getByTestId("compact-emblem-icon")).not.toHaveTextContent("🧪")
     expect(container).toHaveTextContent("🧪")
   })
 
@@ -88,6 +91,8 @@ describe("TemplateHeader", () => {
     expect(header).toHaveTextContent("FLAME TEST")
     expect(header).toHaveTextContent("Ⅶ")
     expect(header).toHaveTextContent("CHEMISTRY")
+    expect(screen.getByTestId("cactus-article-icon")).toHaveTextContent("📄")
+    expect(screen.getByTestId("cactus-article-icon")).not.toHaveTextContent("Ⅶ")
     expect(container).toHaveTextContent("🧪")
     expect(header).not.toHaveTextContent("Sub-class")
     expect(header.textContent?.indexOf("Main-class")).toBeGreaterThan(

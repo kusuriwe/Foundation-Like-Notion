@@ -80,6 +80,8 @@ presentation:
 
 Relation型のfieldで`showIcon: true`にすると、Relation先ページの絵文字・Notion-hosted画像・カスタム絵文字を表示できます。画像URLやNotion IDをYAMLへ書く必要はありません。Relation先Data Sourceは`relationSources`で許可し、read-only connectionへ共有します。
 
+`compact-emblem`の大きなemblemと`cactus-study`の右端のsealは、記事ページ自身のiconを優先して表示します。記事iconがない場合、emblemは設定済みRelation fieldのicon、sealは`seriesMark`へフォールバックします。クラスのRelation iconは各fieldにも引き続き表示されます。
+
 ### 新しいデザインを追加する場合
 
 新しい見た目はYAML内のHTMLではなく、同梱されたtrusted rendererとして実装します。作業の流れは次のとおりです。
@@ -177,6 +179,8 @@ presentation:
 Map `codeName`, `mainClass`, `subClass`, and `tags` in the database before using this customized definition. For a full example, see `config/reader.notion.example.yaml`. `title.placement` is `header` or `content`; the rich-text article title, including inline equations, appears exactly once. Fields with missing article values collapse without leaving gaps.
 
 Set `showIcon: true` on a relation-backed field to display the related page's emoji, Notion-hosted image, or custom emoji. Do not put image URLs or Notion IDs in presentation settings. Allow the target Data Source through `relationSources` and share it with the read-only connection.
+
+The large `compact-emblem` emblem and the right-hand `cactus-study` seal prefer the article page's own icon. Without an article icon, the emblem falls back to the configured relation-field icon and the seal falls back to `seriesMark`. Relation-backed class icons continue to appear in their individual fields.
 
 ### Adding a new design
 

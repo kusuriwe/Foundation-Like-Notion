@@ -84,7 +84,9 @@ export function CactusStudyHeader({ article, definition }: HeaderRendererProps) 
             ))}
           </div>
           <div className={styles.seal} aria-hidden="true">
-            <span>{config.seriesMark}</span>
+            <span data-testid="cactus-article-icon">
+              {article.icon ? <Icon icon={article.icon} /> : config.seriesMark}
+            </span>
           </div>
         </div>
       )}

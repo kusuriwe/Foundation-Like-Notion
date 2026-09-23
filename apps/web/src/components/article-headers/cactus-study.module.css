@@ -196,7 +196,7 @@
   transform: scaleX(-1);
 }
 
-.seal span {
+.seal > span {
   z-index: 1;
   display: grid;
   width: 42px;
@@ -293,7 +293,7 @@
     min-height: 0;
   }
 
-  .seal span {
+  .seal > span {
     width: 34px;
     height: 34px;
     font-size: 18px;
