@@ -56,3 +56,22 @@
 ## Independent final review (2026-09-22)
 
 独立reviewerは`548968c..4026f55`の全差分、修正commit `021729b`・`652b54a`、最終worklog、demo artifact、`release`限定Pages workflow、全gateとユーザーの短い実Notion smoke結果を確認した。通常版のread-only/API NetworkOnly、demoの公開dummy contentのみのoffline cache、ログとSQLiteの非コンテンツ保存境界が維持されている。既レビューfindingはすべて修正済みで、新たなfindingはなかった。実Pages runとWebKit offline自動試験は未実施として残すが、今回の「releaseへの将来のpushでdeploy開始可能な状態」という完了条件を妨げないため、plan archiveを承認した。remoteへはpushしていない。
+
+## First live deployment remediation / 初回実deploy追補
+
+2026-09-23の最初の`release` pushでは、build・artifact upload前の
+`actions/configure-pages@v5`が`Resource not accessible by integration`で失敗した。
+workflowがtop-levelで`contents: read`だけを指定していたため、未指定のPages scopeが`none`に
+なり、特にprivate repositoryでPages site取得APIを呼べないことが原因だった。
+
+最小権限を維持したままtop-levelへ`pages: read`を追加した。build jobはPages設定の読み取りだけ、
+deploy jobは従来どおり`pages: write`と`id-token: write`だけを持つ。別tokenを必要とする
+`configure-pages`の`enablement: true`は採用せず、repository ownerがSettings → Pagesで
+GitHub Actionsを有効化する手順を維持した。Node.js 20 deprecationとUbuntu 26 migrationの表示は
+warning／noticeであり、この失敗原因ではない。
+
+Focused `docker compose run --rm app npm run pages:verify` and the full
+`npm run check` gate passed after the permission fix. A new live workflow run
+remains pending until the human owner pushes the remediation commit from
+`main` into `release`; an old-run rerun is not used as evidence because it may
+retain the workflow from the original commit.

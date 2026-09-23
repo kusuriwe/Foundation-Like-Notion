@@ -25,6 +25,10 @@ requireValue(
   workflow.permissions?.contents === "read",
   "Top-level repository contents permission must be read-only",
 )
+requireValue(
+  workflow.permissions?.pages === "read",
+  "Build job needs pages: read for configure-pages, including private repositories",
+)
 requireValue(workflow.concurrency?.group === "pages", "Pages concurrency group must be pages")
 
 const buildSteps = workflow.jobs?.build?.steps

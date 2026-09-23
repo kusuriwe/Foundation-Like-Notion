@@ -35,6 +35,8 @@ git push -u origin release
 
 これらのpushは人間のrepository ownerだけが行い、coding agentは実行しません。既存のremote `release` がある場合は上書きせず、先に差分を確認して統合方法を決めてください。想定URLは `https://kusuriwe.github.io/Foundation-Like-Notion/` ですが、公開後にworkflow結果と実URLを確認してください。
 
+`Configure Pages`で`Resource not accessible by integration`になった場合は、最初にSettings → Pages → Build and deployment → Sourceが **GitHub Actions** であることを確認します。workflowのbuild jobはprivate repositoryでもPages設定を取得できる最小権限`pages: read`を持ち、deploy jobだけが`pages: write`と`id-token: write`を持ちます。`enablement: true`やPersonal Access Tokenは使用しません。設定後またはworkflow修正後は、新しい`release` pushで実行してください。過去runの単純なrerunは、そのrunが参照する古いworkflowを使う場合があります。
+
 <a id="english"></a>
 
 ## English
@@ -67,3 +69,5 @@ git push -u origin release
 ```
 
 These push commands are for the human repository owner, not an automated coding agent. The expected URL is `https://kusuriwe.github.io/Foundation-Like-Notion/`; verify the actual workflow result and URL after publication.
+
+If `Configure Pages` fails with `Resource not accessible by integration`, first confirm that Settings → Pages → Build and deployment → Source is **GitHub Actions**. The workflow build job has the minimum `pages: read` permission required to read Pages configuration in private repositories; only the deploy job receives `pages: write` and `id-token: write`. Do not add `enablement: true` or a Personal Access Token. After changing the setting or workflow, trigger a new run with a new `release` push. A plain rerun of an old run may continue to use that run's older workflow.
