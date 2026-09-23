@@ -278,6 +278,56 @@ describe("NotionAdapter", () => {
     })
   })
 
+  it("maps a native Notion article icon through the authenticated asset proxy", async () => {
+    const article = page("page-one")
+    article.icon = {
+      type: "icon",
+      icon: { name: "book open", color: "blue" },
+    } as never
+    const retrievePage = vi.fn().mockResolvedValue(article)
+    const client = {
+      dataSources: { query: vi.fn() },
+      pages: { retrieve: retrievePage },
+      blocks: {
+        children: { list: vi.fn().mockResolvedValue({ results: [], next_cursor: null }) },
+        retrieve: vi.fn(),
+      },
+    } as unknown as Client
+    const adapter = new NotionAdapter("unused-test-token", config, client)
+
+    const result = await adapter.getArticle(database, "page-one")
+
+    expect(result?.icon).toEqual({ kind: "asset", sourceAssetId: "page-icon:page-one" })
+    expect(JSON.stringify(result)).not.toContain("book open")
+    await expect(adapter.getAsset("page-icon:page-one")).resolves.toEqual({
+      url: "https://www.notion.so/icons/book_open_blue.svg?mode=light",
+      kind: "image",
+      fetchProfile: "notion-icon",
+    })
+  })
+
+  it("rejects malformed native Notion icon metadata", async () => {
+    const article = page("page-one")
+    article.icon = {
+      type: "icon",
+      icon: { name: "../../private", color: "blue" },
+    } as never
+    const client = {
+      dataSources: { query: vi.fn() },
+      pages: { retrieve: vi.fn().mockResolvedValue(article) },
+      blocks: {
+        children: { list: vi.fn().mockResolvedValue({ results: [], next_cursor: null }) },
+        retrieve: vi.fn(),
+      },
+    } as unknown as Client
+    const adapter = new NotionAdapter("unused-test-token", config, client)
+
+    const result = await adapter.getArticle(database, "page-one")
+
+    expect(result?.icon).toBeUndefined()
+    await expect(adapter.getAsset("page-icon:page-one")).resolves.toBeUndefined()
+  })
+
   it("reads every page of article blocks", async () => {
     const listChildren = vi
       .fn()

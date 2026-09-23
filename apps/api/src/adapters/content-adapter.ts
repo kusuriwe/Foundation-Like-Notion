@@ -144,6 +144,7 @@ export type SourceAsset = Readonly<{
   url: string
   kind: "image" | "file"
   name?: string
+  fetchProfile?: "notion-icon"
 }>
 
 export type SourceEmbeddedTablePage = Readonly<{

@@ -11,7 +11,7 @@
 ### 設定だけで変更できる範囲
 
 - `field-grid`: fieldの順番、label、`third` / `half` / `full`幅、通常/強調、icon有無、密度、tone
-- `compact-emblem`: 記事icon優先のemblem（未設定時は空の標準マークへfallback）、headline variable、title fallback、metadata fields、任意caption
+- `compact-emblem`: 記事icon優先のemblem（emoji、upload、custom emoji、Notion標準iconに対応。未設定時は空の標準マークへfallback）、headline variable、title fallback、metadata fields、任意caption
 - `cactus-study`: 記事icon優先の右端seal（未設定時はシリーズ表記へfallback）、headline variable、シリーズ表記、最大3つの分類field、任意caption。欠損fieldは詰めて表示
 - 共通: template表示名、記事titleの`header` / `content`配置とalignment
 
@@ -44,7 +44,7 @@ This is the developer checklist for adding a new header layout in code. First re
 ### Changes available in YAML
 
 - `field-grid`: field order, labels, `third` / `half` / `full` widths, normal/strong emphasis, icons, density, and tone
-- `compact-emblem`: an article-icon-first emblem (falling back to the default empty mark), headline variable, title fallback, metadata fields, and an optional caption
+- `compact-emblem`: an article-icon-first emblem (supporting emoji, uploads, custom emoji, and native Notion icons; falling back to the default empty mark), headline variable, title fallback, metadata fields, and an optional caption
 - `cactus-study`: an article-icon-first right-hand seal (falling back to the series mark), headline variable, series text, up to three classification fields, and an optional caption; missing fields collapse
 - All renderers: template name and article-title placement (`header` or `content`) and alignment
 

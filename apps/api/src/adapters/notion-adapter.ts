@@ -153,6 +153,9 @@ function notionIcon(iconValue: unknown, sourceAssetId: string): SourceIcon | und
   if (icon?.type === "file" || icon?.type === "custom_emoji") {
     return { kind: "asset", sourceAssetId }
   }
+  if (icon?.type === "icon" && notionNativeIconAsset(icon)) {
+    return { kind: "asset", sourceAssetId }
+  }
   return undefined
 }
 
@@ -161,10 +164,51 @@ function pageIcon(page: UnknownRecord): SourceIcon | undefined {
   return id ? notionIcon(page.icon, `page-icon:${id}`) : undefined
 }
 
-function iconAssetUrl(iconValue: unknown): string | undefined {
+const NOTION_ICON_COLORS = new Set([
+  "gray",
+  "lightgray",
+  "brown",
+  "yellow",
+  "orange",
+  "green",
+  "blue",
+  "purple",
+  "pink",
+  "red",
+])
+
+function notionNativeIconAsset(iconValue: unknown): SourceAsset | undefined {
   const icon = record(iconValue)
-  if (icon?.type === "file") return safeHttpsUrl(record(icon.file)?.url)
-  if (icon?.type === "custom_emoji") return safeHttpsUrl(record(icon.custom_emoji)?.url)
+  const metadata = record(icon?.icon)
+  const name = text(metadata?.name)?.replaceAll(" ", "_")
+  const color = text(metadata?.color)
+  if (
+    icon?.type !== "icon" ||
+    !name ||
+    !/^[a-z0-9_-]{1,80}$/.test(name) ||
+    !color ||
+    !NOTION_ICON_COLORS.has(color)
+  ) {
+    return undefined
+  }
+  return {
+    url: `https://www.notion.so/icons/${encodeURIComponent(name)}_${color}.svg?mode=light`,
+    kind: "image",
+    fetchProfile: "notion-icon",
+  }
+}
+
+function iconAsset(iconValue: unknown): SourceAsset | undefined {
+  const icon = record(iconValue)
+  if (icon?.type === "file") {
+    const url = safeHttpsUrl(record(icon.file)?.url)
+    return url ? { url, kind: "image" } : undefined
+  }
+  if (icon?.type === "custom_emoji") {
+    const url = safeHttpsUrl(record(icon.custom_emoji)?.url)
+    return url ? { url, kind: "image" } : undefined
+  }
+  if (icon?.type === "icon") return notionNativeIconAsset(icon)
   return undefined
 }
 
@@ -428,8 +472,7 @@ export class NotionAdapter implements ContentAdapter {
       const page = record(
         await this.#request(() => this.#client.pages.retrieve({ page_id: pageId })),
       )
-      const url = iconAssetUrl(page?.icon)
-      return url ? { url, kind: "image" } : undefined
+      return iconAsset(page?.icon)
     }
     if (sourceAssetId.startsWith("block-icon:")) {
       const blockId = sourceAssetId.slice("block-icon:".length)
@@ -437,8 +480,7 @@ export class NotionAdapter implements ContentAdapter {
         await this.#request(() => this.#client.blocks.retrieve({ block_id: blockId })),
       )
       const data = block ? record(block.callout) : undefined
-      const url = iconAssetUrl(data?.icon)
-      return url ? { url, kind: "image" } : undefined
+      return iconAsset(data?.icon)
     }
     if (!sourceAssetId.startsWith("block:")) {
       return undefined

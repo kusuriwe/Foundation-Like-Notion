@@ -5,7 +5,7 @@ import { RichTextTextSchema } from "@foundation-like-notion/contracts"
 import argon2 from "argon2"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
 import { FixtureAdapter } from "../src/adapters/fixture-adapter.js"
-import { buildApp, sessionCookiePolicy } from "../src/app.js"
+import { assetRequestInit, buildApp, sessionCookiePolicy } from "../src/app.js"
 import { loadReaderConfig, type RuntimeConfig } from "../src/config.js"
 
 describe("Reader API", () => {
@@ -87,6 +87,21 @@ describe("Reader API", () => {
     expect(sessionCookiePolicy("production")).toEqual({
       name: "__Host-reader_session",
       options: { httpOnly: true, secure: true, sameSite: "strict", path: "/" },
+    })
+  })
+
+  it("adds image headers only for the fixed native Notion icon fetch profile", () => {
+    const ordinary = assetRequestInit({ url: "https://example.test/image.png", kind: "image" })
+    const nativeIcon = assetRequestInit({
+      url: "https://www.notion.so/icons/book_blue.svg?mode=light",
+      kind: "image",
+      fetchProfile: "notion-icon",
+    })
+
+    expect(ordinary.headers).toBeUndefined()
+    expect(nativeIcon.headers).toEqual({
+      Accept: "image/svg+xml,image/*,*/*;q=0.8",
+      "User-Agent": "Foundation-Like-Notion/0.1",
     })
   })
 

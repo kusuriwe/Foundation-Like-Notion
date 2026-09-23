@@ -192,11 +192,11 @@ server 再起動前に発行された cursor は400 `invalid_request`になり�
 
 #### コールアウト・記事内データベース・Relationアイコン
 
-- コールアウトは本文、入れ子の対応済みblock、Notionの背景色を表示します。絵文字、Notionへアップロードした画像、workspaceのカスタム絵文字をiconとして利用できます。深さ5階層または記事全体500 blockを超える内容は、安全のため記事取得エラーになります。
+- コールアウトは本文、入れ子の対応済みblock、Notionの背景色を表示します。絵文字、Notionへアップロードした画像、workspaceのカスタム絵文字、Notion標準iconを利用できます。深さ5階層または記事全体500 blockを超える内容は、安全のため記事取得エラーになります。
 - 記事ページ内で直接作成した子データベースはread-only tableとして自動表示されます。最初の50行を表示し、「続きを表示」で50行ずつ取得します。linked database viewは対象外です。
 - 子データベースでは、接続から読めるすべてのPropertyを表示します。Notion viewの非表示列、filter、sortは再現しないため、Readerに出したくないPropertyを含む子データベースを接続範囲へ置かないでください。未対応型は`—`、Relationは件数で表示し、行からNotionページへは遷移しません。
 - 子データベース自身もread-only connectionから読める必要があります。取得できない場合は記事全体を壊さず、その表だけ取得不可と表示します。表tokenとcursorはmemory内で30分だけ有効で、再起動後や期限切れでは記事を再読み込みしてください。
-- `reference` / `reference[]` のiconはRelation先ページから取得します。現時点では絵文字、Notion-hosted画像、カスタム絵文字に対応し、記事headerで`showIcon: true`または`emblemVariable`に指定したfieldへ表示します。Relation先Data Sourceを`relationSources`へ追加し、同じread-only connectionへ共有してください。
+- `reference` / `reference[]` のiconはRelation先ページから取得します。絵文字、Notion-hosted画像、カスタム絵文字、Notion標準iconに対応し、記事headerで`showIcon: true`または`emblemVariable`に指定したfieldへ表示します。Relation先Data Sourceを`relationSources`へ追加し、同じread-only connectionへ共有してください。
 
 #### Notion設定の全体例
 
@@ -418,11 +418,11 @@ The `nextCursor` for article lists and search is a random Reader-owned handle be
 
 ### Callouts, child databases, and relation icons
 
-- Callouts render their text, supported nested blocks, and Notion background color. Icons may be emoji, Notion-hosted images, or workspace custom emoji. Content beyond five nested levels or 500 blocks per article fails safely instead of being silently truncated.
+- Callouts render their text, supported nested blocks, and Notion background color. Icons may be emoji, Notion-hosted images, workspace custom emoji, or native Notion icons. Content beyond five nested levels or 500 blocks per article fails safely instead of being silently truncated.
 - A database created directly inside an article is rendered automatically as a read-only table. The first 50 rows load with the article; **Load more** requests another 50. Linked database views are not supported.
 - Every Property readable through the connection is shown. Hidden columns, filters, and sorts from a Notion view are not reproduced, so do not put a child database with private columns inside the Reader's shared scope. Unsupported values render as `—`, relations render as counts, and rows do not link to Notion pages.
 - The read-only connection must be able to read the child database. A failure affects that table rather than the whole article. Opaque table tokens and cursors live in memory for 30 minutes; reload the article after expiry or a server restart.
-- `reference` / `reference[]` icons come from the related page. Emoji, Notion-hosted images, and custom emoji are supported in article headers when the field uses `showIcon: true` or is selected as an `emblemVariable`. Add the target Data Source to `relationSources` and share it with the same read-only connection.
+- `reference` / `reference[]` icons come from the related page. Emoji, Notion-hosted images, custom emoji, and native Notion icons are supported in article headers when the field uses `showIcon: true` or is selected as an `emblemVariable`. Add the target Data Source to `relationSources` and share it with the same read-only connection.
 
 ### Complete example and preflight check
 

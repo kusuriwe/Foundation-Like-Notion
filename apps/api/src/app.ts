@@ -17,7 +17,11 @@ import Fastify, {
   LogController,
 } from "fastify"
 import { ZodError, z } from "zod"
-import { ContentAdapterError, type ContentAdapter } from "./adapters/content-adapter.js"
+import {
+  ContentAdapterError,
+  type ContentAdapter,
+  type SourceAsset,
+} from "./adapters/content-adapter.js"
 import type { RuntimeConfig } from "./config.js"
 import type { CursorRegistry } from "./cursor-registry.js"
 import { ReaderDatabase } from "./database.js"
@@ -75,6 +79,31 @@ function isSameOrigin(request: FastifyRequest): boolean {
     return new URL(origin).host === request.headers.host
   } catch {
     return false
+  }
+}
+
+/**
+ * Build safe fetch options for a resolved upstream asset.
+ * 解決済みupstream asset用の安全なfetch optionを組み立てます。
+ *
+ * Args:
+ *   asset: Adapter-resolved asset descriptor. / Adapterが解決したasset descriptor。
+ *
+ * Returns:
+ *   Immutable fetch options. / 変更しないfetch option。
+ */
+export function assetRequestInit(asset: SourceAsset): RequestInit {
+  return {
+    ...(asset.fetchProfile === "notion-icon"
+      ? {
+          headers: {
+            Accept: "image/svg+xml,image/*,*/*;q=0.8",
+            "User-Agent": "Foundation-Like-Notion/0.1",
+          },
+        }
+      : {}),
+    redirect: "follow",
+    signal: AbortSignal.timeout(30_000),
   }
 }
 
@@ -266,10 +295,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     if (!(await requireSession(request, reply))) return
     const params = z.object({ readerAssetId: z.string() }).parse(request.params)
     const asset = await reader.getAsset(params.readerAssetId)
-    const response = await fetch(asset.url, {
-      redirect: "follow",
-      signal: AbortSignal.timeout(30_000),
-    })
+    const response = await fetch(asset.url, assetRequestInit(asset))
     if (!response.ok || !response.body) {
       return reply
         .code(502)
