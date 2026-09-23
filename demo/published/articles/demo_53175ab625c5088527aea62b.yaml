@@ -1,0 +1,168 @@
+id: demo_53175ab625c5088527aea62b
+databaseId: demo_7de8d995c9f569d451cd9ffb
+title: “There Are Several Theories”
+createdTime: '2026-09-22T14:01:00.000Z'
+lastEditedTime: '2026-09-22T17:25:00.000Z'
+titleRichText:
+  - text: “There Are Several Theories”
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: “There Are Several Theories”
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_d6b52561ff514781523b9fda
+      title: Administrative
+      icon:
+        kind: asset
+        assetId: demo_ebc587531864182310f11e7b
+  subClass:
+    type: string
+    value: Humanities
+  codeName:
+    type: reference
+    value:
+      readerId: demo_6224ac7d2484ee4d960e3e78
+      title: SDQ-287
+  tags:
+    type: string[]
+    value:
+      - INFORMATIONAL
+      - SOCIAL
+blocks:
+  - content:
+      - text: Standard Deviation Quarantine
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          Use of SDQ-287 is not prohibited. However, when SDQ-287 is used in research reports,
+          museum exhibits, educational materials, or similar explanatory contexts, personnel must
+          confirm the existence of at least one genuine alternative theory, competing
+          interpretation, or documented uncertainty.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: SDQ-287 must not be used solely for the purpose of bringing an investigation to an end.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: Observation Summary
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: 'SDQ-287 is the Japanese stock phrase:'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 「諸説あります」
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: quote
+  - content:
+      - text: and other expressions functionally equivalent to it.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          SDQ-287 is used to indicate that multiple explanations exist regarding the origin, cause,
+          date, responsible individual, meaning, or other aspects of a given subject. Foundation
+          observations indicate, however, that when SDQ-287 is placed at the end of an explanatory
+          passage, readers become less likely to request additional information regarding the
+          unresolved issue. A similar effect has been observed among authors: following the
+          insertion of SDQ-287, further source verification, comparison of competing claims, and
+          efforts to avoid unsupported conclusions have been observed to cease.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          SDQ-287 may therefore function not only as an expression of informational uncertainty, but
+          also as a 
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: >-
+          terminating marker that causes uncertainty itself to be treated as having been adequately
+          processed
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: . There are several theories regarding why SDQ-287 exhibits this effect.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

@@ -14,10 +14,10 @@
 
 | やりたいこと | 手順 |
 | --- | --- |
-| 公開ダミーデモを見る | [静的Reader demo（公開予定）](https://kusuriwe.github.io/Foundation-Like-Notion/)を開きます。初回deployまでは404になる場合があります。 |
-| 公開元のSDQ Notionを見る | [SDQ Public Library](https://magic-behavior-7d1.notion.site/Home-3e32ed92200180908146d3807ad98239)を開きます。静的dummy demoとは別の公開Notionです。 |
+| 公開デモを見る | [静的Reader demo](https://kusuriwe.github.io/Foundation-Like-Notion/)を開きます。初回deploy完了までは404になる場合があります。 |
+| 公開元のSDQ Notionを見る | [SDQ Public Library](https://magic-behavior-7d1.notion.site/Home-3e32ed92200180908146d3807ad98239)を開きます。静的demoはこの公開Notionを安全なReader DTOへ変換したsnapshotです。 |
 | 自分のNotionを接続する | [初回セットアップ](docs/setup.md)を上から進めます。Windows・macOS・Linuxに対応します。 |
-| ダミーデモを編集・配布する | [デモ配布ガイド](docs/demo-publishing.md)を参照します。実NotionはPagesへ含めません。 |
+| デモを更新・配布する | [デモ配布ガイド](docs/demo-publishing.md)を参照します。TokenやNotion内部IDを含めず、公開用snapshotだけをPagesへ含めます。 |
 | 文言・色・記事headerを変更する | [デザイン追加ガイド](docs/design-customization.md)から始めます。 |
 
 最小Notion設定例は `config/reader.notion.minimal.example.yaml`、全機能の例は `config/reader.notion.example.yaml` です。Property type、filter、header、presentationの詳細は[設定リファレンス](docs/reader-configuration.md)を参照してください。
@@ -65,10 +65,10 @@ Article bodies support equations, colored nested callouts, plain tables, and chi
 
 | Goal | Guide |
 | --- | --- |
-| View the public dummy demo | Open the [static Reader demo (pending first deployment)](https://kusuriwe.github.io/Foundation-Like-Notion/). It may return 404 until that deployment completes. |
-| View the public source Notion | Open the [SDQ Public Library](https://magic-behavior-7d1.notion.site/Home-3e32ed92200180908146d3807ad98239). It is separate from the static dummy demo. |
+| View the public demo | Open the [static Reader demo](https://kusuriwe.github.io/Foundation-Like-Notion/). It may return 404 until the first deployment completes. |
+| View the public source Notion | Open the [SDQ Public Library](https://magic-behavior-7d1.notion.site/Home-3e32ed92200180908146d3807ad98239). The static demo is a sanitized snapshot of this public Notion. |
 | Connect your own Notion | Follow the [first-time setup guide](docs/setup.md). It covers Windows, macOS, and Linux. |
-| Edit or publish the dummy demo | Follow the [demo publishing guide](docs/demo-publishing.md). Real Notion data is never included in Pages. |
+| Update or publish the demo | Follow the [demo publishing guide](docs/demo-publishing.md). Pages receives only the public snapshot, never tokens or Notion-internal IDs. |
 | Change copy, colors, or article headers | Start with the [design customization guide](docs/design-customization.md). |
 
 Start with `config/reader.notion.minimal.example.yaml`; see `config/reader.notion.example.yaml` for a fuller example. The [configuration reference](docs/reader-configuration.md) explains Property types, filters, headers, and presentation settings.

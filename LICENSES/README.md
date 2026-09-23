@@ -9,7 +9,7 @@
 
 | 対象 | 条件 |
 | --- | --- |
-| 下記の例外を除くソースコード、文書、設定例、公開デモの架空fixture | Apache License 2.0（[`LICENSE`](../LICENSE)） |
+| 下記の例外を除くソースコード、文書、設定例 | Apache License 2.0（[`LICENSE`](../LICENSE)） |
 | `CactusStudyHeader.tsx` と `cactus-study.module.css` | Creative Commons Attribution-ShareAlike 3.0 Unported（[`CC-BY-SA-3.0.txt`](CC-BY-SA-3.0.txt)）。帰属と変更内容は[`NOTICE`](../NOTICE)を参照 |
 | SDQの記事本文 | 通常の著作権。個別表示がない限り再利用許諾はありません |
 | `Tusmujimagari` / `Kojire` class icon | [ICOOON MONO](https://icooon-mono.com/)の素材。著作権はTopeconHeroesに帰属し、[同サイトの利用条件](https://icooon-mono.com/license/)に従います |
@@ -18,8 +18,8 @@
 | project独自のapp icon・demo画像 | 通常の著作権。個別表示がない限り再利用許諾はありません |
 
 現在「project独自のapp icon・demo画像」に含める追跡対象は、`apps/web/public/icon.svg`、
-`icon-192.png`、`icon-512.png`、`apple-touch-icon.png`、および
-`apps/web/public/demo/`内の画像です。これらはソフトウェアを実行・表示するために
+`icon-192.png`、`icon-512.png`、`apple-touch-icon.png`です。`demo/published/assets/`は
+公開SDQ Notionから生成した第三者素材または記事素材を含みます。これらはソフトウェアを実行・表示するために
 同梱されていますが、Apache-2.0による独立した再利用許諾は行いません。
 
 ICOOON MONOはWeb・app内での素材利用を認めていますが、素材そのものの再配布や販売を
@@ -27,7 +27,7 @@ ICOOON MONOはWeb・app内での素材利用を認めていますが、素材そ
 repositoryの汎用icon packとして配布しないでください。Notion公式iconも利用者のNotionから
 実行時に表示される第三者素材であり、このrepositoryのApache-2.0対象ではありません。
 
-公開デモ用YAMLに含まれる架空の記事fixtureはSDQ本文ではなく、Apache-2.0の対象です。
+`demo/published/articles/`の公開snapshotはSDQ本文であり、Apache-2.0の対象ではありません。
 利用者自身が`.env/`やNotionへ保存した文章・画像の権利は、このリポジトリのライセンスに
 よって変更されません。
 
@@ -52,7 +52,7 @@ assume that the root [`LICENSE`](../LICENSE) applies uniformly to every file.
 
 | Material | Terms |
 | --- | --- |
-| Source code, documentation, configuration examples, and fictional public-demo fixtures, except as listed below | Apache License 2.0 ([`LICENSE`](../LICENSE)) |
+| Source code, documentation, and configuration examples, except as listed below | Apache License 2.0 ([`LICENSE`](../LICENSE)) |
 | `CactusStudyHeader.tsx` and `cactus-study.module.css` | Creative Commons Attribution-ShareAlike 3.0 Unported ([`CC-BY-SA-3.0.txt`](CC-BY-SA-3.0.txt)); see [`NOTICE`](../NOTICE) for attribution and modifications |
 | SDQ article text | Standard copyright; no reuse license is granted unless a specific notice says otherwise |
 | `Tusmujimagari` / `Kojire` class icons | Material from [ICOOON MONO](https://icooon-mono.com/); copyright is retained by TopeconHeroes and use is subject to its [license terms](https://icooon-mono.com/license/) |
@@ -62,7 +62,8 @@ assume that the root [`LICENSE`](../LICENSE) applies uniformly to every file.
 
 Tracked “project-owned app icons and demo images” currently include
 `apps/web/public/icon.svg`, `icon-192.png`, `icon-512.png`,
-`apple-touch-icon.png`, and images under `apps/web/public/demo/`. They are
+`apple-touch-icon.png`. Files under `demo/published/assets/` may contain
+third-party or article assets exported from the public SDQ Notion. They are
 distributed so the software can run and be displayed, but they are not
 separately offered for reuse under Apache-2.0.
 
@@ -73,8 +74,8 @@ source assets as a general-purpose icon pack. Official Notion icons are also
 third-party material displayed at runtime from a user's Notion, not material
 offered under this repository's Apache-2.0 license.
 
-The fictional article fixtures in the public-demo YAML are not SDQ article
-text and remain under Apache-2.0. This repository's licenses do not alter the
+The public snapshot under `demo/published/articles/` is SDQ article text and
+is not licensed under Apache-2.0. This repository's licenses do not alter the
 rights in text or images that a user stores in `.env/` or Notion.
 
 ### Redistributing or modifying the Cactus Study header

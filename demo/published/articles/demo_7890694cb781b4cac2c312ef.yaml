@@ -1,0 +1,457 @@
+id: demo_7890694cb781b4cac2c312ef
+databaseId: demo_680645fe4048c0eece7426de
+title: プリンタ
+icon:
+  kind: asset
+  assetId: demo_cc6547aae7f4277857aa7f8b
+createdTime: '2026-09-21T06:42:00.000Z'
+lastEditedTime: '2026-09-23T07:44:00.000Z'
+titleRichText:
+  - text: プリンタ
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: プリンタ
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_a94132e6436c6f3ab131af2c
+      title: Tsumujimagari
+      icon:
+        kind: asset
+        assetId: demo_0022c877e0c9d0c87c4cda81
+  subClass:
+    type: string
+    value: Information
+  codeName:
+    type: reference
+    value:
+      readerId: demo_a4f705669852a30aa47df351
+      title: SDQ-994
+  tags:
+    type: string[]
+    value:
+      - TECHNOLOGICAL
+      - STATISTICAL
+      - BEHAVIORAL
+blocks:
+  - content:
+      - text: 標準偏差隔離プロトコル
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-994に該当する機器は、一般的な事務用プリンタとして継続使用して構いません。ただし、提出、発送、会議開始その他の明示的な期限まで30分を切った文書について、SDQ-994のみを出力手段として使用してはいけません。電子媒体または第二の出力装置による代替手段を確保してください。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: SDQ-994を利用する職員は、印刷開始前に以下を確認してください。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: bulletedList
+    items:
+      - - text: 用紙が十分に補充されていること。
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: トナーまたはインク残量が十分あること。
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: ネットワーク接続が確立されていること。
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 使用予定のプリンタが、直前まで「正常に動作していた」ことを安心材料として扱わない。
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+  - content:
+      - text: 「急いでいるので今回は大丈夫だろう」という判断は、SDQ-994に関する既知のリスク要因として記録されています。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 観測サマリ
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-994は、オフィス、学校、公共施設その他で使用される一般的なプリンタ、およびそれらに付随する印刷環境の総称です。SDQ-994に指定された機器は、通常時には一般的な仕様の範囲内で動作します。しかし、利用者が時間的制約下にある場合、以下の事象が通常より高い頻度で報告されます。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: bulletedList
+    items:
+      - - text: 紙詰まり
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 用紙切れ
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: トナー切れ
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 印刷キューの停止
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 意図しないプリンタへの送信
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 両面印刷設定の予期しない変更
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 「オフライン」と表示されるが原因が明確でない状態
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 解決直後に発生する別種のエラー
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+  - content:
+      - text: >-
+          財団統計部門による内部調査では、利用者が「今すぐ印刷する必要がある」と認識している場合、SDQ-994関連障害の報告率が上昇する傾向が確認されています。一方、事前に告知された試験環境、模擬締切、または障害発生時にも十分な時間的余裕が確保されている状況では、同傾向の再現性が著しく低下します。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 現時点で、SDQ-994が時間制約そのものを検知していることを示す物理的機構は確認されていません。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 評価記録 994-A
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: 財団施設内の同型プリンタ12台について、期限までの残り時間と印刷失敗率の関係を記録しました。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: table
+    rows:
+      - - - text: 利用状況
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 印刷失敗率
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 特に期限なし
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 2.1%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 期限まで2時間以上
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 2.4%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 期限まで30–60分
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 4.8%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 期限まで10–30分
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 11.6%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 期限まで10分未満
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 27.3%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 「これを印刷したらすぐ出ないと間に合わない」と発言した直後
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 41.7%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+    hasColumnHeader: true
+    hasRowHeader: false
+  - content:
+      - text: >-
+          監督部門はこの結果を受け、SDQ-994指定機器利用時の規約を改定し、特に禁則発言を行った職員の即時懲戒を義務付けました。なお最後の条件について、統計部門はサンプルの偏りを指摘しています。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 事件記録 994-3
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: 20██/06/14、██研究員は16:00開始予定の外部会議に使用する資料42部を15:41から印刷しました。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: code
+    code: |-
+      15:43、SDQ-994が紙詰まりを報告する。
+
+      15:45、紙詰まりが解消される。
+
+      15:46、SDQ-994はマゼンタトナー残量不足を報告する。対象文書は白黒。
+
+      15:48、印刷設定が「カラー」から変更できないことが確認される。映像記録からは██研究員の精神状態が著しく悪化していることが確認できる。
+
+      15:51、当該問題が解消される。
+
+      15:52、印刷ジョブ42部のうち、最初の1部のみが出力される。
+
+      15:53、██研究員は「もういい、PDFで見せる」と発言。同時に、SDQ-994が突如として正常な動作を再開する。
+
+      15:54、残り41部が正常に印刷される。
+
+      16:01、██研究員は会議室に駆け込む。会議は1分前より開始されている。██研究員がその場で泣き崩れる。
+    language: plain text
+    caption: []
+  - content:
+      - text: >-
+          以上のことからSDQ-994が従来想定されていなかった高い知能を持つことが示唆されました。知能テストの実施については監督部門の承認待ちです。なお統計部門はサンプルの偏りを指摘しています。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 補遺 994-B
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          事件記録994-3以降、施設内では「諦めると動く」という説明が非公式に流通しています。この発見を受け、監督部門は規則の再改定を計画中です。なお統計部門はサンプルの偏りを指摘しています。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

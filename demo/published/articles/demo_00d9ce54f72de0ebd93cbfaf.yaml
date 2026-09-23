@@ -1,0 +1,214 @@
+id: demo_00d9ce54f72de0ebd93cbfaf
+databaseId: demo_680645fe4048c0eece7426de
+title: ネタバレ
+createdTime: '2026-09-21T06:42:00.000Z'
+lastEditedTime: '2026-09-22T17:27:00.000Z'
+titleRichText:
+  - text: ネタバレ
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: ネタバレ
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_b7c0c23df5be3cb647ae21b2
+      title: Kojire
+      icon:
+        kind: asset
+        assetId: demo_565459aa9467d035bff2d5de
+  subClass:
+    type: string
+    value: Subculture
+  codeName:
+    type: reference
+    value:
+      readerId: demo_c687cb21aa1160e68e42298f
+      title: SDQ-1927
+  tags:
+    type: string[]
+    value:
+      - INFORMATIONAL
+      - SOCIAL
+      - TEMPORAL
+blocks:
+  - content:
+      - text: 標準偏差隔離プロトコル
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-1927を含む情報は、内容そのものではなく、受信者が対象作品をどこまで経験しているかに基づいて取り扱ってください。作品名だけでは安全範囲を判断できません。公開からの経過時間、作品の長さ、再視聴予定、個人の許容度、「予告編までは見た」「原作は読んだが映像版は未見」等の条件を必要に応じて確認してください。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 「この程度ならネタバレではありません」という自己判断は、他者への送信許可を意味しません。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 観測サマリ
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-1927は、物語、ゲーム、映像作品、競技結果その他について、受信時点によって価値または感情的影響が変化する情報です。同一の情報でも、対象を経験した後には単なる事実として扱われる一方、経験前には不可逆的な情報取得として作用する場合があります。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 財団では、SDQ-1927の危険性が情報の内容だけでなく、
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: 受信者の時間的位置
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: 'によって決定される点を主要なDeviationとして記録しています。たとえば次の発言は、非自明なSDQ-1927の一つです:'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 「最後まで何も調べずに見てください。」
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: quote
+  - content:
+      - text: >-
+          この発言は、具体的な展開に一切言及していません。しかし、この発言自体が「最後まで何かが起きる」という期待を形成する可能性があります。このためSDQ-1927には、内容を隠すことによって内容の重要性を示してしまうという副次的な問題があります。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 事件記録 1927-4
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: 以下は、職員Aが職員Bに対して休憩時間中に行った会話記録です。職員Bは対象作品を未鑑賞でした。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: code
+    code: |-
+      職員A: いやあ、『████』舐めてましたよ。子供向け作品だと思ってたのに、まさかあんなーー
+
+      職員B: ちょっとちょっと、来週見に行くんですから！ ネタバレなしでお願いしますよ？
+
+      職員A: 大丈夫です。何が起こるかは言いません。
+
+      職員B: 頼みますからね。あなたこの前も……、いや、なんでもないですけど。
+
+      職員A: もちろんです。ただ、██が出てきたときの表情だけ覚えておいてください。
+
+      職員B: ちょっと？
+
+      職員A: あの伏線が終盤で████の██████████████になるとは。あれは映画史に残る展開でしたね。
+
+      職員B: ちょっと!?
+
+      職員A: まさか█████が██████████の█████████████████████████ーー
+
+      [カメラが大きく揺れる。咆哮に近い怒号と職員Aの悲鳴が5分間続く。]
+      [映像終了]
+    language: plain text
+    caption: []
+  - content:
+      - text: >-
+          SDQ-1927が発生した直後、職員B は突如暴力的な行動を見せ始め、職員A
+          を殴打し始めました。職員Aが警備職員に取り押さえられた時点で会話は終了しました。後の取り調べで職員Aは「具体的なネタバレはしていません」と主張しました。この主張は事実であることが確認されましたが、職員Aには停職の懲戒処分がくだされました。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 監督部門による審議の後、職員BはSDQ-1927の拡散を防止したとして表彰を受けました。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

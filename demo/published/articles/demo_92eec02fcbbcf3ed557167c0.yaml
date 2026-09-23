@@ -1,0 +1,272 @@
+id: demo_92eec02fcbbcf3ed557167c0
+databaseId: demo_7de8d995c9f569d451cd9ffb
+title: ネタバレ
+createdTime: '2026-09-22T14:01:00.000Z'
+lastEditedTime: '2026-09-22T17:26:00.000Z'
+titleRichText:
+  - text: ネタバレ
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: ネタバレ
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_b7c0c23df5be3cb647ae21b2
+      title: Kojire
+      icon:
+        kind: asset
+        assetId: demo_565459aa9467d035bff2d5de
+  subClass:
+    type: string
+    value: Subculture
+  codeName:
+    type: reference
+    value:
+      readerId: demo_c687cb21aa1160e68e42298f
+      title: SDQ-1927
+  tags:
+    type: string[]
+    value:
+      - INFORMATIONAL
+      - SOCIAL
+      - TEMPORAL
+blocks:
+  - content:
+      - text: Standard Deviation Quarantine
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          Information containing SDQ-1927 must be handled according to how far the recipient has
+          progressed through the relevant work, rather than according to the content of the
+          information alone. The title of the work is insufficient to determine a safe disclosure
+          boundary. Time since release, length of the work, plans to rewatch or replay it,
+          individual tolerance, and circumstances such as “I've only seen the trailer” or “I've read
+          the original work but haven't seen the adaptation” should be confirmed as necessary.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          The personal judgment that “this barely counts as a spoiler” does not constitute
+          authorization to transmit the information to another person.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: Observation Summary
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-1927 is information concerning stories, games, audiovisual works, competition results,
+          and similar subjects whose value or emotional impact changes depending on the point at
+          which it is received. The same information may be treated as an ordinary fact after the
+          recipient has experienced the relevant material, while functioning as an irreversible
+          acquisition of information beforehand.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          The Foundation records as the primary Deviation of SDQ-1927 the fact that its hazardous
+          properties are determined not only by the content of the information, but also by the 
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: recipient's temporal position
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ' relative to the work.'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 'For example, the following statement constitutes a non-obvious instance of SDQ-1927:'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: “Watch it all the way through without looking anything up.”
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: quote
+  - content:
+      - text: >-
+          This statement makes no reference to any specific plot development. However, the statement
+          itself may create an expectation that “something happens before the end.” SDQ-1927
+          therefore presents a secondary problem in which attempts to conceal information may
+          themselves communicate the significance of the information being concealed.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: Incident Record 1927-4
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          The following conversation between Employee A and Employee B was recorded during a break.
+          Employee B had not yet seen the work under discussion.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: code
+    code: >-
+      Employee A: Man, I really underestimated *████*. I thought it was going to be for kids, but I
+      never expected—
+
+
+      Employee B: Hey, hey! I'm going to see it next week! No spoilers, please.
+
+
+      Employee A: Don't worry. I won't tell you what happens.
+
+
+      Employee B: You'd better not. You did this last time too... Actually, never mind.
+
+
+      Employee A: Of course. Just remember the expression on ██'s face when they first appear.
+
+
+      Employee B: Excuse me?
+
+
+      Employee A: The way that foreshadowing turns into ████'s ██████████████ near the end... That's
+      going down in film history.
+
+
+      Employee B: Excuse me!?
+
+
+      Employee A: And who could have expected █████ to ██████████ the █████████████████████████—
+
+
+      [The camera shakes violently. Shouting resembling a roar and Employee A's screams continue for
+      five minutes.]
+
+
+      [END OF RECORDING]
+    language: plain text
+    caption: []
+  - content:
+      - text: >-
+          Immediately following the occurrence of SDQ-1927, Employee B abruptly began exhibiting
+          violent behavior and proceeded to strike Employee A. The conversation was considered
+          concluded when security personnel restrained Employee A.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          During subsequent questioning, Employee A maintained that “no specific plot details were
+          spoiled.” This claim was confirmed to be factually accurate. Employee A was nevertheless
+          subjected to disciplinary suspension.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          Following deliberation by the Oversight Division, Employee B received a commendation for
+          preventing the further dissemination of SDQ-1927.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

@@ -190,7 +190,9 @@ function Block({
   if (block.type === "file")
     return (
       <p>
-        <a href={assetUrl(block.assetId)}>{block.name}</a>
+        <a href={assetUrl(block.assetId)} download={block.name}>
+          {block.name}
+        </a>
       </p>
     )
   if (block.type === "link")

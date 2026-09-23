@@ -1,0 +1,239 @@
+id: demo_7611346fc234fc8a8d48064d
+databaseId: demo_680645fe4048c0eece7426de
+title: バナナ
+icon:
+  kind: asset
+  assetId: demo_bb99417bf6f9e04fc8d9d207
+createdTime: '2026-09-21T06:42:00.000Z'
+lastEditedTime: '2026-09-23T03:28:00.000Z'
+titleRichText:
+  - text: バナナ
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: バナナ
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_c4044c8b225cc4aa526da80a
+      title: Docile
+      icon:
+        kind: asset
+        assetId: demo_de4fe7ee94b8e0a675e4e382
+  subClass:
+    type: string
+    value: Natural Science
+  codeName:
+    type: reference
+    value:
+      readerId: demo_904ae035e3f2caf0b82eb702
+      title: SDQ-1609
+  tags:
+    type: string[]
+    value:
+      - PHYSICAL
+      - STATISTICAL
+      - PERCEPTUAL
+blocks:
+  - content:
+      - text: 標準偏差隔離プロトコル
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-1609は、一般的な食品として保管、流通、摂取して構いません。放射線に関する説明でSDQ-1609を比較単位として使用する場合は、それが正式なSI単位ではなく、理解補助のための非公式な比較であることを明示してください。もう説明には飽きました、限界です。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 比較を分かりやすくするためにバナナを使用した結果、説明対象よりバナナの方が気になってしまった場合は、別の単位に切り替えてください。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: image
+    assetId: demo_0dc00ba854f2a58c81675299
+    caption:
+      - text: SDQ-1609．線量計はイメージ．
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+  - content:
+      - text: 観測サマリ
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: SDQ-1609は、一般に「バナナ」と呼ばれる果実です。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          SDQ-1609には天然に存在するカリウムが含まれ、その一部には放射性同位体が存在します。この事実から、低い放射線量を身近な量へ置き換えて説明する際、SDQ-1609が比較対象として用いられる場合があります。財団広報部門では、任意の線量 
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - type: equation
+        expression: D
+        text: D
+      - text: ' に対して、説明上設定した「SDQ-16091本相当の基準量」 '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - type: equation
+        expression: d_B
+        text: d_B
+      - text: ' を用い、以下のように定義される '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: バナナ等価線量
+        href: >-
+          https://ja.wikipedia.org/wiki/%E3%83%90%E3%83%8A%E3%83%8A%E7%AD%89%E4%BE%A1%E7%B7%9A%E9%87%8F
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ' '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - type: equation
+        expression: N_B
+        text: N_B
+      - text: ' を公式文書で利用しています。'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: math
+    expression: N_B = \frac{D}{d_B}
+  - content:
+      - text: 'ただし '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - type: equation
+        expression: N_B
+        text: N_B
+      - text: ' は物理学上の正式単位ではありません。この点は毎回説明されています、いい加減にしてください。毎回説明する必要があること自体が、SDQ-1609の主要な観測事項です。'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 補遺 1609-D
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          監督部門の会議中、当報告書の初稿を執筆した研究員がバナナを大量に集めることによる放射線被曝への危険性の説明を求められました。研究員はこれに対し不規則発言を繰り返しながらも説明を131分間継続し、最終的に参加者間で合意に至りました。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 特筆すべき点として、説明を担当した研究員が重度のストレスによって職務の遂行が困難となる現象が観測されました。職員は現在療養中です。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 財団尋問部門は、当該現象の強化尋問への応用を研究中です。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

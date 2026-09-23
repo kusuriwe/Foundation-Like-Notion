@@ -1,0 +1,237 @@
+id: demo_7af48e982caf030dd4eaf459
+databaseId: demo_680645fe4048c0eece7426de
+title: ことわざ
+createdTime: '2026-09-21T06:42:00.000Z'
+lastEditedTime: '2026-09-22T17:27:00.000Z'
+titleRichText:
+  - text: ことわざ
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: ことわざ
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_ff1072d73a63742554edc064
+      title: Distributed
+      icon:
+        kind: asset
+        assetId: demo_ce0294865be5927323393f14
+  subClass:
+    type: string
+    value: Humanities
+  codeName:
+    type: reference
+    value:
+      readerId: demo_60bc944a55b9de384482d5de
+      title: SDQ-1311
+  tags:
+    type: string[]
+    value:
+      - SOCIAL
+      - INFORMATIONAL
+      - BEHAVIORAL
+blocks:
+  - content:
+      - text: 標準偏差隔離プロトコル
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          意思決定、研究結論、人事評価、事故原因分析その他において、SDQ-1311を単独の根拠として使用してはいけません。ある行動を支持するためにSDQ-1311が引用された場合は、その反対行動を支持できるSDQ-1311が存在しないか確認してください。両方が存在した場合、財団は「文化的知恵が十分に蓄積されている」と判断し、通常の根拠に戻ってください。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 観測サマリ
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-1311は、長期間にわたり反復使用され、一般的な教訓または経験則として共有される短文群です。個々のSDQ-1311は実用的な知恵を含む場合があります。しかし、集合として扱った場合、SDQ-1311は互いに矛盾する行動指針を同時に提供できます。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: table
+    rows:
+      - - - text: 行動を促す表現
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 反対方向に利用できる表現
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 善は急げ
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 急がば回れ
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 三人寄れば文殊の知恵
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 船頭多くして船山に上る
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 当たって砕けろ
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 石橋を叩いて渡る
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 好きこそ物の上手なれ
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 下手の横好き
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 思い立ったが吉日
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 果報は寝て待て
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+    hasColumnHeader: true
+    hasRowHeader: false
+  - content:
+      - text: この性質により、SDQ-1311は意思決定の前に利用されるより、
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: すでに行われた意思決定を後からもっともらしく説明する目的
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: で高い適応性を示します。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: 現在啓蒙部門によりSDQ-1311の有害性を公知のものとする広報キャンペーンが実施中です。これにより世界の紛争を██%抑制できると考えられています。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: true
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          監督部門により広報キャンペーンは無期限に凍結されました。監督部門内でSDQ-1311が発生したことに対して監督職員を責める行為は財団への反逆とみなされ、該当する職員はウォーターサーバーへのアクセス権を剥奪されます。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content: []
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

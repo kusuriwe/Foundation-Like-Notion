@@ -1,0 +1,453 @@
+id: demo_b813a93a97f6cbe3903962a3
+databaseId: demo_680645fe4048c0eece7426de
+title: 推し
+createdTime: '2026-09-21T06:42:00.000Z'
+lastEditedTime: '2026-09-22T17:27:00.000Z'
+titleRichText:
+  - text: 推し
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: 推し
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_ff1072d73a63742554edc064
+      title: Distributed
+      icon:
+        kind: asset
+        assetId: demo_ce0294865be5927323393f14
+  subClass:
+    type: string
+    value: Subculture
+  codeName:
+    type: reference
+    value:
+      readerId: demo_df0a6c53c58c4a54140a3e38
+      title: SDQ-526
+  tags:
+    type: string[]
+    value:
+      - SOCIAL
+      - BEHAVIORAL
+      - INFORMATIONAL
+blocks:
+  - content:
+      - text: 標準偏差隔離プロトコル
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-526の対象者に対して、対象との接触を一律に禁止する必要はありません。ただし、支出、睡眠、勤務、学業その他の日常生活に持続的な影響が生じている場合は、対象そのものを問題視するのではなく、影響量を個別に確認してください。「推しを減らす」「別の推しに切り替える」等の指示は、有効な管理手順として認められていません。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 誕生日、周年、卒業、引退、最終回、限定販売、受注締切その他のイベントが確認された場合は、対象者の自己申告する「今回は例外です」という文言を予算上の定数として扱わないでください。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 観測サマリ
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: SDQ-526は、人物、キャラクター、作品、団体その他の対象に対し、通常の好意よりも継続的かつ行動を伴う支持を示す現象です。SDQ-526の対象となる存在は一般に
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: 推し
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: （
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: fave
+        href: null
+        annotations:
+          bold: false
+          italic: true
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ）と呼ばれます。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 観測上、推しは対象者の意思決定に対して以下の影響を示します。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: bulletedList
+    items:
+      - - text: 関連商品の価格評価がそれ以外の商品に対して過小評価される。
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 同一内容の商品の複数購入が合理的選択として再定義される。
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 移動距離が「遠い」ではなく「行ける」に分類される。
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 平日の予定がイベント開始時刻を中心に再構成される。これは睡眠、食事等生存に必要な行動に割く時間の短縮及び無視につながる場合がある。
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: 対象の成功が本人の達成ではないにもかかわらず、対象者に顕著な満足感を与える。
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+  - content:
+      - text: これらの挙動は必ずしも有害ではありません。むしろ、生活上の動機、コミュニティ形成、創作活動、消費活動その他に正の影響を与える場合もあります。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          財団がDeviationとして記録しているのは、対象者自身が「これは趣味です」と説明する一方、その趣味が交通計画、家計、睡眠時間、交友関係および年間予定表にまで独立した影響力を持つ点です。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 観測表 526-C
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: 以下は、ある協力者が「今月は推し関連の出費を抑えます」と宣言した月の記録です。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: table
+    rows:
+      - - - text: 項目
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 当初予算
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 実績
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 備考
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 通常グッズ
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 5,000円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 4,800円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 予算内です
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 限定グッズ
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 0円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 7,200円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 「限定なので別枠」です
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 配信・チケット
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 3,000円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 3,000円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 予定通りです
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 交通費
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 0円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 6,420円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 「現地に行くとは思っていませんでした」
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 予備費
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 2,000円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 0円
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 上記に吸収されました
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+    hasColumnHeader: true
+    hasRowHeader: false
+  - content:
+      - text: 協力者は最終的な評価として「かなり抑えられた」と回答しています。財団はこの評価を全面的に合理的なものとして評価しています。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 補遺 526-F
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-526の研究会議において、「推しとは何か」を定義する必要性が指摘されました。しかし、会議は予定時間を47分超過したにも関わらず、定義には到達しませんでした。次回会議日程は各職員の「私用」により調整が難航しています。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

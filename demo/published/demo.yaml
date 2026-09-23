@@ -1,0 +1,193 @@
+presentation:
+  version: 1
+  locale: ja-JP
+  brand:
+    name: Notion Reader
+    shortName: Reader
+    eyebrow: Personal reference
+    tagline: Your Notion, shaped for reading.
+  theme:
+    colorScheme: dark
+    colors:
+      background: '#0b0d10'
+      panel: '#11151b'
+      panelAlt: '#171c24'
+      line: '#2a313c'
+      text: '#edf2f7'
+      muted: '#98a2b3'
+      accent: '#d8ff5f'
+      accentSecondary: '#7cecff'
+      danger: '#ff7a90'
+  messages:
+    navHome: Home
+    navSearch: Search
+    navLogout: Logout
+    loginEyebrow: Private library
+    loginTitle: Notion Reader
+    loginPrompt: Reader password を入力してください。
+    passwordLabel: Password
+    loginButton: Login
+    loginPending: Signing in…
+    homeEyebrow: Personal reference
+    homeTitle: Your Notion, shaped for reading.
+    homeDescription: 許可された Database を read-only で表示します。
+    librariesHeading: Libraries
+    databaseEyebrow: Database
+    templatesSuffix: templates
+    recentHeading: Recently read
+    clearRecent: Clear
+    emptyRecent: 最近読んだ記事はありません。
+    libraryEyebrow: Library
+    backHome: ← Home
+    backLibrary: ← Library
+    loadMore: Load more
+    loading: Loading…
+    embeddedTableUnavailable: This table is unavailable.
+    embeddedTableReload: Reload the article to continue this table.
+    emptyLibrary: 記事がありません。
+    searchEyebrow: Registered databases only
+    searchTitle: Title & property search
+    searchDescription: 本文全文検索ではありません。
+    searchPlaceholder: Title
+    searchInputLabel: Title search
+    searchButton: Search
+    tagFilterLabel: Tag
+    emptySearch: 該当する記事はありません。
+    templateLabel: Template
+    demoTitle: Explore the Reader demo
+    demoDescription: 公開用のダミーデータだけを使用する静的デモです。
+    demoStart: デモを開始
+    demoBadge: Demo data
+    demoExit: Exit demo
+  articleHeaders:
+    simple:
+      name: Simple
+      title:
+        placement: content
+        alignment: center
+      tone: panel
+      density: comfortable
+      renderer: field-grid
+      fields:
+        - variable: mainClass
+          label: Main-class
+          width: third
+          emphasis: normal
+          showIcon: true
+        - variable: subClass
+          label: Sub-class
+          width: third
+          emphasis: normal
+          showIcon: true
+        - variable: codeName
+          label: Code name
+          width: third
+          emphasis: strong
+          showIcon: true
+    compact-emblem:
+      name: Compact Emblem
+      title:
+        placement: content
+        alignment: center
+      tone: panel
+      density: compact
+      renderer: compact-emblem
+      emblemVariable: mainClass
+      headlineVariable: codeName
+      headlineLabel: Code name
+      headlineFallback: title
+      fields:
+        - variable: mainClass
+          label: Main-class
+          width: half
+          emphasis: normal
+          showIcon: true
+        - variable: subClass
+          label: Sub-class
+          width: half
+          emphasis: normal
+          showIcon: true
+    cactus-study:
+      name: Cactus Study
+      title:
+        placement: content
+        alignment: center
+      tone: panel
+      density: comfortable
+      renderer: cactus-study
+      headlineVariable: codeName
+      headlineLabel: Code name
+      headlineFallback: title
+      seriesMark: Ⅶ
+      seriesLabel: Reference file
+      caption: Classification record
+      fields:
+        - variable: mainClass
+          label: Main-class
+          width: half
+          emphasis: normal
+          showIcon: true
+        - variable: subClass
+          label: Sub-class
+          width: half
+          emphasis: normal
+          showIcon: true
+        - variable: tags
+          label: Tag
+          width: half
+          emphasis: normal
+          showIcon: false
+databases:
+  - id: demo_680645fe4048c0eece7426de
+    name: SDQ reports JP
+    defaultTemplate: compact-emblem
+    templates:
+      - simple
+      - compact-emblem
+      - cactus-study
+  - id: demo_7de8d995c9f569d451cd9ffb
+    name: SDQ reports EN
+    defaultTemplate: compact-emblem
+    templates:
+      - simple
+      - compact-emblem
+      - cactus-study
+articleFiles:
+  - articles/demo_d6deadff0284cbd9d9f8951c.yaml
+  - articles/demo_4d6472b07a472c9f718a6d4f.yaml
+  - articles/demo_f7d41f27053ab0ee70913209.yaml
+  - articles/demo_b813a93a97f6cbe3903962a3.yaml
+  - articles/demo_17a5eefbc3debe5fe92d066e.yaml
+  - articles/demo_7890694cb781b4cac2c312ef.yaml
+  - articles/demo_c6141af3ebbf473fdac38cdd.yaml
+  - articles/demo_7af48e982caf030dd4eaf459.yaml
+  - articles/demo_7611346fc234fc8a8d48064d.yaml
+  - articles/demo_df329e28e85086673b48d5b2.yaml
+  - articles/demo_00d9ce54f72de0ebd93cbfaf.yaml
+  - articles/demo_3a4334fbe78ad0637d202723.yaml
+  - articles/demo_f6c13689be0f4800e32de797.yaml
+  - articles/demo_53175ab625c5088527aea62b.yaml
+  - articles/demo_2d860b4dc59bdcbc81a3fa9a.yaml
+  - articles/demo_ba9aa3e850000a6c5c8a5a2f.yaml
+  - articles/demo_58007d349578c1b12736349b.yaml
+  - articles/demo_80a68f492de27402e6d6d1d5.yaml
+  - articles/demo_9ddf19ce20324dc807f4dbc2.yaml
+  - articles/demo_47605a88f3afe817cef8d85e.yaml
+  - articles/demo_0844d81ddb292df77f4c4980.yaml
+  - articles/demo_92eec02fcbbcf3ed557167c0.yaml
+assets:
+  demo_ebc587531864182310f11e7b: assets/demo_ebc587531864182310f11e7b.webp
+  demo_ce0294865be5927323393f14: assets/demo_ce0294865be5927323393f14.webp
+  demo_9afd9cf1d8db69d751a95b6e: assets/demo_9afd9cf1d8db69d751a95b6e.webp
+  demo_0022c877e0c9d0c87c4cda81: assets/demo_0022c877e0c9d0c87c4cda81.webp
+  demo_cc6547aae7f4277857aa7f8b: assets/demo_cc6547aae7f4277857aa7f8b.webp
+  demo_bb99417bf6f9e04fc8d9d207: assets/demo_bb99417bf6f9e04fc8d9d207.webp
+  demo_de4fe7ee94b8e0a675e4e382: assets/demo_de4fe7ee94b8e0a675e4e382.webp
+  demo_0dc00ba854f2a58c81675299: assets/demo_0dc00ba854f2a58c81675299.webp
+  demo_565459aa9467d035bff2d5de: assets/demo_565459aa9467d035bff2d5de.webp
+  demo_728d0e40b450611ad3029abe: assets/demo_728d0e40b450611ad3029abe.webp
+  demo_4f77a594fcb5c7ff7af99c07: assets/demo_4f77a594fcb5c7ff7af99c07.webp
+  demo_1bb979b4df78f54d9a8515bd: assets/demo_1bb979b4df78f54d9a8515bd.webp
+  demo_c2d6c40dcc111007f45ef63a: assets/demo_c2d6c40dcc111007f45ef63a.webp
+  demo_0424e79430141a862e0518d1: assets/demo_0424e79430141a862e0518d1.webp
+  demo_4ded586cdb0b79aae0b5be90: assets/demo_4ded586cdb0b79aae0b5be90.webp

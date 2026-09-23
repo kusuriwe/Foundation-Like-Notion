@@ -13,7 +13,7 @@ import { VitePWA } from "vite-plugin-pwa"
 import { defineConfig } from "vitest/config"
 
 const repositoryRoot = fileURLToPath(new URL("../..", import.meta.url))
-const demoRoot = path.join(repositoryRoot, "demo")
+const demoRoot = path.join(repositoryRoot, "demo", "published")
 
 function loadDemoDataset(): DemoDataset {
   const manifest = DemoManifestSchema.parse(
@@ -32,11 +32,10 @@ function loadDemoDataset(): DemoDataset {
     articles,
     assets: manifest.assets,
   })
-  const publicRoot = path.join(repositoryRoot, "apps", "web", "public")
   for (const relativePath of Object.values(dataset.assets)) {
-    const absolutePath = path.resolve(publicRoot, relativePath)
-    if (!absolutePath.startsWith(`${publicRoot}${path.sep}`)) {
-      throw new Error("Demo asset path escapes the public directory")
+    const absolutePath = path.resolve(demoRoot, relativePath)
+    if (!absolutePath.startsWith(`${demoRoot}${path.sep}`)) {
+      throw new Error("Demo asset path escapes the published demo directory")
     }
     readFileSync(absolutePath)
   }
@@ -63,6 +62,13 @@ function demoDataPlugin(dataset: DemoDataset): Plugin {
     generateBundle() {
       const { brand, theme, locale } = dataset.presentation
       const base = "/Foundation-Like-Notion/"
+      for (const relativePath of Object.values(dataset.assets)) {
+        this.emitFile({
+          type: "asset",
+          fileName: relativePath.replaceAll(path.sep, "/"),
+          source: readFileSync(path.join(demoRoot, relativePath)),
+        })
+      }
       this.emitFile({
         type: "asset",
         fileName: "manifest.webmanifest",
@@ -107,7 +113,7 @@ export default defineConfig(({ mode }) => {
         manifest: false,
         includeAssets: ["icon.svg", "icon-192.png", "icon-512.png", "apple-touch-icon.png"],
         workbox: {
-          globPatterns: ["**/*.{js,css,html,webmanifest,ico,png,svg,woff,woff2}"],
+          globPatterns: ["**/*.{js,css,html,webmanifest,ico,png,svg,webp,bin,woff,woff2}"],
           ...(demo
             ? {}
             : {

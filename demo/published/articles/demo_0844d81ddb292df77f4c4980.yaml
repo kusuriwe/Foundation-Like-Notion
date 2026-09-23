@@ -1,0 +1,434 @@
+id: demo_0844d81ddb292df77f4c4980
+databaseId: demo_7de8d995c9f569d451cd9ffb
+title: Cat
+icon:
+  kind: emoji
+  value: 🐈
+createdTime: '2026-09-22T14:01:00.000Z'
+lastEditedTime: '2026-09-23T04:23:00.000Z'
+titleRichText:
+  - text: Cat
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: Cat
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_b7c0c23df5be3cb647ae21b2
+      title: Kojire
+      icon:
+        kind: asset
+        assetId: demo_565459aa9467d035bff2d5de
+  subClass:
+    type: string
+    value: Natural Science
+  codeName:
+    type: reference
+    value:
+      readerId: demo_8555e5b91f03b415b284b3ba
+      title: SDQ-1843
+  tags:
+    type: string[]
+    value:
+      - PHYSICAL
+      - BEHAVIORAL
+      - PERCEPTUAL
+blocks:
+  - content:
+      - text: Standard Deviation Quarantine
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-1843 should be treated as an ordinary companion animal under normal husbandry
+          conditions. Subjects must not be forcibly placed into boxes, bags, basins, cardboard
+          containers, storage cases, or other enclosures for the purpose of testing container
+          compatibility. Observation is permitted only when the subject enters voluntarily.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          If a subject relocates onto a laptop, printed material, clothing, packing material, or
+          other item currently in use, the fact that the item was “being used at that exact moment”
+          may not constitute sufficient grounds for relocating the subject.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: image
+    assetId: demo_4ded586cdb0b79aae0b5be90
+    caption:
+      - text: An ordinary domestic cat voluntarily occupying a small box.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+  - content:
+      - text: Observation Summary
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: SDQ-1843 is the ordinary domestic cat (
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: Felis catus
+        href: null
+        annotations:
+          bold: false
+          italic: true
+          strikethrough: false
+          underline: false
+          code: false
+      - text: >-
+          ). The Foundation has noted repeated instances of SDQ-1843 exhibiting the following
+          properties:
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: numberedList
+    items:
+      - - text: >-
+            Subjects enter containers that appear, based on external dimensions, to be smaller than
+            their body volume.
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: >-
+            Subjects show a tendency to preferentially occupy flat surfaces currently required by a
+            human user.
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: Subjects may select cardboard shipping boxes over expensive purpose-built products.
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: >-
+            Subjects may fail to respond when called while reacting to the sound of packages being
+            opened or handled from considerable distances.
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+      - - text: >-
+            Subjects may alter their posture at the precise moment an observer attempts to take a
+            photograph.
+          href: null
+          annotations:
+            bold: false
+            italic: false
+            strikethrough: false
+            underline: false
+            code: false
+  - content:
+      - text: >-
+          Members of the general public have been observed describing SDQ-1843 as “liquid” on the
+          basis of Property 1. The Foundation Materials Science Division and Animal Behavior
+          Division have repeatedly explained that this description is metaphorical. A substantial
+          number of Foundation personnel remain skeptical of this conclusion.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: Experiment Log 1843-A
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          Empty containers of varying sizes were placed in the same room, and the time required for
+          one of three subjects to enter each voluntarily was recorded.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: table
+    rows:
+      - - - text: Container
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Apparent Available Space
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Time to First Entry
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: A
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Ample
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 18 min 42 sec
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: B
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Approximately suitable
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 6 min 11 sec
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: C
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Visibly cramped
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 1 min 53 sec
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: D
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Purpose-built cat bed priced at ¥12,000
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: No entry
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+    hasColumnHeader: true
+    hasRowHeader: false
+  - content:
+      - text: >-
+          In consideration of the potential psychological effects on personnel, the corresponding
+          video footage is restricted to Oversight personnel.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: Incident Record 1843-2
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: The following incident occurred in Researcher ██'s office.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: code
+    code: >-
+      Researcher ██ was reviewing important documents spread across a desk when SDQ-1843 sat down in
+      the center of the papers.
+
+
+      Researcher ██ relocated the subject to an adjacent empty chair.
+
+
+      The subject returned to the center of the documents after 11 seconds.
+
+
+      Researcher ██ relocated the subject to the floor.
+
+
+      The subject returned to the center of the documents after 26 seconds.
+
+
+      Researcher ██ moved the documents to another desk.
+
+
+      The subject followed them to the new location.
+
+
+      The record ends when Researcher ██ ceased reviewing the documents, let out a prolonged sigh,
+      and began petting the subject.
+    language: plain text
+    caption: []
+  - content:
+      - text: >-
+          The above phenomena suggest that SDQ-1843 may possess a latent capacity to endanger
+          humanity and/or the Foundation.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          All SDQ-1843 individuals currently under Foundation management have therefore been
+          requisitioned by the Oversight Division and transferred to its offices, where they remain
+          under the direct supervision of Oversight personnel.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

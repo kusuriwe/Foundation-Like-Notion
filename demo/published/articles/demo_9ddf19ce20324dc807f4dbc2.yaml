@@ -1,0 +1,355 @@
+id: demo_9ddf19ce20324dc807f4dbc2
+databaseId: demo_7de8d995c9f569d451cd9ffb
+title: Proverbs
+createdTime: '2026-09-22T14:01:00.000Z'
+lastEditedTime: '2026-09-22T17:26:00.000Z'
+titleRichText:
+  - text: Proverbs
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: Proverbs
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_ff1072d73a63742554edc064
+      title: Distributed
+      icon:
+        kind: asset
+        assetId: demo_ce0294865be5927323393f14
+  subClass:
+    type: string
+    value: Humanities
+  codeName:
+    type: reference
+    value:
+      readerId: demo_60bc944a55b9de384482d5de
+      title: SDQ-1311
+  tags:
+    type: string[]
+    value:
+      - SOCIAL
+      - INFORMATIONAL
+      - BEHAVIORAL
+blocks:
+  - content:
+      - text: Standard Deviation Quarantine
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-1311 must not be used as the sole basis for decision-making, research conclusions,
+          personnel evaluations, accident analysis, or similar judgments. When an instance of
+          SDQ-1311 is cited in support of a particular course of action, personnel must determine
+          whether another instance of SDQ-1311 exists that can be used to support the opposite
+          course of action.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          If both are found, the Foundation shall conclude that “a sufficient amount of cultural
+          wisdom has accumulated” and return to ordinary evidence.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: Observation Summary
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-1311 is the collective designation for short expressions that have been repeatedly
+          used over extended periods and are shared as general lessons or rules of experience.
+          Individual instances of SDQ-1311 may contain useful practical wisdom. When considered
+          collectively, however, SDQ-1311 can provide mutually contradictory courses of action
+          simultaneously.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: table
+    rows:
+      - - - text: Expression Encouraging Action
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Expression Supporting the Opposite Direction
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '“Hasten to do good.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (善は急げ)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: '“When in a hurry, take the long way around.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (急がば回れ)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '“Three people together have the wisdom of Manjusri.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (三人寄れば文殊の知恵)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: '“Too many captains will sail the ship up a mountain.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (船頭多くして船山に上る)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '“Take your chances, even if you fail.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (当たって砕けろ)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: '“Tap even a stone bridge before crossing it.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (石橋を叩いて渡る)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '“What one likes, one becomes good at.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (好きこそ物の上手なれ)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: '“Enthusiastic despite being bad at it.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (下手の横好き)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '“The day you decide is the lucky day.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (思い立ったが吉日)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: '“Good fortune comes to those who wait.” '
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+          - text: (果報は寝て待て)
+            href: null
+            annotations:
+              bold: false
+              italic: true
+              strikethrough: false
+              underline: false
+              code: false
+    hasColumnHeader: true
+    hasRowHeader: false
+  - content:
+      - text: >-
+          This property makes SDQ-1311 highly adaptable not so much as guidance before a decision,
+          but as a means of 
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: providing a plausible justification after a decision has already been made
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: .
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          The Enlightenment Division is currently conducting a public-information campaign to raise
+          awareness of the hazards associated with SDQ-1311. The campaign is projected to reduce
+          global conflict by ██%.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: true
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: The public-information campaign has been suspended indefinitely by the Oversight Division.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          Any attempt to blame Oversight personnel for the occurrence of SDQ-1311 within the
+          Oversight Division itself will be regarded as an act of treason against the Foundation.
+          Personnel found responsible will have their access privileges to the water dispenser
+          revoked.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

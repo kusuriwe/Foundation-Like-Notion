@@ -3,6 +3,7 @@ import path from "node:path"
 import yaml from "js-yaml"
 
 const outputDirectory = path.resolve("apps/web/dist-demo")
+const sourceDirectory = path.resolve("demo/published")
 const requiredFiles = ["index.html", "manifest.webmanifest", "sw.js"]
 const forbidden = [
   "/api/",
@@ -15,7 +16,12 @@ const forbidden = [
   "sourceDataSourceId",
   "titlePropertyId",
   "propertyId",
+  "X-Amz-Credential",
+  "X-Amz-Signature",
+  "X-Goog-Signature",
 ]
+const sourceIdentifierPattern =
+  /(?:\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b|\b[0-9a-f]{32}\b)/i
 
 async function optionalText(file) {
   try {
@@ -67,6 +73,29 @@ async function files(directory) {
 
 for (const file of requiredFiles) {
   await readFile(path.join(outputDirectory, file))
+}
+
+for (const file of await files(sourceDirectory)) {
+  const content = (await readFile(file)).toString("latin1")
+  if (sourceIdentifierPattern.test(content)) {
+    throw new Error(
+      `Demo source contains a source-shaped identifier in ${path.relative(sourceDirectory, file)}`,
+    )
+  }
+  for (const marker of forbidden) {
+    if (content.includes(marker)) {
+      throw new Error(
+        `Demo source contains forbidden marker ${marker} in ${path.relative(sourceDirectory, file)}`,
+      )
+    }
+  }
+  for (const value of localForbiddenValues) {
+    if (content.includes(value)) {
+      throw new Error(
+        `Demo source contains a value from ignored local configuration in ${path.relative(sourceDirectory, file)}`,
+      )
+    }
+  }
 }
 
 const textExtensions = new Set([".css", ".html", ".js", ".json", ".svg", ".webmanifest"])

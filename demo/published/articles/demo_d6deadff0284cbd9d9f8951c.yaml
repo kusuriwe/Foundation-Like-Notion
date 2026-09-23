@@ -1,0 +1,637 @@
+id: demo_d6deadff0284cbd9d9f8951c
+databaseId: demo_680645fe4048c0eece7426de
+title: SDQ財団
+createdTime: '2026-09-21T06:42:00.000Z'
+lastEditedTime: '2026-09-22T17:27:00.000Z'
+titleRichText:
+  - text: SDQ財団
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: SDQ財団
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_d6b52561ff514781523b9fda
+      title: Administrative
+      icon:
+        kind: asset
+        assetId: demo_ebc587531864182310f11e7b
+  subClass:
+    type: string
+    value: Meta
+  codeName:
+    type: reference
+    value:
+      readerId: demo_0998818be2657dbfaa21868d
+      title: SDQ-001
+  tags:
+    type: string[]
+    value:
+      - INFORMATIONAL
+      - SOCIAL
+blocks:
+  - content:
+      - text: 本コンテンツについて
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: callout
+    icon:
+      kind: emoji
+      value: 💡
+    color: gray_background
+    children:
+      - content:
+          - text: 本コンテンツは、SCP財団に着想を得た中二病チックな Notion Viewer に付随する、デモ用のパロディ文書です。
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        type: paragraph
+      - content:
+          - text: >-
+              本コンテンツは独立した創作物として制作されており、SCP FoundationおよびSCP
+              Wikiの公式コンテンツおよび派生作品ではなく、それらの運営者・執筆者との提携、承認その他の関係を示すものではありません。また、独立した創作コミュニティの形成・運営を目的とするものではありません。
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        type: paragraph
+      - content:
+          - text: 「SDQ財団」は、文書型共同創作・機密研究資料等の表現形式を題材として制作されたデモンストレーション用のフィクションです。実在の団体とは関係ありません。
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        type: paragraph
+  - content:
+      - text: 標準偏差隔離プロトコル
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ財団に関する文書は、現実の研究機関・行政機関・企業その他の実在組織による公式資料として扱わないでください。本アーカイブは、日常的な物品・制度・慣習・概念を、必要以上に深刻な調子で観測・記録するためのフィクションです。記述対象が現実に存在する場合でも、財団による指定、調査、隔離、分類等は架空のものです。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          また、本アーカイブの文書形式はSCP
+          Foundationから着想を得たパロディ／デモ用フィクションですが、SCP固有の設定、分類名、専門用語体系、記事本文をそのまま再利用することを目的としていません。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 観測サマリ
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: SDQ財団（
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: Survey, Documentation and Quarantine Foundation
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: '）は、通常期待される挙動から意味のあるズレを示す物品、制度、情報、習慣、現象等を観測・記録する架空組織です。財団では、このようなズレを '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: Deviation（逸脱）
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ' と呼びます。Deviationは必ずしも超常現象ではありません。単に繰り返し報告されるもの、運用上妙に面倒なもの、社会的に説明しづらいもの、あるいは誰もが経験しているにもかかわらず真面目に記録したことのないものも対象になります。'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 財団の基本姿勢は、以下の一文に要約されます。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 説明可能であることと、記録する価値がないことは同義ではありません。
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: quote
+  - content:
+      - text: '各案件には '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: SDQ-XXXX
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: true
+      - text: ' 形式の識別番号が割り当てられます。案件番号は原則として内容と対応しておらず、数字から意味を読み取ろうとする行為は推奨されません。なお、この注意書きによって数字から意味を読み取ろうとする行為が増加することは確認されています。'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: Main Class
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: 各SDQ案件には、対象の危険性ではなく、
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: 財団による管理に対して対象がどのように応答するか
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: 'を示す '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: Main Class（管理応答性）
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ' が設定されます。'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          Main
+          Classは危険度、重要度、異常性の強さを表すものではありません。日常的かつ無害な対象であっても管理条件が複雑であれば特定のClassに分類される場合があり、反対に重大な影響を持つ対象であっても通常の管理手順に安定して応答する場合があります。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 現在、財団では主に以下のClassを使用しています。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: table
+    rows:
+      - - - text: Main Class
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 概要
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: Docile
+            href: null
+            annotations:
+              bold: true
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 通常の管理手順に対して概ね予測可能に応答します。特別な条件を必要とせず、既存の制度・設備・手順によって管理可能です。
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: Kojire
+            href: null
+            annotations:
+              bold: true
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 管理自体は可能ですが、条件、例外、関係者の認識その他の要因によって容易に状況がこじれます。単純化した対応は、しばしば追加の問題を発生させます。
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: Tsumujimagari
+            href: null
+            annotations:
+              bold: true
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 管理、修正、抑制等の試みに対して、反対方向の挙動または意図しない結果を示す傾向があります。より強い介入が、より良い結果をもたらすとは限りません。
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: Distributed
+            href: null
+            annotations:
+              bold: true
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Deviationが複数の人物、制度、機器、情報環境その他に分散しており、単一対象の隔離または管理では十分な効果が得られません。
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: Administrative
+            href: null
+            annotations:
+              bold: true
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 積極的な管理の必要性は明確ではありませんが、案件を終了、解除、再分類するために必要な事務処理が、継続管理に必要な事務処理を上回っています。
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+    hasColumnHeader: true
+    hasRowHeader: false
+  - content:
+      - text: Main Classは案件の性質に関する要約であり、標準偏差隔離プロトコルそのものを代替するものではありません。実際の管理に際しては、各案件に記載された手順を優先してください。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: なお、Classの追加、統合、改称に関する提案は随時受け付けられています。分類体系の複雑化を防止する目的で設置された分類検討委員会は、現在17件の新Class案を審議中です。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 編集上の注記
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          本デモに収録される記事は、デモ制作者とOpenAIのAIであるChatGPTとの共同制作です。AIは、構成案、文体調整、表現の展開、英訳その他の作業に利用されています。ただし、本文中に見られる皮肉、揚げ足取り、過剰な一般化、および日常生活に対する必要以上に意地の悪い観察について、生成AIのみを責任主体とする解釈は推奨されません。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 編集記録上、その相当部分は人間側の制作者によって積極的に採用、選別、または増幅されています。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: table
+    rows:
+      - - - text: 観測される傾向
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 主な発生源
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 文章が必要以上に事務的
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 双方
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 些細な現象を大事件のように扱う
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 企画そのもの
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 嫌味が妙に具体的
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 人間側の寄与が疑われます
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 表を作りたがる
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 双方
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: 「そこまで言う必要はない」と感じる箇所がある
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: おおむね仕様通りです
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+    hasColumnHeader: true
+    hasRowHeader: false
+  - content:
+      - text: 補遺 001-A — 名称について
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: '財団名の '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: SDQ
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ' は '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: Survey, Documentation and Quarantine
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ' の略です。一方、案件ごとに定められる管理手順 '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: Standard Deviation Quarantine
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ' も同じく '
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: SDQ
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ' と略されます。この命名上の重複は、内部文書の可読性を低下させるとして複数回指摘されています。改称提案はいずれも、既存資料の修正量が多すぎるという理由で却下されています。'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

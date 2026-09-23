@@ -8,6 +8,7 @@
     "auth:hash": "tsx src/hash-password.ts",
     "build": "tsc -p tsconfig.json",
     "config:resolve": "tsx src/resolve-property-names.ts",
+    "demo:export": "tsx src/export-demo.ts",
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js",
     "test": "vitest run",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "@types/js-yaml": "^4.0.9",
+    "sharp": "^0.35.4",
     "tsx": "^4.20.5"
   }
 }

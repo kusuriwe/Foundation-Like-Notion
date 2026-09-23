@@ -1,0 +1,332 @@
+id: demo_4d6472b07a472c9f718a6d4f
+databaseId: demo_680645fe4048c0eece7426de
+title: CAPTCHA
+createdTime: '2026-09-21T06:42:00.000Z'
+lastEditedTime: '2026-09-22T17:27:00.000Z'
+titleRichText:
+  - text: CAPTCHA
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: CAPTCHA
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_ff1072d73a63742554edc064
+      title: Distributed
+      icon:
+        kind: asset
+        assetId: demo_ce0294865be5927323393f14
+  subClass:
+    type: string
+    value: Information
+  codeName:
+    type: reference
+    value:
+      readerId: demo_5e9edfc859a970fc08f10f26
+      title: SDQ-072
+  tags:
+    type: string[]
+    value:
+      - INFORMATIONAL
+      - TECHNOLOGICAL
+      - BEHAVIORAL
+blocks:
+  - content:
+      - text: 標準偏差隔離プロトコル
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-072を利用する認証システムでは、同一利用者に対して画像選択課題を連続して提示する場合、代替認証手段を用意してください。利用者が3回以上連続して「信号機」「横断歩道」「オートバイ」等の境界事例を判定させられている場合、その利用者の人間性を追加試験する前に、試験側の定義が十分に人間向けであるかを確認してください。財団職員は、業務上必要のないSDQ-072を「自分がまだ人間として認識されるか確認する目的」で繰り返し実施してはいけません。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: image
+    assetId: demo_9afd9cf1d8db69d751a95b6e
+    caption:
+      - text: 3×3の一般的な画像グリッドで構成されたSDQ-072。複数マスにまたがる信号機の端部、遠景の横断歩道、判別困難な二輪車等を含む。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+  - content:
+      - text: 観測サマリ
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-072は、自動化されたアクセスと人間によるアクセスを区別するため、人間側に認知課題を課す認証方式の総称です。典型的なSDQ-072では、利用者は画像内の物体を識別し、特定の条件に合致する領域を選択するよう求められます。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 財団が注目しているDeviationは、認証が長引くほど利用者が「画像に何が写っているか」ではなく、
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: 「このシステムは何を正解と見なすか」
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: >-
+          を推測し始める点にあります。たとえば、信号機の支柱だけが写るマス、車体の一部だけが写るマス、遠景で数ピクセルしか存在しない対象などについて、利用者は現実世界の分類よりも未知の教師データ上の分類を優先する傾向を示します。この状態では、人間であることを証明する課題が、人間の視覚認知を測定するというより、機械の判断基準を人間が模倣できるかを測定している可能性があります。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: 実験記録 072-B
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: 24名の職員に、境界事例を含む画像分類課題を6回連続で実施しました。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: table
+    rows:
+      - - - text: 試行
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 「自分の視覚判断を基準にした」と回答
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 「システムが期待する答えを推測した」と回答
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '1'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 83%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 17%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '2'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 71%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 29%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '3'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 54%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 46%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '4'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 42%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 58%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '5'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 29%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 71%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '6'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 21%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 79%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+    hasColumnHeader: true
+    hasRowHeader: false
+  - content:
+      - text: >-
+          第6試行終了後、不正解であった参加者のうち12名が自己効用感の低下を理由に休職しました。また参加者のうち5名も、ただしく回答できたのにも関わらず実存的不安を経験しており自分探しの旅に出たいという旨の回答を残しました。監督部門は財団運営におけるSDQ-072の潜在的な危険について研究部門へ調査を命じました。
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

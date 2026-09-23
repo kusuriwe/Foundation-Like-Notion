@@ -1,0 +1,364 @@
+id: demo_f6c13689be0f4800e32de797
+databaseId: demo_7de8d995c9f569d451cd9ffb
+title: CAPTCHA
+createdTime: '2026-09-22T14:01:00.000Z'
+lastEditedTime: '2026-09-22T17:25:00.000Z'
+titleRichText:
+  - text: CAPTCHA
+    href: null
+    annotations:
+      bold: false
+      italic: false
+      strikethrough: false
+      underline: false
+      code: false
+variables:
+  title:
+    type: string
+    value: CAPTCHA
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_ff1072d73a63742554edc064
+      title: Distributed
+      icon:
+        kind: asset
+        assetId: demo_ce0294865be5927323393f14
+  subClass:
+    type: string
+    value: Information
+  codeName:
+    type: reference
+    value:
+      readerId: demo_5e9edfc859a970fc08f10f26
+      title: SDQ-072
+  tags:
+    type: string[]
+    value:
+      - INFORMATIONAL
+      - TECHNOLOGICAL
+      - BEHAVIORAL
+blocks:
+  - content:
+      - text: Standard Deviation Quarantine
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          Authentication systems using SDQ-072 must provide an alternative verification method when
+          multiple image-selection challenges are presented to the same user in succession. If a
+          user has been asked three or more consecutive times to classify boundary cases involving
+          traffic lights, crosswalks, motorcycles, or similar objects, the system's definitions
+          should be reviewed for human interpretability before the user's humanity is subjected to
+          further testing. Foundation personnel must not repeatedly complete unnecessary SDQ-072
+          challenges solely for the purpose of “checking whether they are still recognized as
+          human.”
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: image
+    assetId: demo_4f77a594fcb5c7ff7af99c07
+    caption:
+      - text: >-
+          SDQ-072 consisting of a standard 3×3 image grid. The example includes the edge of a
+          traffic signal extending across multiple tiles, a distant crosswalk, and a two-wheeled
+          vehicle that is difficult to identify.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+  - content:
+      - text: Observation Summary
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          SDQ-072 is the collective designation for authentication methods that impose cognitive
+          tasks on human users in order to distinguish automated access from human access. A typical
+          instance of SDQ-072 requires users to identify objects within images and select regions
+          matching a specified condition.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          The Deviation of interest to the Foundation is that, as authentication continues, users
+          increasingly stop asking “what is actually in this image?” and begin attempting to
+          determine 
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: “what does this system consider correct?”
+        href: null
+        annotations:
+          bold: true
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+      - text: ' When presented with tiles containing only the support pole of a traffic signal, part of a vehicle, or a distant target occupying only a few pixels, users tend to prioritize their assumptions about an unknown training dataset over ordinary real-world categorization. Under these conditions, a task ostensibly intended to prove that the user is human may be measuring not human visual perception, but the user''s ability to imitate a machine''s decision criteria.'
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: Experiment Log 072-B
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: heading
+    level: 2
+  - content:
+      - text: >-
+          Twenty-four Foundation personnel were instructed to complete six consecutive
+          image-classification tasks containing ambiguous boundary cases.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - type: table
+    rows:
+      - - - text: Trial
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Reported relying on their own visual judgment
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: Reported predicting the answer expected by the system
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '1'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 83%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 17%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '2'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 71%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 29%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '3'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 54%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 46%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '4'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 42%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 58%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '5'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 29%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 71%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+      - - - text: '6'
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 21%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+        - - text: 79%
+            href: null
+            annotations:
+              bold: false
+              italic: false
+              strikethrough: false
+              underline: false
+              code: false
+    hasColumnHeader: true
+    hasRowHeader: false
+  - content:
+      - text: >-
+          Following completion of the sixth trial, twelve participants who had answered incorrectly
+          took leave from their duties, citing a diminished sense of self-efficacy. An additional
+          five participants, despite having answered correctly, reported experiencing existential
+          anxiety and expressed a desire to “go on a journey to find themselves.”
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+  - content:
+      - text: >-
+          The Oversight Division has instructed the Research Division to investigate the potential
+          hazards associated with the Foundation's continued operational use of SDQ-072.
+        href: null
+        annotations:
+          bold: false
+          italic: false
+          strikethrough: false
+          underline: false
+          code: false
+    type: paragraph
+defaultTemplate: compact-emblem
+templates:
+  - simple
+  - compact-emblem
+  - cactus-study

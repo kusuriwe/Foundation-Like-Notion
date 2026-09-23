@@ -28,14 +28,14 @@ desktop/mobile、欠損field、記事titleと数式、reduced motionを確認し
 変更ファイル・実行したテスト・未確認点を報告してください。
 ```
 
-まず公開ダミーデモで見た目を確認し、その後に自分のNotion設定へ同じ表示設定を適用します。スクリーンショットを共有する場合も、記事本文とIDを伏せてください。
+まずlocal previewで見た目を確認し、その後に公開demo snapshotを更新します。未公開の記事やIDを含むスクリーンショットは共有しないでください。
 
 ### どこまでYAMLだけで変えられるか
 
 | 変更したいこと | 編集場所 | 再build |
 | --- | --- | --- |
-| ブランド名、画面文言、theme色 | 通常版は`.env/reader.yaml`、デモは`demo/demo.yaml`の`presentation` | 通常版は再起動。デモは再build |
-| headerの選択、field・label・順番、既存rendererの設定 | 通常版は`.env/reader.yaml`、デモは`demo/demo.yaml`の`templates`と`articleHeaders` | 通常版は再起動。デモは再build |
+| ブランド名、画面文言、theme色 | `.env/reader.yaml`の`presentation` | 通常版は再起動。デモは再export・build |
+| headerの選択、field・label・順番、既存rendererの設定 | `.env/reader.yaml`の`templates`と`articleHeaders` | 通常版は再起動。デモは再export・build |
 | 新しいheaderの構造・アニメーション | trusted React componentとCSS Module | 必要 |
 
 `variables`はNotion PropertyをReader値へ変換する設定、`articleHeaders`はその値の見せ方です。headerが参照するvariableは、そのdatabaseの`variables`に定義します。組み込みheaderの既定fieldだけは、最小設定でも起動できるよう欠損を許容します。未知のcustom variable参照やschema外の設定は起動時に拒否されます。
@@ -50,7 +50,7 @@ contentDatabases:
     templates: [simple, compact-emblem, cactus-study]
 ```
 
-`presentation`は省略可能です。次は表示設定の抜粋です。通常版は`.env/reader.yaml`、公開デモは`demo/demo.yaml`に設定します。既存の`presentation`がある場合は同じセクションへ追記し、重複した`presentation:`を作らないでください。
+`presentation`は省略可能です。次は表示設定の抜粋です。通常版・公開demoとも`.env/reader.yaml`を元にし、公開demoは[デモ配布ガイド](demo-publishing.md)の安全なexportで静的snapshotへ変換します。既存の`presentation`がある場合は同じセクションへ追記し、重複した`presentation:`を作らないでください。
 
 ```yaml
 presentation:
@@ -90,8 +90,8 @@ Relation型のfieldで`showIcon: true`にすると、Relation先ページの絵�
 
 1. 参考画像、desktop/mobileの配置、使うReader variable、欠損時の表示、titleの位置を決めます。実NotionのIDや本文は設計資料に含めません。
 2. [renderer開発ガイド](header-renderers.md)に従い、schema、component、CSS Module、registry、default定義、設定例とテストを追加します。
-3. 公開ダミーデモの`demo/demo.yaml`と`demo/articles/*.yaml`に架空の値だけで新templateを追加し、desktop/mobileで確認します。デモは公開・offline保存されるため、実記事をコピーしません。
-4. 自分のNotionで使う場合だけ、ignored `.env/reader.yaml`へtemplate IDと必要なvariable mappingを設定し、`config:check`後に再起動します。
+3. ignored `.env/reader.yaml`へtemplate IDと必要なvariable mappingを設定し、`config:check`後に通常版を再起動します。
+4. 公開demoへ反映する場合は`demo:export`で候補を検証してから`--apply`します。`demo/published/`を直接編集しません。demoは公開・offline保存されるため、公開権利のない本文や画像を含めないでください。
 
 確認コマンド:
 
@@ -130,14 +130,14 @@ missing fields, the article title and equations, and reduced motion.
 Report changed files, tests run, and anything not verified.
 ```
 
-Preview the design with the public dummy demo before applying the same presentation settings to your own Notion reader. Redact article text and IDs from any screenshots you share.
+Preview the design locally before updating the public demo snapshot. Do not share screenshots containing unpublished article text or identifiers.
 
 ### What YAML can change
 
 | Goal | Edit | Rebuild |
 | --- | --- | --- |
-| Brand, screen copy, and theme colors | `presentation` in `.env/reader.yaml` for the normal app or `demo/demo.yaml` for the demo | Restart the normal app; rebuild the demo |
-| Header choice, fields, labels, order, and existing renderer options | `templates` and `articleHeaders` in the corresponding normal or demo YAML | Restart the normal app; rebuild the demo |
+| Brand, screen copy, and theme colors | `presentation` in `.env/reader.yaml` | Restart the normal app; export and rebuild the demo |
+| Header choice, fields, labels, order, and existing renderer options | `templates` and `articleHeaders` in `.env/reader.yaml` | Restart the normal app; export and rebuild the demo |
 | A new header layout or animation | A trusted React component and CSS Module | Required |
 
 `variables` maps Notion Properties to Reader values; `articleHeaders` controls how those values appear. A header's custom variable references must exist in that database's `variables`. Built-in default fields tolerate missing values so the minimal config still starts. Unknown custom references or unsupported settings fail validation at startup.
@@ -152,7 +152,7 @@ contentDatabases:
     templates: [simple, compact-emblem, cactus-study]
 ```
 
-The optional `presentation` section can adjust the design. Put it in `.env/reader.yaml` for the normal app or `demo/demo.yaml` for the public demo. If it already exists, add entries to it rather than creating a second `presentation:` key. This is a partial example:
+The optional `presentation` section can adjust the design. Both the normal app and public demo originate from `.env/reader.yaml`; the [demo publishing guide](demo-publishing.md) converts it into a safe static snapshot. If `presentation` already exists, add entries to it rather than creating a second section. This is a partial example:
 
 ```yaml
 presentation:
@@ -192,8 +192,8 @@ New layouts are bundled as trusted renderers, not loaded as HTML from YAML.
 
 1. Specify the reference, desktop/mobile layout, Reader variables, missing-value behavior, and title placement. Keep real Notion IDs and article text out of the design brief.
 2. Follow the [renderer development guide](header-renderers.md) to add the schema, component, CSS Module, registry entry, defaults, example config, and tests.
-3. Add the new template to `demo/demo.yaml` and `demo/articles/*.yaml` using fictional values only, then check desktop and mobile. The demo is public and cached offline; never copy real articles into it.
-4. Only when using your own Notion, update the template ID and needed variable mappings in ignored `.env/reader.yaml`, run `config:check`, and restart.
+3. Add the template ID and needed variable mappings to ignored `.env/reader.yaml`, run `config:check`, and restart the normal Reader.
+4. To update the public demo, validate a `demo:export` candidate and apply it with `--apply`. Do not hand-edit `demo/published/`. The demo is public and cached offline, so include only text and images that may be published.
 
 Validation commands:
 
