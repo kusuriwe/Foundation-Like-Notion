@@ -108,7 +108,7 @@ export function ArticlePage() {
             </button>
           ))}
         </div>
-        <ArticleRenderer blocks={article.blocks} />
+        <ArticleRenderer blocks={article.blocks} articleId={article.id} />
       </div>
     </article>
   )

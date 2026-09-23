@@ -4,6 +4,8 @@ import type {
   SourceArticle,
   SourceArticleSummary,
   SourceAsset,
+  SourceEmbeddedColumn,
+  SourceEmbeddedTablePage,
   SourceFilter,
   SourcePage,
   SourceQuery,
@@ -130,8 +132,30 @@ const fixtureArticles: readonly SourceArticle[] = [
       },
       {
         type: "callout",
+        color: "yellow_background",
         icon: { kind: "emoji", value: "💡" },
         content: [{ text: "同じ族の元素は似た化学的性質を示します。" }],
+        children: [{ type: "paragraph", content: [{ text: "Nested callout content" }] }],
+      },
+      {
+        type: "embeddedDatabase",
+        title: "Observation table",
+        tables: [
+          {
+            status: "available",
+            sourceTableId: "fixture-observations",
+            title: "Observations",
+            columns: [
+              { sourcePropertyId: "name", label: "Name" },
+              { sourcePropertyId: "result", label: "Result" },
+            ],
+            rows: [
+              ["Sample A", "Positive"],
+              ["Sample B", "Negative"],
+            ],
+            nextCursor: null,
+          },
+        ],
       },
     ],
   },
@@ -259,6 +283,15 @@ export class FixtureAdapter implements ContentAdapter {
 
   async getAsset(_sourceAssetId: string): Promise<SourceAsset | undefined> {
     return undefined
+  }
+
+  async getEmbeddedTablePage(
+    sourceTableId: string,
+    _columns: readonly SourceEmbeddedColumn[],
+    _cursor: string | undefined,
+    _pageSize: number,
+  ): Promise<SourceEmbeddedTablePage | undefined> {
+    return sourceTableId === "fixture-observations" ? { rows: [], nextCursor: null } : undefined
   }
 }
 

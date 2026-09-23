@@ -90,6 +90,7 @@ function adapterReturning(page: SourcePage) {
   const adapter: ContentAdapter = {
     listArticles,
     getArticle: vi.fn(),
+    getEmbeddedTablePage: vi.fn(),
     getAsset: vi.fn(),
   }
   return { adapter, listArticles }
@@ -152,6 +153,88 @@ describe("ReaderService request boundaries", () => {
       reader.search(SearchRequestSchema.parse({ filters: [], cursor, pageSize: 20 })),
     ).rejects.toBeInstanceOf(ReaderRequestError)
     expect(listArticles).toHaveBeenCalledTimes(1)
+  })
+
+  it("keeps embedded table IDs and cursors behind article-bound Reader handles", async () => {
+    const { database, filePath } = await createDatabase()
+    const article = database.getOrCreateResource("private-article", "page", "database-1")
+    const getEmbeddedTablePage = vi.fn().mockResolvedValue({
+      rows: [["continued"]],
+      nextCursor: null,
+    })
+    const adapter: ContentAdapter = {
+      listArticles: vi.fn(),
+      getArticle: vi.fn().mockResolvedValue({
+        sourceId: "private-article",
+        sourceDataSourceId: "source-1",
+        title: "Article",
+        titleRichText: [{ text: "Article" }],
+        createdTime: "2026-01-01T00:00:00.000Z",
+        lastEditedTime: "2026-01-01T00:00:00.000Z",
+        properties: {},
+        blocks: [
+          {
+            type: "embeddedDatabase",
+            title: "Child",
+            tables: [
+              {
+                status: "available",
+                sourceTableId: "private-child-source",
+                title: "Rows",
+                columns: [{ sourcePropertyId: "private-property", label: "Name" }],
+                rows: [["first"]],
+                nextCursor: "private-child-cursor",
+              },
+            ],
+          },
+        ],
+      }),
+      getEmbeddedTablePage,
+      getAsset: vi.fn(),
+    }
+    const reader = new ReaderService(readerConfig(), database, adapter)
+
+    const result = await reader.getArticle(article.readerId)
+    const serialized = JSON.stringify(result)
+    expect(serialized).not.toContain("private-child-source")
+    expect(serialized).not.toContain("private-property")
+    expect(serialized).not.toContain("private-child-cursor")
+    const block = result.blocks[0]
+    expect(block?.type).toBe("embeddedDatabase")
+    if (block?.type !== "embeddedDatabase") throw new Error("Expected embedded database")
+    const table = block.tables[0]
+    if (table?.status !== "available" || !table.nextCursor) {
+      throw new Error("Expected available paginated table")
+    }
+    expect(table.tableId).toMatch(/^tbl_[A-Za-z0-9_-]{43}$/)
+    expect(table.nextCursor).toMatch(/^cur_[A-Za-z0-9_-]{43}$/)
+
+    await expect(
+      reader.getEmbeddedTablePage("art_other", table.tableId, table.nextCursor),
+    ).rejects.toBeInstanceOf(ReaderRequestError)
+    expect(getEmbeddedTablePage).not.toHaveBeenCalled()
+
+    await expect(
+      reader.getEmbeddedTablePage(
+        article.readerId,
+        table.tableId,
+        `${table.nextCursor.slice(0, -1)}x`,
+      ),
+    ).rejects.toBeInstanceOf(ReaderRequestError)
+    expect(getEmbeddedTablePage).not.toHaveBeenCalled()
+
+    await expect(
+      reader.getEmbeddedTablePage(article.readerId, table.tableId, table.nextCursor),
+    ).resolves.toEqual({ rows: [["continued"]], nextCursor: null })
+    expect(getEmbeddedTablePage).toHaveBeenCalledWith(
+      "private-child-source",
+      [{ sourcePropertyId: "private-property", label: "Name" }],
+      "private-child-cursor",
+      50,
+    )
+    const sqlite = (await readFile(filePath)).toString("utf8")
+    expect(sqlite).not.toContain("private-child-source")
+    expect(sqlite).not.toContain("private-child-cursor")
   })
 
   it("maps every configured source type only after validating its value", async () => {

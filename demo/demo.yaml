@@ -49,3 +49,4 @@ articleFiles:
   - articles/lab-notebook.yaml
 assets:
   demo_asset_spectrum: demo/spectrum.svg
+  demo_asset_class_icon: demo/class-icon.svg

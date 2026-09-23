@@ -78,6 +78,8 @@ presentation:
 
 この例の`codeName`、`mainClass`、`subClass`、`tags`は、使うdatabaseにmappingがある場合に指定してください。設定例全体は`config/reader.notion.example.yaml`を参照します。`title.placement`は`header`か`content`で、記事titleはrich text・inline数式を保って必ず一度だけ表示されます。記事で値が欠けたfieldは詰めて省略されます。
 
+Relation型のfieldで`showIcon: true`にすると、Relation先ページの絵文字・Notion-hosted画像・カスタム絵文字を表示できます。画像URLやNotion IDをYAMLへ書く必要はありません。Relation先Data Sourceは`relationSources`で許可し、read-only connectionへ共有します。
+
 ### 新しいデザインを追加する場合
 
 新しい見た目はYAML内のHTMLではなく、同梱されたtrusted rendererとして実装します。作業の流れは次のとおりです。
@@ -173,6 +175,8 @@ presentation:
 ```
 
 Map `codeName`, `mainClass`, `subClass`, and `tags` in the database before using this customized definition. For a full example, see `config/reader.notion.example.yaml`. `title.placement` is `header` or `content`; the rich-text article title, including inline equations, appears exactly once. Fields with missing article values collapse without leaving gaps.
+
+Set `showIcon: true` on a relation-backed field to display the related page's emoji, Notion-hosted image, or custom emoji. Do not put image URLs or Notion IDs in presentation settings. Allow the target Data Source through `relationSources` and share it with the read-only connection.
 
 ### Adding a new design
 

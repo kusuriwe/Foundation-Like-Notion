@@ -13,6 +13,17 @@ test("starts, reads, switches header, searches, records recent, and exits", asyn
   await expect(page.getByTestId("simple-header")).toBeVisible()
   await expect(page.locator(".katex").first()).toBeVisible()
   await expect(page.locator('img[src*="/Foundation-Like-Notion/demo/"]')).toBeVisible()
+  await expect(page.locator(".callout-blue_background")).toBeVisible()
+  await expect(
+    page.getByText("Nested callout content is rendered with the safe block renderer."),
+  ).toBeVisible()
+  await expect(page.getByRole("heading", { name: "Observation log" })).toBeVisible()
+  await expect(page.getByRole("cell", { name: "Yellow emission" })).toBeVisible()
+  expect(
+    await page
+      .locator(".embedded-table .table-scroll")
+      .evaluate((element) => element.scrollWidth >= element.clientWidth),
+  ).toBe(true)
 
   await page.getByLabel("Template").selectOption("compact-emblem")
   await expect(page.getByTestId("compact-emblem-header")).toBeVisible()
@@ -50,5 +61,6 @@ test("keeps bundled public articles available offline", async ({ context, page }
   await page.reload()
   await expect(page.locator(".article-page")).toBeVisible()
   await expect(page.locator(".katex").first()).toBeVisible()
+  await expect(page.getByRole("heading", { name: "Observation log" })).toBeVisible()
   await context.setOffline(false)
 })

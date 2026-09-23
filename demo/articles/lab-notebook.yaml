@@ -6,7 +6,12 @@ icon: { kind: emoji, value: "📓" }
 createdTime: "2026-03-03T09:00:00.000+00:00"
 lastEditedTime: "2026-09-10T12:00:00.000+00:00"
 variables:
-  mainClass: { type: string, value: WORKFLOW }
+  mainClass:
+    type: reference
+    value:
+      readerId: demo_reference_workflow
+      title: WORKFLOW
+      icon: { kind: asset, assetId: demo_asset_class_icon }
   subClass: { type: string, value: NOTES }
   codeName: { type: string, value: LAB NOTEBOOK }
   tags: { type: "string[]", value: [workflow, notes, demo] }

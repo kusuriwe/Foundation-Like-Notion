@@ -5,6 +5,7 @@ import {
   type ArticlePage,
   type ArticleSummary,
   type DatabaseSummary,
+  type EmbeddedTablePage,
   type ReaderIcon,
   type SearchFilter,
   type SearchRequest,
@@ -20,6 +21,9 @@ import type { ContentDatabaseConfig, ReaderConfig } from "./config.js"
 import { CursorRegistry } from "./cursor-registry.js"
 import type { ReaderDatabase } from "./database.js"
 import { resolveProperties } from "./domain/property-resolver.js"
+import { EmbeddedTableRegistry } from "./embedded-table-registry.js"
+
+const EMBEDDED_TABLE_PAGE_SIZE = 50
 
 export class ReaderNotFoundError extends Error {
   constructor() {
@@ -58,6 +62,10 @@ function searchCursorContext(
   ]
 }
 
+function embeddedTableCursorContext(readerArticleId: string, tableId: string): readonly unknown[] {
+  return ["embedded-table", readerArticleId, tableId, EMBEDDED_TABLE_PAGE_SIZE]
+}
+
 function safeWebUrl(url: string): string | undefined {
   try {
     const parsed = new URL(url)
@@ -78,17 +86,20 @@ export class ReaderService {
   readonly #database: ReaderDatabase
   readonly #adapter: ContentAdapter
   readonly #cursors: CursorRegistry
+  readonly #embeddedTables: EmbeddedTableRegistry
 
   constructor(
     config: ReaderConfig,
     database: ReaderDatabase,
     adapter: ContentAdapter,
     cursors = new CursorRegistry(),
+    embeddedTables = new EmbeddedTableRegistry(),
   ) {
     this.#config = config
     this.#database = database
     this.#adapter = adapter
     this.#cursors = cursors
+    this.#embeddedTables = embeddedTables
   }
 
   /** Return configured public database metadata. / 設定済み database の公開 metadata を返します。 */
@@ -154,11 +165,46 @@ export class ReaderService {
       titleRichText: [...source.titleRichText],
       variables: resolveProperties(database, source.properties, this.#database),
       blocks: source.blocks.flatMap((block) => {
-        const mapped = this.#mapBlock(block)
+        const mapped = this.#mapBlock(block, readerArticleId)
         return mapped ? [mapped] : []
       }),
       defaultTemplate: database.defaultTemplate,
       templates: [...database.templates],
+    }
+  }
+
+  /**
+   * Continue one child-database table through article-bound opaque handles.
+   * 記事に結び付いた opaque handle を通して子データベース表を追加取得します。
+   */
+  async getEmbeddedTablePage(
+    readerArticleId: string,
+    tableId: string,
+    cursor: string,
+  ): Promise<EmbeddedTablePage> {
+    const table = this.#embeddedTables.resolve(tableId, readerArticleId)
+    if (!table) throw new ReaderRequestError("Invalid embedded table")
+    const context = embeddedTableCursorContext(readerArticleId, tableId)
+    const cursorState = this.#cursors.resolve(cursor, "embedded-table", context)
+    if (cursorState?.kind !== "embedded-table" || cursorState.tableId !== tableId) {
+      throw new ReaderRequestError("Invalid embedded table cursor")
+    }
+    const page = await this.#adapter.getEmbeddedTablePage(
+      table.sourceTableId,
+      table.columns,
+      cursorState.sourceCursor,
+      EMBEDDED_TABLE_PAGE_SIZE,
+    )
+    if (!page) throw new ReaderRequestError("Embedded table is unavailable")
+    return {
+      rows: page.rows.map((row) => [...row]),
+      nextCursor: page.nextCursor
+        ? this.#cursors.issue(context, {
+            kind: "embedded-table",
+            tableId,
+            sourceCursor: page.nextCursor,
+          })
+        : null,
     }
   }
 
@@ -288,7 +334,7 @@ export class ReaderService {
     }
   }
 
-  #mapBlock(block: SourceBlock): ArticleBlock | undefined {
+  #mapBlock(block: SourceBlock, readerArticleId: string): ArticleBlock | undefined {
     if (block.type === "image" || block.type === "file") {
       const assetId = this.#database.getOrCreateResource(block.sourceAssetId, "asset").readerId
       return block.type === "image"
@@ -305,6 +351,15 @@ export class ReaderService {
         type: "callout",
         content: [...block.content],
         ...(icon ? { icon } : {}),
+        ...(block.color ? { color: block.color } : {}),
+        ...(block.children?.length
+          ? {
+              children: block.children.flatMap((child) => {
+                const mapped = this.#mapBlock(child, readerArticleId)
+                return mapped ? [mapped] : []
+              }),
+            }
+          : {}),
       }
     }
     if (block.type === "bulletedList" || block.type === "numberedList") {
@@ -326,6 +381,35 @@ export class ReaderService {
     }
     if (block.type === "math") {
       return { type: "math", expression: block.expression }
+    }
+    if (block.type === "embeddedDatabase") {
+      return {
+        type: "embeddedDatabase",
+        title: block.title,
+        tables: block.tables.map((table) => {
+          if (table.status === "unavailable") return { ...table }
+          const tableId = this.#embeddedTables.issue({
+            readerArticleId,
+            sourceTableId: table.sourceTableId,
+            columns: table.columns,
+          })
+          const context = embeddedTableCursorContext(readerArticleId, tableId)
+          return {
+            status: "available" as const,
+            tableId,
+            title: table.title,
+            columns: table.columns.map((column) => column.label),
+            rows: table.rows.map((row) => [...row]),
+            nextCursor: table.nextCursor
+              ? this.#cursors.issue(context, {
+                  kind: "embedded-table",
+                  tableId,
+                  sourceCursor: table.nextCursor,
+                })
+              : null,
+          }
+        }),
+      }
     }
     if ("content" in block) {
       return { ...block, content: [...block.content] }

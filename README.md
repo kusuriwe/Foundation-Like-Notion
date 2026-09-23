@@ -8,6 +8,8 @@
 
 個人用の読み取り専用Notion Readerです。ブラウザにはReader固有のAPIだけを公開し、Notion token・object ID・raw responseを渡しません。ホストへのNode.js導入は不要です。
 
+本文は数式、色付き・入れ子のcallout、通常table、記事内で作成した子databaseを表示できます。Relation先ページの絵文字・Notion-hosted画像・カスタム絵文字は記事headerのclass iconとして利用できます。詳しい制約は[設定リファレンス](docs/reader-configuration.md)を参照してください。
+
 ### 目的別の入口
 
 | やりたいこと | 手順 |
@@ -35,6 +37,8 @@ docker compose run --rm app npm run e2e
 ## English
 
 Foundation Like Notion is a personal, read-only Notion reader. The browser uses Reader-owned APIs; it never receives Notion tokens, object IDs, or raw API responses. You do not need Node.js on the host.
+
+Article bodies support equations, colored nested callouts, plain tables, and child databases created inside an article. Emoji, Notion-hosted images, and custom emoji on related pages can serve as class icons in article headers. See the [configuration reference](docs/reader-configuration.md) for limits and security notes.
 
 ### Choose a path
 

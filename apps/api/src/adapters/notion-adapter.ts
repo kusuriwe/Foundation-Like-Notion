@@ -1,5 +1,5 @@
 import { APIErrorCode, Client, ClientErrorCode, isNotionClientError } from "@notionhq/client"
-import type { RichText } from "@foundation-like-notion/contracts"
+import type { CalloutColor, RichText } from "@foundation-like-notion/contracts"
 import type { ContentDatabaseConfig, ReaderConfig } from "../config.js"
 import { ContentAdapterError } from "./content-adapter.js"
 import type {
@@ -8,6 +8,9 @@ import type {
   SourceArticleSummary,
   SourceAsset,
   SourceBlock,
+  SourceEmbeddedColumn,
+  SourceEmbeddedTable,
+  SourceEmbeddedTablePage,
   SourceFilter,
   SourceIcon,
   SourcePage,
@@ -17,6 +20,31 @@ import type {
 } from "./content-adapter.js"
 
 type UnknownRecord = Record<string, unknown>
+
+const EMBEDDED_TABLE_PAGE_SIZE = 50
+const MAX_BLOCK_DEPTH = 5
+const MAX_BLOCKS_PER_ARTICLE = 500
+const CALLOUT_COLORS = new Set<CalloutColor>([
+  "default",
+  "gray",
+  "brown",
+  "orange",
+  "yellow",
+  "green",
+  "blue",
+  "purple",
+  "pink",
+  "red",
+  "gray_background",
+  "brown_background",
+  "orange_background",
+  "yellow_background",
+  "green_background",
+  "blue_background",
+  "purple_background",
+  "pink_background",
+  "red_background",
+])
 
 function notionFailure(error: unknown): ContentAdapterError {
   if (!isNotionClientError(error)) {
@@ -116,17 +144,129 @@ function pageTitle(page: UnknownRecord): string {
   return ""
 }
 
-function pageIcon(page: UnknownRecord): SourceIcon | undefined {
-  const icon = record(page.icon)
+function notionIcon(iconValue: unknown, sourceAssetId: string): SourceIcon | undefined {
+  const icon = record(iconValue)
   if (icon?.type === "emoji") {
     const value = text(icon.emoji)
     return value ? { kind: "emoji", value } : undefined
   }
-  if (icon?.type === "file") {
-    const id = text(page.id)
-    return id ? { kind: "asset", sourceAssetId: `page-icon:${id}` } : undefined
+  if (icon?.type === "file" || icon?.type === "custom_emoji") {
+    return { kind: "asset", sourceAssetId }
   }
   return undefined
+}
+
+function pageIcon(page: UnknownRecord): SourceIcon | undefined {
+  const id = text(page.id)
+  return id ? notionIcon(page.icon, `page-icon:${id}`) : undefined
+}
+
+function iconAssetUrl(iconValue: unknown): string | undefined {
+  const icon = record(iconValue)
+  if (icon?.type === "file") return safeHttpsUrl(record(icon.file)?.url)
+  if (icon?.type === "custom_emoji") return safeHttpsUrl(record(icon.custom_emoji)?.url)
+  return undefined
+}
+
+function calloutColor(value: unknown): CalloutColor | undefined {
+  const candidate = text(value) as CalloutColor | undefined
+  return candidate && CALLOUT_COLORS.has(candidate) ? candidate : undefined
+}
+
+function scalarPropertyText(value: unknown): string | undefined {
+  if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+    return String(value)
+  }
+  const item = record(value)
+  if (!item) return undefined
+  const type = text(item.type)
+  if (type === "string") return text(item.string) ?? ""
+  if (type === "number") return item.number === null ? "" : scalarPropertyText(item.number)
+  if (type === "boolean") return item.boolean === true ? "Yes" : "No"
+  if (type === "date") {
+    const date = record(item.date)
+    const start = text(date?.start) ?? ""
+    const end = text(date?.end)
+    return end ? `${start} – ${end}` : start
+  }
+  if (type === "array" && Array.isArray(item.array)) {
+    return item.array.map(scalarPropertyText).filter(Boolean).join(", ")
+  }
+  return type ? propertyText(item) : undefined
+}
+
+function clipped(value: string, maxLength: number): string {
+  return value.length <= maxLength ? value : value.slice(0, maxLength)
+}
+
+function propertyText(property: UnknownRecord | undefined): string {
+  if (!property) return ""
+  const type = text(property.type)
+  if (!type) return "—"
+  if (type === "title" || type === "rich_text") return plainText(property[type])
+  if (type === "number")
+    return property.number === null ? "" : (scalarPropertyText(property.number) ?? "")
+  if (type === "checkbox") return property.checkbox === true ? "Yes" : "No"
+  if (type === "select" || type === "status") return text(record(property[type])?.name) ?? ""
+  if (type === "multi_select") {
+    return Array.isArray(property.multi_select)
+      ? property.multi_select
+          .map((item) => text(record(item)?.name))
+          .filter(Boolean)
+          .join(", ")
+      : ""
+  }
+  if (type === "date") {
+    const date = record(property.date)
+    const start = text(date?.start) ?? ""
+    const end = text(date?.end)
+    return end ? `${start} – ${end}` : start
+  }
+  if (type === "url" || type === "email" || type === "phone_number") {
+    return text(property[type]) ?? ""
+  }
+  if (type === "created_time" || type === "last_edited_time") return text(property[type]) ?? ""
+  if (type === "created_by" || type === "last_edited_by") {
+    return text(record(property[type])?.name) ?? ""
+  }
+  if (type === "people") {
+    return Array.isArray(property.people)
+      ? property.people
+          .map((item) => text(record(item)?.name))
+          .filter(Boolean)
+          .join(", ")
+      : ""
+  }
+  if (type === "files") {
+    return Array.isArray(property.files)
+      ? property.files
+          .map((item) => text(record(item)?.name))
+          .filter(Boolean)
+          .join(", ")
+      : ""
+  }
+  if (type === "relation") {
+    const count = Array.isArray(property.relation) ? property.relation.length : 0
+    return count === 0 ? "" : `${count} reference${count === 1 ? "" : "s"}`
+  }
+  if (type === "formula") return scalarPropertyText(property.formula) ?? "—"
+  if (type === "rollup") return scalarPropertyText(property.rollup) ?? "—"
+  return "—"
+}
+
+function embeddedRows(
+  values: readonly unknown[],
+  columns: readonly SourceEmbeddedColumn[],
+): readonly (readonly string[])[] {
+  return values.flatMap((value) => {
+    const page = record(value)
+    if (page?.object !== "page") return []
+    return [
+      columns.map((column) =>
+        clipped(propertyText(findProperty(page, column.sourcePropertyId)), 4_000),
+      ),
+    ]
+  })
 }
 
 function buildSorts(database: ContentDatabaseConfig): UnknownRecord[] {
@@ -288,9 +428,16 @@ export class NotionAdapter implements ContentAdapter {
       const page = record(
         await this.#request(() => this.#client.pages.retrieve({ page_id: pageId })),
       )
-      const icon = record(page?.icon)
-      const file = icon?.type === "file" ? record(icon.file) : undefined
-      const url = safeHttpsUrl(file?.url)
+      const url = iconAssetUrl(page?.icon)
+      return url ? { url, kind: "image" } : undefined
+    }
+    if (sourceAssetId.startsWith("block-icon:")) {
+      const blockId = sourceAssetId.slice("block-icon:".length)
+      const block = record(
+        await this.#request(() => this.#client.blocks.retrieve({ block_id: blockId })),
+      )
+      const data = block ? record(block.callout) : undefined
+      const url = iconAssetUrl(data?.icon)
       return url ? { url, kind: "image" } : undefined
     }
     if (!sourceAssetId.startsWith("block:")) {
@@ -312,6 +459,26 @@ export class NotionAdapter implements ContentAdapter {
     }
     const name = type === "file" ? text(data?.name) : undefined
     return { url, kind: type, ...(name ? { name } : {}) }
+  }
+
+  async getEmbeddedTablePage(
+    sourceTableId: string,
+    columns: readonly SourceEmbeddedColumn[],
+    cursor: string | undefined,
+    pageSize: number,
+  ): Promise<SourceEmbeddedTablePage | undefined> {
+    if (pageSize !== EMBEDDED_TABLE_PAGE_SIZE) return undefined
+    const response = await this.#request(() =>
+      this.#client.dataSources.query({
+        data_source_id: sourceTableId,
+        page_size: pageSize,
+        ...(cursor ? { start_cursor: cursor } : {}),
+      }),
+    )
+    return {
+      rows: embeddedRows(response.results, columns),
+      nextCursor: response.next_cursor,
+    }
   }
 
   #summary(page: UnknownRecord, database: ContentDatabaseConfig): SourceArticleSummary {
@@ -454,11 +621,18 @@ export class NotionAdapter implements ContentAdapter {
     return blocks
   }
 
-  async #blocks(pageId: string): Promise<readonly SourceBlock[]> {
+  async #blocks(
+    pageId: string,
+    depth = 0,
+    budget: { count: number } = { count: 0 },
+  ): Promise<readonly SourceBlock[]> {
+    if (depth > MAX_BLOCK_DEPTH) throw new ContentAdapterError("unavailable")
     const source = await this.#children(pageId)
+    budget.count += source.length
+    if (budget.count > MAX_BLOCKS_PER_ARTICLE) throw new ContentAdapterError("unavailable")
     const result: SourceBlock[] = []
     for (const block of source) {
-      const mapped = await this.#block(block)
+      const mapped = await this.#block(block, depth, budget)
       if (!mapped) {
         continue
       }
@@ -475,7 +649,99 @@ export class NotionAdapter implements ContentAdapter {
     return result
   }
 
-  async #block(block: UnknownRecord): Promise<SourceBlock | undefined> {
+  async #embeddedDatabase(databaseId: string, fallbackTitle: string): Promise<SourceBlock> {
+    const safeFallbackTitle = clipped(fallbackTitle, 240)
+    let database: UnknownRecord | undefined
+    try {
+      database = record(
+        await this.#request(() => this.#client.databases.retrieve({ database_id: databaseId })),
+      )
+    } catch {
+      return {
+        type: "embeddedDatabase",
+        title: safeFallbackTitle,
+        tables: [{ status: "unavailable", title: safeFallbackTitle }],
+      }
+    }
+    const sources = Array.isArray(database?.data_sources) ? database.data_sources : []
+    if (sources.length > 20) {
+      return {
+        type: "embeddedDatabase",
+        title: safeFallbackTitle,
+        tables: [{ status: "unavailable", title: safeFallbackTitle }],
+      }
+    }
+    const tables: SourceEmbeddedTable[] = []
+    for (const value of sources) {
+      const source = record(value)
+      const sourceTableId = text(source?.id)
+      const title = clipped(text(source?.name) ?? safeFallbackTitle, 240)
+      if (!sourceTableId) {
+        tables.push({ status: "unavailable", title })
+        continue
+      }
+      try {
+        const schema = record(
+          await this.#request(() =>
+            this.#client.dataSources.retrieve({ data_source_id: sourceTableId }),
+          ),
+        )
+        const properties = record(schema?.properties)
+        const titlePropertyIds = new Set(
+          Object.values(properties ?? {}).flatMap((propertyValue) => {
+            const property = record(propertyValue)
+            const sourcePropertyId = text(property?.id)
+            return property?.type === "title" && sourcePropertyId ? [sourcePropertyId] : []
+          }),
+        )
+        const columns = Object.entries(properties ?? {})
+          .flatMap<SourceEmbeddedColumn>(([label, propertyValue]) => {
+            const property = record(propertyValue)
+            const sourcePropertyId = text(property?.id)
+            return sourcePropertyId ? [{ sourcePropertyId, label: clipped(label, 240) }] : []
+          })
+          .sort((left, right) => {
+            const leftTitle = titlePropertyIds.has(left.sourcePropertyId)
+            const rightTitle = titlePropertyIds.has(right.sourcePropertyId)
+            if (leftTitle && !rightTitle) return -1
+            if (rightTitle && !leftTitle) return 1
+            return left.label.localeCompare(right.label)
+          })
+        if (columns.length > 500) throw new Error("Embedded table has too many columns")
+        const page = await this.getEmbeddedTablePage(
+          sourceTableId,
+          columns,
+          undefined,
+          EMBEDDED_TABLE_PAGE_SIZE,
+        )
+        tables.push(
+          page
+            ? {
+                status: "available",
+                sourceTableId,
+                title,
+                columns,
+                rows: page.rows,
+                nextCursor: page.nextCursor,
+              }
+            : { status: "unavailable", title },
+        )
+      } catch {
+        tables.push({ status: "unavailable", title })
+      }
+    }
+    return {
+      type: "embeddedDatabase",
+      title: safeFallbackTitle,
+      tables: tables.length > 0 ? tables : [{ status: "unavailable", title: safeFallbackTitle }],
+    }
+  }
+
+  async #block(
+    block: UnknownRecord,
+    depth: number,
+    budget: { count: number },
+  ): Promise<SourceBlock | undefined> {
     const type = text(block.type)
     const id = text(block.id)
     if (!type || !id) {
@@ -498,12 +764,17 @@ export class NotionAdapter implements ContentAdapter {
       }
     }
     if (type === "callout") {
-      const iconData = record(data.icon)
-      const icon = iconData?.type === "emoji" ? text(iconData.emoji) : undefined
+      const icon = notionIcon(data.icon, `block-icon:${id}`)
+      const color = calloutColor(data.color)
+      const children = boolean(block.has_children)
+        ? await this.#blocks(id, depth + 1, budget)
+        : undefined
       return {
         type: "callout",
         content: richText(data.rich_text),
-        ...(icon ? { icon: { kind: "emoji", value: icon } } : {}),
+        ...(icon ? { icon } : {}),
+        ...(color ? { color } : {}),
+        ...(children?.length ? { children } : {}),
       }
     }
     if (type === "code") {
@@ -531,6 +802,8 @@ export class NotionAdapter implements ContentAdapter {
     }
     if (type === "table") {
       const children = await this.#children(id)
+      budget.count += children.length
+      if (budget.count > MAX_BLOCKS_PER_ARTICLE) throw new ContentAdapterError("unavailable")
       const rows = children.flatMap((child) => {
         const rowData = child.type === "table_row" ? record(child.table_row) : undefined
         return Array.isArray(rowData?.cells) ? [rowData.cells.map((cell) => richText(cell))] : []
@@ -541,6 +814,9 @@ export class NotionAdapter implements ContentAdapter {
         hasColumnHeader: boolean(data.has_column_header),
         hasRowHeader: boolean(data.has_row_header),
       }
+    }
+    if (type === "child_database") {
+      return this.#embeddedDatabase(id, text(data.title) ?? "Database")
     }
     return undefined
   }

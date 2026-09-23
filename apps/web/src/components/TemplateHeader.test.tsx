@@ -21,7 +21,11 @@ const article: Article = {
     codeName: { type: "string", value: "FLAME TEST" },
     mainClass: {
       type: "reference",
-      value: { readerId: "reference_12345678", title: "CHEMISTRY" },
+      value: {
+        readerId: "reference_12345678",
+        title: "CHEMISTRY",
+        icon: { kind: "emoji", value: "🧪" },
+      },
     },
   },
   blocks: [],
@@ -48,15 +52,17 @@ function renderWithPresentation(templateId: string, presentation: PresentationCo
 
 describe("TemplateHeader", () => {
   it("omits missing optional fields in the Simple template", () => {
-    render(<TemplateHeader article={article} templateId="simple" />)
+    const { container } = render(<TemplateHeader article={article} templateId="simple" />)
     expect(screen.getByText("CHEMISTRY")).toBeInTheDocument()
+    expect(container).toHaveTextContent("🧪")
     expect(screen.queryByText("Sub-class")).not.toBeInTheDocument()
   })
 
   it("renders Compact Emblem without requiring missing fields", () => {
-    render(<TemplateHeader article={article} templateId="compact-emblem" />)
+    const { container } = render(<TemplateHeader article={article} templateId="compact-emblem" />)
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("FLAME TEST")
     expect(screen.getByTestId("compact-emblem-header")).toHaveTextContent("CHEMISTRY")
+    expect(container).toHaveTextContent("🧪")
   })
 
   it("renders the prototype-inspired Cactus Study cells in configured order", () => {
@@ -77,11 +83,12 @@ describe("TemplateHeader", () => {
         },
       },
     })
-    renderWithPresentation("cactus-study", presentation)
+    const { container } = renderWithPresentation("cactus-study", presentation)
     const header = screen.getByTestId("cactus-study-header")
     expect(header).toHaveTextContent("FLAME TEST")
     expect(header).toHaveTextContent("Ⅶ")
     expect(header).toHaveTextContent("CHEMISTRY")
+    expect(container).toHaveTextContent("🧪")
     expect(header).not.toHaveTextContent("Sub-class")
     expect(header.textContent?.indexOf("Main-class")).toBeGreaterThan(
       header.textContent?.indexOf("FLAME TEST") ?? 0,

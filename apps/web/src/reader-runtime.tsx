@@ -26,6 +26,9 @@ const unavailableClient: ReaderClient = {
   getArticle: async () => {
     throw new Error("Reader client is unavailable")
   },
+  getEmbeddedTablePage: async () => {
+    throw new Error("Reader client is unavailable")
+  },
   searchArticles: async () => ({ items: [], nextCursor: null }),
   assetUrl: () => "",
 }

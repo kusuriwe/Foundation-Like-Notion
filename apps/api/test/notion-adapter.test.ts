@@ -239,6 +239,45 @@ describe("NotionAdapter", () => {
     expect(retrievePage).toHaveBeenCalledTimes(2)
   })
 
+  it("maps a relation target custom emoji through the authenticated asset proxy", async () => {
+    const article = page("page-one")
+    article.properties.Category.relation = [{ id: "class-page" }]
+    const classPage = page("class-page", "allowed-relations")
+    classPage.icon = {
+      type: "custom_emoji",
+      custom_emoji: {
+        id: "private-custom-emoji",
+        name: "class-icon",
+        url: "https://example.test/class.png",
+      },
+    } as never
+    const retrievePage = vi.fn(async ({ page_id }: { page_id: string }) =>
+      page_id === "page-one" ? article : classPage,
+    )
+    const client = {
+      dataSources: { query: vi.fn() },
+      pages: { retrieve: retrievePage },
+      blocks: {
+        children: { list: vi.fn().mockResolvedValue({ results: [], next_cursor: null }) },
+        retrieve: vi.fn(),
+      },
+    } as unknown as Client
+    const adapter = new NotionAdapter("unused-test-token", config, client)
+
+    const result = await adapter.getArticle(database, "page-one")
+    expect(result?.properties["relation-id"]).toEqual(
+      expect.objectContaining({
+        value: expect.objectContaining({
+          icon: { kind: "asset", sourceAssetId: "page-icon:class-page" },
+        }),
+      }),
+    )
+    await expect(adapter.getAsset("page-icon:class-page")).resolves.toEqual({
+      url: "https://example.test/class.png",
+      kind: "image",
+    })
+  })
+
   it("reads every page of article blocks", async () => {
     const listChildren = vi
       .fn()
@@ -324,6 +363,170 @@ describe("NotionAdapter", () => {
         { type: "equation", expression: "x^2", text: "x^2" },
       ],
     })
+  })
+
+  it("preserves callout color, nested blocks, and proxied custom emoji icons", async () => {
+    const listChildren = vi.fn(async ({ block_id }: { block_id: string }) => ({
+      results:
+        block_id === "page-one"
+          ? [
+              {
+                id: "callout-one",
+                type: "callout",
+                has_children: true,
+                callout: {
+                  rich_text: [{ plain_text: "Important", href: null, annotations: {} }],
+                  color: "blue_background",
+                  icon: {
+                    type: "custom_emoji",
+                    custom_emoji: { id: "private-emoji", url: "https://example.test/icon.png" },
+                  },
+                },
+              },
+            ]
+          : [
+              {
+                id: "nested-paragraph",
+                type: "paragraph",
+                paragraph: {
+                  rich_text: [{ plain_text: "Nested", href: null, annotations: {} }],
+                },
+              },
+            ],
+      next_cursor: null,
+    }))
+    const client = {
+      dataSources: { query: vi.fn() },
+      databases: { retrieve: vi.fn() },
+      pages: { retrieve: vi.fn().mockResolvedValue(page("page-one")) },
+      blocks: {
+        children: { list: listChildren },
+        retrieve: vi.fn().mockResolvedValue({
+          id: "callout-one",
+          type: "callout",
+          callout: {
+            icon: {
+              type: "custom_emoji",
+              custom_emoji: { url: "https://example.test/icon.png" },
+            },
+          },
+        }),
+      },
+    } as unknown as Client
+    const adapter = new NotionAdapter("unused-test-token", config, client)
+
+    const result = await adapter.getArticle(database, "page-one")
+
+    expect(result?.blocks[0]).toEqual(
+      expect.objectContaining({
+        type: "callout",
+        color: "blue_background",
+        icon: { kind: "asset", sourceAssetId: "block-icon:callout-one" },
+        children: [expect.objectContaining({ type: "paragraph" })],
+      }),
+    )
+    await expect(adapter.getAsset("block-icon:callout-one")).resolves.toEqual({
+      url: "https://example.test/icon.png",
+      kind: "image",
+    })
+  })
+
+  it("renders every child-database property as a safe string table and paginates rows", async () => {
+    const query = vi
+      .fn()
+      .mockResolvedValueOnce({
+        results: [
+          {
+            object: "page",
+            properties: {
+              Name: {
+                id: "title-property",
+                type: "title",
+                title: [{ plain_text: "Trial", href: null, annotations: {} }],
+              },
+              Result: { id: "result-property", type: "number", number: 42 },
+              Relation: {
+                id: "relation-property",
+                type: "relation",
+                relation: [{ id: "private-related-id" }],
+              },
+            },
+          },
+        ],
+        next_cursor: "private-table-cursor",
+      })
+      .mockResolvedValueOnce({ results: [], next_cursor: null })
+    const client = {
+      dataSources: {
+        retrieve: vi.fn().mockResolvedValue({
+          properties: {
+            Result: { id: "result-property", type: "number" },
+            Name: { id: "title-property", type: "title" },
+            Relation: { id: "relation-property", type: "relation" },
+          },
+        }),
+        query,
+      },
+      databases: {
+        retrieve: vi.fn().mockResolvedValue({
+          data_sources: [{ id: "private-child-source", name: "Measurements" }],
+        }),
+      },
+      pages: { retrieve: vi.fn().mockResolvedValue(page("page-one")) },
+      blocks: {
+        children: {
+          list: vi.fn().mockResolvedValue({
+            results: [
+              {
+                id: "private-child-database",
+                type: "child_database",
+                child_database: { title: "Notebook" },
+              },
+            ],
+            next_cursor: null,
+          }),
+        },
+        retrieve: vi.fn(),
+      },
+    } as unknown as Client
+    const adapter = new NotionAdapter("unused-test-token", config, client)
+
+    const article = await adapter.getArticle(database, "page-one")
+    expect(article?.blocks[0]).toEqual({
+      type: "embeddedDatabase",
+      title: "Notebook",
+      tables: [
+        expect.objectContaining({
+          status: "available",
+          sourceTableId: "private-child-source",
+          columns: [
+            { sourcePropertyId: "title-property", label: "Name" },
+            { sourcePropertyId: "relation-property", label: "Relation" },
+            { sourcePropertyId: "result-property", label: "Result" },
+          ],
+          rows: [["Trial", "1 reference", "42"]],
+          nextCursor: "private-table-cursor",
+        }),
+      ],
+    })
+
+    await adapter.getEmbeddedTablePage(
+      "private-child-source",
+      [
+        { sourcePropertyId: "title-property", label: "Name" },
+        { sourcePropertyId: "result-property", label: "Result" },
+      ],
+      "private-table-cursor",
+      50,
+    )
+    expect(query).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        data_source_id: "private-child-source",
+        start_cursor: "private-table-cursor",
+        page_size: 50,
+      }),
+    )
   })
 
   it("maps unexpected upstream failures to the safe unavailable category", async () => {

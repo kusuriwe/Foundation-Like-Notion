@@ -1,4 +1,9 @@
-import type { FilterOperator, ReaderDate, RichText } from "@foundation-like-notion/contracts"
+import type {
+  CalloutColor,
+  FilterOperator,
+  ReaderDate,
+  RichText,
+} from "@foundation-like-notion/contracts"
 import type { ContentDatabaseConfig } from "../config.js"
 
 export type ContentAdapterErrorCategory = "not_found" | "rate_limited" | "timeout" | "unavailable"
@@ -37,6 +42,22 @@ export type SourceValue =
   | Readonly<{ type: "reference"; value: SourceReference }>
   | Readonly<{ type: "reference[]"; value: readonly SourceReference[] }>
 
+export type SourceEmbeddedColumn = Readonly<{
+  sourcePropertyId: string
+  label: string
+}>
+
+export type SourceEmbeddedTable =
+  | Readonly<{
+      status: "available"
+      sourceTableId: string
+      title: string
+      columns: readonly SourceEmbeddedColumn[]
+      rows: readonly (readonly string[])[]
+      nextCursor: string | null
+    }>
+  | Readonly<{ status: "unavailable"; title: string }>
+
 export type SourceBlock =
   | Readonly<{ type: "heading"; level: 1 | 2 | 3; content: readonly RichText[] }>
   | Readonly<{ type: "paragraph"; content: readonly RichText[] }>
@@ -45,7 +66,13 @@ export type SourceBlock =
       items: readonly (readonly RichText[])[]
     }>
   | Readonly<{ type: "quote"; content: readonly RichText[] }>
-  | Readonly<{ type: "callout"; content: readonly RichText[]; icon?: SourceIcon }>
+  | Readonly<{
+      type: "callout"
+      content: readonly RichText[]
+      icon?: SourceIcon
+      color?: CalloutColor
+      children?: readonly SourceBlock[]
+    }>
   | Readonly<{
       type: "code"
       code: string
@@ -62,6 +89,11 @@ export type SourceBlock =
   | Readonly<{ type: "math"; expression: string }>
   | Readonly<{ type: "file"; sourceAssetId: string; name: string }>
   | Readonly<{ type: "link"; url: string; label: string }>
+  | Readonly<{
+      type: "embeddedDatabase"
+      title: string
+      tables: readonly SourceEmbeddedTable[]
+    }>
 
 export type SourceArticleSummary = Readonly<{
   sourceId: string
@@ -114,11 +146,22 @@ export type SourceAsset = Readonly<{
   name?: string
 }>
 
+export type SourceEmbeddedTablePage = Readonly<{
+  rows: readonly (readonly string[])[]
+  nextCursor: string | null
+}>
+
 export interface ContentAdapter {
   listArticles(database: ContentDatabaseConfig, query: SourceQuery): Promise<SourcePage>
   getArticle(
     database: ContentDatabaseConfig,
     sourcePageId: string,
   ): Promise<SourceArticle | undefined>
+  getEmbeddedTablePage(
+    sourceTableId: string,
+    columns: readonly SourceEmbeddedColumn[],
+    cursor: string | undefined,
+    pageSize: number,
+  ): Promise<SourceEmbeddedTablePage | undefined>
   getAsset(sourceAssetId: string): Promise<SourceAsset | undefined>
 }

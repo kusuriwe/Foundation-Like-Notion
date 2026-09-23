@@ -2,6 +2,7 @@ import type {
   Article,
   ArticlePage,
   DatabaseSummary,
+  EmbeddedTablePage,
   PresentationConfig,
   SearchRequest,
 } from "@foundation-like-notion/contracts"
@@ -15,6 +16,11 @@ export type ReaderClient = Readonly<{
   getDatabases(): Promise<DatabaseSummary[]>
   getArticles(databaseId: string, cursor?: string): Promise<ArticlePage>
   getArticle(articleId: string): Promise<Article>
+  getEmbeddedTablePage(
+    articleId: string,
+    tableId: string,
+    cursor: string,
+  ): Promise<EmbeddedTablePage>
   searchArticles(value: SearchRequest): Promise<ArticlePage>
   assetUrl(assetId: string): string
 }>

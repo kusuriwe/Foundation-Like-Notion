@@ -48,6 +48,8 @@ export const defaultPresentationValue = {
     backLibrary: "← Library",
     loadMore: "Load more",
     loading: "Loading…",
+    embeddedTableUnavailable: "This table is unavailable.",
+    embeddedTableReload: "Reload the article to continue this table.",
     emptyLibrary: "記事がありません。",
     searchEyebrow: "Registered databases only",
     searchTitle: "Title & property search",

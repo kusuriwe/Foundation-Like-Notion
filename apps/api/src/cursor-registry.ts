@@ -6,6 +6,7 @@ const DEFAULT_MAX_ENTRIES = 1_024
 export type ReaderCursorState =
   | Readonly<{ kind: "article-list"; sourceCursor: string }>
   | Readonly<{ kind: "search"; databaseIndex: number; sourceCursor?: string }>
+  | Readonly<{ kind: "embedded-table"; tableId: string; sourceCursor: string }>
 
 type CursorEntry = Readonly<{
   contextHash: string

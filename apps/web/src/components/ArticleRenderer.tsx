@@ -1,15 +1,82 @@
-import type { ArticleBlock } from "@foundation-like-notion/contracts"
-import { createElement } from "react"
+import type { ArticleBlock, EmbeddedTable } from "@foundation-like-notion/contracts"
+import { createElement, useState } from "react"
 import { useReaderRuntime } from "../reader-runtime.js"
 import { MathExpression } from "./MathExpression.js"
+import { ReaderIcon } from "./ReaderIcon.js"
 import { RichText } from "./RichText.js"
+
+function EmbeddedTableView({ table, articleId }: { table: EmbeddedTable; articleId: string }) {
+  const { client, presentation } = useReaderRuntime()
+  const [rows, setRows] = useState(table.status === "available" ? table.rows : [])
+  const [cursor, setCursor] = useState(table.status === "available" ? table.nextCursor : null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  if (table.status === "unavailable") {
+    return (
+      <section className="embedded-table-unavailable">
+        <h4>{table.title}</h4>
+        <p>{presentation.messages.embeddedTableUnavailable}</p>
+      </section>
+    )
+  }
+  const loadMore = async () => {
+    if (!cursor || loading) return
+    setLoading(true)
+    setError(false)
+    try {
+      const page = await client.getEmbeddedTablePage(articleId, table.tableId, cursor)
+      setRows((current) => [...current, ...page.rows])
+      setCursor(page.nextCursor)
+    } catch {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
+  }
+  return (
+    <section className="embedded-table">
+      <h4>{table.title}</h4>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              {table.columns.map((column, index) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: Columns are immutable and ordered.
+                <th key={index}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, rowIndex) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: Rows are immutable and have no client state.
+              <tr key={rowIndex}>
+                {table.columns.map((_, cellIndex) => (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: Cells are immutable and ordered.
+                  <td key={cellIndex}>{row[cellIndex] ?? ""}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {cursor && (
+        <button className="secondary-button embedded-table-more" type="button" onClick={loadMore}>
+          {loading ? presentation.messages.loading : presentation.messages.loadMore}
+        </button>
+      )}
+      {error && <p className="error-message">{presentation.messages.embeddedTableReload}</p>}
+    </section>
+  )
+}
 
 function Block({
   block,
   assetUrl,
+  articleId,
 }: {
   block: ArticleBlock
   assetUrl: (assetId: string) => string
+  articleId: string
 }) {
   if (block.type === "heading") {
     return createElement(`h${block.level}`, {}, <RichText value={block.content} />)
@@ -28,11 +95,18 @@ function Block({
     )
   if (block.type === "callout") {
     return (
-      <aside className="callout">
-        <span>{block.icon?.kind === "emoji" ? block.icon.value : ""}</span>
-        <p>
-          <RichText value={block.content} />
-        </p>
+      <aside className={`callout callout-${block.color ?? "default"}`}>
+        <span className="callout-icon">
+          <ReaderIcon icon={block.icon} />
+        </span>
+        <div className="callout-content">
+          <p>
+            <RichText value={block.content} />
+          </p>
+          {block.children && (
+            <BlockList blocks={block.children} assetUrl={assetUrl} articleId={articleId} />
+          )}
+        </div>
       </aside>
     )
   }
@@ -119,19 +193,48 @@ function Block({
         </a>
       </p>
     )
+  if (block.type === "embeddedDatabase") {
+    return (
+      <section className="embedded-database">
+        <h3>{block.title}</h3>
+        {block.tables.map((table, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: Data sources are immutable and ordered.
+          <EmbeddedTableView key={index} table={table} articleId={articleId} />
+        ))}
+      </section>
+    )
+  }
   return null
 }
 
+function BlockList({
+  blocks,
+  assetUrl,
+  articleId,
+}: {
+  blocks: readonly ArticleBlock[]
+  assetUrl: (assetId: string) => string
+  articleId: string
+}) {
+  return blocks.map((block, index) => (
+    // biome-ignore lint/suspicious/noArrayIndexKey: Reader blocks are immutable and have no local component state.
+    <Block key={index} block={block} assetUrl={assetUrl} articleId={articleId} />
+  ))
+}
+
 /** Render safe structured article blocks. / 安全な構造化 article block を描画します。 */
-export function ArticleRenderer({ blocks }: { blocks: readonly ArticleBlock[] }) {
+export function ArticleRenderer({
+  blocks,
+  articleId = "",
+}: {
+  blocks: readonly ArticleBlock[]
+  articleId?: string
+}) {
   const runtime = useReaderRuntime()
   const assetUrl = runtime.client.assetUrl
   return (
     <div className="article-body">
-      {blocks.map((block, index) => (
-        // biome-ignore lint/suspicious/noArrayIndexKey: Reader blocks are immutable and have no local component state.
-        <Block key={index} block={block} assetUrl={assetUrl} />
-      ))}
+      <BlockList blocks={blocks} assetUrl={assetUrl} articleId={articleId} />
     </div>
   )
 }

@@ -2,11 +2,13 @@ import {
   ArticlePageSchema,
   ArticleSchema,
   DatabaseSummarySchema,
+  EmbeddedTablePageSchema,
   PresentationResponseSchema,
   SessionResponseSchema,
   type Article,
   type ArticlePage,
   type DatabaseSummary,
+  type EmbeddedTablePage,
   type PresentationConfig,
   type SearchRequest,
 } from "@foundation-like-notion/contracts"
@@ -122,6 +124,19 @@ export function getArticle(articleId: string): Promise<Article> {
   return request(`/api/articles/${encodeURIComponent(articleId)}`, ArticleSchema)
 }
 
+/** Load the next page of one article-owned embedded table. / 記事内表の次ページを取得します。 */
+export function getEmbeddedTablePage(
+  articleId: string,
+  tableId: string,
+  cursor: string,
+): Promise<EmbeddedTablePage> {
+  const query = new URLSearchParams({ cursor })
+  return request(
+    `/api/articles/${encodeURIComponent(articleId)}/embedded-tables/${encodeURIComponent(tableId)}?${query}`,
+    EmbeddedTablePageSchema,
+  )
+}
+
 /** Run a typed, allowlisted Reader search. / 型付き allowlist Reader search を実行します。 */
 export function searchArticles(value: SearchRequest): Promise<ArticlePage> {
   return request("/api/search", ArticlePageSchema, {
@@ -138,6 +153,7 @@ export const httpReaderClient: ReaderClient = {
   getDatabases,
   getArticles,
   getArticle,
+  getEmbeddedTablePage,
   searchArticles,
   assetUrl: (assetId) => `/api/assets/${encodeURIComponent(assetId)}`,
 }

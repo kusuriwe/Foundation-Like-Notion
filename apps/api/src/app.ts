@@ -4,6 +4,7 @@ import cookie from "@fastify/cookie"
 import rateLimit from "@fastify/rate-limit"
 import staticFiles from "@fastify/static"
 import {
+  ReaderEmbeddedTableIdSchema,
   ReaderCursorSchema,
   SearchRequestSchema,
   SessionRequestSchema,
@@ -21,6 +22,7 @@ import type { RuntimeConfig } from "./config.js"
 import type { CursorRegistry } from "./cursor-registry.js"
 import { ReaderDatabase } from "./database.js"
 import { MappingError } from "./domain/property-resolver.js"
+import type { EmbeddedTableRegistry } from "./embedded-table-registry.js"
 import { ReaderNotFoundError, ReaderRequestError, ReaderService } from "./reader-service.js"
 import { SessionService, sessionLifetimeSeconds } from "./session-service.js"
 
@@ -33,6 +35,7 @@ type BuildAppOptions = Readonly<{
   runtime: RuntimeConfig
   adapter: ContentAdapter
   cursorRegistry?: CursorRegistry
+  embeddedTableRegistry?: EmbeddedTableRegistry
   logger?: boolean
 }>
 
@@ -112,6 +115,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     database,
     options.adapter,
     options.cursorRegistry,
+    options.embeddedTableRegistry,
   )
   const cookiePolicy = sessionCookiePolicy(options.runtime.environment)
   const cookieName = cookiePolicy.name
@@ -242,6 +246,15 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     if (!(await requireSession(request, reply))) return
     const params = z.object({ readerArticleId: z.string() }).parse(request.params)
     return reader.getArticle(params.readerArticleId)
+  })
+
+  app.get("/api/articles/:readerArticleId/embedded-tables/:tableId", async (request, reply) => {
+    if (!(await requireSession(request, reply))) return
+    const params = z
+      .object({ readerArticleId: z.string(), tableId: ReaderEmbeddedTableIdSchema })
+      .parse(request.params)
+    const query = z.object({ cursor: ReaderCursorSchema }).parse(request.query)
+    return reader.getEmbeddedTablePage(params.readerArticleId, params.tableId, query.cursor)
   })
 
   app.post("/api/search", async (request, reply) => {

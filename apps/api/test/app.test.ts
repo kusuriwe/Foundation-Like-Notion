@@ -55,6 +55,12 @@ describe("Reader API", () => {
     const response = await app.inject({ method: "GET", url: "/api/databases" })
     expect(response.statusCode).toBe(401)
     expect(response.headers["cache-control"]).toBe("no-store")
+    const embedded = await app.inject({
+      method: "GET",
+      url: `/api/articles/art_unknown/embedded-tables/tbl_${"a".repeat(43)}?cursor=cur_${"b".repeat(43)}`,
+    })
+    expect(embedded.statusCode).toBe(401)
+    expect(embedded.headers["cache-control"]).toBe("no-store")
   })
 
   it("serves only resolved public presentation and a matching manifest without authentication", async () => {

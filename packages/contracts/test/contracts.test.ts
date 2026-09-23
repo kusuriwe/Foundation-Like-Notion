@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest"
 import {
+  ArticleBlockSchema,
   DemoDatasetSchema,
   DemoManifestSchema,
   PresentationInputSchema,
@@ -98,6 +99,49 @@ describe("Reader contracts", () => {
     expect(
       RichTextTextSchema.parse({ type: "equation", expression: "E=mc^2", text: "E=mc^2" }),
     ).toEqual({ text: "E=mc^2" })
+  })
+
+  it("validates recursive callouts and Reader-owned embedded tables", () => {
+    expect(
+      ArticleBlockSchema.parse({
+        type: "callout",
+        color: "green_background",
+        content: [{ text: "Parent" }],
+        children: [{ type: "paragraph", content: [{ text: "Child" }] }],
+      }),
+    ).toBeDefined()
+    expect(
+      ArticleBlockSchema.parse({
+        type: "embeddedDatabase",
+        title: "Observations",
+        tables: [
+          {
+            status: "available",
+            tableId: `tbl_${"a".repeat(43)}`,
+            title: "Rows",
+            columns: ["Name"],
+            rows: [["Sample"]],
+            nextCursor: null,
+          },
+        ],
+      }),
+    ).toBeDefined()
+    expect(() =>
+      ArticleBlockSchema.parse({
+        type: "embeddedDatabase",
+        title: "Private",
+        tables: [
+          {
+            status: "available",
+            tableId: "notion-database-id",
+            title: "Rows",
+            columns: [],
+            rows: [],
+            nextCursor: null,
+          },
+        ],
+      }),
+    ).toThrow()
   })
 
   it("requires operator-specific filter values", () => {

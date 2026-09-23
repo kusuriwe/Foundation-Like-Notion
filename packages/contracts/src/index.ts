@@ -99,6 +99,8 @@ const defaultMessages = {
   backLibrary: "← Library",
   loadMore: "Load more",
   loading: "Loading…",
+  embeddedTableUnavailable: "This table is unavailable.",
+  embeddedTableReload: "Reload the article to continue this table.",
   emptyLibrary: "記事がありません。",
   searchEyebrow: "Registered databases only",
   searchTitle: "Title & property search",
@@ -283,6 +285,12 @@ export const ReaderIdSchema = z.string().min(8).max(128)
 
 export const ReaderCursorSchema = z.string().regex(/^cur_[A-Za-z0-9_-]{43}$/)
 
+export const ReaderEmbeddedTableIdSchema = z.string().regex(/^tbl_[A-Za-z0-9_-]{43}$/)
+export const EmbeddedTableIdSchema = z.union([
+  ReaderEmbeddedTableIdSchema,
+  z.string().regex(/^demo_[a-z0-9_-]{3,120}$/),
+])
+
 export const ReaderIconSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("emoji"), value: z.string().min(1).max(16) }),
   z.object({ kind: z.literal("asset"), assetId: ReaderIdSchema }),
@@ -337,50 +345,130 @@ export const RichTextSchema = z.union([RichTextEquationSchema, RichTextTextSchem
 
 const TextBlockSchema = z.object({ content: z.array(RichTextSchema) })
 
-export const ArticleBlockSchema = z.discriminatedUnion("type", [
-  TextBlockSchema.extend({
-    type: z.literal("heading"),
-    level: z.union([z.literal(1), z.literal(2), z.literal(3)]),
-  }),
-  TextBlockSchema.extend({ type: z.literal("paragraph") }),
+export const CalloutColorSchema = z.enum([
+  "default",
+  "gray",
+  "brown",
+  "orange",
+  "yellow",
+  "green",
+  "blue",
+  "purple",
+  "pink",
+  "red",
+  "gray_background",
+  "brown_background",
+  "orange_background",
+  "yellow_background",
+  "green_background",
+  "blue_background",
+  "purple_background",
+  "pink_background",
+  "red_background",
+])
+
+export const EmbeddedTableSchema = z.discriminatedUnion("status", [
   z.object({
-    type: z.union([z.literal("bulletedList"), z.literal("numberedList")]),
-    items: z.array(z.array(RichTextSchema)),
-  }),
-  TextBlockSchema.extend({ type: z.literal("quote") }),
-  TextBlockSchema.extend({
-    type: z.literal("callout"),
-    icon: ReaderIconSchema.optional(),
-  }),
-  z.object({
-    type: z.literal("code"),
-    code: z.string(),
-    language: z.string().optional(),
-    caption: z.array(RichTextSchema).default([]),
-  }),
-  z.object({
-    type: z.literal("table"),
-    rows: z.array(z.array(z.array(RichTextSchema))),
-    hasColumnHeader: z.boolean(),
-    hasRowHeader: z.boolean(),
-  }),
-  z.object({
-    type: z.literal("image"),
-    assetId: ReaderIdSchema,
-    caption: z.array(RichTextSchema).default([]),
-  }),
-  z.object({ type: z.literal("math"), expression: z.string() }),
-  z.object({
-    type: z.literal("file"),
-    assetId: ReaderIdSchema,
-    name: z.string(),
+    status: z.literal("available"),
+    tableId: EmbeddedTableIdSchema,
+    title: z.string().max(240),
+    columns: z.array(z.string().max(240)).max(500),
+    rows: z.array(z.array(z.string().max(4_000)).max(500)).max(500),
+    nextCursor: ReaderCursorSchema.nullable(),
   }),
   z.object({
-    type: z.literal("link"),
-    url: z.url(),
-    label: z.string(),
+    status: z.literal("unavailable"),
+    title: z.string().max(240),
   }),
 ])
+
+type RichTextValue = z.infer<typeof RichTextSchema>
+type ReaderIconValue = z.infer<typeof ReaderIconSchema>
+export type EmbeddedTable = z.infer<typeof EmbeddedTableSchema>
+
+export type ArticleBlock =
+  | { type: "heading"; level: 1 | 2 | 3; content: RichTextValue[] }
+  | { type: "paragraph"; content: RichTextValue[] }
+  | { type: "bulletedList" | "numberedList"; items: RichTextValue[][] }
+  | { type: "quote"; content: RichTextValue[] }
+  | {
+      type: "callout"
+      content: RichTextValue[]
+      icon?: ReaderIconValue
+      color?: z.infer<typeof CalloutColorSchema>
+      children?: ArticleBlock[]
+    }
+  | { type: "code"; code: string; language?: string; caption: RichTextValue[] }
+  | {
+      type: "table"
+      rows: RichTextValue[][][]
+      hasColumnHeader: boolean
+      hasRowHeader: boolean
+    }
+  | { type: "image"; assetId: string; caption: RichTextValue[] }
+  | { type: "math"; expression: string }
+  | { type: "file"; assetId: string; name: string }
+  | { type: "link"; url: string; label: string }
+  | { type: "embeddedDatabase"; title: string; tables: EmbeddedTable[] }
+
+export const ArticleBlockSchema = z.lazy(() =>
+  z.discriminatedUnion("type", [
+    TextBlockSchema.extend({
+      type: z.literal("heading"),
+      level: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+    }),
+    TextBlockSchema.extend({ type: z.literal("paragraph") }),
+    z.object({
+      type: z.union([z.literal("bulletedList"), z.literal("numberedList")]),
+      items: z.array(z.array(RichTextSchema)),
+    }),
+    TextBlockSchema.extend({ type: z.literal("quote") }),
+    TextBlockSchema.extend({
+      type: z.literal("callout"),
+      icon: ReaderIconSchema.optional(),
+      color: CalloutColorSchema.optional(),
+      children: z.array(ArticleBlockSchema).optional(),
+    }),
+    z.object({
+      type: z.literal("code"),
+      code: z.string(),
+      language: z.string().optional(),
+      caption: z.array(RichTextSchema).default([]),
+    }),
+    z.object({
+      type: z.literal("table"),
+      rows: z.array(z.array(z.array(RichTextSchema))),
+      hasColumnHeader: z.boolean(),
+      hasRowHeader: z.boolean(),
+    }),
+    z.object({
+      type: z.literal("image"),
+      assetId: ReaderIdSchema,
+      caption: z.array(RichTextSchema).default([]),
+    }),
+    z.object({ type: z.literal("math"), expression: z.string() }),
+    z.object({
+      type: z.literal("file"),
+      assetId: ReaderIdSchema,
+      name: z.string(),
+    }),
+    z.object({
+      type: z.literal("link"),
+      url: z.url(),
+      label: z.string(),
+    }),
+    z.object({
+      type: z.literal("embeddedDatabase"),
+      title: z.string().max(240),
+      tables: z.array(EmbeddedTableSchema).max(20),
+    }),
+  ]),
+) as unknown as z.ZodType<ArticleBlock>
+
+export const EmbeddedTablePageSchema = z.object({
+  rows: z.array(z.array(z.string().max(4_000)).max(500)).max(50),
+  nextCursor: ReaderCursorSchema.nullable(),
+})
 
 export const DatabaseSummarySchema = z.object({
   id: ReaderIdSchema,
@@ -555,6 +643,43 @@ export const DemoDatasetSchema = z
         context.addIssue({ code: "custom", path, message: "Demo icon asset mapping is missing" })
       }
     }
+    const validateBlocks = (blocks: readonly ArticleBlock[], path: (string | number)[]) => {
+      for (const [blockIndex, block] of blocks.entries()) {
+        const blockPath = [...path, blockIndex]
+        if ((block.type === "image" || block.type === "file") && !value.assets[block.assetId]) {
+          context.addIssue({
+            code: "custom",
+            path: blockPath,
+            message: "Demo asset mapping is missing",
+          })
+        }
+        if (block.type === "callout") {
+          validateAssetIcon(block.icon, [...blockPath, "icon"])
+          if (block.children) validateBlocks(block.children, [...blockPath, "children"])
+        }
+        if (block.type === "embeddedDatabase") {
+          for (const [tableIndex, table] of block.tables.entries()) {
+            if (table.status === "available" && !table.tableId.startsWith("demo_")) {
+              context.addIssue({
+                code: "custom",
+                path: [...blockPath, "tables", tableIndex, "tableId"],
+                message: "Demo embedded table ID must use the demo_ prefix",
+              })
+            }
+            if (
+              table.status === "available" &&
+              table.rows.some((row) => row.length !== table.columns.length)
+            ) {
+              context.addIssue({
+                code: "custom",
+                path: [...blockPath, "tables", tableIndex, "rows"],
+                message: "Demo embedded table rows must match the column count",
+              })
+            }
+          }
+        }
+      }
+    }
     for (const [index, article] of value.articles.entries()) {
       if (articleIds.has(article.id)) {
         context.addIssue({
@@ -614,18 +739,7 @@ export const DemoDatasetSchema = z
           })
         }
       }
-      for (const block of article.blocks) {
-        if ((block.type === "image" || block.type === "file") && !value.assets[block.assetId]) {
-          context.addIssue({
-            code: "custom",
-            path: ["articles", index, "blocks"],
-            message: "Demo asset mapping is missing",
-          })
-        }
-        if (block.type === "callout") {
-          validateAssetIcon(block.icon, ["articles", index, "blocks"])
-        }
-      }
+      validateBlocks(article.blocks, ["articles", index, "blocks"])
     }
   })
 
@@ -638,16 +752,17 @@ export const ApiErrorSchema = z.object({
 })
 
 export type ReaderIcon = z.infer<typeof ReaderIconSchema>
+export type CalloutColor = z.infer<typeof CalloutColorSchema>
 export type ReaderCursor = z.infer<typeof ReaderCursorSchema>
 export type Reference = z.infer<typeof ReferenceSchema>
 export type ReaderDate = z.infer<typeof ReaderDateSchema>
 export type ReaderValue = z.infer<typeof ReaderValueSchema>
 export type RichText = z.infer<typeof RichTextSchema>
-export type ArticleBlock = z.infer<typeof ArticleBlockSchema>
 export type DatabaseSummary = z.infer<typeof DatabaseSummarySchema>
 export type ArticleSummary = z.infer<typeof ArticleSummarySchema>
 export type Article = z.infer<typeof ArticleSchema>
 export type ArticlePage = z.infer<typeof ArticlePageSchema>
+export type EmbeddedTablePage = z.infer<typeof EmbeddedTablePageSchema>
 export type FilterOperator = z.infer<typeof FilterOperatorSchema>
 export type SearchFilter = z.infer<typeof SearchFilterSchema>
 export type SearchRequest = z.infer<typeof SearchRequestSchema>

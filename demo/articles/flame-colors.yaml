@@ -40,8 +40,12 @@ blocks:
     level: 2
     content: [{ text: 観察メモ }]
   - type: callout
+    color: blue_background
     icon: { kind: emoji, value: "💡" }
     content: [{ text: これは公開デモ用に作成した架空の観察記録です。 }]
+    children:
+      - type: paragraph
+        content: [{ text: Nested callout content is rendered with the safe block renderer. }]
   - type: table
     hasColumnHeader: true
     hasRowHeader: false
@@ -49,6 +53,18 @@ blocks:
       - [[{ text: Sample }], [{ text: Color }]]
       - [[{ text: A }], [{ text: Yellow }]]
       - [[{ text: B }], [{ text: Violet }]]
+  - type: embeddedDatabase
+    title: Demo observations
+    tables:
+      - status: available
+        tableId: demo_observation_table
+        title: Observation log
+        columns: [Sample, Result, Recorded]
+        rows:
+          - [Sample A, Yellow emission, "2026-09-01"]
+          - [Sample B, Violet emission, "2026-09-02"]
+          - [Sample C, No emission, "2026-09-03"]
+        nextCursor: null
   - type: image
     assetId: demo_asset_spectrum
     caption: [{ text: ダミーの発光スペクトル図 }]
