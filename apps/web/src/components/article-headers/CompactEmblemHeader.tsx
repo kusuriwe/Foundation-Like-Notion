@@ -1,6 +1,6 @@
 import type { ArticleHeader } from "@foundation-like-notion/contracts"
 import { ReaderIcon as Icon } from "../ReaderIcon.js"
-import { HeaderField, HeaderTitle, displayValue, valueIcon } from "./shared.js"
+import { HeaderField, HeaderTitle, displayValue } from "./shared.js"
 import styles from "./headers.module.css"
 import type { HeaderRendererProps } from "./types.js"
 
@@ -9,9 +9,8 @@ type CompactDefinition = Extract<ArticleHeader, { renderer: "compact-emblem" }>
 /** Render the configurable compact-emblem article header. / 設定可能なcompact-emblem記事headerを描画します。 */
 export function CompactEmblemHeader({ article, definition }: HeaderRendererProps) {
   const config = definition as CompactDefinition
-  const emblemValue = article.variables[config.emblemVariable]
   const headline = displayValue(article.variables[config.headlineVariable])
-  const icon = article.icon ?? valueIcon(emblemValue)
+  const icon = article.icon
   return (
     <header
       className={`${styles.header} ${styles.emblem}`}

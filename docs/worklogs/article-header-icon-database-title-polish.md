@@ -2,7 +2,7 @@
 
 ## Status
 
-Implemented and verified / 実装・検証完了。
+Completed; native Notion icon follow-up awaits authorization / 基本修正完了・Notion標準icon対応は承認待ち。
 
 ## Goal
 
@@ -11,7 +11,7 @@ Implemented and verified / 実装・検証完了。
 ## Decisions
 
 - 子データベース全体のtitleは常に一度表示する。Data Source個別titleは複数Data Sourceがある場合だけ表示する。
-- Compact Emblemは記事iconを優先し、未設定時だけ従来の`emblemVariable`由来iconへフォールバックする。
+- Compact Emblemは記事iconを優先し、未設定時はclass iconではなく空の標準マークへフォールバックする。
 - Cactus Studyの右端sealは記事iconを優先し、未設定時だけ`seriesMark`へフォールバックする。上段のseries textと各class field iconは変更しない。
 
 ## Evidence
@@ -39,3 +39,9 @@ Implemented and verified / 実装・検証完了。
 ## Limitations
 
 - 実Notion記事の見た目は自動操作していない。production containerは最終imageで起動中のため、既存記事での短いvisual smokeはユーザーがそのまま実施できる。
+
+## Follow-up diagnosis
+
+- ユーザーのvisual smokeで記事iconが表示されなかったため、値・ID・本文を出さず実Notionのicon type件数だけをread-only診断した。対象Data SourcesにはNotion標準iconの`type: "icon"`が1件、iconなしが10件あり、既存adapterが標準iconを未対応として省略していたことを確認した。
+- API `2026-03-11`の標準iconは画像URLではなくnameとcolorを返す。正確な図柄を表示するにはNotion asset endpointへそのname/colorを送ってSVGを取得し、認証済みReader asset proxyで配信する追加境界が必要になる。外部送信のユーザー承認を得てから実装する。
+- 追加要望に合わせ、Compact Emblemは記事iconがない場合にclass iconを流用せず空の標準マークを表示するよう変更した。Web component tests 17件がpassした。

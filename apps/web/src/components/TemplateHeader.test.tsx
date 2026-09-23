@@ -68,6 +68,18 @@ describe("TemplateHeader", () => {
     expect(container).toHaveTextContent("🧪")
   })
 
+  it("uses the empty emblem instead of a class icon when the article has no icon", () => {
+    const withoutIcon = { ...article }
+    delete withoutIcon.icon
+    const { container } = render(
+      <TemplateHeader article={withoutIcon} templateId="compact-emblem" />,
+    )
+    const emblem = container.querySelector('[data-testid="compact-emblem-icon"]')
+    expect(emblem).toHaveTextContent("◐")
+    expect(emblem).not.toHaveTextContent("🧪")
+    expect(container).toHaveTextContent("🧪")
+  })
+
   it("renders the prototype-inspired Cactus Study cells in configured order", () => {
     const presentation = PresentationInputSchema.parse({
       articleHeaders: {
