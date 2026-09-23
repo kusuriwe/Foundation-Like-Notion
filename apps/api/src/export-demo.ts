@@ -10,7 +10,7 @@ import {
   validateDemoCandidatePrivacy,
   writeDemoCandidate,
 } from "./demo-export-files.js"
-import { DemoExportError, exportDemoDataset } from "./demo-exporter.js"
+import { DemoExportError, demoExportFailure, exportDemoDataset } from "./demo-exporter.js"
 import { ReaderDatabase } from "./database.js"
 import { resolvePropertyNamesAtStartup } from "./property-name-resolver.js"
 import { ReaderService } from "./reader-service.js"
@@ -113,10 +113,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((error: unknown) => {
-  const failure =
-    error instanceof DemoExportError
-      ? { ok: false, category: error.category, ...(error.path ? { path: error.path } : {}) }
-      : { ok: false, category: "export_failed" }
-  process.stderr.write(`${JSON.stringify(failure)}\n`)
+  process.stderr.write(`${JSON.stringify(demoExportFailure(error))}\n`)
   process.exitCode = 1
 })

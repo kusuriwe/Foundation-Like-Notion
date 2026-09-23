@@ -26,9 +26,9 @@ Create a local, read-only export path that turns the current ignored Notion conf
 
 - Live read-only export: passed with 2 databases, 22 articles, 15 assets, and 1,014,274 output bytes. No Notion write operation or operational Reader database was used.
 - Determinism check: a second candidate export matched `demo/published/` exactly with `diff -qr` and exit code 0.
-- Focused exporter tests: 6 passed, covering stable ID rewriting, pagination, embedded tables, private-value rejection, SVG rasterization, rollback-safe apply, schema round-trip, and observed identifier tracking.
+- Focused exporter tests: 11 passed. They cover multi-page article enumeration, stable ID rewriting, embedded-table pagination and row limits, article/asset/byte limits, private-value rejection, SVG rasterization, pre-validation and post-backup rollback, schema round-trip, redacted CLI diagnostics, and observed identifier tracking.
 - `docker compose config --quiet`: passed.
-- `npm run check`: passed; 106 tests passed across API, web, and contracts, and all production builds completed.
+- `npm run check`: passed after review remediation; 111 tests passed across API, web, and contracts, and all production builds completed.
 - Normal E2E: passed in Chromium and WebKit (2 passed).
 - Demo E2E: Chromium online/offline and WebKit mobile passed (3 passed); WebKit offline remains intentionally skipped by the existing test matrix.
 - `npm run demo:build`, `npm run demo:verify`, and `npm run pages:verify`: passed. Source and built bundle scans found no forbidden API marker, source-shaped Notion ID, signed URL, ignored local value, or secret marker.
@@ -40,6 +40,8 @@ Create a local, read-only export path that turns the current ignored Notion conf
 
 The tracked snapshot is intentionally public and offline-cacheable. Source credentials, internal Notion identifiers, signed URLs, and ignored mapping configuration remain local. Removing content from Notion later does not remove it from Git history or an already published Pages artifact, so future exports require a rights and scope review before `--apply`.
 
+The first independent review did not approve archival because the tests did not yet demonstrate multi-page article enumeration, every configured limit, recovery after a post-backup replacement failure, or CLI redaction. The implementation now includes those cases, and the worklog no longer relies on the earlier six-test description.
+
 ## Next step
 
-Create local implementation and evidence commits on `main`, then request an independent final review. Archive the active plan only if that reviewer finds no blocking issue. A human may then fast-forward and push `release`.
+Commit the independent-review remediation on `main`, then request re-review. Archive the active plan only if that reviewer finds no remaining blocking issue. A human may then fast-forward and push `release`.

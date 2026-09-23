@@ -152,6 +152,12 @@ async function rewriteBlocks(
           continue
         }
         const rows = table.rows.map((row) => [...row])
+        if (rows.length > DEMO_EXPORT_LIMITS.embeddedTableRows) {
+          throw new DemoExportError(
+            "embedded_table_limit_exceeded",
+            `articles[].blocks[${blockPath.join(".")}].tables[${tableIndex}]`,
+          )
+        }
         let cursor = table.nextCursor
         while (cursor) {
           const page = await reader.getEmbeddedTablePage(readerArticleId, table.tableId, cursor)
@@ -302,3 +308,20 @@ export async function exportDemoDataset(
 }
 
 export const demoPublicId = publicId
+
+/**
+ * Convert an export failure into a secret-free CLI response.
+ * export失敗を秘密値を含まないCLI応答へ変換します。
+ *
+ * Args:
+ *   error: An expected or unexpected export failure.
+ *
+ * Returns:
+ *   A failure envelope containing only an allowlisted category.
+ */
+export function demoExportFailure(error: unknown): Readonly<{ ok: false; category: string }> {
+  return {
+    ok: false,
+    category: error instanceof DemoExportError ? error.category : "export_failed",
+  }
+}

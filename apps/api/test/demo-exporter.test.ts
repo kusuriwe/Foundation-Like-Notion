@@ -1,4 +1,4 @@
-import { mkdtemp, mkdir, readFile, writeFile } from "node:fs/promises"
+import { cp, mkdtemp, mkdir, readFile, rename, rm, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { defaultPresentation, type Article } from "@foundation-like-notion/contracts"
@@ -12,7 +12,13 @@ import {
   readDemoCandidate,
   writeDemoCandidate,
 } from "../src/demo-export-files.js"
-import { demoPublicId, exportDemoDataset } from "../src/demo-exporter.js"
+import {
+  DEMO_EXPORT_LIMITS,
+  DemoExportError,
+  demoExportFailure,
+  demoPublicId,
+  exportDemoDataset,
+} from "../src/demo-exporter.js"
 
 const config = ReaderConfigSchema.parse({
   version: 1,
@@ -92,18 +98,22 @@ describe("static demo exporter", () => {
           templates: ["simple"],
         },
       ],
-      listArticles: vi.fn().mockResolvedValue({
-        items: [
-          {
-            id: "art_private_reader_id",
-            databaseId: "reader-database",
-            title: "Public article",
-            createdTime: "2026-09-23T00:00:00.000Z",
-            lastEditedTime: "2026-09-23T00:00:00.000Z",
-          },
-        ],
-        nextCursor: null,
-      }),
+      listArticles: vi.fn(async (_databaseId: string, cursor: string | undefined) =>
+        cursor
+          ? { items: [], nextCursor: null }
+          : {
+              items: [
+                {
+                  id: "art_private_reader_id",
+                  databaseId: "reader-database",
+                  title: "Public article",
+                  createdTime: "2026-09-23T00:00:00.000Z",
+                  lastEditedTime: "2026-09-23T00:00:00.000Z",
+                },
+              ],
+              nextCursor: "cur_private_list",
+            },
+      ),
       getArticle: vi.fn().mockResolvedValue(article()),
       getEmbeddedTablePage,
       getAsset: vi.fn().mockResolvedValue({ url: "https://assets.invalid/file", kind: "image" }),
@@ -133,7 +143,115 @@ describe("static demo exporter", () => {
       "tbl_private",
       "cur_private",
     )
+    expect(reader.listArticles).toHaveBeenCalledWith("reader-database", undefined, 100)
+    expect(reader.listArticles).toHaveBeenCalledWith("reader-database", "cur_private_list", 100)
     expect(writeAsset).toHaveBeenCalledTimes(6)
+  })
+
+  it("fails closed at article and asset count limits", async () => {
+    const database = {
+      id: "reader-database",
+      name: "Public notes",
+      defaultTemplate: "simple",
+      templates: ["simple"],
+    }
+    const summary = {
+      id: "art_private_reader_id",
+      databaseId: "reader-database",
+      title: "Public article",
+      createdTime: "2026-09-23T00:00:00.000Z",
+      lastEditedTime: "2026-09-23T00:00:00.000Z",
+    }
+    const articleReader = {
+      listDatabases: () => [database],
+      listArticles: vi.fn().mockResolvedValue({
+        items: Array.from({ length: DEMO_EXPORT_LIMITS.articles + 1 }, () => summary),
+        nextCursor: null,
+      }),
+      getArticle: vi.fn().mockResolvedValue({
+        ...article(),
+        icon: undefined,
+        variables: {},
+        blocks: [],
+      }),
+      getEmbeddedTablePage: vi.fn(),
+      getAsset: vi.fn(),
+    }
+    await expect(exportDemoDataset(config, articleReader, vi.fn())).rejects.toThrowError(
+      "article_limit_exceeded",
+    )
+
+    const assetHeavyArticle = {
+      ...article(),
+      icon: undefined,
+      variables: {},
+      blocks: Array.from({ length: DEMO_EXPORT_LIMITS.assets + 1 }, (_, index) => ({
+        type: "image" as const,
+        assetId: `asset_${index}`,
+        caption: [],
+      })),
+    }
+    const assetReader = {
+      listDatabases: () => [database],
+      listArticles: vi.fn().mockResolvedValue({ items: [summary], nextCursor: null }),
+      getArticle: vi.fn().mockResolvedValue(assetHeavyArticle),
+      getEmbeddedTablePage: vi.fn(),
+      getAsset: vi.fn(),
+    }
+    await expect(exportDemoDataset(config, assetReader, vi.fn())).rejects.toThrowError(
+      "asset_limit_exceeded",
+    )
+    expect(assetReader.getAsset).not.toHaveBeenCalled()
+  })
+
+  it("fails closed at embedded-table and total asset byte limits", async () => {
+    const database = {
+      id: "reader-database",
+      name: "Public notes",
+      defaultTemplate: "simple",
+      templates: ["simple"],
+    }
+    const summary = {
+      id: "art_private_reader_id",
+      databaseId: "reader-database",
+      title: "Public article",
+      createdTime: "2026-09-23T00:00:00.000Z",
+      lastEditedTime: "2026-09-23T00:00:00.000Z",
+    }
+    const tableArticle = article()
+    const tableBlock = tableArticle.blocks[1]
+    if (tableBlock?.type !== "embeddedDatabase" || tableBlock.tables[0]?.status !== "available") {
+      throw new Error("Expected an available embedded table")
+    }
+    tableBlock.tables[0].rows = Array.from({ length: DEMO_EXPORT_LIMITS.embeddedTableRows }, () => [
+      "row",
+    ])
+    tableBlock.tables[0].nextCursor = "cur_private"
+    const tableReader = {
+      listDatabases: () => [database],
+      listArticles: vi.fn().mockResolvedValue({ items: [summary], nextCursor: null }),
+      getArticle: vi.fn().mockResolvedValue(tableArticle),
+      getEmbeddedTablePage: vi.fn().mockResolvedValue({ rows: [["overflow"]], nextCursor: null }),
+      getAsset: vi.fn(),
+    }
+    await expect(exportDemoDataset(config, tableReader, vi.fn())).rejects.toThrowError(
+      "embedded_table_limit_exceeded",
+    )
+
+    const oneAssetArticle = { ...article(), variables: {}, blocks: [], titleRichText: [] }
+    const assetReader = {
+      listDatabases: () => [database],
+      listArticles: vi.fn().mockResolvedValue({ items: [summary], nextCursor: null }),
+      getArticle: vi.fn().mockResolvedValue(oneAssetArticle),
+      getEmbeddedTablePage: vi.fn(),
+      getAsset: vi.fn().mockResolvedValue({ url: "https://assets.invalid/file", kind: "image" }),
+    }
+    await expect(
+      exportDemoDataset(config, assetReader, async () => ({
+        relativePath: "assets/demo_asset.webp",
+        bytes: DEMO_EXPORT_LIMITS.totalAssetBytes + 1,
+      })),
+    ).rejects.toThrowError("total_asset_limit_exceeded")
   })
 
   it("rejects private markers and source-shaped identifiers without revealing them", () => {
@@ -171,6 +289,27 @@ describe("static demo exporter", () => {
     }
   })
 
+  it("rejects an oversized asset before reading its response body", async () => {
+    const directory = await mkdtemp(path.join(tmpdir(), "notion-demo-large-asset-"))
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = vi.fn(async () => {
+      const response = new Response("small", {
+        status: 200,
+        headers: { "content-length": String(DEMO_EXPORT_LIMITS.assetBytes + 1) },
+      })
+      Object.defineProperty(response, "url", { value: "https://assets.invalid/large.png" })
+      return response
+    }) as typeof fetch
+    try {
+      const writer = createDemoAssetWriter(directory, [])
+      await expect(
+        writer({ url: "https://assets.invalid/large.png", kind: "image" }, "demo_asset"),
+      ).rejects.toThrowError("asset_limit_exceeded")
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
   it("validates a candidate before replacing the tracked snapshot", async () => {
     const directory = await mkdtemp(path.join(tmpdir(), "notion-demo-apply-"))
     const destination = path.join(directory, "demo", "published")
@@ -184,6 +323,69 @@ describe("static demo exporter", () => {
     await expect(readFile(path.join(destination, "sentinel.txt"), "utf8")).resolves.toBe(
       "unchanged",
     )
+  })
+
+  it("restores the previous snapshot when replacement fails after backup", async () => {
+    const directory = await mkdtemp(path.join(tmpdir(), "notion-demo-rollback-"))
+    const destination = path.join(directory, "demo", "published")
+    const candidate = path.join(directory, "candidate")
+    await mkdir(destination, { recursive: true })
+    await writeFile(path.join(destination, "sentinel.txt"), "previous")
+    const dataset = {
+      presentation: defaultPresentation,
+      databases: [
+        {
+          id: "demo_database",
+          name: "Demo",
+          defaultTemplate: "simple",
+          templates: ["simple"],
+        },
+      ],
+      articles: [
+        {
+          ...article(),
+          id: "demo_article",
+          databaseId: "demo_database",
+          icon: undefined,
+          variables: {},
+          blocks: [],
+        },
+      ],
+      assets: {},
+    }
+    await writeDemoCandidate(candidate, dataset, [])
+    let moveCalls = 0
+
+    await expect(
+      applyDemoCandidate(directory, candidate, {
+        copy: async (source, target) => {
+          await cp(source, target, { recursive: true, errorOnExist: true })
+        },
+        move: async (source, target) => {
+          moveCalls += 1
+          if (moveCalls === 2) throw new Error("simulated replacement failure")
+          await rename(source, target)
+        },
+        remove: async (target) => {
+          await rm(target, { recursive: true, force: true })
+        },
+      }),
+    ).rejects.toThrowError("simulated replacement failure")
+    await expect(readFile(path.join(destination, "sentinel.txt"), "utf8")).resolves.toBe("previous")
+  })
+
+  it("redacts unexpected errors and expected error details from CLI diagnostics", () => {
+    const token = "secret_token_value"
+    const notionId = "3e32ed92200180908146d3807ad98239"
+    const unexpected = JSON.stringify(demoExportFailure(new Error(`${token}:${notionId}`)))
+    const expected = JSON.stringify(
+      demoExportFailure(new DemoExportError("asset_unavailable", `${token}:${notionId}`)),
+    )
+
+    expect(unexpected).toBe('{"ok":false,"category":"export_failed"}')
+    expect(expected).toBe('{"ok":false,"category":"asset_unavailable"}')
+    expect(`${unexpected}${expected}`).not.toContain(token)
+    expect(`${unexpected}${expected}`).not.toContain(notionId)
   })
 
   it("round-trips a generated source snapshot through the public schema", async () => {

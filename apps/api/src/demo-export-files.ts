@@ -26,6 +26,22 @@ const PRIVATE_MARKERS = [
   "X-Goog-Signature",
 ]
 
+export type DemoDirectoryOperations = Readonly<{
+  copy: (source: string, destination: string) => Promise<void>
+  move: (source: string, destination: string) => Promise<void>
+  remove: (target: string) => Promise<void>
+}>
+
+const nodeDirectoryOperations: DemoDirectoryOperations = {
+  copy: async (source, destination) => {
+    await cp(source, destination, { recursive: true, errorOnExist: true })
+  },
+  move: rename,
+  remove: async (target) => {
+    await rm(target, { recursive: true, force: true })
+  },
+}
+
 function assertWithin(parent: string, child: string): void {
   const relative = path.relative(path.resolve(parent), path.resolve(child))
   if (relative.startsWith("..") || path.isAbsolute(relative)) {
@@ -274,6 +290,7 @@ export async function validateDemoCandidatePrivacy(
 export async function applyDemoCandidate(
   repositoryRoot: string,
   candidatePublishedRoot: string,
+  operations: DemoDirectoryOperations = nodeDirectoryOperations,
 ): Promise<void> {
   await readDemoCandidate(candidatePublishedRoot)
   const demoRoot = path.join(repositoryRoot, "demo")
@@ -284,25 +301,25 @@ export async function applyDemoCandidate(
   assertWithin(demoRoot, destination)
   assertWithin(demoRoot, staged)
   assertWithin(demoRoot, backup)
-  await cp(candidatePublishedRoot, staged, { recursive: true, errorOnExist: true })
+  await operations.copy(candidatePublishedRoot, staged)
   let backedUp = false
   try {
     try {
-      await rename(destination, backup)
+      await operations.move(destination, backup)
       backedUp = true
     } catch (error) {
       if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) throw error
     }
-    await rename(staged, destination)
+    await operations.move(staged, destination)
   } catch (error) {
-    await rm(staged, { recursive: true, force: true })
+    await operations.remove(staged)
     if (backedUp) {
-      await rm(destination, { recursive: true, force: true })
-      await rename(backup, destination)
+      await operations.remove(destination)
+      await operations.move(backup, destination)
     }
     throw error
   }
-  if (backedUp) await rm(backup, { recursive: true, force: true })
+  if (backedUp) await operations.remove(backup)
 }
 
 export async function resetCandidate(candidateRoot: string, repositoryRoot: string): Promise<void> {
