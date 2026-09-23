@@ -365,9 +365,9 @@ describe("NotionAdapter", () => {
     })
   })
 
-  it("preserves callout color, nested blocks, and proxied custom emoji icons", async () => {
-    const listChildren = vi.fn(async ({ block_id }: { block_id: string }) => ({
-      results:
+  it("preserves callout children, colors, and proxied custom or file icons", async () => {
+    const listChildren = vi.fn(async ({ block_id }: { block_id: string }) => {
+      const results =
         block_id === "page-one"
           ? [
               {
@@ -383,34 +383,62 @@ describe("NotionAdapter", () => {
                   },
                 },
               },
-            ]
-          : [
               {
-                id: "nested-paragraph",
-                type: "paragraph",
-                paragraph: {
-                  rich_text: [{ plain_text: "Nested", href: null, annotations: {} }],
+                id: "callout-two",
+                type: "callout",
+                has_children: false,
+                callout: {
+                  rich_text: [{ plain_text: "Uploaded icon", href: null, annotations: {} }],
+                  color: "yellow",
+                  icon: {
+                    type: "file",
+                    file: { url: "https://example.test/uploaded.png" },
+                  },
                 },
               },
-            ],
-      next_cursor: null,
-    }))
+            ]
+          : block_id === "callout-one"
+            ? [
+                {
+                  id: "nested-paragraph",
+                  type: "paragraph",
+                  paragraph: {
+                    rich_text: [{ plain_text: "Nested", href: null, annotations: {} }],
+                  },
+                },
+              ]
+            : []
+      return { results, next_cursor: null }
+    })
     const client = {
       dataSources: { query: vi.fn() },
       databases: { retrieve: vi.fn() },
       pages: { retrieve: vi.fn().mockResolvedValue(page("page-one")) },
       blocks: {
         children: { list: listChildren },
-        retrieve: vi.fn().mockResolvedValue({
-          id: "callout-one",
-          type: "callout",
-          callout: {
-            icon: {
-              type: "custom_emoji",
-              custom_emoji: { url: "https://example.test/icon.png" },
-            },
-          },
-        }),
+        retrieve: vi.fn(async ({ block_id }: { block_id: string }) =>
+          block_id === "callout-one"
+            ? {
+                id: block_id,
+                type: "callout",
+                callout: {
+                  icon: {
+                    type: "custom_emoji",
+                    custom_emoji: { url: "https://example.test/icon.png" },
+                  },
+                },
+              }
+            : {
+                id: block_id,
+                type: "callout",
+                callout: {
+                  icon: {
+                    type: "file",
+                    file: { url: "https://example.test/uploaded.png" },
+                  },
+                },
+              },
+        ),
       },
     } as unknown as Client
     const adapter = new NotionAdapter("unused-test-token", config, client)
@@ -429,6 +457,70 @@ describe("NotionAdapter", () => {
       url: "https://example.test/icon.png",
       kind: "image",
     })
+    expect(result?.blocks[1]).toEqual(
+      expect.objectContaining({
+        type: "callout",
+        color: "yellow",
+        icon: { kind: "asset", sourceAssetId: "block-icon:callout-two" },
+      }),
+    )
+    await expect(adapter.getAsset("block-icon:callout-two")).resolves.toEqual({
+      url: "https://example.test/uploaded.png",
+      kind: "image",
+    })
+  })
+
+  it("fails the whole article when callout nesting exceeds the configured depth", async () => {
+    const listChildren = vi.fn(async ({ block_id }: { block_id: string }) => {
+      const level = block_id === "page-one" ? 0 : Number(block_id.split("-")[1]) + 1
+      return {
+        results: [
+          {
+            id: `deep-${level}`,
+            type: "callout",
+            has_children: true,
+            callout: {
+              rich_text: [{ plain_text: `Level ${level}`, href: null, annotations: {} }],
+              color: "default",
+              icon: { type: "emoji", emoji: "!" },
+            },
+          },
+        ],
+        next_cursor: null,
+      }
+    })
+    const client = {
+      dataSources: { query: vi.fn() },
+      pages: { retrieve: vi.fn().mockResolvedValue(page("page-one")) },
+      blocks: { children: { list: listChildren }, retrieve: vi.fn() },
+    } as unknown as Client
+    const adapter = new NotionAdapter("unused-test-token", config, client)
+
+    await expect(adapter.getArticle(database, "page-one")).rejects.toEqual(
+      expect.objectContaining({ category: "unavailable" }),
+    )
+    expect(listChildren).toHaveBeenCalledTimes(6)
+  })
+
+  it("fails the whole article instead of truncating more than 500 blocks", async () => {
+    const blocks = Array.from({ length: 501 }, (_, index) => ({
+      id: `paragraph-${index}`,
+      type: "paragraph",
+      paragraph: { rich_text: [{ plain_text: String(index), href: null, annotations: {} }] },
+    }))
+    const client = {
+      dataSources: { query: vi.fn() },
+      pages: { retrieve: vi.fn().mockResolvedValue(page("page-one")) },
+      blocks: {
+        children: { list: vi.fn().mockResolvedValue({ results: blocks, next_cursor: null }) },
+        retrieve: vi.fn(),
+      },
+    } as unknown as Client
+    const adapter = new NotionAdapter("unused-test-token", config, client)
+
+    await expect(adapter.getArticle(database, "page-one")).rejects.toEqual(
+      expect.objectContaining({ category: "unavailable" }),
+    )
   })
 
   it("renders every child-database property as a safe string table and paginates rows", async () => {
@@ -458,18 +550,24 @@ describe("NotionAdapter", () => {
       .mockResolvedValueOnce({ results: [], next_cursor: null })
     const client = {
       dataSources: {
-        retrieve: vi.fn().mockResolvedValue({
-          properties: {
-            Result: { id: "result-property", type: "number" },
-            Name: { id: "title-property", type: "title" },
-            Relation: { id: "relation-property", type: "relation" },
-          },
+        retrieve: vi.fn(async ({ data_source_id }: { data_source_id: string }) => {
+          if (data_source_id === "private-denied-source") throw new Error("not shared")
+          return {
+            properties: {
+              Result: { id: "result-property", type: "number" },
+              Name: { id: "title-property", type: "title" },
+              Relation: { id: "relation-property", type: "relation" },
+            },
+          }
         }),
         query,
       },
       databases: {
         retrieve: vi.fn().mockResolvedValue({
-          data_sources: [{ id: "private-child-source", name: "Measurements" }],
+          data_sources: [
+            { id: "private-child-source", name: "Measurements" },
+            { id: "private-denied-source", name: "Restricted rows" },
+          ],
         }),
       },
       pages: { retrieve: vi.fn().mockResolvedValue(page("page-one")) },
@@ -507,6 +605,7 @@ describe("NotionAdapter", () => {
           rows: [["Trial", "1 reference", "42"]],
           nextCursor: "private-table-cursor",
         }),
+        { status: "unavailable", title: "Restricted rows" },
       ],
     })
 

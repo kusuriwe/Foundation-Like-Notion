@@ -26,8 +26,13 @@ function testClient(overrides: Partial<ReaderClient> = {}): ReaderClient {
   }
 }
 
-function renderWithClient(client: ReaderClient) {
-  return render(
+function renderer(
+  client: ReaderClient,
+  articleId = "art_reader_article",
+  tableId = `tbl_${"a".repeat(43)}`,
+  firstRow = "First",
+) {
+  return (
     <ReaderRuntimeProvider
       value={{
         client,
@@ -37,7 +42,7 @@ function renderWithClient(client: ReaderClient) {
       }}
     >
       <ArticleRenderer
-        articleId="art_reader_article"
+        articleId={articleId}
         blocks={[
           {
             type: "callout",
@@ -52,18 +57,22 @@ function renderWithClient(client: ReaderClient) {
             tables: [
               {
                 status: "available",
-                tableId: `tbl_${"a".repeat(43)}`,
+                tableId,
                 title: "Observations",
                 columns: ["Name", "Result"],
-                rows: [["First", "10"]],
+                rows: [[firstRow, "10"]],
                 nextCursor: `cur_${"b".repeat(43)}`,
               },
             ],
           },
         ]}
       />
-    </ReaderRuntimeProvider>,
+    </ReaderRuntimeProvider>
   )
+}
+
+function renderWithClient(client: ReaderClient) {
+  return render(renderer(client))
 }
 
 describe("ArticleRenderer", () => {
@@ -99,5 +108,16 @@ describe("ArticleRenderer", () => {
     expect(
       await screen.findByText("Reload the article to continue this table."),
     ).toBeInTheDocument()
+  })
+
+  it("resets embedded-table state when navigating to another article", () => {
+    const client = testClient()
+    const { rerender } = render(renderer(client))
+    expect(screen.getByText("First")).toBeInTheDocument()
+
+    rerender(renderer(client, "art_second_article", `tbl_${"c".repeat(43)}`, "Second article"))
+
+    expect(screen.queryByText("First")).not.toBeInTheDocument()
+    expect(screen.getByText("Second article")).toBeInTheDocument()
   })
 })

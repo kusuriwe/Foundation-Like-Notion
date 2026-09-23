@@ -22,7 +22,7 @@ Notion callout の構造と外観、記事内 child database の read-only table
 
 - `git diff --check`: pass。
 - `docker compose config --quiet`: pass。
-- `docker compose run --rm app npm run check`: pass。API 66 tests、Web 15 tests、Contracts 11 testsを含む。
+- `docker compose run --rm app npm run check`: pass。初回レビュー修正後の最終実行は API 68 tests、Web 16 tests、Contracts 11 testsを含む。
 - `docker compose run --rm app npm run e2e`: Chromium desktop、WebKit mobile の 2 tests pass。
 - `docker compose run --rm app npm run e2e:demo`: 3 tests pass。WebKit offline test 1件は既存設定どおり skip。Chromium offline test は callout と child database を含む公開 dummy article の再表示に pass。
 - `docker compose run --rm app npm run demo:build`: pass。
@@ -49,6 +49,12 @@ Notion callout の構造と外観、記事内 child database の read-only table
 - Vite の既存 large-chunk warning と、Zod dependency commentのRollup warningはbuildを妨げず、本変更によるfailureではない。
 - production container は最終 image で起動中。ユーザーが対象記事を持つ場合は、独立レビュー後に read-only の短い表示確認を追加できる。
 
+## Independent review remediation
+
+- 最初の独立レビューは未承認となった。Medium finding は、別記事の同じ block index へ遷移した場合に `EmbeddedTableView` の rows/cursor state が再利用され得ることだった。article ID を block keyへ、article IDとtable IDをtable keyへ含めて再mountを保証し、記事切替で前の記事の行が消える回帰testを追加した。
+- Low finding は、計画に明記した複数Data Sourceの部分失敗、callout深度、500 block上限、uploaded-file callout iconのtest不足だった。各境界testを追加し、一つの取得不可Data Sourceが同じchild database内の利用可能な表を壊さないことも固定した。
+- 修正後に全gateを再実行し、`npm run check`、通常E2E 2件、demo E2E 3件（既知のWebKit offline 1件skip）、demo build/verify、Pages workflow検査、`npm audit`がすべて合格した。
+
 ## Next step
 
-別 reviewer が最終diffと本証跡を独立確認する。finding がなければ active plan を `docs/plans/archive/2026-09-23-callout-embedded-database-class-icons.md` へ移動し、worklog statusを更新してarchive commitを作る。remoteへはpushしない。
+同じ独立 reviewer がremediation差分と更新済み証跡を再確認する。finding がなければ active plan を `docs/plans/archive/2026-09-23-callout-embedded-database-class-icons.md` へ移動し、worklog statusを更新してarchive commitを作る。remoteへはpushしない。

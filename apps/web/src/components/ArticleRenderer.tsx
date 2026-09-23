@@ -198,8 +198,15 @@ function Block({
       <section className="embedded-database">
         <h3>{block.title}</h3>
         {block.tables.map((table, index) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: Data sources are immutable and ordered.
-          <EmbeddedTableView key={index} table={table} articleId={articleId} />
+          <EmbeddedTableView
+            key={
+              table.status === "available"
+                ? `${articleId}:${table.tableId}`
+                : `${articleId}:unavailable:${index}`
+            }
+            table={table}
+            articleId={articleId}
+          />
         ))}
       </section>
     )
@@ -217,8 +224,8 @@ function BlockList({
   articleId: string
 }) {
   return blocks.map((block, index) => (
-    // biome-ignore lint/suspicious/noArrayIndexKey: Reader blocks are immutable and have no local component state.
-    <Block key={index} block={block} assetUrl={assetUrl} articleId={articleId} />
+    // biome-ignore lint/suspicious/noArrayIndexKey: Blocks have no public IDs; articleId remounts state across navigation and order is immutable within one response.
+    <Block key={`${articleId}:${index}`} block={block} assetUrl={assetUrl} articleId={articleId} />
   ))
 }
 
